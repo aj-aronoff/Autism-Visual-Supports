@@ -79,9 +79,11 @@ instead of generating a board. A child's name never appears in an image prompt.
 docs/
   Autism-Visual-Supports-Overview.pdf    the project deck
   Autism-Visual-Supports-Overview.pptx   editable source of the deck
+  Autism-Visual-Supports-Mid-Submission.pdf   the 4 November mid submission
   build-spec.html                        full build spec — data model, screens, agents
   project-description.md                 the project write-up
 SPEC.md                                  the build spec in Markdown
+MID-SUBMISSION.md                        problem, use case, AI services — due 4 Nov
 prompts/                                 the three prompt drafts the pipeline came from
 assets/                                  all artwork, plus the generator that draws it
   ASSETS.md                              palette, ratios, and the design cautions
