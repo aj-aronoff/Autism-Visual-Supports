@@ -847,24 +847,28 @@ def boy_head(cx, cy, r, skin=SKIN, hair=HAIR, eyes=True):
 
 
 def banner(name, cs, ctx, cty, rain=11):
-    """1360x255. Child peeks over a tablet held up toward the viewer; the slab is
-    the hero because at 255px tall nothing else stays legible."""
-    # 255px cannot hold a full head above a full-size slab, so both shrink
-    tx, ty, tw, th = 980, 86, 244, 158
+    """1360x255, laid out for the TWO crops Taikai makes of one upload: the
+    project page shows all 1360, the project-LIST card centre-crops to roughly
+    the middle 490px. So the child and the board sit dead centre and carry the
+    card alone; the title block and the cloud are wings the card may discard.
+    The card also drops an avatar disc over roughly x 461-573, y 200-255, so
+    nothing load-bearing goes there."""
+    tx, ty, tw, th = 578, 86, 244, 158            # tablet centred on x=700
     hy = ty + th * 0.55
     hcx, hcy, hr = tx + tw / 2.0, 44, 33
     body = f'''
-<defs><radialGradient id="b{name}sky" cx="26%" cy="34%" r="110%">
+<defs><radialGradient id="b{name}sky" cx="50%" cy="34%" r="92%">
   <stop offset="0%" stop-color="{NAVY_MID}"/><stop offset="100%" stop-color="{NAVY}"/></radialGradient></defs>
 <rect width="{BW}" height="{BH}" fill="url(#b{name}sky)"/>
 <g opacity=".22" fill="none" stroke="{SKY}" stroke-width="2">
-  <circle cx="250" cy="120" r="150"/><circle cx="250" cy="120" r="230"/><circle cx="250" cy="120" r="320"/></g>
+  <circle cx="230" cy="124" r="130"/><circle cx="230" cy="124" r="200"/><circle cx="230" cy="124" r="280"/></g>
 {data_rain(BW, BH, n=rain)}
 <g transform="translate({ctx},{cty}) scale({cs})">{odc_cloud()}</g>
-<text x="300" y="112" font-family="{FONT}" font-size="46" font-weight="700" fill="{CLOUD_WHITE}">Autism Visual Supports</text>
-<text x="302" y="152" font-family="{FONT}" font-size="21" fill="{HORIZON}">First &#8594; Then boards parents can print, post and trust</text>
-<rect x="302" y="172" width="104" height="5" rx="2.5" fill="{SUNFLOWER}"/>
-<text x="302" y="212" font-family="{FONT}" font-size="16" font-weight="700" fill="{SUNFLOWER}" letter-spacing="1.6">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>
+<text x="56" y="78" font-family="{FONT}" font-size="40" font-weight="700" fill="{CLOUD_WHITE}">Autism</text>
+<text x="56" y="122" font-family="{FONT}" font-size="40" font-weight="700" fill="{CLOUD_WHITE}">Visual Supports</text>
+<rect x="58" y="140" width="92" height="5" rx="2.5" fill="{SUNFLOWER}"/>
+<text x="58" y="177" font-family="{FONT}" font-size="19" fill="{HORIZON}">Print it, post it, trust it.</text>
+<text x="58" y="209" font-family="{FONT}" font-size="14" font-weight="700" fill="{SUNFLOWER}" letter-spacing="1.2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>
 {boy_head(hcx, hcy, hr)}
 <rect x="{hcx-44:.0f}" y="{hcy+28:.0f}" width="88" height="34" rx="14" fill="{SKY}"/>
 <path d="M{tx+56} {ty+th-6} Q{tx-26} {hy+40:.0f} {tx-12} {hy:.0f}" stroke="{CLEAR_SKY}" stroke-width="21" fill="none" stroke-linecap="round"/>
@@ -872,14 +876,14 @@ def banner(name, cs, ctx, cty, rain=11):
 {tablet(tx, ty, tw, th, bezel=14)}
 <rect x="{tx-23:.0f}" y="{hy-24:.0f}" width="38" height="48" rx="17" fill="{SKIN}"/>
 <rect x="{tx+tw-15:.0f}" y="{hy-24:.0f}" width="38" height="48" rx="17" fill="{SKIN}"/>
-{sunflower_bloom(1316, 50, 26)}
+{sunflower_bloom(1300, 196, 26)}
 '''
     write(name + ".svg", svg(BW, BH, body, NAVY))
 
 
-banner("cover-banner-cloud-small",  0.34,  22,   8)
-banner("cover-banner-cloud-medium", 0.52,   6,  -10)
-banner("cover-banner-cloud-large",  0.74, -14,  -34)
+banner("cover-banner-cloud-small",  0.34, 1049, 54)
+banner("cover-banner-cloud-medium", 0.52, 1014, 30)
+banner("cover-banner-cloud-large",  0.74,  971,  0)
 
 # =========================================================================
 # 18. TAIKAI AVATAR — 1:1, 300x300

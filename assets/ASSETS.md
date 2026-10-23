@@ -154,6 +154,14 @@ mistakes made and fixed while generating this set.
     melted into his shirt until the sleeves took a second tone (`CLEAR_SKY` against
     `SKY`) and bowed outward far enough to show beside the chest before meeting the
     hands. Draw the sleeves *before* the torso so they tuck under the shoulder line.
+12. **A banner upload gets cropped more than once.** Taikai shows the 1360x255 cover
+    full width on the project page but centre-crops the *same file* to about 490x255
+    on the projects-list card, and drops the round avatar over roughly x 461-573,
+    y 200-255 of that crop. The first banner put the title at x=300 and the child at
+    x=980, so the card showed nothing but sliced text. Treat **x 450-910 as the safe
+    zone**: the one image that has to survive alone goes dead centre, text and cloud
+    go in the wings. Verified clean for crop widths 380-700.
+
 11. **Keep one copy of the generator.** A stray `cp` overwrote the newer `build_art.py`
     with an older one and silently dropped a whole block of work. `assets/build_art.py`
     is the only source of truth; copy *from* it, never *to* it.
