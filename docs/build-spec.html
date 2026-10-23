@@ -1,0 +1,484 @@
+<title>Visual Supports &amp; Story Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column at 72ch, full-bleed rails for card grids and entity tables. Typefaces are both designed for reading accessibility — the subject's own instruments. */
+:root {
+  --paper:#F6F7F4; --surface:#FFFFFF; --sunk:#EDF0EC;
+  --ink:#16211E; --ink-2:#4C5C57; --ink-3:#74837E;
+  --rule:#D6DDD8; --rule-strong:#16211E;
+  --accent:#0E6B59; --first:#1F5FA8; --then:#A85A0C; --warn:#8A1F2B;
+  --font-display:'Lexend',system-ui,sans-serif;
+  --font-body:'Atkinson Hyperlegible','Helvetica Neue',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E1413; --surface:#171F1D; --sunk:#111917;
+  --ink:#E9EEEA; --ink-2:#A3B2AC; --ink-3:#7E8D88;
+  --rule:#2B3734; --rule-strong:#536760;
+  --accent:#53CFB4; --first:#7FB2EC; --then:#E3A05A; --warn:#E89098;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E1413; --surface:#171F1D; --sunk:#111917;
+  --ink:#E9EEEA; --ink-2:#A3B2AC; --ink-3:#7E8D88;
+  --rule:#2B3734; --rule-strong:#536760;
+  --accent:#53CFB4; --first:#7FB2EC; --then:#E3A05A; --warn:#E89098;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(1.9rem,5.2vw,2.9rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.3rem,3.4vw,1.7rem);font-weight:600;letter-spacing:-.01em}
+h3{font-size:1.05rem;font-weight:600}
+h4{font-size:.9rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+code,.mono{font-family:var(--font-mono);font-size:.86em}
+.eyebrow{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+/* ---- masthead ---- */
+header.top{border-bottom:2px solid var(--rule-strong);background:var(--surface)}
+header.top .wrap{padding-block:clamp(28px,6vw,52px)}
+.kicker{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.tag{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;padding:4px 8px;color:var(--ink-2)}
+.tag.hot{border-color:var(--warn);color:var(--warn)}
+.lede{font-size:clamp(1rem,2.4vw,1.15rem);color:var(--ink-2);max-width:62ch;margin-top:16px}
+.byline{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3);margin-top:22px;border-top:1px solid var(--rule);padding-top:14px}
+
+/* ---- sections ---- */
+section{border-bottom:1px solid var(--rule)}
+section .wrap{padding-block:clamp(30px,5vw,48px)}
+.stack{display:flex;flex-direction:column;gap:18px}
+.stack-tight{display:flex;flex-direction:column;gap:10px}
+.prose{max-width:72ch}
+
+/* ---- the boards ---- */
+.boardset{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr))}
+.board{background:var(--surface);border:2px solid var(--rule-strong);border-radius:4px;overflow:hidden;min-width:0}
+.board-hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 12px;border-bottom:2px solid var(--rule-strong);background:var(--sunk)}
+.board-hd b{font-family:var(--font-display);font-size:.9rem;font-weight:600}
+.board-hd span{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.board-body{padding:12px;display:flex;gap:10px;align-items:stretch}
+.board-body.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cell{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.cell-lab{font-family:var(--font-mono);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.cell-lab.f{color:var(--first)} .cell-lab.t{color:var(--then)}
+.card{aspect-ratio:1/1;border:2px solid var(--rule);border-radius:3px;background:var(--sunk);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px;text-align:center;max-width:100%}
+.card.f{border-color:var(--first)} .card.t{border-color:var(--then)}
+.card.wait{border-color:var(--then);border-style:dashed}
+.glyph{font-size:1.5rem;line-height:1}
+.card em{font-style:normal;font-family:var(--font-display);font-size:.78rem;font-weight:600;line-height:1.15}
+.arrow{align-self:center;color:var(--ink-3);font-size:1.1rem;padding-top:14px}
+.step-n{font-family:var(--font-mono);font-size:.6rem;color:var(--ink-3)}
+.board-ft{padding:9px 12px;border-top:1px solid var(--rule);font-size:.78rem;color:var(--ink-2);font-style:italic}
+.caption{font-size:.82rem;color:var(--ink-3);max-width:72ch}
+
+/* ---- key-claim panel ---- */
+.panel{border-left:3px solid var(--accent);background:var(--surface);padding:16px 18px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:8px}
+.panel.alert{border-left-color:var(--warn)}
+.panel h3{font-size:.98rem}
+.panel p{font-size:.92rem;color:var(--ink-2)}
+.src{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3)}
+
+/* ---- tables ---- */
+.tscroll{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:520px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:var(--sunk);white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.mono,th.mono{font-family:var(--font-mono);font-size:.8rem;white-space:nowrap}
+td b{font-weight:700}
+.pill{display:inline-block;font-family:var(--font-mono);font-size:.66rem;font-weight:600;padding:2px 6px;border-radius:2px;border:1px solid currentColor;white-space:nowrap}
+.pill.core{color:var(--accent)} .pill.later{color:var(--ink-3)} .pill.fixed{color:var(--warn)} .pill.scored{color:var(--first)}
+
+/* ---- entity blocks ---- */
+.ents{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr))}
+.ent{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:14px;min-width:0}
+.ent h4{font-family:var(--font-mono);font-size:.78rem;color:var(--accent);margin-bottom:4px}
+.ent .note{font-size:.78rem;color:var(--ink-3);margin-bottom:9px}
+.ent ul{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.ent li{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-2);line-height:1.4}
+.ent li b{color:var(--ink);font-weight:600}
+
+/* ---- flow ---- */
+.flow{display:flex;flex-direction:column;gap:0}
+.fstep{display:grid;grid-template-columns:auto 1fr;gap:14px;padding-block:13px;border-top:1px solid var(--rule)}
+.fstep:first-child{border-top:none}
+.fnum{font-family:var(--font-mono);font-size:.74rem;font-weight:600;color:var(--accent);padding-top:3px}
+.fstep h4{margin-bottom:3px}
+.fstep p{font-size:.87rem;color:var(--ink-2)}
+
+/* ---- code ---- */
+pre{margin:0;overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:14px;font-family:var(--font-mono);font-size:.76rem;line-height:1.55;color:var(--ink-2)}
+pre b{color:var(--ink);font-weight:600}
+pre .k{color:var(--accent)}
+
+/* ---- guardrails ---- */
+.rails{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.rail{background:var(--surface);padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.rail .no{font-family:var(--font-mono);font-size:.68rem;font-weight:600;color:var(--warn);white-space:nowrap;padding-top:2px}
+.rail p{font-size:.87rem;color:var(--ink-2)}
+.rail b{color:var(--ink)}
+
+ul.bul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:7px}
+ul.bul li{font-size:.92rem;color:var(--ink-2)}
+ul.bul li b{color:var(--ink)}
+footer{background:var(--surface)}
+footer .wrap{padding-block:30px;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3);display:flex;flex-direction:column;gap:7px}
+@media (max-width:420px){ .board-body.strip{grid-template-columns:repeat(2,1fr)} }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">
+      <span class="tag">Build Spec v2</span>
+      <span class="tag">OutSystems ODC</span>
+      <span class="tag">Agentic AI &middot; Twilio</span>
+      <span class="tag hot">Register by 28 Oct &middot; Build 2&ndash;9 Nov</span>
+    </div>
+    <h1>Visual Supports &amp; Story Guide</h1>
+    <p class="lede">An app that turns two minutes of what a parent already knows about their child into a printable, tappable visual support — and then tracks the one thing that decides whether the child keeps trusting it.</p>
+    <p class="byline">A.J. Aronoff · Build for the Future Hackathon 2026 · Theme: Building Apps that make a difference · Cash prize is paid to the nonprofit partner</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">What the rules require</span>
+    <h2>Seven days, four criteria, one string attached</h2>
+    <p class="prose">The build window is <b>2&ndash;9 November</b>, and ODC access only opens after registration closes. Nothing can be built before then, which makes the next six days a registration-and-design sprint rather than a coding one.</p>
+
+    <div class="flow">
+      <div class="fstep"><span class="fnum">28 Oct</span><div><h4>Registration closes</h4><p>Every member registered as a Taikai innovator, a project created with the nonprofit named in its summary, and the team lead's confirmation email sent. Teams missing either the project or the email are not considered at all.</p></div></div>
+      <div class="fstep"><span class="fnum">2 Nov</span><div><h4>Live kickoff, attendance mandatory</h4><p>At least one team member must attend. The detailed scoring and the list of ODC features that “Technical” is judged against are both revealed here, and not before.</p></div></div>
+      <div class="fstep"><span class="fnum">4 Nov</span><div><h4>Mid submission, day 3</h4><p>A document stating the problem, the use case, and the AI services and integrations planned. The sections below are that document.</p></div></div>
+      <div class="fstep"><span class="fnum">9 Nov</span><div><h4>Final submission, 11:59 PM CET</h4><p>A project description plus a demo video of five minutes maximum. Judges watch it, then run the app themselves to replicate what it showed.</p></div></div>
+    </div>
+
+    <h3 style="margin-top:12px">The four criteria, and what each one costs</h3>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Criterion</th><th>What it rewards</th><th>Consequence for this build</th></tr></thead>
+        <tbody>
+          <tr><td><b>Technical</b></td><td>Use of the ODC features presented at kickoff</td><td>Unknowable until 2 Nov. Keep the architecture plain so new features can be slotted in on day one.</td></tr>
+          <tr><td><b>UX / UI</b></td><td>Interface quality, which the rules call “an important aspect”</td><td>Roughly a quarter of the score sits in design. The strongest argument for recruiting a designer before 28 Oct.</td></tr>
+          <tr><td><b>AI &amp; innovation</b></td><td>“Cutting-edge ODC capabilities — particularly Agentic AI”</td><td>One LLM call does not read as agentic. Multiple agents, real tool calls, visible reasoning.</td></tr>
+          <tr><td><b>Demo quality</b></td><td>A replicable five-minute walkthrough</td><td>Build the demo path first and leave nothing on it stubbed, because the judges re-run it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel alert">
+      <h3>Twilio is a condition, not a bonus</h3>
+      <p>The rules say teams “are expected to use Twilio services to be eligible for special Twilio” — the sentence breaks off mid-word in the published text and the prizes page lists no Twilio award, so confirm what it is by email before committing. Either way, plan a Twilio integration that earns its keep rather than one bolted on for eligibility.</p>
+      <p class="src">Also binding: every submitted project must be open-source, and the cash prize goes to the nonprofit partner rather than the team.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">The finding that shapes the build</span>
+    <h2>Three prompts, one output contract</h2>
+    <p class="prose">The three prompt drafts in this project look like alternatives. They aren't. Each one ends in the same three-part deliverable, which means the app has a single, stable output shape rather than one per tool type.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Prompt draft</th><th>Shape</th><th>What it contributes to the build</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">visual-support-prompt</td><td>Fill-in template, single shot</td><td>The <b>API contract</b> — every field the generator needs, named</td></tr>
+          <tr><td class="mono">prompt-gem-style</td><td>Persona + 3-question intake</td><td>The <b>system prompt</b> and the image-prompt style rules</td></tr>
+          <tr><td class="mono">if-then-board-prompt</td><td>5-step interactive coach</td><td>The <b>intake wizard</b> and special-interest theming</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose">All three resolve to: <b>cards → caregiver script → implementation guidance</b>. That triple is the data model. Everything below follows from it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Output</span>
+    <h2>What the app produces</h2>
+    <p class="prose">Four layout templates, taken from the Vanderbilt TRIAD toolkit and the National Autism Center's evidence-based practice list. Each renders to a print sheet with cut lines and to a full-screen tablet view. Labels are capped at three words; the page you are reading obeys the same contrast and clutter rules the boards do.</p>
+
+    <div class="boardset">
+      <div class="board">
+        <div class="board-hd"><b>First &ndash; Then Board</b><span>2 cards</span></div>
+        <div class="board-body">
+          <div class="cell"><span class="cell-lab f">First</span><div class="card f"><span class="glyph" aria-hidden="true">👟</span><em>Put on shoes</em></div></div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="cell"><span class="cell-lab t">Then</span><div class="card t"><span class="glyph" aria-hidden="true">🛝</span><em>Swing</em></div></div>
+        </div>
+        <p class="board-ft">“First shoes, then swing.”</p>
+      </div>
+
+      <div class="board">
+        <div class="board-hd"><b>Visual Schedule</b><span>4&ndash;8 cards</span></div>
+        <div class="board-body strip">
+          <div class="cell"><span class="step-n">1</span><div class="card"><span class="glyph" aria-hidden="true">🚽</span><em>Bathroom</em></div></div>
+          <div class="cell"><span class="step-n">2</span><div class="card"><span class="glyph" aria-hidden="true">🪥</span><em>Brush teeth</em></div></div>
+          <div class="cell"><span class="step-n">3</span><div class="card"><span class="glyph" aria-hidden="true">🥣</span><em>Breakfast</em></div></div>
+          <div class="cell"><span class="step-n">4</span><div class="card"><span class="glyph" aria-hidden="true">🎒</span><em>Backpack</em></div></div>
+        </div>
+        <p class="board-ft">“Check the schedule.”</p>
+      </div>
+
+      <div class="board">
+        <div class="board-hd"><b>Parameter Cards</b><span>wait · stop · all gone</span></div>
+        <div class="board-body">
+          <div class="cell"><span class="cell-lab t">Wait</span><div class="card wait"><span class="glyph" aria-hidden="true">⏳</span><em>Wait</em></div></div>
+          <div class="cell"><span class="cell-lab t">Limit</span><div class="card"><span class="glyph" aria-hidden="true">🧃</span><em>2 left</em></div></div>
+          <div class="cell"><span class="cell-lab t">Boundary</span><div class="card"><span class="glyph" aria-hidden="true">🛑</span><em>Stop</em></div></div>
+        </div>
+        <p class="board-ft">Traded for the item, paired with a timer.</p>
+      </div>
+
+      <div class="board">
+        <div class="board-hd"><b>Social Narrative</b><span>who · what · when · where · why</span></div>
+        <div class="board-body" style="flex-direction:column;gap:7px">
+          <p style="font-size:.84rem;color:var(--ink-2);margin:0">“Sometimes in class I feel frustrated. Everyone feels frustrated sometimes. When I feel frustrated, I can take a break. I tell my teacher, <b>“I need a break,”</b> or I hand her a break card.”</p>
+          <div style="display:flex;gap:8px"><div class="card" style="width:64px;aspect-ratio:1/1"><em>Take 5</em></div><div class="card" style="width:64px;aspect-ratio:1/1"><em>Break</em></div></div>
+        </div>
+        <p class="board-ft">Delivered before the event, not during it.</p>
+      </div>
+    </div>
+    <p class="caption">Glyphs stand in for the generated artwork. In the app each card carries a real photo, a flat icon, or line art, per the child's recorded visual preference — the same card image is reused everywhere that activity appears, because changing the picture breaks the predictability the support exists to provide.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">The differentiator</span>
+    <h2>The app tracks reward delivery, not board creation</h2>
+    <div class="panel">
+      <h3>“Otherwise, your child may not trust the board the next time you use it.”</h3>
+      <p>The toolkit states the failure mode plainly: a First–Then board works only if the “then” is actually delivered the moment the “first” task is done. A generator that stops at a pretty PDF has solved the easy half. So every board in this app carries a usage log with one required field — <code>RewardDelivered</code> — and the home screen surfaces a trust streak per board rather than a count of boards made.</p>
+      <p class="src">Vanderbilt Kennedy Center TRIAD / Autism Speaks ATN, <i>Visual Supports and Autism</i> (2011), First–Then Board</p>
+    </div>
+    <p class="prose">This is also what makes the app defensible against “just prompt a chatbot.” The chatbot produces the artifact. The app owns the loop: the child profile persists, cards are reused across boards, the log records what prompt level was needed, and the plan steps down the prompt hierarchy as independence grows.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Data model</span>
+    <h2>Entities</h2>
+    <p class="prose">Nine entities plus static entities. The profile is separate from the board so a parent fills in the hard part once, and every later board is three questions.</p>
+    <div class="ents">
+      <div class="ent"><h4>Child</h4><p class="note">Filled once. Owned by the parent.</p><ul>
+        <li><b>Nickname</b> text</li><li><b>AgeYears</b> int</li><li><b>DevelopmentalStage</b> → static</li>
+        <li><b>VisualStyle</b> → RealPhotos | Icons | LineArt | WordsOnly</li>
+        <li><b>LanguageLevel</b> → PreVerbal | EarlyReader | Reader</li>
+        <li><b>SpecialInterests</b> text — drives theming</li>
+        <li><b>SensoryNotes</b>, <b>TriggerNotes</b> text</li></ul></div>
+
+      <div class="ent"><h4>Board</h4><p class="note">One generated support.</p><ul>
+        <li><b>ChildId</b>, <b>SupportTypeId</b></li><li><b>Title</b>, <b>Goal</b>, <b>Obstacle</b></li>
+        <li><b>Environment</b> → Home | Classroom | Community</li>
+        <li><b>Theme</b> text</li><li><b>Status</b> → Draft | InUse | Retired</li>
+        <li><b>AgentRunId</b> — traceability</li><li><b>Version</b> int</li></ul></div>
+
+      <div class="ent"><h4>Card</h4><p class="note">The atomic unit. Ordered.</p><ul>
+        <li><b>BoardId</b>, <b>SequenceNo</b></li>
+        <li><b>Role</b> → First | Then | Step | Choice | Wait | Stop | Oops</li>
+        <li><b>Label</b> text <i>— max 3 words, validated</i></li>
+        <li><b>ImagePrompt</b> text</li><li><b>Image</b> binary</li>
+        <li><b>ImageSource</b> → Generated | Uploaded | SymbolSet</li>
+        <li><b>AltText</b> text</li></ul></div>
+
+      <div class="ent"><h4>CaregiverScript</h4><p class="note">1&ndash;2 low-demand phrases per phase.</p><ul>
+        <li><b>BoardId</b></li>
+        <li><b>Phase</b> → Before | During | OnCompletion | IfRefusal</li>
+        <li><b>PhraseText</b> text</li><li><b>WordCount</b> int <i>— fewest words wins</i></li></ul></div>
+
+      <div class="ent"><h4>ImplementationPlan</h4><p class="note">One per board.</p><ul>
+        <li><b>Placement</b> text — fridge, binder, tablet</li>
+        <li><b>Reinforcement</b> text</li>
+        <li><b>IfChallengingBehavior</b> text</li>
+        <li><b>Generalization</b> text</li></ul></div>
+
+      <div class="ent"><h4>PromptStep</h4><p class="note">Ordered hierarchy, least intrusive first.</p><ul>
+        <li><b>PlanId</b>, <b>Level</b> int</li>
+        <li><b>Kind</b> → VisualPoint | Gesture | Verbal | Model | PhysicalGuide</li>
+        <li><b>Instruction</b> text</li></ul></div>
+
+      <div class="ent"><h4>UsageLog</h4><p class="note">The loop. Logged from the tablet view in one tap.</p><ul>
+        <li><b>BoardId</b>, <b>UsedOn</b> datetime</li>
+        <li><b>Outcome</b> → Independent | WithPrompt | Refused | Skipped</li>
+        <li><b>PromptLevelUsed</b> int</li>
+        <li><b>RewardDelivered</b> bool <i>— required</i></li>
+        <li><b>Notes</b> text</li></ul></div>
+
+      <div class="ent"><h4>CardLibrary</h4><p class="note">Reuse beats regeneration.</p><ul>
+        <li><b>ChildId</b>, <b>Label</b>, <b>Image</b></li>
+        <li><b>TimesUsed</b> int</li>
+        <li><i>Looked up before any new image is generated</i></li></ul></div>
+
+      <div class="ent"><h4>EvidencePractice</h4><p class="note">Static. The 11 National Standards practices.</p><ul>
+        <li><b>Name</b>, <b>Description</b>, <b>Citation</b></li>
+        <li><i>Every board cites which it rests on</i></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Screens</span>
+    <h2>Flow</h2>
+    <div class="flow">
+      <div class="fstep"><span class="fnum">01</span><div><h4>My Children</h4><p>Child cards with each one's boards-in-use and trust streak. Not an empty dashboard — a parent with one child sees one card and their three live boards.</p></div></div>
+      <div class="fstep"><span class="fnum">02</span><div><h4>Child Profile</h4><p>The one-time intake: age, visual style, language level, special interests, sensory and trigger notes. Everything the three prompt drafts ask in Step 1.</p></div></div>
+      <div class="fstep"><span class="fnum">03</span><div><h4>New Support — 3 questions</h4><p>Which tool · what routine and what's hard about it · what motivator works. Tool choice can be suggested from the obstacle text rather than asked.</p></div></div>
+      <div class="fstep"><span class="fnum">04</span><div><h4>Board Editor</h4><p>Reorder cards, edit labels against the three-word validator, regenerate one card's image, or swap in a photo from the child's own life. Photos of the real bathroom beat stock art.</p></div></div>
+      <div class="fstep"><span class="fnum">05</span><div><h4>Script &amp; Plan</h4><p>The caregiver phrases and the prompt hierarchy, on their own tab, because this is the part that gets skipped and shouldn't be.</p></div></div>
+      <div class="fstep"><span class="fnum">06</span><div><h4>Use it — two outputs</h4><p><b>Print sheet:</b> card grid with cut lines, sized for lamination and Velcro. <b>Tablet mode:</b> full screen, large targets, tap to check off, works offline.</p></div></div>
+      <div class="fstep"><span class="fnum">07</span><div><h4>Log, by text message</h4><p>Twilio sends the caregiver script when the routine is due and asks one question afterwards: did the reward happen? The reply writes the log. In-app logging stays for anyone who wants to add prompt level and notes.</p></div></div>
+      <div class="fstep"><span class="fnum">08</span><div><h4>Share with the team</h4><p>Read-only board access for a teacher, aide, or SLP. The toolkit's point about using the same visuals across settings is the whole reason this exists.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">AI &amp; integrations</span>
+    <h2>Three agents, grounded and fenced</h2>
+    <p class="prose">“Particularly Agentic AI” is in the rules, so generation is an orchestrated workflow in ODC's Agent Workbench rather than a single prompt. Three agents, each with a job small enough to judge, and a reasoning path the jury can watch inside the demo.</p>
+    <ul class="bul">
+      <li><b>Composer</b> reads the child profile and the obstacle, chooses the support type, and drafts cards, script, and plan against its knowledge source — the Vanderbilt TRIAD toolkit and the National Autism Center's 11 practices. It names the practice each board rests on.</li>
+      <li><b>Reviewer</b> checks that draft against the design rules and sends it back: three-word labels, positive phrasing, a Then card present, card count in range. A second agent catching the first one's drift is the most legible AI moment available in five minutes.</li>
+      <li><b>Illustrator</b> searches the child's existing card library before it generates anything, so a given activity keeps the same picture forever. Predictability is the product.</li>
+      <li><b>Tools:</b> <code>GetChildProfile</code> · <code>SearchCardLibrary</code> · <code>CreateBoard</code> · <code>AddCard</code> · <code>SetScript</code> · <code>SetPlan</code> · <code>GenerateCardImage</code> · <code>SendRoutineSms</code>. Models come from the Azure OpenAI and Amazon Bedrock tokens bundled into the ODC instance.</li>
+      <li><b>Twilio closes the loop.</b> A parent at the front door is holding shoes, not a tablet. So the caregiver script arrives by SMS when the routine is due — “First shoes, then swing.” — and one question follows it: “Did the swing happen? Reply Y or N.” That reply writes <code>UsageLog.RewardDelivered</code>. The single field this product turns on is the one nobody would ever open an app to fill in.</li>
+      <li><b>Traceability:</b> Agent Workbench exposes each agent's reasoning and tool calls, and <code>Board.AgentRunId</code> pins every board to the run that made it.</li>
+    </ul>
+
+    <h3 style="margin-top:12px">Output contract</h3>
+    <pre><span class="k">{</span>
+  <b>"supportType"</b>: "FirstThenBoard",
+  <b>"title"</b>: "First shoes, then swing",
+  <b>"theme"</b>: "Train station",
+  <b>"cards"</b>: [
+    { "sequenceNo": 1, "role": "First", "label": "Put on shoes",
+      "imagePrompt": "Flat vector icon, plain white background, no detail:
+                      a child's sneakers, laces loose",
+      "altText": "A pair of sneakers" },
+    { "sequenceNo": 2, "role": "Then",  "label": "Swing", ... }
+  ],
+  <b>"script"</b>: [
+    { "phase": "Before",       "phrase": "First shoes, then swing." },
+    { "phase": "During",       "phrase": "One more shoe, then swing." },
+    { "phase": "OnCompletion", "phrase": "All done shoes. Now swing!" },
+    { "phase": "IfRefusal",    "phrase": "Shoes first." }
+  ],
+  <b>"plan"</b>: {
+    "promptHierarchy": [
+      { "level": 1, "kind": "VisualPoint",   "instruction": "Point to the FIRST card." },
+      { "level": 2, "kind": "Gesture",       "instruction": "Hold out the shoes." },
+      { "level": 3, "kind": "Verbal",        "instruction": "Say \"Shoes first.\"" },
+      { "level": 4, "kind": "PhysicalGuide", "instruction": "Hand-over-hand, briefly." }
+    ],
+    "reinforcement": "Deliver the swing immediately. Do not delay or substitute.",
+    "placement": "By the front door, at the child's eye level.",
+    "ifChallengingBehavior": "Keep prompting the FIRST task. Stay on the task,
+                              not the behavior. Then still give the swing."
+  },
+  <b>"evidenceBasis"</b>: ["Antecedent Package", "Schedules"],
+  <b>"citations"</b>: ["TRIAD Visual Supports and Autism (2011), First-Then Board"]
+<span class="k">}</span></pre>
+    <p class="caption">The child's name never appears in an image prompt — image prompts say “a child.” Profile text stays in the tenant.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Guardrails</span>
+    <h2>Enforced in the app, not asked for in the prompt</h2>
+    <p class="prose">Each of these is a validation in a server action, so a model that drifts cannot ship a bad board.</p>
+    <div class="rails">
+      <div class="rail"><span class="no">01</span><p><b>Three words maximum per label.</b> Reject and re-ask. The toolkit's limit, not a style preference.</p></div>
+      <div class="rail"><span class="no">02</span><p><b>Positive phrasing only.</b> “Don't run” is rejected in favour of “Walk.” A blocklist of negation forms catches it.</p></div>
+      <div class="rail"><span class="no">03</span><p><b>A First–Then board cannot save without a Then card.</b> The reward is structural, not optional.</p></div>
+      <div class="rail"><span class="no">04</span><p><b>Card count within the type's range.</b> A 12-step morning schedule for a pre-verbal four-year-old is a failure, not thoroughness.</p></div>
+      <div class="rail"><span class="no">05</span><p><b>No diagnosis, no clinical advice.</b> When the obstacle text describes self-injury, aggression, or escalation, the app says so and surfaces referral guidance instead of generating a board.</p></div>
+      <div class="rail"><span class="no">06</span><p><b>Neurodiversity-affirming language, checked.</b> Supports, not compliance; “autistic child” unless the parent's profile says otherwise.</p></div>
+      <div class="rail"><span class="no">07</span><p><b>Parent owns and can export everything.</b> Child profiles are the most sensitive data in the app and are never training input.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Evidence basis</span>
+    <h2>What each feature rests on</h2>
+    <p class="prose">Useful for judging, and for any nonprofit that asks. Practices are from the National Autism Center's National Standards Report (2009), as presented in the <i>Supporting Athletes with Autism</i> coach training deck.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Evidence-based practice</th><th>Source detail</th></tr></thead>
+        <tbody>
+          <tr><td>First–Then board</td><td>Antecedent Package</td><td>Modifies what precedes the challenge; cueing and prompt fading</td></tr>
+          <tr><td>Visual &amp; task schedules</td><td>Schedules</td><td>Answers what, how much, when finished, what's next</td></tr>
+          <tr><td>Social narrative</td><td>Story-based Intervention</td><td>Who / what / when / where / why, delivered before the event</td></tr>
+          <tr><td>Choice board</td><td>Antecedent Package</td><td>Constrained choice; open-ended choice can overwhelm</td></tr>
+          <tr><td>Special-interest theming</td><td>Antecedent Package</td><td>Incorporating special interests into tasks</td></tr>
+          <tr><td>Tap-to-check-off, streaks</td><td>Self-management</td><td>Child records the behaviour and is reinforced for doing so</td></tr>
+          <tr><td>Prompt hierarchy &amp; fading</td><td>Behavior Package</td><td>Chaining, positive reinforcement, mand training</td></tr>
+          <tr><td>Share with teacher / SLP</td><td>Peer Training, Modeling</td><td>Same visuals carried across every setting</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Build order</span>
+    <h2>Seven days, demo path first</h2>
+    <p class="prose">One tool type end to end before any second tool type. A First–Then board that generates, prints, goes on a fridge, texts the parent, and records the reward is a complete five-minute demo. Four half-built tool types are not. Days below are the hackathon's own.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Day</th><th>What ships</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">2 Nov</td><td>Kickoff. Re-order everything below against the ODC features and scoring announced there.</td><td><span class="pill fixed">fixed</span></td></tr>
+          <tr><td class="mono">3</td><td>Entities and static entities; child profile create and edit</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">3&ndash;4</td><td>Composer and Reviewer agents, First–Then branch only, returning the JSON contract</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">4 Nov</td><td><b>Mid submission due</b> — problem, use case, AI services and integrations</td><td><span class="pill fixed">fixed</span></td></tr>
+          <tr><td class="mono">5</td><td>Three-question wizard → agents → persisted board; three-word validator</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">5&ndash;6</td><td>Illustrator agent, card library reuse, board editor</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">6</td><td>Print sheet with cut lines; tablet use mode</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">7</td><td>Twilio script-and-reward SMS; usage log; trust streak</td><td><span class="pill core">demo path</span></td></tr>
+          <tr><td class="mono">8</td><td>UX pass over every screen the video touches. Nothing new built.</td><td><span class="pill scored">scored</span></td></tr>
+          <tr><td class="mono">8&ndash;9</td><td>Record and cut the five-minute demo; open-source the repository</td><td><span class="pill scored">scored</span></td></tr>
+          <tr><td class="mono">&mdash;</td><td>Visual schedule, parameter cards, social narrative, team sharing, offline use</td><td><span class="pill later">roadmap</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel alert">
+      <h3>Six days to registration — the actual checklist</h3>
+      <p><b>1.</b> Publish the Taikai project; it is still a draft and needs an avatar, a cover, a description, and attachments. <b>2.</b> Name the nonprofit in the project summary, which the rules require explicitly. <b>3.</b> As team lead, email <span class="mono">makeadifference@outsystems.com</span> with the team name, member names and emails, the nonprofit's name and website, and the use case. <b>4.</b> Fix two things in that email as drafted: “United Stated” → United States, and “OutSystems OCD” → ODC. A team missing either the published project or the email is not considered at all.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Open</span>
+    <h2>Decisions still to make</h2>
+    <ul class="bul">
+      <li><b>Solo, or recruit before 28 October?</b> One to five members are allowed and solo is permitted, but UX/UI is a full quarter of the score and the window is seven days. A designer and a second ODC developer would lift three of the four criteria at once. After 28 October the team is fixed.</li>
+      <li><b>Scoring weights arrive at kickoff.</b> The rules say detailed criteria come on 2 November. Day one of the build is partly a re-planning day, so hold the roadmap items loosely.</li>
+      <li><b>Card artwork source.</b> Generated icons are fast and free-form; an established symbol set is more predictable and more familiar to children already using PECS. A parent's own photos beat both. The model supports all three — which is the demo default?</li>
+      <li><b>Autism Speaks, or a local partner?</b> Both the rules and the FAQ push toward a nonprofit the team already has a relationship with — one that can advise during the build and would genuinely use a 12-month ODC license. A local chapter, an autism school, or a school district's SLP team beats a national logo on both counts, and gives the demo one real test family. The organizers will make introductions if asked.</li>
+      <li><b>Offline depth.</b> Full offline board use is the right product answer and a real build cost. Read-only cached boards may be enough for the demo.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Sources in this spec: Vanderbilt Kennedy Center TRIAD / Autism Speaks ATN, <i>Visual Supports and Autism</i> (2011) · <i>Supporting Athletes with Autism Through Professional Development for Coaches and Physical Educators</i>, citing National Autism Center, <i>National Standards Report</i> (2009).</p>
+    <p>Practitioner resources: do2learn.com · card.ufl.edu/content/visual.html · kidaccess.com · Eckenrode, Fennell &amp; Hearsey, <i>Tasks Galore for the Real World</i> (2004).</p>
+  </div>
+</footer>

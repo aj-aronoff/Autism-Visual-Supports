@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+<defs>
+  <clipPath id="sb"><circle cx="300.0" cy="300.0" r="286.0"/></clipPath>
+  <radialGradient id="sbg" cx="50%" cy="38%" r="70%">
+    <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#B2DFC4"/>
+  </radialGradient>
+</defs>
+<g clip-path="url(#sb)">
+  <rect width="600" height="600" fill="url(#sbg)"/>
+  <circle cx="470" cy="128" r="54" fill="#F9C74F" opacity=".85"/>
+  <rect x="0" y="516" width="600" height="84" fill="#6BBF8E" opacity=".55"/>
+  <g transform="translate(140,52) scale(1.6)">
+<g transform="rotate(-7 100 20)">
+  
+  <path d="M68 2 L66 116"  stroke="#C98B5E" stroke-width="5.0" stroke-linecap="round" fill="none"/>
+  <path d="M132 2 L134 116" stroke="#C98B5E" stroke-width="5.0" stroke-linecap="round" fill="none"/>
+  <!-- seat -->
+  <rect x="54" y="114" width="92" height="13.0" rx="6" fill="#C98B5E"/>
+  <!-- legs swinging forward -->
+  <g transform="rotate(-22 112 120)">
+    <rect x="104" y="116" width="16" height="50" rx="8" fill="#2E7CB8"/>
+    <rect x="100" y="158" width="28" height="12" rx="6" fill="#2D3748"/>
+  </g>
+  <g transform="rotate(-34 96 120)">
+    <rect x="88" y="116" width="16" height="50" rx="8" fill="#2E7CB8"/>
+    <rect x="84" y="158" width="28" height="12" rx="6" fill="#2D3748"/>
+  </g>
+  <!-- torso -->
+  <rect x="73" y="70" width="54" height="52" rx="21" fill="#5BA4CF"/>
+  <!-- arms up to the ropes -->
+  <g transform="rotate(-26 80 78)">
+    <rect x="62" y="44" width="14" height="42" rx="7" fill="#5BA4CF"/>
+    <circle cx="69" cy="46" r="7.5" fill="#F0C49B"/>
+  </g>
+  <g transform="rotate(26 120 78)">
+    <rect x="124" y="44" width="14" height="42" rx="7" fill="#5BA4CF"/>
+    <circle cx="131" cy="46" r="7.5" fill="#F0C49B"/>
+  </g>
+  <!-- head -->
+  <circle cx="100" cy="42" r="31" fill="#F0C49B"/>
+  <path d="M69 40 A31 31 0 0 1 131 40 Q117 21 100 21 Q83 21 69 40 Z" fill="#5A3E2B"/>
+  
+  <circle cx="89"  cy="44" r="3.4" fill="#2D3748"/>
+  <circle cx="111" cy="44" r="3.4" fill="#2D3748"/>
+  <path d="M89 55 Q100 66 111 55 Q100 60 89 55 Z" fill="#2D3748"/>
+  <circle cx="78"  cy="53" r="4.6" fill="#F28B82" opacity=".55"/>
+  <circle cx="122" cy="53" r="4.6" fill="#F28B82" opacity=".55"/>
+</g></g>
+</g>
+<circle cx="300.0" cy="300.0" r="286.0" fill="none" stroke="#F9C74F" stroke-width="22"/>
+</svg>

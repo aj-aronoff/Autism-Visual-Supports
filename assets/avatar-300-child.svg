@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="#123A66"/>
+<defs><clipPath id="av2"><circle cx="150.0" cy="150.0" r="150.0"/></clipPath></defs>
+<g clip-path="url(#av2)">
+  <rect width="300" height="300" fill="#123A66"/>
+  <circle cx="150.0" cy="150.0" r="124" fill="#2E7CB8" opacity=".40"/>
+  <circle cx="150.0" cy="150.0" r="96"  fill="#5BA4CF" opacity=".30"/>
+  <rect x="86" y="214" width="128" height="120" rx="46" fill="#5BA4CF"/>
+  
+<g>
+  <circle cx="150" cy="140" r="72" fill="#F0C49B"/>
+  <path d="M78 133.6 A72 72 0 0 1 222 133.6 Q188.4 90.4 150 90.4 Q111.6 90.4 78 133.6 Z" fill="#5A3E2B"/>
+  <circle cx="122.8" cy="143.2" r="8.0" fill="#2D3748"/>
+  <circle cx="177.2" cy="143.2" r="8.0" fill="#2D3748"/>
+  <path d="M127.6 172.0 Q150 191.2 172.4 172.0" stroke="#2D3748" stroke-width="7.0" fill="none" stroke-linecap="round"/>
+  <circle cx="94.0" cy="162.4" r="11.2" fill="#F28B82" opacity=".55"/>
+  <circle cx="206.0" cy="162.4" r="11.2" fill="#F28B82" opacity=".55"/>
+</g>
+</g>
+<circle cx="150.0" cy="150.0" r="144.0" fill="none" stroke="#F9C74F" stroke-width="12"/>
+</svg>

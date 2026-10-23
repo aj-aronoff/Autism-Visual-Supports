@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><rect width="512" height="512" fill="#5BA4CF"/>
+<defs><clipPath id="rc"><circle cx="256.0" cy="256.0" r="256.0"/></clipPath></defs>
+<g clip-path="url(#rc)">
+  <rect width="512" height="512" fill="#5BA4CF"/>
+  <circle cx="256.0" cy="256.0" r="208" fill="#2E7CB8" opacity=".45"/>
+  <circle cx="256.0" cy="256.0" r="160" fill="#2E7CB8" opacity=".35"/>
+  <g transform="translate(76,86) scale(1.80)">
+<g>
+  <!-- shoulders / robe -->
+  <path d="M46 200 Q46 136 100 130 Q154 136 154 200 Z" fill="#006B3C"/>
+  <!-- open book held up -->
+  <g transform="translate(0,6)">
+    <path d="M44 162 Q72 150 98 162 L98 196 Q72 184 44 196 Z" fill="#F7FBFF" stroke="#2D3748" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M102 162 Q128 150 156 162 L156 196 Q128 184 102 196 Z" fill="#F7FBFF" stroke="#2D3748" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="96" y="156" width="8" height="44" rx="3" fill="#F9C74F"/>
+    <path d="M56 170 L86 176 M56 180 L80 185" stroke="#A8D4EF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M114 176 L144 170 M120 185 L144 180" stroke="#A8D4EF" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- head -->
+  <circle cx="100" cy="82" r="38" fill="#F0C49B"/>
+  <path d="M62 78 A38 38 0 0 1 138 78 Q120 56 100 56 Q80 56 62 78 Z" fill="#5A3E2B"/>
+  <circle cx="86"  cy="84" r="4" fill="#2D3748"/>
+  <circle cx="114" cy="84" r="4" fill="#2D3748"/>
+  <path d="M87 98 Q100 109 113 98" stroke="#2D3748" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <circle cx="72"  cy="94" r="5.4" fill="#F28B82" opacity=".5"/>
+  <circle cx="128" cy="94" r="5.4" fill="#F28B82" opacity=".5"/>
+</g></g>
+</g>
+<circle cx="256.0" cy="256.0" r="246.0" fill="none" stroke="#F9C74F" stroke-width="20"/>
+</svg>

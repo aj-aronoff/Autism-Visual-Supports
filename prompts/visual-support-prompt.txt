@@ -1,0 +1,35 @@
+Plaintext
+Act as an expert special education practitioner and visual accessibility designer specializing in Autism Spectrum Disorders (ASD). 
+
+I need you to create a visual support tool tailored for an autistic child. Please generate the detailed content, visual layout, and descriptions for this tool based on the following specifications:
+
+1. TARGET CHILD & CONTEXT:
+- Child's Approximate Age / Developmental Level: [e.g., 6 years old, pre-verbal / early reader]
+- Current Challenge or Goal: [e.g., Struggling with morning routine / Anxiety around dentist visits / Difficulty asking for a break]
+- Environment: [e.g., Home, Classroom, Community]
+
+2. TYPE OF VISUAL SUPPORT NEEDED:
+- [Select one: Visual Schedule / First-Then Board / Social Narrative Story / Choice Board / Emotion Scale / Task Breakdown]
+
+3. KEY STEPS OR MESSAGES TO INCLUDE:
+- Step 1: [e.g., Brush teeth]
+- Step 2: [e.g., Put on shoes]
+- Step 3: [e.g., Get in car]
+- [Add or remove steps as needed]
+
+4. DESIGN & VISUAL REQUIREMENTS:
+- Visual Style: [e.g., Clean vector icons, clear realistic photos, simple line drawings]
+- Text/Language: [e.g., 1-2 words per visual, short simple sentences, or visuals only]
+- Color & Sensory Considerations: High-contrast, uncluttered backgrounds, non-overwhelming colors.
+
+5. OUTPUT REQUIRED:
+Please provide:
+1. A step-by-step layout design (including exact text labels and detailed visual descriptions for each image/card so I can easily draw, create, or find the pictures).
+2. Implementation Instructions: How to introduce this visual support to the child effectively (e.g., prompting hierarchy, placement, reward/reinforcement tips).
+3. A script or phrasing parents/caregivers should use when presenting this visual to reduce anxiety and increase understanding.
+Why This Prompt Works
+Addresses the Core Uses: It specifically targets the two key functions of visual supports—helping adults express expectations clearly and helping the child express their needs or anticipate changes.
+
+Reduces Cognitive Overload: By explicitly specifying uncluttered design and minimal text, it ensures the output matches the sensory and processing preferences common in ASD.
+
+Includes Actionable Guidance: Beyond just creating the visual cards, it provides caregivers with a practical implementation guide and spoken script, ensuring the visual support is used effectively in real-world scenarios.
