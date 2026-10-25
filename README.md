@@ -84,6 +84,7 @@ docs/
   project-description.md                 the project write-up
 SPEC.md                                  the build spec in Markdown
 MID-SUBMISSION.md                        problem, use case, AI services — due 4 Nov
+AWS-ARCHITECTURE.md                      components, trust boundaries, security controls
 NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 TOKEN-BUDGET.md                          AI token budget, reserve and tracking plan
 tools/token-budget.py                    burn-rate and reserve check against the log
