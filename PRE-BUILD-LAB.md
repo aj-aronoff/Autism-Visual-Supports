@@ -23,9 +23,27 @@ because of an accident of the calendar.
 
 ## 2. The eight idle days
 
-ODC access arrives only *after* registration closes on 28 October, and possibly not until
-the 2 November kickoff. That leaves roughly eight days in which the submission cannot be
-touched. The build window that follows is seven days.
+`rules.txt:32` is precise about this: *"OutSystems will make access to ODC available after
+the registrations close and all information is received. AWS and Microsoft AI services will
+also be accessible free of charge, but with some limitations."*
+
+Two things follow, and the plan is built on both.
+
+**The gate is registration closing, not the kickoff.** Registration closes 28 October, so
+access may land on the 29th. The idle window is therefore somewhere between four days and
+eight, and which one is not knowable in advance. **The lab is bounded by a trigger, not by
+a date:** it runs until the access email arrives, and the highest-value measurement is done
+first in case that is sooner than expected.
+
+**The second condition is already satisfied.** "All information is received" means the
+Step 2 email, and the one sent on 20 October carried all four required details — team name,
+names and email addresses, nonprofit name and website, and the use-case description. The
+later email corrected the team name. Nothing is outstanding on our side.
+
+**Free AI access comes with the instance.** The same sentence grants AWS and Microsoft AI
+services free of charge, and `faq.txt:36` places those tokens inside the ODC instance. So
+the personal-account lab is a *bridge*, not a parallel track: the moment ODC is provisioned,
+the prompts move over and the billing on our own card stops.
 
 The highest-value work available in those eight days is the work that is **portable** —
 artifacts that are identical whether a model is called from our own account or from Agent

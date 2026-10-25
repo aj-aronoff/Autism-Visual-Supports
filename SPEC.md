@@ -201,5 +201,8 @@ complete five-minute demo. Four half-built tool types are not.
 | 8–9 | Record and cut the five-minute demo |
 | — | *Roadmap:* visual schedule, parameter cards, social narrative, team sharing, offline |
 
-ODC access opens only after registration closes on 28 October, so nothing can be built
-before the 2 November kickoff.
+ODC access opens **after registration closes on 28 October** — not at the kickoff. It may
+therefore land on the 29th, giving up to four days on the real platform before 2 November.
+Use any such days for the parts the kickoff cannot change: entities, static entities and the
+child profile, all settled by this document. Hold the agent wiring until after the kickoff,
+because that is where the announced scoring emphasis lands.
