@@ -142,6 +142,17 @@ exposes AI consumption for the instance, compare the two at the end of each day.
 divergence means something is calling a model outside the wrapper, which is worth
 knowing immediately.
 
+**This may be partly solved already.** Agent Workbench's product documentation claims
+built-in observability that tracks reasoning, response quality **and costs in real time**,
+and that models can be swapped to trade cost against quality without rewiring logic. If
+that surfaces a per-team token figure, §6.3 becomes a real reconciliation rather than a
+hope. Check it in the first hour on 2 November.
+
+It does not make §6.1 redundant. Platform observability reports; it does not *enforce*.
+The reserve needs a circuit breaker that refuses a call (§6.2), and that has to live in
+our wrapper. Instrument anyway, and treat the platform figure as the authority to
+reconcile against.
+
 ## 7. The daily ritual
 
 Four minutes at the end of each build day:

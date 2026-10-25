@@ -63,8 +63,14 @@ write path to it corrupts the only number that matters.
 
 **Fix:** validate Twilio's `X-Twilio-Signature` header on every inbound request. Twilio
 HMAC-SHA1-signs the full URL plus the sorted POST body with the account auth token;
-recompute it in a server action and reject on mismatch before touching the database.
-Half an hour of work on day 7, and it converts the endpoint from open to authenticated.
+recompute it and reject on mismatch before touching the database.
+
+ODC gives this a named home. An exposed REST API runs callbacks in sequence on each
+request, and two of them fit exactly: `OnAuthentication` for custom authentication, and
+`OnRequest` for logic over the request after it arrives. The signature check belongs in
+one of those rather than inside the method body, so no method can be added later that
+forgets it. Half an hour of work on day 7, and it converts the endpoint from open to
+authenticated.
 
 ### WA-2 · critical · `SendRoutineSms` must not take a destination number from the agent
 
@@ -122,6 +128,11 @@ settings, none in code, none in the repository — the repository is public and 
 
 **Fix:** ODC's secret management only, and a `.gitignore` check before each commit. Worth
 one grep over the history before final submission.
+
+**Caveat found while surveying Forge:** the `Twilio Messaging (ODC)` connector stores its
+credentials in *Application Settings*, not in the secret store. If we adopt it, the auth
+token has to be relocated — and the auth token is also the HMAC key for WA-1, which makes
+it the most sensitive value in the application.
 
 ## Pillar 2 — Reliability
 
