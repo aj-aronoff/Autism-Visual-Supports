@@ -26,7 +26,7 @@ So this document does the thing that is actually useful and actually possible:
 1. Enumerate every component, labelled by **how sure we are** and **who owns it**.
 2. Draw the trust boundaries.
 3. Put each security control on the boundary it defends — and show that the boundaries
-   *we* own number five, are individually small, and are completely enumerable.
+   *we* own number four, are individually small, and are completely enumerable.
 
 A small, fully-enumerated attack surface is a stronger security position than a large one
 with a thick document in front of it. The useful claim this design makes is not "we have
@@ -196,7 +196,10 @@ Stated so no reviewer looks for it:
 | **B6** | Our code → Twilio outbound | **Ours** | Server-resolved destination, validated content |
 | **B7** | Data at rest | Shared | They encrypt; we minimise and provide deletion |
 
-Five boundaries are ours. Each gets one named control below.
+**Four boundaries are fully ours** (B2, B3, B4, B6), **two are shared** (B5, B7), and one
+is inherited entire (B1). Each of the six we touch gets one named control below.
+
+Rendered as an image: [`assets/trust-boundaries.png`](assets/trust-boundaries.png).
 
 ---
 

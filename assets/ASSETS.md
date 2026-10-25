@@ -180,3 +180,33 @@ Unsplash · Pexels · Pixabay · Burst by Shopify · RawPixel · Canva for Nonpr
 Prefer original vector anyway: stock photographs of children carry model-release and
 licensing questions that an open-source project should not inherit, and the ASD
 design rules want clutter-free flat art rather than photographs.
+
+## Generators
+
+Two, deliberately kept apart.
+
+| File | Draws | Palette |
+|---|---|---|
+| `build_art.py` | Storybook artwork - children, swings, sunflowers, covers, avatars, deck scenes | Warm illustrative |
+| `build_diagram.py` | Technical diagrams - the trust-boundary architecture | Four colours, ownership-encoded |
+
+Caution #11 ("keep one copy of the generator") is about not having two copies of
+*the same* generator drifting apart - which is how the tablet-cover block was
+once lost to a stray `cp`. It is not an argument against a second generator for
+a different class of output. A change to the banner must not be able to disturb
+a diagram.
+
+### Trust-boundary diagram
+
+`trust-boundaries.png` (1920x1080, for slides), `trust-boundaries-2x.png`
+(2560x1440, for print and PDF), `trust-boundaries.svg` (vector source).
+
+Four colours and no more, because ownership is the thing being encoded and every
+extra hue competes with it: ink `#2D3748`, managed grey `#718096`, ours
+`#006B3C`, external dependency `#A8600C`.
+
+**Caution #13 - never signal a state by filling half a disc.** The "shared"
+boundary badges first shipped with the left half filled green and the label in
+ink on top, which made the first character unreadable on B5 and B7. Half-states
+are signalled by an *outer* arc outside the circle, with the label on a plain
+white field. Check every badge in the rendered PNG, not in the SVG source.

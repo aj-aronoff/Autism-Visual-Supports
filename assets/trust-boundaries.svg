@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+<marker id="ah-718096" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker>
+<marker id="ah-006B3C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#006B3C"/></marker>
+<marker id="ah-A8600C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#A8600C"/></marker>
+</defs>
+<rect width="1920" height="1080" fill="#FFFFFF"/>
+<text x="48" y="74" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="40" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">Trust boundaries</text>
+<text x="48" y="106" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">Autism Visual Supports on OutSystems Developer Cloud  ·  who owns which control</text>
+<circle cx="1322" cy="60" r="9" fill="#006B3C"/>
+<text x="1342" y="66" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">ours to secure — 4</text>
+<circle cx="1322" cy="90" r="9" fill="#FFFFFF" stroke="#006B3C" stroke-width="2"/>
+<path d="M 1322 77 A 13 13 0 0 0 1322 103" fill="none" stroke="#006B3C" stroke-width="3" stroke-linecap="round"/>
+<text x="1342" y="96" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">shared — 2</text>
+<circle cx="1322" cy="120" r="9" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="1342" y="126" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">inherited — 1</text>
+<rect x="330" y="200" width="1090" height="744" rx="16" fill="#F7FAFC" stroke="#CBD5E0" stroke-width="3" stroke-dasharray="10 7"/>
+<text x="356" y="240" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="20" fill="#718096" font-weight="bold" text-anchor="start" letter-spacing="1.5">OUTSYSTEMS-MANAGED</text>
+<text x="356" y="266" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">AWS, in their accounts · we configure none of it</text>
+<rect x="560" y="310" width="620" height="66" rx="8" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="870" y="341" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">CDN  →  WAF  →  API Gateway</text>
+<text x="870" y="367" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">TLS terminated here</text>
+<rect x="540" y="430" width="660" height="272" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="4"/>
+<text x="870" y="474" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="28" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="2">OUR CODE</text>
+<text x="870" y="502" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#006B3C" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">the whole of our security responsibility</text>
+<line x1="580" y1="522" x2="1160" y2="522" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="870" y="554" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">screens  ·  server actions  ·  validators</text>
+<text x="870" y="587" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">exposed REST  +  OnRequest / OnAuthentication</text>
+<text x="870" y="620" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">agent definitions  +  tool signatures</text>
+<text x="870" y="653" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">ten entities, every query scoped to the session</text>
+<rect x="370" y="782" width="245" height="100" rx="8" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="492.5" y="830" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Aurora Serverless v2</text>
+<text x="492.5" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">encrypted at rest</text>
+<rect x="625" y="782" width="245" height="100" rx="8" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="747.5" y="830" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Secrets Manager</text>
+<text x="747.5" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">via ODC secrets</text>
+<rect x="880" y="782" width="245" height="100" rx="8" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="1002.5" y="830" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Identity service</text>
+<text x="1002.5" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">built in</text>
+<rect x="1135" y="782" width="245" height="100" rx="8" fill="#FFFFFF" stroke="#718096" stroke-width="2"/>
+<text x="1257.5" y="830" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Agent Workbench</text>
+<text x="1257.5" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">agents and tools</text>
+<text x="1257.5" y="906" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#A8600C" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">availability unconfirmed</text>
+<rect x="60" y="300" width="240" height="86" rx="8" fill="#FFFFFF" stroke="#2D3748" stroke-width="2"/>
+<text x="180" y="341" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Parent</text>
+<text x="180" y="367" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">browser / tablet</text>
+<rect x="1480" y="200" width="380" height="86" rx="8" fill="#FFFFFF" stroke="#2D3748" stroke-width="2"/>
+<text x="1670" y="241" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#2D3748" font-weight="bold" text-anchor="middle" letter-spacing="0">Parent's phone</text>
+<text x="1670" y="267" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">SMS, hands full</text>
+<rect x="1480" y="362" width="380" height="100" rx="8" fill="#FDF6EC" stroke="#A8600C" stroke-width="2"/>
+<text x="1670" y="410" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#A8600C" font-weight="bold" text-anchor="middle" letter-spacing="0">Twilio Programmable SMS</text>
+<text x="1670" y="436" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">third party · our credentials</text>
+<rect x="1480" y="782" width="380" height="100" rx="8" fill="#FDF6EC" stroke="#A8600C" stroke-width="2"/>
+<text x="1670" y="830" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#A8600C" font-weight="bold" text-anchor="middle" letter-spacing="0">Amazon Bedrock</text>
+<text x="1670" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">metered tokens · no console for us</text>
+<path d="M 300 343 L 556 343" fill="none" stroke="#718096" stroke-width="2.5" marker-end="url(#ah-718096)"/>
+<text x="392" y="329" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#718096" font-weight="normal" text-anchor="middle" letter-spacing="0">HTTPS</text>
+<path d="M 870 376 L 870 426" fill="none" stroke="#718096" stroke-width="2.5" marker-end="url(#ah-718096)"/>
+<path d="M 690 702 Q 690 742 492 778" fill="none" stroke="#006B3C" stroke-width="2.5" marker-end="url(#ah-006B3C)"/>
+<path d="M 1050 702 Q 1050 742 1257.5 778" fill="none" stroke="#006B3C" stroke-width="2.5" marker-end="url(#ah-006B3C)"/>
+<path d="M 1380 832 L 1476 832" fill="none" stroke="#A8600C" stroke-width="2.5" marker-end="url(#ah-A8600C)"/>
+<path d="M 1476 434 Q 1300 424 1204 488" fill="none" stroke="#006B3C" stroke-width="2.5" marker-end="url(#ah-006B3C)"/>
+<path d="M 1204 612 Q 1330 560 1630 466" fill="none" stroke="#006B3C" stroke-width="2.5" marker-end="url(#ah-006B3C)"/>
+<path d="M 1670 292 L 1670 356" fill="none" stroke="#A8600C" stroke-width="2.5" marker-end="url(#ah-A8600C)" marker-start="url(#ah-A8600C)"/>
+<text x="1687" y="334" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#A8600C" font-weight="normal" text-anchor="start" letter-spacing="0">SMS</text>
+<circle cx="330" cy="343" r="20" fill="#FFFFFF" stroke="#718096" stroke-width="2.5"/>
+<text x="330" y="350" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="bold" text-anchor="middle" letter-spacing="0">B1</text>
+<circle cx="548" cy="744" r="20" fill="#006B3C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="548" y="751" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" letter-spacing="0">B2</text>
+<circle cx="1198" cy="744" r="20" fill="#006B3C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="1198" y="751" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" letter-spacing="0">B4</text>
+<circle cx="1420" cy="832" r="20" fill="#FFFFFF" stroke="#006B3C" stroke-width="2.5"/>
+<path d="M 1420 807 A 25 25 0 0 0 1420 857" fill="none" stroke="#006B3C" stroke-width="4.5" stroke-linecap="round"/>
+<text x="1420" y="839" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="0">B5</text>
+<circle cx="1420" cy="418" r="20" fill="#006B3C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="1420" y="425" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" letter-spacing="0">B3</text>
+<circle cx="1420" cy="536" r="20" fill="#006B3C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="1420" y="543" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" letter-spacing="0">B6</text>
+<circle cx="492.5" cy="914" r="20" fill="#FFFFFF" stroke="#006B3C" stroke-width="2.5"/>
+<path d="M 492.5 889 A 25 25 0 0 0 492.5 939" fill="none" stroke="#006B3C" stroke-width="4.5" stroke-linecap="round"/>
+<text x="492.5" y="921" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="0">B7</text>
+<text x="60" y="478" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="1.5">BOUNDARIES</text>
+<line x1="60" y1="490" x2="300" y2="490" stroke="#006B3C" stroke-width="2"/>
+<text x="60" y="526" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#718096" font-weight="bold" text-anchor="start" letter-spacing="0">B1</text>
+<text x="102" y="526" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">internet → edge</text>
+<text x="60" y="563" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">B2</text>
+<text x="102" y="563" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">parent → their data</text>
+<text x="60" y="600" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">B3</text>
+<text x="102" y="600" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">Twilio → our endpoint</text>
+<text x="60" y="637" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">B4</text>
+<text x="102" y="637" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">our code → agent</text>
+<text x="60" y="674" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">B5</text>
+<text x="102" y="674" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">agent → Bedrock</text>
+<text x="60" y="711" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">B6</text>
+<text x="102" y="711" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">our code → Twilio</text>
+<text x="60" y="748" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">B7</text>
+<text x="102" y="748" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">data at rest</text>
+<text x="60" y="800" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">The only unauthenticated</text>
+<text x="60" y="824" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">path in is B3.</text>
+<text x="60" y="856" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">Everything else needs a</text>
+<text x="60" y="878" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">logged-in parent.</text>
+<text x="48" y="1052" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0" font-style="italic">Four boundaries fully ours, two shared, one inherited.  A small enumerable surface beats a large one with a thick document in front of it.</text>
+</svg>
