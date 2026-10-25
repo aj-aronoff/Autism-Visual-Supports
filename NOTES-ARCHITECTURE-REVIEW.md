@@ -194,9 +194,12 @@ The tokens are limited and monitored. The build days that burn them hardest are 
 November, when the agent pipeline is being iterated. The days that *must not fail* are 8
 and 9 November, when the five-minute demo is recorded, probably several times.
 
-**Fix:** track token spend daily from day 1, and hold back an explicit reserve — a third
-of the allocation — for demo recording. The cheapest way to protect it is WA-12: every
-library hit during a rehearsal is a generation not paid for.
+**Fix:** instrument consumption in the application — we have no AWS console, so nothing
+below the ODC line is visible to us — and enforce a reserve derived from what recording
+actually costs, `max(30% of allocation, 500,000 tokens)`, as a circuit breaker in code
+rather than a note in a plan. Full model, daily ritual and tracker in
+[`TOKEN-BUDGET.md`](TOKEN-BUDGET.md). The cheapest way to protect the reserve is WA-12:
+every library hit during a rehearsal is a generation not paid for.
 
 ### WA-15 · medium · Match the model to the job
 

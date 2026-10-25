@@ -1,0 +1,3 @@
+# Append one row per build day per operation. Totals come from the TokenUsage entity.
+# date,day,operation,model,calls,input_tokens,output_tokens,images,notes
+date,day,operation,model,calls,input_tokens,output_tokens,images,notes

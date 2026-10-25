@@ -35,7 +35,7 @@ renders to a print sheet with cut lines and to a full-screen tablet view.
 
 ## 3. Data model
 
-Nine entities plus static entities. The child profile is separate from the board, so
+Ten entities plus static entities. The child profile is separate from the board, so
 the hard part is filled in once and every later board is three questions.
 
 ### Child
@@ -74,6 +74,14 @@ Ordered hierarchy, least intrusive first.
 The loop. Written by SMS reply, not by hand.
 `BoardId` · `UsedOn` · `Outcome` → Independent | WithPrompt | Refused | Skipped ·
 `PromptLevelUsed` · **`RewardDelivered` (required)** · `Notes`
+
+### TokenUsage
+Metered AI consumption, written by the server action that wraps every model call —
+including failed calls, which are the ones that spend budget invisibly. We have no AWS or
+Azure console, so this is our only view of a limited resource. Plan: [`TOKEN-BUDGET.md`](TOKEN-BUDGET.md).
+`OccurredOn` · `AgentRunId` · `Operation` → Composer | Reviewer | Illustrator · `ModelId` ·
+`InputTokens` · `OutputTokens` · `ImageCount` · `Outcome` → Success | ValidationRetry |
+Error · `BoardId`
 
 ### CardLibrary
 Reuse beats regeneration — a given activity keeps the same picture forever.
