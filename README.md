@@ -84,6 +84,7 @@ docs/
   project-description.md                 the project write-up
 SPEC.md                                  the build spec in Markdown
 MID-SUBMISSION.md                        problem, use case, AI services — due 4 Nov
+NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 prompts/                                 the three prompt drafts the pipeline came from
 assets/                                  all artwork, plus the generator that draws it
   ASSETS.md                              palette, ratios, and the design cautions
