@@ -87,7 +87,9 @@ MID-SUBMISSION.md                        problem, use case, AI services — due 
 AWS-ARCHITECTURE.md                      components, trust boundaries, security controls
 NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 TOKEN-BUDGET.md                          AI token budget, reserve and tracking plan
+PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
 tools/token-budget.py                    burn-rate and reserve check against the log
+tools/lab-measure.py                     measures a real model call into the same log
 prompts/                                 the three prompt drafts the pipeline came from
 assets/                                  all artwork, plus the generator that draws it
   ASSETS.md                              palette, ratios, and the design cautions
