@@ -183,12 +183,13 @@ design rules want clutter-free flat art rather than photographs.
 
 ## Generators
 
-Two, deliberately kept apart.
+Three, deliberately kept apart.
 
 | File | Draws | Palette |
 |---|---|---|
 | `build_art.py` | Storybook artwork - children, swings, sunflowers, covers, avatars, deck scenes | Warm illustrative |
 | `build_diagram.py` | Technical diagrams - the trust-boundary architecture | Four colours, ownership-encoded |
+| `build_cards.py` | The forty starter cards the Illustrator agent reuses | Full palette, flat, on Cloud White |
 
 Caution #11 ("keep one copy of the generator") is about not having two copies of
 *the same* generator drifting apart - which is how the tablet-cover block was
@@ -210,3 +211,26 @@ boundary badges first shipped with the left half filled green and the label in
 ink on top, which made the first character unreadable on B5 and B7. Half-states
 are signalled by an *outer* arc outside the circle, with the label on a plain
 white field. Check every badge in the rendered PNG, not in the SVG source.
+
+### Starter card library
+
+`cards/` holds forty cards at 512x512, plus `MANIFEST.csv` for loading them into the
+`CardLibrary` entity. `cards-contact.png` is the whole set at 150px, which is roughly
+card size on a tablet, and is the only honest way to check them.
+
+Every card is one object or one action inside a Horizon Blue badge at 34% opacity, with
+the figure at the 0.766 ratio fixed above. **No text inside the picture** - the label is
+drawn by the application, so one card serves a pre-verbal child and a reader, and the
+same art works in English or any other language.
+
+The set is deliberately weighted towards what actually recurs: eight self-care, six
+dressing, six food, five transitions, eight rewards, four regulation, three school. WAIT,
+STOP, ALL DONE and PLAN CHANGED appear on a large share of all boards, so they get
+checked hardest.
+
+**Caution #14 - an icon that passes in the SVG can still fail at card size.** The first
+pass shipped a plate with concentric rings that read as a clock face, a sandwich drawn as
+two triangles that read as a mountain, a towel on a rail that read as a bin, a detached
+pencil tip, and a WAIT card carrying three separate objects. The generator exited cleanly
+every time. All five were caught by looking at `cards-contact.png` and none by looking at
+the code. Render the sheet and read it.

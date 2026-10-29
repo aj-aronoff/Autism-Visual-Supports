@@ -1,0 +1,445 @@
+{
+  "version": "1.0",
+  "created": "2026-10-28",
+  "note": "Gold-standard set. Each case has two candidate boards. The one A.J. picks becomes the reference for that case; the comments say why, which is the part that generalises.",
+  "cases": [
+    {
+      "id": "c1-out-the-door",
+      "name": "Out the door in four minutes",
+      "tests": "The canonical case. Whether the reward the parent names is the reward that fits the window.",
+      "profile": { "nickname": "Sam", "ageYears": 6, "visualStyle": "Icons", "languageLevel": "PreVerbal",
+        "specialInterests": "Trains, especially station signs", "sensoryNotes": "Covers ears for loud noises; dislikes seamed socks",
+        "triggerNotes": "Changes to the morning order" },
+      "request": { "goal": "Shoes on and in the car without a fight", "environment": "Home",
+        "obstacle": "Every school morning we are fine until shoes. In four minutes they need shoes on with their go-bag and they need to be in the car. Shoes is where it stops." },
+      "tries": [
+        { "try": "A", "design": "Takes the parent's own reward at face value. Two cards, no theme, swing in the garden before the car.",
+          "supportType": "FirstThenBoard", "title": "First shoes, then swing", "theme": null,
+          "cards": [
+            { "sequenceNo": 1, "role": "First", "label": "Shoes", "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of children's sneakers", "altText": "A pair of sneakers" },
+            { "sequenceNo": 2, "role": "Then", "label": "Swing", "imagePrompt": "Flat vector icon, plain white background, no detail: a garden swing seat on two ropes", "altText": "A swing hanging from two ropes" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "First shoes, then swing." },
+            { "phase": "During", "phrase": "One more shoe." },
+            { "phase": "OnCompletion", "phrase": "Shoes on. Swing now!" },
+            { "phase": "IfRefusal", "phrase": "Shoes first." }
+          ],
+          "plan": { "placement": "Inside the front door, at Sam's eye level.",
+            "reinforcement": "Two minutes on the garden swing, before the car. Do not substitute.",
+            "ifChallengingBehavior": "Keep pointing at the FIRST card. Add no new words. Then still give the swing.",
+            "generalization": "The same two cards go in the go-bag for grandma's.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card. Say nothing." },
+              { "level": 2, "kind": "Gesture", "instruction": "Hold the shoes out at waist height." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"Shoes first.\"" },
+              { "level": 4, "kind": "PhysicalGuide", "instruction": "Guide one foot in briefly, then let go." }
+            ] },
+          "evidenceBasis": ["Antecedent Package"] },
+        { "try": "B", "design": "Moves the reward into the car so it survives a four-minute window, and themes it as a train line. Bets that a reward the parent cannot deliver is worse than a smaller one they can.",
+          "supportType": "FirstThenBoard", "title": "Sam's first stop", "theme": "Train line: First stop, Next stop",
+          "cards": [
+            { "sequenceNo": 1, "role": "First", "label": "Shoes on", "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of children's sneakers", "altText": "A pair of sneakers" },
+            { "sequenceNo": 2, "role": "Then", "label": "Train song", "imagePrompt": "Flat vector icon, plain white background, no detail: a train carriage with a music note beside it", "altText": "A train with a music note" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "First stop shoes. Next stop train song." },
+            { "phase": "During", "phrase": "Shoes, then train song." },
+            { "phase": "OnCompletion", "phrase": "Shoes done. Train song!" },
+            { "phase": "IfRefusal", "phrase": "First stop, shoes." }
+          ],
+          "plan": { "placement": "Inside the front door at Sam's eye level, laid out left to right like a route map.",
+            "reinforcement": "Start the train song as the car door shuts. Every time, same song.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait. Do not repeat the sentence. The song still plays afterwards.",
+            "generalization": "Same two cards, same song, for the childminder's car.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card. Say nothing." },
+              { "level": 2, "kind": "Gesture", "instruction": "Put the shoes on the floor in front of Sam." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"First stop, shoes.\"" },
+              { "level": 4, "kind": "PhysicalGuide", "instruction": "Guide one foot in briefly, then let go." }
+            ] },
+          "evidenceBasis": ["Antecedent Package", "Schedules"] }
+      ]
+    },
+    {
+      "id": "c2-teeth",
+      "name": "Teeth at bedtime",
+      "tests": "Motivation or sequencing. Whether a twenty-minute battle wants a reward or a breakdown of the task.",
+      "profile": { "nickname": "Mia", "ageYears": 8, "visualStyle": "LineArt", "languageLevel": "EarlyReader",
+        "specialInterests": "Dinosaurs, especially stegosaurus", "sensoryNotes": "Hates the taste of mint toothpaste",
+        "triggerNotes": "Being rushed" },
+      "request": { "goal": "Teeth brushed without a twenty-minute argument", "environment": "Home",
+        "obstacle": "Teeth at bedtime is a twenty-minute battle. She will do everything else in the routine without complaint." },
+      "tries": [
+        { "try": "A", "design": "Treats it as motivation. Two cards. Bets that she can already brush her teeth and simply will not.",
+          "supportType": "FirstThenBoard", "title": "First teeth, then dinosaurs", "theme": "Stegosaurus",
+          "cards": [
+            { "sequenceNo": 1, "role": "First", "label": "Brush teeth", "imagePrompt": "Simple black line drawing, white background, no shading: a toothbrush with toothpaste on it", "altText": "A toothbrush with a line of toothpaste" },
+            { "sequenceNo": 2, "role": "Then", "label": "Dinosaur book", "imagePrompt": "Simple black line drawing, white background, no shading: an open book with a stegosaurus on the page", "altText": "An open book showing a stegosaurus" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "First teeth, then dinosaur book." },
+            { "phase": "During", "phrase": "Teeth, then the book." },
+            { "phase": "OnCompletion", "phrase": "Teeth done. Book time." },
+            { "phase": "IfRefusal", "phrase": "Teeth first." }
+          ],
+          "plan": { "placement": "Taped to the bathroom mirror at Mia's eye level.",
+            "reinforcement": "The dinosaur book, in bed, straight afterwards. It is not read on nights she skips teeth.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait without talking. She has time. Being rushed is a trigger.",
+            "generalization": "Both cards travel in the overnight bag.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card." },
+              { "level": 2, "kind": "Gesture", "instruction": "Put the toothbrush in her hand." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"Teeth first.\"" },
+              { "level": 4, "kind": "Model", "instruction": "Brush your own teeth beside her." }
+            ] },
+          "evidenceBasis": ["Antecedent Package"],
+          "sensoryHandling": "Plan notes: swap to a non-mint toothpaste before trying this board. Mint is named as aversive and no reward outranks a taste she cannot tolerate." },
+        { "try": "B", "design": "Treats it as sequencing. Four steps so the end is visible from the start. Bets the battle is about not knowing when it stops.",
+          "supportType": "VisualSchedule", "title": "Mia's teeth steps", "theme": "Stegosaurus plates as step markers",
+          "cards": [
+            { "sequenceNo": 1, "role": "Step", "label": "Wet brush", "imagePrompt": "Simple black line drawing, white background, no shading: a toothbrush under a running tap", "altText": "A toothbrush under running water" },
+            { "sequenceNo": 2, "role": "Step", "label": "Add paste", "imagePrompt": "Simple black line drawing, white background, no shading: a tube of toothpaste squeezing onto a brush", "altText": "Toothpaste being squeezed onto a brush" },
+            { "sequenceNo": 3, "role": "Step", "label": "Brush teeth", "imagePrompt": "Simple black line drawing, white background, no shading: a child brushing their teeth", "altText": "A child brushing their teeth" },
+            { "sequenceNo": 4, "role": "Step", "label": "Rinse", "imagePrompt": "Simple black line drawing, white background, no shading: a cup of water being tipped towards a mouth", "altText": "A cup of water" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Four steps, then bed." },
+            { "phase": "During", "phrase": "Two more steps." },
+            { "phase": "OnCompletion", "phrase": "All four done." },
+            { "phase": "IfRefusal", "phrase": "Step one. Wet brush." }
+          ],
+          "plan": { "placement": "A strip of four cards along the bathroom mirror, left to right, with Velcro so she moves each one to a DONE box.",
+            "reinforcement": "Moving the last card to DONE is the finish. The dinosaur book follows in bed.",
+            "ifChallengingBehavior": "Name only the current step. Do not mention the remaining ones.",
+            "generalization": "The same four steps work at her dad's house with the same cards.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the next undone card." },
+              { "level": 2, "kind": "Gesture", "instruction": "Tap the DONE box." },
+              { "level": 3, "kind": "Verbal", "instruction": "Name the step in two words." },
+              { "level": 4, "kind": "Model", "instruction": "Do the step yourself alongside her." }
+            ] },
+          "evidenceBasis": ["Schedules", "Self-management"],
+          "sensoryHandling": "Plan notes: swap to a non-mint toothpaste before trying this board. Step 2 is the step that fails otherwise." }
+      ]
+    },
+    {
+      "id": "c3-leaving-park",
+      "name": "Leaving the playground",
+      "tests": "Type choice under pressure. A First-Then is the default and may be the wrong default when the trigger note names the real cause.",
+      "profile": { "nickname": "Ollie", "ageYears": 5, "visualStyle": "Icons", "languageLevel": "PreVerbal",
+        "specialInterests": "Diggers", "sensoryNotes": "Seeks movement, spins for regulation",
+        "triggerNotes": "Ending a preferred activity with no warning" },
+      "request": { "goal": "Leave the playground without going to the floor", "environment": "Community",
+        "obstacle": "Getting him off the playground. He is happy, then I say time to go, then he is on the floor and I am carrying him to the car." },
+      "tries": [
+        { "try": "A", "design": "Reads the trigger note literally. The problem is not motivation, it is the absence of a warning. Two parameter cards, no reward.",
+          "supportType": "ParameterCards", "title": "Two more, then done", "theme": null,
+          "cards": [
+            { "sequenceNo": 1, "role": "Wait", "label": "Two more slides", "imagePrompt": "Flat vector icon, plain white background, no detail: a playground slide with the numeral 2 beside it", "altText": "A slide with the number two" },
+            { "sequenceNo": 2, "role": "Stop", "label": "All done park", "imagePrompt": "Flat vector icon, plain white background, no detail: an open palm held up, facing forward", "altText": "An open palm held up" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Two more slides, then done." },
+            { "phase": "During", "phrase": "One more slide." },
+            { "phase": "OnCompletion", "phrase": "All done park. Good." },
+            { "phase": "IfRefusal", "phrase": "All done park." }
+          ],
+          "plan": { "placement": "Both cards on a key ring clipped to the pram or your belt, shown at the playground, not kept in a bag.",
+            "reinforcement": "There is no reward here. The predictability is the intervention. Show WAIT at two slides remaining, every single visit.",
+            "ifChallengingBehavior": "Hold up the STOP card and walk to the gate. Do not renegotiate the count. Next visit, the count still means the count.",
+            "generalization": "The same pair ends swimming and ends screen time.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Hold up the WAIT card where he can see it." },
+              { "level": 2, "kind": "Gesture", "instruction": "Hold up two fingers beside the card." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"Two more slides.\"" },
+              { "level": 4, "kind": "PhysicalGuide", "instruction": "Offer a hand at the bottom of the slide." }
+            ] },
+          "evidenceBasis": ["Antecedent Package"] },
+        { "try": "B", "design": "Reads it as motivation and uses the default type. First card is leaving, Then card is a digger reward in the car.",
+          "supportType": "FirstThenBoard", "title": "First car, then digger", "theme": "Diggers",
+          "cards": [
+            { "sequenceNo": 1, "role": "First", "label": "Walk to car", "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of children's shoes with a short arrow beside them", "altText": "Shoes with an arrow" },
+            { "sequenceNo": 2, "role": "Then", "label": "Digger video", "imagePrompt": "Flat vector icon, plain white background, no detail: a yellow digger with its arm raised", "altText": "A yellow digger" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "First car, then digger." },
+            { "phase": "During", "phrase": "Car, then digger." },
+            { "phase": "OnCompletion", "phrase": "In the car. Digger!" },
+            { "phase": "IfRefusal", "phrase": "Car first." }
+          ],
+          "plan": { "placement": "Two cards on a key ring on your belt. Shown at the gate, not at the slide.",
+            "reinforcement": "The digger video starts once he is buckled. Two minutes, then it stops.",
+            "ifChallengingBehavior": "Point at the FIRST card. Keep walking towards the car. The video still plays once he is in.",
+            "generalization": "Works for leaving the supermarket with the same two cards.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card." },
+              { "level": 2, "kind": "Gesture", "instruction": "Hold out your hand towards the gate." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"Car first.\"" },
+              { "level": 4, "kind": "PhysicalGuide", "instruction": "Take his hand and walk." }
+            ] },
+          "evidenceBasis": ["Antecedent Package"] }
+      ]
+    },
+    {
+      "id": "c4-morning-routine",
+      "name": "Loses the thread in the morning",
+      "tests": "Granularity. Six steps is complete and five is used. Where the line sits.",
+      "profile": { "nickname": "Jonah", "ageYears": 9, "visualStyle": "Icons", "languageLevel": "Reader",
+        "specialInterests": "Maps, especially the Underground", "sensoryNotes": "No strong sensitivities reported",
+        "triggerNotes": "Several instructions at once" },
+      "request": { "goal": "Get through the morning without me in the room", "environment": "Home",
+        "obstacle": "He gets up fine, then I find him on the floor with one sock on. If I am not in the room, nothing happens." },
+      "tries": [
+        { "try": "A", "design": "Six steps, complete coverage, tap to check off. Bets that the whole morning on one strip is what replaces the parent standing there.",
+          "supportType": "VisualSchedule", "title": "Jonah's morning line", "theme": "Underground line with six stations",
+          "cards": [
+            { "sequenceNo": 1, "role": "Step", "label": "Get dressed", "imagePrompt": "Flat vector icon, plain white background, no detail: a folded t-shirt and trousers", "altText": "A t-shirt and trousers" },
+            { "sequenceNo": 2, "role": "Step", "label": "Eat breakfast", "imagePrompt": "Flat vector icon, plain white background, no detail: a bowl with a spoon in it", "altText": "A bowl and spoon" },
+            { "sequenceNo": 3, "role": "Step", "label": "Brush teeth", "imagePrompt": "Flat vector icon, plain white background, no detail: a toothbrush with toothpaste on it", "altText": "A toothbrush" },
+            { "sequenceNo": 4, "role": "Step", "label": "Shoes on", "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of children's shoes", "altText": "A pair of shoes" },
+            { "sequenceNo": 5, "role": "Step", "label": "Pack bag", "imagePrompt": "Flat vector icon, plain white background, no detail: a school backpack", "altText": "A backpack" },
+            { "sequenceNo": 6, "role": "Step", "label": "Wait by door", "imagePrompt": "Flat vector icon, plain white background, no detail: a front door with a doormat", "altText": "A front door" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Six stations. Start at one." },
+            { "phase": "During", "phrase": "Which station are you at?" },
+            { "phase": "OnCompletion", "phrase": "End of the line. Done." },
+            { "phase": "IfRefusal", "phrase": "Check your line." }
+          ],
+          "plan": { "placement": "A vertical strip on his bedroom door, drawn as a tube line with six stations and a slider he moves down.",
+            "reinforcement": "Reaching the last station before the clock is the win. He reports his own station, which is the point.",
+            "ifChallengingBehavior": "Ask which station he is at. Do not list what is left.",
+            "generalization": "The same line format becomes his bedtime line, with four stations.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Tap the slider." },
+              { "level": 2, "kind": "Gesture", "instruction": "Point down the line." },
+              { "level": 3, "kind": "Verbal", "instruction": "Ask \"Which station?\"" }
+            ] },
+          "evidenceBasis": ["Schedules", "Self-management"] },
+        { "try": "B", "design": "Four steps. Shoes, bag and door collapse into one leaving step. Bets that a strip he finishes beats a strip that covers everything.",
+          "supportType": "VisualSchedule", "title": "Jonah's four stops", "theme": "Underground line with four stations",
+          "cards": [
+            { "sequenceNo": 1, "role": "Step", "label": "Get dressed", "imagePrompt": "Flat vector icon, plain white background, no detail: a folded t-shirt and trousers", "altText": "A t-shirt and trousers" },
+            { "sequenceNo": 2, "role": "Step", "label": "Eat breakfast", "imagePrompt": "Flat vector icon, plain white background, no detail: a bowl with a spoon in it", "altText": "A bowl and spoon" },
+            { "sequenceNo": 3, "role": "Step", "label": "Brush teeth", "imagePrompt": "Flat vector icon, plain white background, no detail: a toothbrush with toothpaste on it", "altText": "A toothbrush" },
+            { "sequenceNo": 4, "role": "Step", "label": "Shoes and bag", "imagePrompt": "Flat vector icon, plain white background, no detail: a backpack with a pair of shoes beside it", "altText": "A backpack and shoes" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Four stops this morning." },
+            { "phase": "During", "phrase": "Which stop?" },
+            { "phase": "OnCompletion", "phrase": "Four stops. Done." },
+            { "phase": "IfRefusal", "phrase": "Check your stops." }
+          ],
+          "plan": { "placement": "A vertical strip on his bedroom door with four stations and a slider.",
+            "reinforcement": "He moves the slider himself. Four moves is a finishable number.",
+            "ifChallengingBehavior": "Ask which stop he is at. Nothing else.",
+            "generalization": "Add a fifth stop only once four are automatic.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Tap the slider." },
+              { "level": 2, "kind": "Gesture", "instruction": "Point to the next stop." },
+              { "level": 3, "kind": "Verbal", "instruction": "Ask \"Which stop?\"" }
+            ] },
+          "evidenceBasis": ["Schedules", "Self-management"] }
+      ]
+    },
+    {
+      "id": "c5-dentist",
+      "name": "Dentist next Tuesday",
+      "tests": "Social narrative voice. First person commits the child to behaviour; third person describes what will happen.",
+      "profile": { "nickname": "Ava", "ageYears": 7, "visualStyle": "RealPhotos", "languageLevel": "EarlyReader",
+        "specialInterests": "Horses", "sensoryNotes": "Very sensitive to bright light and to strangers touching her face",
+        "triggerNotes": "Unfamiliar places" },
+      "request": { "goal": "Get through the appointment", "environment": "Community",
+        "obstacle": "She has a dentist appointment next Tuesday. Last time she screamed in the waiting room and we left without being seen." },
+      "tries": [
+        { "try": "A", "design": "First person, standard Social Story voice. Reads as hers. Risk: it states what she will do, which is a promise she may not keep.",
+          "supportType": "SocialNarrative", "title": "My dentist visit", "theme": "Horses on the cover card",
+          "cards": [
+            { "sequenceNo": 1, "role": "Step", "label": "Tuesday dentist", "imagePrompt": "Clear photograph, plain background, one object centred: a dental surgery front door", "altText": "The front door of a dental surgery" },
+            { "sequenceNo": 2, "role": "Step", "label": "Waiting room", "imagePrompt": "Clear photograph, plain background, one object centred: a row of waiting room chairs", "altText": "Waiting room chairs" },
+            { "sequenceNo": 3, "role": "Step", "label": "Big chair", "imagePrompt": "Clear photograph, plain background, one object centred: a dentist chair", "altText": "A dentist chair" },
+            { "sequenceNo": 4, "role": "Step", "label": "Bright light", "imagePrompt": "Clear photograph, plain background, one object centred: a dental overhead lamp", "altText": "An overhead dental lamp" },
+            { "sequenceNo": 5, "role": "Step", "label": "Mouth open", "imagePrompt": "Clear photograph, plain background, one object centred: a small dental mirror", "altText": "A small dental mirror" },
+            { "sequenceNo": 6, "role": "Step", "label": "Then home", "imagePrompt": "Clear photograph, plain background, one object centred: a car key", "altText": "A car key" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Let's read your dentist story." },
+            { "phase": "During", "phrase": "This is the big chair." },
+            { "phase": "OnCompletion", "phrase": "Story done. Tuesday next." },
+            { "phase": "IfRefusal", "phrase": "Just the first page." }
+          ],
+          "plan": { "placement": "Read as a six-page booklet at bedtime, starting tonight, once a night until Tuesday. Take it to the appointment.",
+            "reinforcement": "Reading it is not a task to be rewarded. Keep it short and stop when she stops.",
+            "ifChallengingBehavior": "Stop at the page she stops at. Read one page tomorrow, not six.",
+            "generalization": "The same six-page shape works for a haircut and for a blood test.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the picture on the page." },
+              { "level": 2, "kind": "Verbal", "instruction": "Read the page aloud once." }
+            ] },
+          "evidenceBasis": ["Story-based Intervention"],
+          "narrativeText": ["On Tuesday I am going to the dentist.", "I will sit in the waiting room with Mum.", "The dentist has a big chair that goes back.", "There is a bright light. I can close my eyes.", "The dentist looks at my teeth with a little mirror.", "Then we go home in the car."] },
+        { "try": "B", "design": "Third person, describing what will happen rather than what she will do. Nothing is promised on her behalf. Risk: less personal, may not land as hers.",
+          "supportType": "SocialNarrative", "title": "What happens at the dentist", "theme": "Horses on the cover card",
+          "cards": [
+            { "sequenceNo": 1, "role": "Step", "label": "Tuesday dentist", "imagePrompt": "Clear photograph, plain background, one object centred: a dental surgery front door", "altText": "The front door of a dental surgery" },
+            { "sequenceNo": 2, "role": "Step", "label": "Chairs to wait", "imagePrompt": "Clear photograph, plain background, one object centred: a row of waiting room chairs", "altText": "Waiting room chairs" },
+            { "sequenceNo": 3, "role": "Step", "label": "Chair goes back", "imagePrompt": "Clear photograph, plain background, one object centred: a dentist chair", "altText": "A dentist chair" },
+            { "sequenceNo": 4, "role": "Step", "label": "Light comes on", "imagePrompt": "Clear photograph, plain background, one object centred: a dental overhead lamp", "altText": "An overhead dental lamp" },
+            { "sequenceNo": 5, "role": "Step", "label": "Mirror looks", "imagePrompt": "Clear photograph, plain background, one object centred: a small dental mirror", "altText": "A small dental mirror" },
+            { "sequenceNo": 6, "role": "Step", "label": "Car goes home", "imagePrompt": "Clear photograph, plain background, one object centred: a car key", "altText": "A car key" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Here's what happens Tuesday." },
+            { "phase": "During", "phrase": "The chair goes back." },
+            { "phase": "OnCompletion", "phrase": "That's all of it." },
+            { "phase": "IfRefusal", "phrase": "Just page one tonight." }
+          ],
+          "plan": { "placement": "Read as a six-page booklet at bedtime, starting tonight, once a night until Tuesday. Take it to the appointment.",
+            "reinforcement": "Not a task. No reward attached. Stop when she stops.",
+            "ifChallengingBehavior": "Stop at the page she stops at. Do not finish it for her.",
+            "generalization": "The same six-page shape works for a haircut and for a blood test.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the picture on the page." },
+              { "level": 2, "kind": "Verbal", "instruction": "Read the page aloud once." }
+            ] },
+          "evidenceBasis": ["Story-based Intervention"],
+          "narrativeText": ["On Tuesday the car goes to the dentist.", "There are chairs in the waiting room. Mum sits too.", "The dentist's chair leans back slowly.", "A bright light comes on above the chair.", "A little mirror looks at teeth. It does not hurt.", "Then the car goes home."] }
+      ]
+    },
+    {
+      "id": "c6-tablet-now",
+      "name": "Asking for the tablet forty times",
+      "tests": "Boundary or contingency. A WAIT card states a rule; a First-Then makes the tablet earnable. Both are defensible and they teach different things.",
+      "profile": { "nickname": "Ben", "ageYears": 6, "visualStyle": "Icons", "languageLevel": "EarlyReader",
+        "specialInterests": "Minecraft", "sensoryNotes": "Looks for deep pressure when upset",
+        "triggerNotes": "Transitions away from screens" },
+      "request": { "goal": "Stop the afternoon being one long negotiation", "environment": "Home",
+        "obstacle": "He asks for the tablet about forty times between school and dinner. Saying not yet makes it worse." },
+      "tries": [
+        { "try": "A", "design": "A boundary, not a bargain. One WAIT card plus a visual timer. Bets that the forty asks are a question with no visible answer, and that a reliable answer ends them.",
+          "supportType": "ParameterCards", "title": "Tablet after dinner", "theme": null,
+          "cards": [
+            { "sequenceNo": 1, "role": "Wait", "label": "Tablet after dinner", "imagePrompt": "Flat vector icon, plain white background, no detail: a tablet device beside a dinner plate", "altText": "A tablet next to a dinner plate" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Tablet after dinner." },
+            { "phase": "During", "phrase": "Card says after dinner." },
+            { "phase": "OnCompletion", "phrase": "Dinner done. Tablet now." },
+            { "phase": "IfRefusal", "phrase": "After dinner." }
+          ],
+          "plan": { "placement": "On the fridge at Ben's eye level, with a sand timer or clock face beside it showing dinner time.",
+            "reinforcement": "The tablet appears the moment dinner ends, every day. The card is only true if that happens.",
+            "ifChallengingBehavior": "Point at the card. Say the same four words. Never add a reason, and never move the time.",
+            "generalization": "The same card format works for sweets and for the park.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point at the card without speaking." },
+              { "level": 2, "kind": "Verbal", "instruction": "Say \"After dinner.\" Same words every time." }
+            ] },
+          "evidenceBasis": ["Antecedent Package"] },
+        { "try": "B", "design": "Makes the tablet the Then. Bets that an earnable tablet is better than a timed one because it gives him something to do with the wanting.",
+          "supportType": "FirstThenBoard", "title": "First dinner, then tablet", "theme": "Minecraft block border",
+          "cards": [
+            { "sequenceNo": 1, "role": "First", "label": "Eat dinner", "imagePrompt": "Flat vector icon, plain white background, no detail: a dinner plate with a fork", "altText": "A dinner plate and fork" },
+            { "sequenceNo": 2, "role": "Then", "label": "Tablet", "imagePrompt": "Flat vector icon, plain white background, no detail: a tablet device", "altText": "A tablet" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "First dinner, then tablet." },
+            { "phase": "During", "phrase": "Dinner, then tablet." },
+            { "phase": "OnCompletion", "phrase": "Dinner done. Tablet!" },
+            { "phase": "IfRefusal", "phrase": "Dinner first." }
+          ],
+          "plan": { "placement": "On the fridge at Ben's eye level, where he asks from.",
+            "reinforcement": "Twenty minutes of tablet straight after dinner. Set it before he starts, so ending it is already agreed.",
+            "ifChallengingBehavior": "Point at the FIRST card. Do not discuss how much dinner counts. The tablet still comes.",
+            "generalization": "The same pair works for homework and for the bath.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card." },
+              { "level": 2, "kind": "Gesture", "instruction": "Slide his plate towards him." },
+              { "level": 3, "kind": "Verbal", "instruction": "Say \"Dinner first.\"" }
+            ] },
+          "evidenceBasis": ["Antecedent Package", "Behavior Package"] }
+      ]
+    },
+    {
+      "id": "c7-plan-changed",
+      "name": "Swimming was cancelled",
+      "tests": "The hardest abstraction, and a gap in the spec. Role Choice exists in the data model but no support type uses it. Picking B says the spec needs fixing.",
+      "profile": { "nickname": "Rosa", "ageYears": 10, "visualStyle": "Icons", "languageLevel": "Reader",
+        "specialInterests": "Weather and forecasts", "sensoryNotes": "Dislikes sudden loud noise",
+        "triggerNotes": "Plans changing after she has been told they are happening" },
+      "request": { "goal": "Survive a cancellation without losing the whole day", "environment": "Home",
+        "obstacle": "Swimming was cancelled on Saturday and the rest of the day was gone. She had already been told it was happening." },
+      "tries": [
+        { "try": "A", "design": "Two cards: the change, then one pre-agreed replacement decided in advance on a calm day. Bets that a known substitute beats a choice made while upset.",
+          "supportType": "ParameterCards", "title": "Plan changed", "theme": "Forecast symbols",
+          "cards": [
+            { "sequenceNo": 1, "role": "Oops", "label": "Plan changed", "imagePrompt": "Flat vector icon, plain white background, no detail: a calendar page with a diagonal line through one square", "altText": "A calendar square crossed through" },
+            { "sequenceNo": 2, "role": "Wait", "label": "Backup plan", "imagePrompt": "Flat vector icon, plain white background, no detail: a cloud with a small sun emerging beside it", "altText": "A cloud with a sun behind it" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Plan changed. Backup plan now." },
+            { "phase": "During", "phrase": "Backup plan is baking." },
+            { "phase": "OnCompletion", "phrase": "Backup plan worked." },
+            { "phase": "IfRefusal", "phrase": "Plan changed. That's all." }
+          ],
+          "plan": { "placement": "Both cards live on the kitchen calendar. The backup plan is written on the back of the second card, chosen by Rosa on a calm weekday.",
+            "reinforcement": "No reward. Naming the change out loud is the whole intervention. Deliver the backup plan the same day it is shown.",
+            "ifChallengingBehavior": "Show the OOPS card once and say the four words. Do not explain why swimming was cancelled. The explanation is for later.",
+            "generalization": "The same pair covers a cancelled visit, a closed shop, a broken lift.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Put the OOPS card on the calendar square." },
+              { "level": 2, "kind": "Verbal", "instruction": "Say \"Plan changed. Backup plan.\"" }
+            ] },
+          "evidenceBasis": ["Antecedent Package", "Schedules"] },
+        { "try": "B", "design": "Three cards: the change, then two options she picks between. Bets that agency at the moment of loss is worth more than predictability. Uses role Choice, which no support type currently permits.",
+          "supportType": "ParameterCards", "title": "Plan changed, you pick", "theme": "Forecast symbols",
+          "cards": [
+            { "sequenceNo": 1, "role": "Oops", "label": "Plan changed", "imagePrompt": "Flat vector icon, plain white background, no detail: a calendar page with a diagonal line through one square", "altText": "A calendar square crossed through" },
+            { "sequenceNo": 2, "role": "Choice", "label": "Baking", "imagePrompt": "Flat vector icon, plain white background, no detail: a mixing bowl with a wooden spoon", "altText": "A mixing bowl and spoon" },
+            { "sequenceNo": 3, "role": "Choice", "label": "Bike ride", "imagePrompt": "Flat vector icon, plain white background, no detail: a bicycle seen from the side", "altText": "A bicycle" }
+          ],
+          "script": [
+            { "phase": "Before", "phrase": "Plan changed. You pick." },
+            { "phase": "During", "phrase": "Baking or bike?" },
+            { "phase": "OnCompletion", "phrase": "You picked. Good choice." },
+            { "phase": "IfRefusal", "phrase": "Pick later. Both wait." }
+          ],
+          "plan": { "placement": "The OOPS card goes on the cancelled calendar square. The two choice cards go beside it, face up.",
+            "reinforcement": "Her pick happens that day, without renegotiation. Two options only — three is a decision, not a comfort.",
+            "ifChallengingBehavior": "Leave the two cards out and walk away. She can pick in an hour. Do not pick for her.",
+            "generalization": "Keep a set of four choice cards; put out two of them, never all four.",
+            "promptHierarchy": [
+              { "level": 1, "kind": "VisualPoint", "instruction": "Lay the two choice cards side by side." },
+              { "level": 2, "kind": "Verbal", "instruction": "Say \"You pick.\" Then stop talking." }
+            ] },
+          "evidenceBasis": ["Antecedent Package", "Self-management"],
+          "specGap": "Card.Role includes Choice but SPEC section 2 defines no choice-board support type, and ParameterCards is specified as Wait, Stop, Oops. Preferring B means either adding a fifth type or widening ParameterCards." }
+      ]
+    },
+    {
+      "id": "c8-safety-gate",
+      "name": "Head-banging in the supermarket",
+      "tests": "The refusal path. Whether a referral should also offer something, or whether offering anything dilutes it.",
+      "profile": { "nickname": "Theo", "ageYears": 7, "visualStyle": "Icons", "languageLevel": "PreVerbal",
+        "specialInterests": "Spinning things", "sensoryNotes": "Overwhelmed by noise and crowds",
+        "triggerNotes": "Supermarkets" },
+      "request": { "goal": "Get the shopping done", "environment": "Community",
+        "obstacle": "When it gets too much in the supermarket he hits his head with his hand, hard, and I do not know what to do." },
+      "tries": [
+        { "try": "A", "design": "Refers, and still offers one safe thing to try meanwhile. Bets that a parent who gets nothing back stops using the tool, and that a leave-now card is genuinely useful.",
+          "outcome": "referral",
+          "reason": "You described Theo hitting his head hard enough to worry you, which is not something a picture board should be the answer to.",
+          "guidance": "Call the paediatrician or the team who did Theo's assessment this week and use the words you used here. If it happens and you cannot keep him safe, leave the trolley and go straight out.",
+          "stillUseful": "A single LEAVE NOW card on your keys, shown as you walk out. It does not address the head-hitting; it just makes going a plan instead of a retreat.",
+          "whatItDoesNotDo": "No board, no script, no reinforcement plan. The referral is the output." },
+        { "try": "B", "design": "Refers and offers nothing. Bets that any attached suggestion reads as the real answer and gets tried instead of the phone call.",
+          "outcome": "referral",
+          "reason": "You described Theo hitting his head hard, and that needs a person, not a printable.",
+          "guidance": "Ring the paediatrician or Theo's assessment team this week and tell them exactly what you told me, including how often. Until you have spoken to them, shop without him if there is any way to do that.",
+          "stillUseful": null,
+          "whatItDoesNotDo": "Nothing is offered deliberately. Anything offered here would be the thing that gets tried." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+file,label,alt_text,category,suggested_role,image_source,scope
+toothbrush.svg,Brush teeth,A toothbrush with a line of toothpaste,Self-care,First,SymbolSet,starter
+handwash.svg,Wash hands,Two hands under falling water,Self-care,First,SymbolSet,starter
+towel.svg,Dry hands,A towel hanging on a rail,Self-care,Step,SymbolSet,starter
+bath.svg,Bath,A bath tub with water and a tap,Self-care,First,SymbolSet,starter
+toilet.svg,Toilet,A toilet with a cistern,Self-care,Step,SymbolSet,starter
+hairbrush.svg,Brush hair,A paddle hairbrush,Self-care,Step,SymbolSet,starter
+tissue.svg,Tissue,A box of tissues with one pulled up,Self-care,Step,SymbolSet,starter
+soap.svg,Soap,A bar of soap with bubbles,Self-care,Step,SymbolSet,starter
+shoes.svg,Shoes,A pair of sneakers,Dressing,First,SymbolSet,starter
+socks.svg,Socks,Two socks,Dressing,Step,SymbolSet,starter
+coat.svg,Coat on,A zipped coat,Dressing,Step,SymbolSet,starter
+hat.svg,Hat,A sun hat,Dressing,Step,SymbolSet,starter
+shirt.svg,Get dressed,A t-shirt,Dressing,Step,SymbolSet,starter
+backpack.svg,Pack bag,A school backpack,Dressing,Step,SymbolSet,starter
+cup.svg,Drink,A cup of water,Food,Then,SymbolSet,starter
+bowl.svg,Eat breakfast,A bowl with a spoon,Food,First,SymbolSet,starter
+plate.svg,Eat dinner,A dinner plate with a fork,Food,First,SymbolSet,starter
+apple.svg,Apple,A red apple with a leaf,Food,Then,SymbolSet,starter
+sandwich.svg,Sandwich,A sandwich cut in half,Food,Then,SymbolSet,starter
+banana.svg,Banana,A banana,Food,Then,SymbolSet,starter
+car.svg,Car,A car seen from the side,Transitions,Then,SymbolSet,starter
+door.svg,Front door,A front door with a doormat,Transitions,Step,SymbolSet,starter
+bus.svg,Bus,A school bus,Transitions,Step,SymbolSet,starter
+carseat.svg,Car seat,A child's car seat with straps,Transitions,Step,SymbolSet,starter
+gobag.svg,Go-bag,A packed duffel bag,Transitions,Step,SymbolSet,starter
+swing.svg,Swing,A swing hanging from two ropes,Rewards,Then,SymbolSet,starter
+slide.svg,Slide,A playground slide with a ladder,Rewards,Then,SymbolSet,starter
+bubbles.svg,Bubbles,A bubble wand and bubbles,Rewards,Then,SymbolSet,starter
+ball.svg,Ball,A ball,Rewards,Then,SymbolSet,starter
+tablet.svg,Tablet,A tablet device,Rewards,Then,SymbolSet,starter
+book.svg,Book,An open book,Rewards,Then,SymbolSet,starter
+music.svg,Music,Two music notes,Rewards,Then,SymbolSet,starter
+blocks.svg,Blocks,Three stacked building blocks,Rewards,Then,SymbolSet,starter
+wait.svg,Wait,An open hand held up beside a clock,Regulation,Wait,SymbolSet,starter
+stop.svg,Stop,An open hand inside an octagon,Regulation,Stop,SymbolSet,starter
+alldone.svg,All done,A white tick inside a green circle,Regulation,Step,SymbolSet,starter
+oops.svg,Plan changed,A calendar square crossed through,Regulation,Oops,SymbolSet,starter
+desk.svg,Desk work,A desk and chair,School,First,SymbolSet,starter
+pencil.svg,Pencil,A pencil,School,Step,SymbolSet,starter
+lineup.svg,Line up,Three children standing in a row,School,Step,SymbolSet,starter
