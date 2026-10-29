@@ -166,6 +166,19 @@ mistakes made and fixed while generating this set.
     with an older one and silently dropped a whole block of work. `assets/build_art.py`
     is the only source of truth; copy *from* it, never *to* it.
 
+15. **A generator that writes outside its own directory invites caution #11.**
+    `build_diagram.py` had its output path hard-coded to the pre-repo working
+    directory, so every committed diagram arrived by hand `cp` and the repo had no
+    way to tell a stale PNG from a current one. Output paths are now derived from
+    `os.path.dirname(os.path.abspath(__file__))`, as `build_cards.py` already did.
+
+16. **Chrome multiplies `--window-size` by `--force-device-scale-factor`.** Asking
+    for `--window-size=2560,1440` *and* a 1.333 factor produced a 3413x1920 file
+    that had been labelled 2x for days, and PowerPoint's own exporter then scaled
+    the slide picture to 75% and anchored it top-left. The window stays at the CSS
+    size and only the factor changes. **Read the pixel dimensions of every render
+    back**, the same way caution #14 says to read the image back.
+
 ## Icon source, if you add icons
 
 The DivergentTravel set is Font Awesome 6 Free (Solid), 256px, white glyph on a
@@ -199,8 +212,25 @@ a diagram.
 
 ### Trust-boundary diagram
 
-`trust-boundaries.png` (1920x1080, for slides), `trust-boundaries-2x.png`
-(2560x1440, for print and PDF), `trust-boundaries.svg` (vector source).
+Two variants off one geometry, each 1920x1080 plus a 2560x1440 retina pass, with
+the SVG as vector source:
+
+| Stem | For | Carries |
+|---|---|---|
+| `trust-boundaries` | the repository, `AWS-ARCHITECTURE.md` section 2 | the seven-row boundary key and the summary footer |
+| `trust-boundaries-slide` | slide 10 of the overview deck | no key, no footer, larger captions, one callout |
+
+`build(slide=False)` reproduces the reference drawing **byte for byte** - that
+equality is the regression test, and it is worth re-running after any change here.
+
+The slide variant is not the reference shrunk. Seven rows of 19px text is a
+reference table, and on a projector it is a grey smear that pulls the eye off the
+drawing. What survives is the one sentence a viewer needs - *the only
+unauthenticated path in is B3* - set at 30px in the column the key vacates, with
+the legend moved underneath it at 24px. Captions go from 16px to 19px and nothing
+moves, so every box keeps the width it was laid out for. The whole drawing then
+shifts down 46px, because dropping the footer leaves 135px dead at the bottom
+against 40 at the top.
 
 Four colours and no more, because ownership is the thing being encoded and every
 extra hue competes with it: ink `#2D3748`, managed grey `#718096`, ours

@@ -109,7 +109,8 @@ assets/                                  all artwork, plus the generator that dr
   build_art.py                           regenerates the storybook artwork
   build_diagram.py                       regenerates the architecture diagrams
   build_cards.py                         regenerates the 40 starter cards
-  trust-boundaries.png                   the trust-boundary diagram
+  trust-boundaries.png                   the trust-boundary diagram, full reference
+  trust-boundaries-slide.png             the same diagram cut down for deck slide 10
   cards/                                 40 starter cards + MANIFEST.csv
   cards-contact.png                      all 40 at card size, for checking legibility
 ```

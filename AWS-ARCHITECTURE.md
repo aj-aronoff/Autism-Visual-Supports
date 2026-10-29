@@ -200,6 +200,9 @@ Stated so no reviewer looks for it:
 is inherited entire (B1). Each of the six we touch gets one named control below.
 
 Rendered as an image: [`assets/trust-boundaries.png`](assets/trust-boundaries.png).
+A cut-down variant without the key column carries the same drawing on slide 10 of
+the overview deck: [`assets/trust-boundaries-slide.png`](assets/trust-boundaries-slide.png).
+Both come out of `assets/build_diagram.py`, so the slide cannot drift from the reference.
 
 ---
 
