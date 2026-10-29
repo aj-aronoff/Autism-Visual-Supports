@@ -7,10 +7,12 @@ which one, and why — because the "why" is the part that generalises to the pro
 import html
 import json
 import os
+import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "eval", "cases.json")
 OUT = os.path.join(ROOT, "docs", "eval-review.html")
+LOCAL = os.path.join(ROOT, "eval-review.html")
 
 e = lambda s: html.escape(str(s), quote=True)
 
@@ -162,68 +164,216 @@ let db = null, saving = false, t = null;
 const el = id => document.getElementById(id);
 
 function state(id){
-  const r = document.querySelector('input[name="pick-'+id+'"]:checked');
-  return { pick: r ? r.value : null, comment: el('c-'+id).value };
-}
-function mark(id, on){
-  on ? dirty.add(id) : dirty.delete(id);
-  const n = dirty.size;
-  el('count').innerHTML = n ? '<b>'+n+'</b> unsaved' : (done()+' of '+CASES.length+' decided');
-  el('save').disabled = !n || saving;
-  const s = el('s-'+id);
-  if (s) s.classList.toggle('on', !on && !!state(id).pick);
+  const r = document.querySelector('input[name="pick-' + id + '"]:checked');
+  return { pick: r ? r.value : null, comment: el('c-' + id).value };
 }
 function done(){ return CASES.filter(id => state(id).pick).length; }
 
-async function save(){
-  if (!db || !dirty.size || saving) return;
-  saving = true; el('save').disabled = true; el('save').textContent = 'Saving…';
-  const ids = [...dirty];
-  try{
-    await Promise.all(ids.map(id => {
-      const s = state(id);
-      return db.doc('eval/'+id).set({ pick: s.pick, comment: s.comment,
-                                      updatedAt: new Date().toISOString() });
-    }));
-    ids.forEach(i => mark(i, false));
-  }catch(err){ el('count').textContent = 'Could not save — try again'; }
-  saving = false; el('save').textContent = 'Save';
-  el('save').disabled = !dirty.size;
+function collect(){
+  const o = { kind: KIND, savedAt: new Date().toISOString(), picks: {} };
+  CASES.forEach(id => { o.picks[id] = state(id); });
+  return o;
 }
-function queue(id){ mark(id, true); clearTimeout(t); t = setTimeout(save, 1500); }
+function apply(o){
+  if (!o || !o.picks) return 0;
+  let n = 0;
+  CASES.forEach(id => {
+    const d = o.picks[id];
+    if (!d || dirty.has(id)) return;
+    if (d.pick){
+      const r = document.querySelector('input[name="pick-' + id + '"][value="' + d.pick + '"]');
+      if (r){ r.checked = true; n++; }
+    }
+    if (typeof d.comment === 'string') el('c-' + id).value = d.comment;
+  });
+  return n;
+}
+function clearDirty(){ [...dirty].forEach(i => mark(i, false)); }
+function refresh(){
+  el('save').disabled = saving || (!!db && !dirty.size);
+  CASES.forEach(id => {
+    const s = el('s-' + id);
+    if (s) s.classList.toggle('on', !dirty.has(id) && !!state(id).pick);
+  });
+}
+
+// ---- persistence ---------------------------------------------------------
+// Two worlds. Published on claude.ai there is a db and saving is invisible.
+// Opened as a local file there is no db, so state goes to a JSON file the
+// browser writes for you. showSaveFilePicker lets you choose the folder once
+// and then re-save to that same file silently; without it we fall back to an
+// ordinary download, which lands in Downloads and cannot be aimed anywhere.
+const LSKEY = 'avs-eval-v1', FILENAME = 'eval-review.json', KIND = 'eval-review';
+let fileHandle = null;
+
+function note(msg){ el('count').textContent = msg; }
+
+function stash(){ try{ localStorage.setItem(LSKEY, JSON.stringify(collect())); }catch(e){} }
+function unstash(){
+  try{ const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; }
+  catch(e){ return null; }
+}
+
+async function writeFile(force){
+  const text = JSON.stringify(collect(), null, 2);
+  if (window.showSaveFilePicker){
+    try{
+      if (!fileHandle && force){
+        fileHandle = await showSaveFilePicker({
+          suggestedName: FILENAME,
+          types: [{ description: 'JSON file', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      if (fileHandle){
+        const w = await fileHandle.createWritable();
+        await w.write(text);
+        await w.close();
+        return { ok: true, how: 'file', name: fileHandle.name };
+      }
+    }catch(err){
+      if (err && err.name === 'AbortError') return { ok: false, how: 'cancel' };
+      fileHandle = null;            // picker unavailable here — use the fallback
+    }
+  }
+  if (!force) return { ok: false, how: 'none' };
+  const blob = new Blob([text], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = FILENAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  return { ok: true, how: 'download', name: FILENAME };
+}
+
+function openFile(){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.json,application/json';
+  inp.addEventListener('change', () => {
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const o = JSON.parse(r.result);
+        if (o && o.kind && o.kind !== KIND){ note('That file belongs to the other page.'); return; }
+        const n = apply(o);
+        stash(); refresh();
+        note('Loaded ' + n + ' from ' + f.name);
+      }catch(e){ note('Could not read that file.'); }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+async function saveLocal(explicit){
+  stash();
+  const res = await writeFile(explicit);
+  if (res.ok){
+    clearDirty();
+    note(res.how === 'download' ? 'Downloaded ' + res.name
+                                : 'Saved to ' + res.name);
+  } else if (res.how === 'cancel'){
+    note('Save cancelled — still unsaved.');
+  } else {
+    note('Kept in this browser. Press Save to write ' + FILENAME + '.');
+  }
+  refresh();
+}
+
+function mark(id, on){
+  on ? dirty.add(id) : dirty.delete(id);
+  const n = dirty.size;
+  if (n) note(n + ' unsaved');
+  else note(done() + ' of ' + CASES.length + ' decided');
+  el('save').disabled = saving || (!!db && !n);
+  const s = el('s-' + id);
+  if (s) s.classList.toggle('on', !on && !!state(id).pick);
+}
+
+async function save(auto){
+  if (saving || (auto && !dirty.size)) return;
+  saving = true; el('save').disabled = true; el('save').textContent = 'Saving…';
+  try{
+    if (db){
+      const ids = [...dirty];
+      await Promise.all(ids.map(id => {
+        const s = state(id);
+        return db.doc('eval/' + id).set({ pick: s.pick, comment: s.comment,
+                                          updatedAt: new Date().toISOString() });
+      }));
+      ids.forEach(i => mark(i, false));
+    } else {
+      await saveLocal(!auto);
+    }
+  }catch(err){ note('Could not save — try again'); }
+  saving = false; el('save').textContent = 'Save';
+  refresh();
+}
+
+function queue(id){
+  mark(id, true);
+  clearTimeout(t); t = setTimeout(() => save(true), 1500);
+}
 
 async function start(){
   CASES.forEach(id => {
-    document.querySelectorAll('input[name="pick-'+id+'"]')
+    document.querySelectorAll('input[name="pick-' + id + '"]')
       .forEach(r => r.addEventListener('change', () => queue(id)));
-    el('c-'+id).addEventListener('input', () => queue(id));
+    el('c-' + id).addEventListener('input', () => queue(id));
   });
-  el('save').addEventListener('click', save);
-  addEventListener('beforeunload', ev => { if (dirty.size){ ev.preventDefault(); ev.returnValue=''; } });
-  mark('__none__', false); dirty.delete('__none__');
+  el('save').addEventListener('click', () => save(false));
+  el('load').addEventListener('click', openFile);
+  addEventListener('beforeunload', ev => { if (dirty.size){ ev.preventDefault(); ev.returnValue = ''; } });
 
-  db = await claude.use('db');
-  if (!db){ el('offline').hidden = false; el('save').disabled = true;
-            el('count').textContent = 'Not signed in — nothing will be saved'; return; }
+  // Three states, not two. Outside the claude.ai runtime there is no
+  // window.claude at all, so this must not be a bare call: a ReferenceError
+  // would skip local-file setup. Inside the runtime but without a db, the
+  // viewer blocks downloads too, so offering the file buttons there would hand
+  // over a button that silently does nothing.
+  const inRuntime = typeof claude !== 'undefined' && !!claude.use;
+  try{ db = inRuntime ? await claude.use('db') : null; }catch(e){ db = null; }
+
+  if (!db && inRuntime){
+    el('signin').hidden = false;
+    el('save').disabled = true;
+    note('Sign in to claude.ai to save');
+    return;
+  }
+
+  if (!db){
+    el('local').hidden = false;
+    el('load').hidden = false;
+    const n = apply(unstash());
+    note(n ? 'Restored ' + n + ' from this browser — press Save to write ' + FILENAME
+           : done() + ' of ' + CASES.length + ' decided');
+    refresh();
+    return;
+  }
 
   db.collection('eval').onSnapshot(snap => {
     snap.forEach(doc => {
       const id = doc.id.split('/').pop();
-      if (dirty.has(id)) return;              // never clobber an unsaved edit
+      if (dirty.has(id)) return;                // never clobber an unsaved edit
       const d = doc.data || {};
       if (d.pick){
-        const r = document.querySelector('input[name="pick-'+id+'"][value="'+d.pick+'"]');
+        const r = document.querySelector('input[name="pick-' + id + '"][value="' + d.pick + '"]');
         if (r) r.checked = true;
       }
-      const c = el('c-'+id);
+      const c = el('c-' + id);
       if (c && typeof d.comment === 'string') c.value = d.comment;
-      const s = el('s-'+id); if (s) s.classList.toggle('on', !!d.pick);
+      const s = el('s-' + id); if (s) s.classList.toggle('on', !!d.pick);
     });
-    el('count').innerHTML = done()+' of '+CASES.length+' decided';
+    note(done() + ' of ' + CASES.length + ' decided');
   }, () => {});
 }
 start();
 """
+
+
+def pretty_type(name):
+    """FirstThenBoard uppercased is a wall. Split it at the capitals."""
+    return re.sub(r"(?<!^)(?=[A-Z])", " ", name)
 
 
 def render_board(t):
@@ -256,7 +406,7 @@ def render_board(t):
             '<h4>Plan</h4><ul class="plan">%s</ul>'
             '<h4>Prompt hierarchy</h4><ol class="hier">%s</ol>'
             '<div class="ev">%s</div>%s'
-            % (e(t["supportType"]), e(t["title"]),
+            % (e(pretty_type(t["supportType"])), e(t["title"]),
                e(t["theme"]) if t.get("theme") else "No theme",
                cards, script, plan, hier, ev, extra))
 
@@ -272,6 +422,46 @@ def render_referral(t):
             '<div><b>Deliberately absent</b><span>%s</span></div>'
             '</div>' % (e(t["reason"]), e(t["guidance"]), su, e(t["whatItDoesNotDo"])))
 
+
+
+# The Artifact runtime wraps a published page in its own skeleton, so docs/ holds
+# the page body alone. A file opened from disk gets no such wrapper: with no
+# doctype it renders in quirks mode and with no charset the em-dashes arrive as
+# mojibake. So the standalone copy carries the skeleton, and the same reset the
+# runtime supplies, and the builder writes both rather than leaving it to a cp.
+SKELETON = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+__HEAD__
+</head>
+<body>
+__BODY__
+</body>
+</html>
+"""
+
+
+def write_both(page, out_docs, out_local):
+    """docs/ gets the artifact source; the repo root gets a standalone file."""
+    head, _, rest = page.partition("<style>")
+    style, _, body = rest.partition("</style>")
+    os.makedirs(os.path.dirname(out_docs), exist_ok=True)
+    with open(out_docs, "w", encoding="utf-8") as f:
+        f.write(page)
+    with open(out_local, "w", encoding="utf-8") as f:
+        # .replace, not %: the reset itself contains max-width:100%
+        f.write(SKELETON.replace("__HEAD__", head.rstrip() + "\n<style>" + style + "</style>")
+                        .replace("__BODY__", body.strip()))
+    return os.path.getsize(out_docs), os.path.getsize(out_local)
 
 def main():
     data = json.load(open(SRC, encoding="utf-8"))
@@ -333,11 +523,21 @@ def main():
 <div class="bar">
   <span class="count" id="count">0 of {len(cases)} decided</span>
   <span class="spacer"></span>
+  <button id="load" hidden>Load JSON</button>
   <button class="primary" id="save" disabled>Save</button>
 </div>
 
-<div class="off" id="offline" hidden>Not signed in to claude.ai, so nothing on this page
-can be saved. Open it while signed in and your choices will persist.</div>
+<div class="off" id="signin" hidden>Saving needs a claude.ai sign-in, and this view
+does not have one. Everything on the page still works &mdash; but nothing typed here will
+be kept. Sign in and reload, or open the copy in the project folder, which saves to a
+JSON file instead.</div>
+
+<div class="off" id="local" hidden><strong>Local file mode.</strong> This copy is not
+talking to claude.ai, so <b>Save</b> writes an <code>eval-review.json</code> file instead.
+Chrome and Edge will ask once where to put it &mdash; choose this folder &mdash; and every
+later save goes to that same file without asking. Other browsers drop it in Downloads.
+Your picks are also kept in this browser between visits, and <b>Load JSON</b> brings a
+saved file back.</div>
 
 {''.join(out)}
 
@@ -346,12 +546,10 @@ Repo: <a href="https://github.com/aj-aronoff/Autism-Visual-Supports">aj-aronoff/
 </div>
 <script>{JS.replace('__IDS__', ids)}</script>
 """
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        f.write(page)
+    a, b = write_both(page, OUT, LOCAL)
     print("wrote %s (%d cases, %d tries, %.1f KB)"
-          % (OUT, len(cases), sum(len(c["tries"]) for c in cases),
-             os.path.getsize(OUT) / 1024))
+          % (OUT, len(cases), sum(len(c["tries"]) for c in cases), a / 1024))
+    print("wrote %s (standalone, %.1f KB)" % (LOCAL, b / 1024))
 
 
 if __name__ == "__main__":

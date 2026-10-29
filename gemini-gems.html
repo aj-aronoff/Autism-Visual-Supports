@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Gemini Gem Prompts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F7FBFF; --surface:#FFFFFF; --surface-2:#EEF5FB; --line:#D4E4F2;
+  --fg:#1F2B3A; --fg-2:#4A5D73; --muted:#73879C;
+  --accent:#2E7CB8; --accent-2:#1B5C8F; --warm:#A8600C; --warm-bg:#FDF6EC;
+  --ok:#2F8559; --ok-bg:#EBF7F0; --shadow:0 1px 2px rgba(31,43,58,.06),0 6px 20px rgba(31,43,58,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1821; --surface:#16242F; --surface-2:#1C303E; --line:#2A4356;
+  --fg:#E6EFF6; --fg-2:#B2C6D6; --muted:#7D96AA;
+  --accent:#6FB6E4; --accent-2:#9CCDF0; --warm:#E0A64E; --warm-bg:#2A2015;
+  --ok:#5CBF8C; --ok-bg:#12291E; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.28);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1821; --surface:#16242F; --surface-2:#1C303E; --line:#2A4356;
+  --fg:#E6EFF6; --fg-2:#B2C6D6; --muted:#7D96AA;
+  --accent:#6FB6E4; --accent-2:#9CCDF0; --warm:#E0A64E; --warm-bg:#2A2015;
+  --ok:#5CBF8C; --ok-bg:#12291E; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.28);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);
+  font-family:Lexend,"Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:62rem;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 5rem}
+
+header{padding-block:2.4rem 1.4rem;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin:0 0 .5rem}
+h1{font-size:clamp(1.7rem,4.6vw,2.5rem);line-height:1.15;margin:0 0 .6rem;
+  letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--fg-2);margin:0;max-width:44rem}
+
+.rule{margin:1.6rem 0 0;padding:1rem 1.15rem;background:var(--warm-bg);
+  border-left:3px solid var(--warm);border-radius:0 8px 8px 0;font-size:.93rem;
+  color:var(--fg-2)}
+.rule strong{color:var(--fg)}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  padding-block:.7rem;margin-bottom:1.6rem;
+  display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.count{font-size:.86rem;color:var(--muted);min-width:0}
+.count b{color:var(--fg);font-weight:600}
+.spacer{flex:1 1 auto}
+button{font:inherit;font-size:.88rem;border-radius:8px;border:1px solid var(--line);
+  background:var(--surface);color:var(--fg);padding:.48rem .9rem;cursor:pointer;
+  transition:border-color .12s,background .12s}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+button:disabled{opacity:.5;cursor:default}
+
+.gem{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--shadow);margin-bottom:1.5rem;overflow:hidden}
+.gem-head{display:flex;gap:.9rem;align-items:baseline;padding:1.05rem 1.2rem .3rem}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.82rem;
+  color:#fff;background:var(--accent);border-radius:6px;padding:.1rem .45rem;
+  flex:0 0 auto;font-weight:600}
+.gem-head h2{font-size:1.08rem;margin:0;letter-spacing:-.01em}
+.pin{margin-left:auto;font-size:.74rem;color:var(--ok);background:var(--ok-bg);
+  border-radius:20px;padding:.15rem .6rem;opacity:0;transition:opacity .2s;flex:0 0 auto}
+.pin.on{opacity:1}
+.body{padding:.5rem 1.2rem 1.2rem}
+pre.prompt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.83rem;
+  line-height:1.65;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:9px;padding:.95rem 1rem;margin:.4rem 0 .8rem;
+  white-space:pre-wrap;overflow-wrap:anywhere;color:var(--fg-2);
+  max-height:16rem;overflow-y:auto}
+pre.prompt.open{max-height:none}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem}
+label.lbl{display:block;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:.35rem}
+textarea{width:100%;min-height:8.5rem;resize:vertical;font:inherit;font-size:.9rem;
+  line-height:1.6;color:var(--fg);background:var(--bg);border:1px solid var(--line);
+  border-radius:9px;padding:.7rem .8rem}
+textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+footer{margin-top:2.5rem;padding-top:1.3rem;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent)}
+.off{padding:.8rem 1rem;background:var(--warm-bg);border:1px solid var(--warm);
+  border-radius:9px;color:var(--fg-2);font-size:.88rem;margin-bottom:1.2rem}
+@media(max-width:560px){.gem-head{flex-wrap:wrap}.pin{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">Autism Visual Supports &middot; prompt comparison</p>
+  <h1>Eight prompts to write prompts</h1>
+  <p class="lede">Run each one in a Gemini Gem. Paste what the Gem writes back into the
+  box underneath it. I read the boxes, compare each against the prompt I wrote for the
+  same agent, and take whatever the Gem got right.</p>
+  <div class="rule"><strong>None of these contains my answer.</strong> Each one gives
+  Gemini the same raw material I had &mdash; the job, who it is for, what the output
+  feeds &mdash; and nothing about how I solved it. If a meta-prompt listed my rules,
+  the Gem would hand them back in its own words and the comparison would prove nothing.
+  So the constraints appear as facts about the problem, and the Gem has to derive the
+  rules itself. What is worth copying is a rule I missed, or one of mine with a better
+  reason behind it. A longer prompt is not a better one.</div>
+</header>
+
+<div class="bar">
+  <span class="count" id="count">All saved</span>
+  <span class="spacer"></span>
+  <button id="load" hidden>Load JSON</button>
+  <button class="primary" id="save" disabled>Save</button>
+</div>
+
+<div class="off" id="signin" hidden>Saving needs a claude.ai sign-in, and this view
+does not have one. Everything on the page still works &mdash; but nothing typed here will
+be kept. Sign in and reload, or open the copy in the project folder, which saves to a
+JSON file instead.</div>
+
+<div class="off" id="local" hidden><strong>Local file mode.</strong> This copy is not
+talking to claude.ai, so <b>Save</b> writes a <code>gemini-gems.json</code> file instead.
+Chrome and Edge will ask once where to put it &mdash; choose this folder &mdash; and every
+later save goes to that same file without asking. Other browsers drop it in Downloads.
+Your text is also kept in this browser between visits, and <b>Load JSON</b> brings a saved
+file back.</div>
+
+<div id="list"></div>
+
+<footer>Generated from <code>prompts/gemini-gems.md</code> by
+<code>tools/build-gems-page.py</code>. The markdown is the source of truth &mdash;
+edit there and rebuild. Repo:
+<a href="https://github.com/aj-aronoff/Autism-Visual-Supports">aj-aronoff/Autism-Visual-Supports</a>.</footer>
+</div>
+<script>
+const GEMS = [{"n": 1, "slug": "gem1", "title": "Composer", "prompt": "Write a great prompt to turn a child's profile and a parent's description of a daily\nobstacle into a complete, ready-to-print visual support — the picture cards, the exact\nwords the parent says out loud, and the instructions for using it.\n\nContext the prompt has to work inside. The user is the parent of an autistic child.\nThey are not browsing; they are standing in a hallway with four minutes before they\nhave to leave, and the same transition has gone badly every morning this week. They\nwill read the result once, at speed, while holding a bag. The child is autistic and\nmay be pre-verbal, an early reader, or a fluent reader. A visual support works because\nit is predictable: the child is learning to match a sound to a picture, so the words on\nthe card and the words the parent says have to be the same words every time. Picture\ncards get printed, cut out, laminated and stuck to a fridge or a door at the child's\neye level, and they get looked at by a child who is already upset.\n\nThe thing being generated is one of four established formats: a two-card board pairing\na non-preferred task with an immediate reward; a four-to-eight-card sequence for a\nmulti-step routine; a one-to-three-card set communicating a boundary such as waiting or\nstopping; or a short illustrated narrative delivered days before an unfamiliar event.\nThe prompt has to make the model choose between them rather than always producing the\nmost elaborate one.\n\nThis is a clinical-adjacent domain with a real literature behind it — these formats come\nfrom published autism intervention research, and the output is expected to name which\nestablished practice it rests on. It is also a domain where saying the wrong thing\ncauses harm, and where some things a parent might describe are not visual-support\nproblems at all and need a different response entirely.\n\nThe output is consumed by software, not read as prose, and is validated before it is\nstored. Design the output shape accordingly.\n\nWrite the prompt. Then list the decisions you made and why, so they can be argued with."}, {"n": 2, "slug": "gem2", "title": "Reviewer", "prompt": "Write a great prompt to review a draft visual support for an autistic child and return\na structured verdict on whether it should be published, revised, or refused.\n\nContext. The draft was written by another AI model from a child's profile and a parent's\ndescription of a daily obstacle. It contains picture cards with short labels, a few\nphrases for the parent to say aloud, and instructions for using the support at home.\n\nThe critical constraint: every countable rule has already been checked by ordinary\ncode before this reviewer runs — word counts, number of cards, required fields present,\na banned-word list. Those checks are deterministic and free. So the reviewer must not\nspend its judgement on anything a loop and an `if` statement can decide, and a prompt\nthat has it re-counting words is a prompt that wastes a metered, monitored AI budget on\narithmetic.\n\nWhat is left is everything a validator cannot reach. Some examples of the *kind* of\nthing, not a list to implement: whether a reward the draft promises is one the parent\ncan actually produce in the next minute in their own house; whether the picture\ndescribed actually depicts the thing its label names; whether the draft reaches for an\nelaborate format where a simple one would have been used and kept; whether the language\ntreats the child as a person rather than as a behaviour to be managed. Work out the\nfull set yourself from the situation.\n\nThe reviewer has no tools and cannot edit the draft — it can only report. Consider why\nthat separation might be deliberate, and let it shape the prompt.\n\nA reviewer that finds a problem every time stops being read. A reviewer that passes\neverything is decoration. The prompt has to land between those.\n\nThe verdict is consumed by software: on one outcome the drafting model is called again\nwith the findings attached, on another the draft is stored, on a third it is withheld.\nDesign the output shape accordingly.\n\nWrite the prompt. Then explain how you decided what belongs to the model and what\nbelongs to the code."}, {"n": 3, "slug": "gem3", "title": "Illustrator", "prompt": "Write a great prompt to decide, for a single picture card in a visual support for an\nautistic child, whether a picture that already exists should be reused or a new one\ngenerated.\n\nContext. The card has a short label such as \"Shoes\" or \"Wash hands\". The system can\nsearch two pools of existing pictures: ones this particular child has used before, and\na general starter set. It can also generate a new picture, which costs roughly a\nthousand times what a text decision costs, against an AI allowance that is capped and\nmonitored.\n\nThe thing that makes this more than a cost question: an autistic child using a visual\nsupport is learning that a particular picture means a particular thing. A new,\nslightly different, slightly better picture for something they already have a picture\nfor does not improve the board — it damages it. Work out what that implies for how the\ndecision should be weighted, and for what counts as \"the same\" picture when the labels\ndiffer in wording.\n\nWhen a new picture genuinely is needed, the prompt also has to specify what it should\nlook like. The constraint is physical: it will be printed, cut to about two inches\nsquare, laminated, stuck to a door, and looked at by a child who is already distressed\nand may not read. Some children's profiles call for flat icons, some for simple line\ndrawings, some for photographs, and some for no picture at all.\n\nThe decision is consumed by software and must say which existing picture, or what to\ngenerate, or neither. Design the output shape accordingly.\n\nWrite the prompt. Then say which parts of this decision you would not trust a language\nmodel with at all, and why."}, {"n": 4, "slug": "gem4", "title": "Safety gate", "prompt": "Write a great prompt to decide, from a parent's free-text description of a problem with\ntheir autistic child, whether the right response is a visual support or whether it is\nsomething else entirely — and to produce that something else when it is.\n\nContext. The parent typed a sentence or two into a box that asked what was going\nwrong. They are expecting to get a printable picture board back. Most of the time that\nis the correct thing to give them: trouble leaving the park, a fight about teeth, a\ndentist visit next week.\n\nSometimes it is not. A parent describing a child who is hurting themselves, who ran\ninto a road, who has not eaten in two days, or who is asking whether a medication is\nworking, has not asked a visual-support question. Handing that parent a picture board\nis not a neutral non-answer — it implies the problem is the kind of problem a picture\nboard addresses, and it costs them time they do not have. Work out the full set of\ncases yourself.\n\nThe response in those cases has to be written for someone frightened, in plain words,\nshort, without clinical vocabulary, without reassurance that is not earned, and without\nanything that reads as a diagnosis. It also has to avoid the opposite failure: refusing\nso broadly that an ordinary hard morning gets treated as an emergency, which teaches\nthe parent that the tool is useless for the things it is actually for.\n\nThe product is not a medical service and must not present itself as one. It also must\nnot lecture.\n\nThe output is consumed by software, which routes to one of two screens. Design the\noutput shape accordingly.\n\nWrite the prompt. Then describe the two ways it could fail and which one you optimised\nagainst."}, {"n": 5, "slug": "gem5", "title": "Image prompt style", "prompt": "Write a great prompt to convert a two-or-three-word card label into an image-generation\nprompt for a picture card used in a visual support for an autistic child.\n\nContext. The label is something like \"Put on shoes\", \"Wash hands\", \"Wait\", or \"Swing\".\nThe picture produced from it will be printed, cut to roughly two inches square,\nlaminated, and stuck to a door at a child's eye level. It will be looked at by a child\nwho may not read, who may be pre-verbal, and who is frequently upset at the moment they\nlook at it. Several of these cards sit side by side on one board and have to be\ndistinguishable from each other at a glance, across a room.\n\nSome labels name an object. Some name an action. A few name an abstraction — waiting,\nstopping, a plan that changed. Those three are the hard ones and they recur on almost\nevery board.\n\nThe child's profile specifies one of four visual styles: flat icons, simple line\ndrawings, photographs, or no picture at all. The prompt must handle all four.\n\nTwo things are forbidden for reasons worth working out: the child's name must never\nreach the image model, and the picture must never contain text.\n\nThe output of this prompt is fed directly to an image model, so it is a string, not a\ndocument.\n\nWrite the prompt. Then explain how you handled the abstract labels, which is where this\ngets interesting."}, {"n": 6, "slug": "gem6", "title": "Caregiver SMS", "prompt": "Write a great prompt to turn a finished visual support into two text messages: one sent\nto the parent shortly before the routine happens, and one that asks them afterwards\nwhether it worked.\n\nContext. The parent made a picture board for a daily transition. The board is on the\nfridge. The method only works if two things happen: the parent says the same few words\neach time, and the reward the board promises actually gets delivered. The second one is\nthe one that quietly fails, and nobody will open an app to report that it failed.\n\nSo the outbound message carries the words to say, at the moment they are needed, to\nsomeone who is holding a bag and a child. The reply message has to capture whether the\nreward was delivered and roughly how it went, from a parent who will answer with one\nword while walking, if they answer at all. The reply is parsed by software and written\nto a log, so the prompt has to decide what the parent is asked to send back and how\nforgiving the parsing has to be.\n\nConstraints worth reasoning about: a text message is charged per segment and read in a\nnotification preview; this is a message about someone's child arriving on their phone\nin public; and a parent who finds the messages nagging will stop the whole thing, which\nends the data as well as the support.\n\nThere are also rules about automated messaging — consent, identifying the sender, and\nhow someone stops the messages — that apply whether or not anyone mentions them.\n\nThe output is consumed by software and must separate the two messages and the expected\nreply vocabulary. Design the output shape accordingly.\n\nWrite the prompt. Then say what you would measure to know whether the reply message is\nworking."}, {"n": 7, "slug": "gem7", "title": "Intake wizard", "prompt": "Write a great prompt to run a short conversation that collects everything needed to\ngenerate a visual support for an autistic child, in as few questions as possible.\n\nContext. The user is a parent. The information that produces a genuinely tailored\nresult is substantial: the child's age and developmental stage, how they communicate,\nwhether they read, what they are intensely interested in, what they are sensitive to,\nwhat sets them off, what the specific obstacle is, where it happens, and what reward\nactually motivates them.\n\nAsking all of that is a form the parent abandons. Most of it, though, is true about the\nchild for years, while only a little of it changes from one board to the next. Work out\nwhat that implies for how the questioning should be split, and what can be inferred\nrather than asked.\n\nThe parent is a world expert on this child and a novice at this vocabulary. A question\nusing a term of art gets a blank or a wrong answer. A question that asks them to\ncategorise their own child against a list they did not write feels like an assessment,\nand this parent has sat through a lot of assessments.\n\nThe conversation also needs to end. A prompt that produces a warm, endless, empathetic\ninterview has failed at the actual job, which is to get a printable board onto a fridge\ntonight.\n\nThe collected answers are stored as structured records. Design the output shape\naccordingly.\n\nWrite the prompt. Then state the smallest number of questions you think this can be\ndone in, and what you gave up to get there."}, {"n": 8, "slug": "gem8", "title": "Eval judge", "prompt": "Write a great prompt to score a generated visual support for an autistic child against\na reference version of the same support, so that two different prompt designs can be\ncompared on the same test cases.\n\nContext. There is a set of test cases, each one a child profile plus a described\nobstacle. For each case a human expert has written what a good result looks like. Two\ncandidate systems each generate a result. The scoring has to say which is better, on\nwhat dimension, and by enough of a margin to act on.\n\nThe difficulty: the reference is one good answer, not the only one. A candidate that\nchose a different reward, a different theme, or different wording may be equally good or\nbetter, and a judge that scores similarity to the reference will reward imitation and\npunish improvement. But a judge with no reference at all drifts, rates everything\nhighly, and prefers the longer answer. Work out how to get the discrimination without\nthe imitation.\n\nWhat actually matters about these supports is not their wording. It is whether the\nformat fits the obstacle, whether the reward is one the parent can really deliver, and\nwhether the card, the spoken words and the picture all name the same thing. Those are\nnot equally important and should not be weighted as if they were.\n\nThe scores are compared across runs and stored, so they have to be stable enough that\nthe same input twice does not move the number much.\n\nWrite the prompt. Then say how you would check that the judge itself is any good."}];
+const dirty = new Set();
+let db = null, saving = false, t = null;
+const el = id => document.getElementById(id);
+
+function collect(){
+  const o = { kind: KIND, savedAt: new Date().toISOString(), responses: {} };
+  GEMS.forEach(g => { o.responses[g.slug] = el('ta-' + g.slug).value; });
+  return o;
+}
+function apply(o){
+  if (!o || !o.responses) return 0;
+  let n = 0;
+  GEMS.forEach(g => {
+    const v = o.responses[g.slug];
+    if (typeof v === 'string' && !dirty.has(g.slug)){
+      el('ta-' + g.slug).value = v;
+      if (v.trim()) n++;
+      const p = el('pin-' + g.slug);
+      if (p) p.classList.toggle('on', !!v.trim());
+    }
+  });
+  return n;
+}
+function clearDirty(){ [...dirty].forEach(s => mark(s, false)); }
+function refresh(){
+  el('save').disabled = saving || (!!db && !dirty.size);
+  GEMS.forEach(g => {
+    const p = el('pin-' + g.slug);
+    if (p) p.classList.toggle('on', !dirty.has(g.slug) && !!el('ta-' + g.slug).value.trim());
+  });
+}
+
+// ---- persistence ---------------------------------------------------------
+// Two worlds. Published on claude.ai there is a db and saving is invisible.
+// Opened as a local file there is no db, so state goes to a JSON file the
+// browser writes for you. showSaveFilePicker lets you choose the folder once
+// and then re-save to that same file silently; without it we fall back to an
+// ordinary download, which lands in Downloads and cannot be aimed anywhere.
+const LSKEY = 'avs-gems-v1', FILENAME = 'gemini-gems.json', KIND = 'gemini-gems';
+let fileHandle = null;
+
+function note(msg){ el('count').textContent = msg; }
+
+function stash(){ try{ localStorage.setItem(LSKEY, JSON.stringify(collect())); }catch(e){} }
+function unstash(){
+  try{ const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; }
+  catch(e){ return null; }
+}
+
+async function writeFile(force){
+  const text = JSON.stringify(collect(), null, 2);
+  if (window.showSaveFilePicker){
+    try{
+      if (!fileHandle && force){
+        fileHandle = await showSaveFilePicker({
+          suggestedName: FILENAME,
+          types: [{ description: 'JSON file', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      if (fileHandle){
+        const w = await fileHandle.createWritable();
+        await w.write(text);
+        await w.close();
+        return { ok: true, how: 'file', name: fileHandle.name };
+      }
+    }catch(err){
+      if (err && err.name === 'AbortError') return { ok: false, how: 'cancel' };
+      fileHandle = null;            // picker unavailable here — use the fallback
+    }
+  }
+  if (!force) return { ok: false, how: 'none' };
+  const blob = new Blob([text], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = FILENAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  return { ok: true, how: 'download', name: FILENAME };
+}
+
+function openFile(){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.json,application/json';
+  inp.addEventListener('change', () => {
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const o = JSON.parse(r.result);
+        if (o && o.kind && o.kind !== KIND){ note('That file belongs to the other page.'); return; }
+        const n = apply(o);
+        stash(); refresh();
+        note('Loaded ' + n + ' from ' + f.name);
+      }catch(e){ note('Could not read that file.'); }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+async function saveLocal(explicit){
+  stash();
+  const res = await writeFile(explicit);
+  if (res.ok){
+    clearDirty();
+    note(res.how === 'download' ? 'Downloaded ' + res.name
+                                : 'Saved to ' + res.name);
+  } else if (res.how === 'cancel'){
+    note('Save cancelled — still unsaved.');
+  } else {
+    note('Kept in this browser. Press Save to write ' + FILENAME + '.');
+  }
+  refresh();
+}
+
+function mark(slug, on){
+  on ? dirty.add(slug) : dirty.delete(slug);
+  const n = dirty.size;
+  if (n) note(n + (n === 1 ? ' unsaved' : ' unsaved'));
+  else note(db ? 'All saved' : 'All saved to ' + (fileHandle ? fileHandle.name : FILENAME));
+  el('save').disabled = saving || (!!db && !n);
+  const p = el('pin-' + slug);
+  if (p) p.classList.toggle('on', !on && !!el('ta-' + slug).value.trim());
+}
+
+async function save(auto){
+  if (saving || (auto && !dirty.size)) return;
+  saving = true; el('save').disabled = true; el('save').textContent = 'Saving…';
+  try{
+    if (db){
+      const ids = [...dirty];
+      await Promise.all(ids.map(slug =>
+        db.doc('gems/' + slug).set({ response: el('ta-' + slug).value,
+                                     updatedAt: new Date().toISOString() })));
+      ids.forEach(s => mark(s, false));
+    } else {
+      await saveLocal(!auto);
+    }
+  }catch(e){ note('Could not save — try again'); }
+  saving = false; el('save').textContent = 'Save';
+  refresh();
+}
+
+function queue(slug){
+  mark(slug, true);
+  clearTimeout(t); t = setTimeout(() => save(true), 1500);
+}
+
+function build(){
+  const root = el('list');
+  GEMS.forEach(g => {
+    const c = document.createElement('section');
+    c.className = 'gem';
+    c.innerHTML =
+      '<div class="gem-head"><span class="num">' + g.n + '</span>' +
+      '<h2>' + g.title + '</h2>' +
+      '<span class="pin" id="pin-' + g.slug + '">saved</span></div>' +
+      '<div class="body">' +
+      '<label class="lbl">The meta-prompt</label>' +
+      '<pre class="prompt" id="p-' + g.slug + '"></pre>' +
+      '<div class="acts">' +
+      '<button data-copy="' + g.slug + '">Copy prompt</button>' +
+      '<button data-exp="' + g.slug + '">Show all</button></div>' +
+      '<label class="lbl" for="ta-' + g.slug + '">The prompt the Gem wrote</label>' +
+      '<textarea id="ta-' + g.slug + '" placeholder="Paste Gemini\u2019s answer here."></textarea>' +
+      '</div>';
+    c.querySelector('#p-' + g.slug).textContent = g.prompt;
+    root.appendChild(c);
+    el('ta-' + g.slug).addEventListener('input', () => queue(g.slug));
+  });
+
+  root.addEventListener('click', async ev => {
+    const cp = ev.target.closest('[data-copy]');
+    if (cp){
+      const g = GEMS.find(x => x.slug === cp.dataset.copy);
+      try{
+        await navigator.clipboard.writeText(g.prompt);
+        cp.textContent = 'Copied'; setTimeout(() => cp.textContent = 'Copy prompt', 1400);
+      }catch(e){
+        const r = document.createRange(); r.selectNode(el('p-' + g.slug));
+        getSelection().removeAllRanges(); getSelection().addRange(r);
+        cp.textContent = 'Selected — press Ctrl+C';
+        setTimeout(() => cp.textContent = 'Copy prompt', 2200);
+      }
+      return;
+    }
+    const ex = ev.target.closest('[data-exp]');
+    if (ex){
+      const pre = el('p-' + ex.dataset.exp);
+      ex.textContent = pre.classList.toggle('open') ? 'Show less' : 'Show all';
+    }
+  });
+}
+
+async function start(){
+  build();
+  el('save').addEventListener('click', () => save(false));
+  el('load').addEventListener('click', openFile);
+  addEventListener('beforeunload', e => { if (dirty.size){ e.preventDefault(); e.returnValue = ''; } });
+
+  // Three states, not two. Outside the claude.ai runtime there is no
+  // window.claude at all, so this must not be a bare call: a ReferenceError
+  // would skip local-file setup. Inside the runtime but without a db, the
+  // viewer blocks downloads too, so offering the file buttons there would hand
+  // over a button that silently does nothing.
+  const inRuntime = typeof claude !== 'undefined' && !!claude.use;
+  try{ db = inRuntime ? await claude.use('db') : null; }catch(e){ db = null; }
+
+  if (!db && inRuntime){
+    el('signin').hidden = false;
+    el('save').disabled = true;
+    note('Sign in to claude.ai to save');
+    return;
+  }
+
+  if (!db){
+    el('local').hidden = false;
+    el('load').hidden = false;
+    el('save').textContent = 'Save';
+    const n = apply(unstash());
+    note(n ? 'Restored ' + n + ' from this browser — press Save to write ' + FILENAME
+           : 'Nothing saved yet');
+    refresh();
+    return;
+  }
+
+  db.collection('gems').onSnapshot(snap => {
+    snap.forEach(doc => {
+      const slug = doc.id.split('/').pop();
+      if (dirty.has(slug)) return;              // never clobber an unsaved edit
+      const ta = el('ta-' + slug);
+      if (ta && typeof doc.data.response === 'string'){
+        ta.value = doc.data.response;
+        const p = el('pin-' + slug);
+        if (p) p.classList.toggle('on', !!doc.data.response.trim());
+      }
+    });
+  }, () => {});
+}
+start();
+</script>
+</body>
+</html>

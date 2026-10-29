@@ -94,6 +94,8 @@ tools/token-budget.py                    burn-rate and reserve check against the
 tools/lab-measure.py                     measures a real model call into the same log
 tools/build-gems-page.py                 builds the Gem page from the meta-prompts
 tools/build-eval-page.py                 builds the review page from the eval cases
+gemini-gems.html                         standalone copy — open from disk, saves JSON
+eval-review.html                         standalone copy — open from disk, saves JSON
 eval/cases.json                          8 test cases, two candidate boards each
 eval/README.md                           what each case tests and how the set is used
 prompts/README.md                        what is in the folder and why it is split

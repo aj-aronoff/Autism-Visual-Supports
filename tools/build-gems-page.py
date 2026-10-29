@@ -11,6 +11,7 @@ import re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "prompts", "gemini-gems.md")
 OUT = os.path.join(ROOT, "docs", "gemini-gems.html")
+LOCAL = os.path.join(ROOT, "gemini-gems.html")
 
 
 def parse(md):
@@ -121,38 +122,152 @@ footer a{color:var(--accent)}
 JS = r"""
 const GEMS = __DATA__;
 const dirty = new Set();
-let db = null, saving = false;
-
-const $ = s => document.querySelector(s);
+let db = null, saving = false, t = null;
 const el = id => document.getElementById(id);
+
+function collect(){
+  const o = { kind: KIND, savedAt: new Date().toISOString(), responses: {} };
+  GEMS.forEach(g => { o.responses[g.slug] = el('ta-' + g.slug).value; });
+  return o;
+}
+function apply(o){
+  if (!o || !o.responses) return 0;
+  let n = 0;
+  GEMS.forEach(g => {
+    const v = o.responses[g.slug];
+    if (typeof v === 'string' && !dirty.has(g.slug)){
+      el('ta-' + g.slug).value = v;
+      if (v.trim()) n++;
+      const p = el('pin-' + g.slug);
+      if (p) p.classList.toggle('on', !!v.trim());
+    }
+  });
+  return n;
+}
+function clearDirty(){ [...dirty].forEach(s => mark(s, false)); }
+function refresh(){
+  el('save').disabled = saving || (!!db && !dirty.size);
+  GEMS.forEach(g => {
+    const p = el('pin-' + g.slug);
+    if (p) p.classList.toggle('on', !dirty.has(g.slug) && !!el('ta-' + g.slug).value.trim());
+  });
+}
+
+// ---- persistence ---------------------------------------------------------
+// Two worlds. Published on claude.ai there is a db and saving is invisible.
+// Opened as a local file there is no db, so state goes to a JSON file the
+// browser writes for you. showSaveFilePicker lets you choose the folder once
+// and then re-save to that same file silently; without it we fall back to an
+// ordinary download, which lands in Downloads and cannot be aimed anywhere.
+const LSKEY = 'avs-gems-v1', FILENAME = 'gemini-gems.json', KIND = 'gemini-gems';
+let fileHandle = null;
+
+function note(msg){ el('count').textContent = msg; }
+
+function stash(){ try{ localStorage.setItem(LSKEY, JSON.stringify(collect())); }catch(e){} }
+function unstash(){
+  try{ const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; }
+  catch(e){ return null; }
+}
+
+async function writeFile(force){
+  const text = JSON.stringify(collect(), null, 2);
+  if (window.showSaveFilePicker){
+    try{
+      if (!fileHandle && force){
+        fileHandle = await showSaveFilePicker({
+          suggestedName: FILENAME,
+          types: [{ description: 'JSON file', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      if (fileHandle){
+        const w = await fileHandle.createWritable();
+        await w.write(text);
+        await w.close();
+        return { ok: true, how: 'file', name: fileHandle.name };
+      }
+    }catch(err){
+      if (err && err.name === 'AbortError') return { ok: false, how: 'cancel' };
+      fileHandle = null;            // picker unavailable here — use the fallback
+    }
+  }
+  if (!force) return { ok: false, how: 'none' };
+  const blob = new Blob([text], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = FILENAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  return { ok: true, how: 'download', name: FILENAME };
+}
+
+function openFile(){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.json,application/json';
+  inp.addEventListener('change', () => {
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const o = JSON.parse(r.result);
+        if (o && o.kind && o.kind !== KIND){ note('That file belongs to the other page.'); return; }
+        const n = apply(o);
+        stash(); refresh();
+        note('Loaded ' + n + ' from ' + f.name);
+      }catch(e){ note('Could not read that file.'); }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+async function saveLocal(explicit){
+  stash();
+  const res = await writeFile(explicit);
+  if (res.ok){
+    clearDirty();
+    note(res.how === 'download' ? 'Downloaded ' + res.name
+                                : 'Saved to ' + res.name);
+  } else if (res.how === 'cancel'){
+    note('Save cancelled — still unsaved.');
+  } else {
+    note('Kept in this browser. Press Save to write ' + FILENAME + '.');
+  }
+  refresh();
+}
 
 function mark(slug, on){
   on ? dirty.add(slug) : dirty.delete(slug);
   const n = dirty.size;
-  el('count').innerHTML = n ? '<b>'+n+'</b> unsaved' : 'All saved';
-  el('save').disabled = !n || saving;
-  const p = el('pin-'+slug);
-  if (p) p.classList.toggle('on', !on && !!el('ta-'+slug).value.trim());
+  if (n) note(n + (n === 1 ? ' unsaved' : ' unsaved'));
+  else note(db ? 'All saved' : 'All saved to ' + (fileHandle ? fileHandle.name : FILENAME));
+  el('save').disabled = saving || (!!db && !n);
+  const p = el('pin-' + slug);
+  if (p) p.classList.toggle('on', !on && !!el('ta-' + slug).value.trim());
 }
 
-async function save(){
-  if (!db || !dirty.size || saving) return;
+async function save(auto){
+  if (saving || (auto && !dirty.size)) return;
   saving = true; el('save').disabled = true; el('save').textContent = 'Saving…';
-  const ids = [...dirty];
   try{
-    await Promise.all(ids.map(slug =>
-      db.doc('gems/'+slug).set({ response: el('ta-'+slug).value,
-                                 updatedAt: new Date().toISOString() })));
-    ids.forEach(s => mark(s, false));
-  }catch(e){ el('count').textContent = 'Could not save — try again'; }
+    if (db){
+      const ids = [...dirty];
+      await Promise.all(ids.map(slug =>
+        db.doc('gems/' + slug).set({ response: el('ta-' + slug).value,
+                                     updatedAt: new Date().toISOString() })));
+      ids.forEach(s => mark(s, false));
+    } else {
+      await saveLocal(!auto);
+    }
+  }catch(e){ note('Could not save — try again'); }
   saving = false; el('save').textContent = 'Save';
-  el('save').disabled = !dirty.size;
+  refresh();
 }
 
-let t = null;
 function queue(slug){
   mark(slug, true);
-  clearTimeout(t); t = setTimeout(save, 1500);
+  clearTimeout(t); t = setTimeout(() => save(true), 1500);
 }
 
 function build(){
@@ -161,61 +276,86 @@ function build(){
     const c = document.createElement('section');
     c.className = 'gem';
     c.innerHTML =
-      '<div class="gem-head"><span class="num">'+g.n+'</span>'+
-      '<h2>'+g.title+'</h2>'+
-      '<span class="pin" id="pin-'+g.slug+'">saved</span></div>'+
-      '<div class="body">'+
-      '<label class="lbl">The meta-prompt</label>'+
-      '<pre class="prompt" id="p-'+g.slug+'"></pre>'+
-      '<div class="acts">'+
-      '<button data-copy="'+g.slug+'">Copy prompt</button>'+
-      '<button data-exp="'+g.slug+'">Show all</button></div>'+
-      '<label class="lbl" for="ta-'+g.slug+'">The prompt the Gem wrote</label>'+
-      '<textarea id="ta-'+g.slug+'" placeholder="Paste Gemini’s answer here."></textarea>'+
+      '<div class="gem-head"><span class="num">' + g.n + '</span>' +
+      '<h2>' + g.title + '</h2>' +
+      '<span class="pin" id="pin-' + g.slug + '">saved</span></div>' +
+      '<div class="body">' +
+      '<label class="lbl">The meta-prompt</label>' +
+      '<pre class="prompt" id="p-' + g.slug + '"></pre>' +
+      '<div class="acts">' +
+      '<button data-copy="' + g.slug + '">Copy prompt</button>' +
+      '<button data-exp="' + g.slug + '">Show all</button></div>' +
+      '<label class="lbl" for="ta-' + g.slug + '">The prompt the Gem wrote</label>' +
+      '<textarea id="ta-' + g.slug + '" placeholder="Paste Gemini\u2019s answer here."></textarea>' +
       '</div>';
-    c.querySelector('#p-'+g.slug).textContent = g.prompt;
+    c.querySelector('#p-' + g.slug).textContent = g.prompt;
     root.appendChild(c);
-    el('ta-'+g.slug).addEventListener('input', () => queue(g.slug));
+    el('ta-' + g.slug).addEventListener('input', () => queue(g.slug));
   });
 
   root.addEventListener('click', async ev => {
     const cp = ev.target.closest('[data-copy]');
     if (cp){
       const g = GEMS.find(x => x.slug === cp.dataset.copy);
-      try{ await navigator.clipboard.writeText(g.prompt);
-           cp.textContent = 'Copied'; setTimeout(()=>cp.textContent='Copy prompt',1400); }
-      catch(e){ const r=document.createRange(); r.selectNode(el('p-'+g.slug));
-                getSelection().removeAllRanges(); getSelection().addRange(r);
-                cp.textContent = 'Selected — press Ctrl+C';
-                setTimeout(()=>cp.textContent='Copy prompt',2200); }
+      try{
+        await navigator.clipboard.writeText(g.prompt);
+        cp.textContent = 'Copied'; setTimeout(() => cp.textContent = 'Copy prompt', 1400);
+      }catch(e){
+        const r = document.createRange(); r.selectNode(el('p-' + g.slug));
+        getSelection().removeAllRanges(); getSelection().addRange(r);
+        cp.textContent = 'Selected — press Ctrl+C';
+        setTimeout(() => cp.textContent = 'Copy prompt', 2200);
+      }
       return;
     }
     const ex = ev.target.closest('[data-exp]');
     if (ex){
-      const pre = el('p-'+ex.dataset.exp);
-      const open = pre.classList.toggle('open');
-      ex.textContent = open ? 'Show less' : 'Show all';
+      const pre = el('p-' + ex.dataset.exp);
+      ex.textContent = pre.classList.toggle('open') ? 'Show less' : 'Show all';
     }
   });
 }
 
 async function start(){
   build();
-  el('save').addEventListener('click', save);
-  addEventListener('beforeunload', e => { if (dirty.size){ e.preventDefault(); e.returnValue=''; } });
+  el('save').addEventListener('click', () => save(false));
+  el('load').addEventListener('click', openFile);
+  addEventListener('beforeunload', e => { if (dirty.size){ e.preventDefault(); e.returnValue = ''; } });
 
-  db = await claude.use('db');
-  if (!db){ el('offline').hidden = false; el('save').disabled = true;
-            el('count').textContent = 'Not signed in — nothing will be saved'; return; }
+  // Three states, not two. Outside the claude.ai runtime there is no
+  // window.claude at all, so this must not be a bare call: a ReferenceError
+  // would skip local-file setup. Inside the runtime but without a db, the
+  // viewer blocks downloads too, so offering the file buttons there would hand
+  // over a button that silently does nothing.
+  const inRuntime = typeof claude !== 'undefined' && !!claude.use;
+  try{ db = inRuntime ? await claude.use('db') : null; }catch(e){ db = null; }
+
+  if (!db && inRuntime){
+    el('signin').hidden = false;
+    el('save').disabled = true;
+    note('Sign in to claude.ai to save');
+    return;
+  }
+
+  if (!db){
+    el('local').hidden = false;
+    el('load').hidden = false;
+    el('save').textContent = 'Save';
+    const n = apply(unstash());
+    note(n ? 'Restored ' + n + ' from this browser — press Save to write ' + FILENAME
+           : 'Nothing saved yet');
+    refresh();
+    return;
+  }
 
   db.collection('gems').onSnapshot(snap => {
     snap.forEach(doc => {
       const slug = doc.id.split('/').pop();
-      if (dirty.has(slug)) return;            // never clobber an unsaved edit
-      const ta = el('ta-'+slug);
+      if (dirty.has(slug)) return;              // never clobber an unsaved edit
+      const ta = el('ta-' + slug);
       if (ta && typeof doc.data.response === 'string'){
         ta.value = doc.data.response;
-        const p = el('pin-'+slug);
+        const p = el('pin-' + slug);
         if (p) p.classList.toggle('on', !!doc.data.response.trim());
       }
     });
@@ -224,6 +364,46 @@ async function start(){
 start();
 """
 
+
+
+# The Artifact runtime wraps a published page in its own skeleton, so docs/ holds
+# the page body alone. A file opened from disk gets no such wrapper: with no
+# doctype it renders in quirks mode and with no charset the em-dashes arrive as
+# mojibake. So the standalone copy carries the skeleton, and the same reset the
+# runtime supplies, and the builder writes both rather than leaving it to a cp.
+SKELETON = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+__HEAD__
+</head>
+<body>
+__BODY__
+</body>
+</html>
+"""
+
+
+def write_both(page, out_docs, out_local):
+    """docs/ gets the artifact source; the repo root gets a standalone file."""
+    head, _, rest = page.partition("<style>")
+    style, _, body = rest.partition("</style>")
+    os.makedirs(os.path.dirname(out_docs), exist_ok=True)
+    with open(out_docs, "w", encoding="utf-8") as f:
+        f.write(page)
+    with open(out_local, "w", encoding="utf-8") as f:
+        # .replace, not %: the reset itself contains max-width:100%
+        f.write(SKELETON.replace("__HEAD__", head.rstrip() + "\n<style>" + style + "</style>")
+                        .replace("__BODY__", body.strip()))
+    return os.path.getsize(out_docs), os.path.getsize(out_local)
 
 def main():
     gems = parse(open(SRC, encoding="utf-8").read())
@@ -259,11 +439,21 @@ def main():
 <div class="bar">
   <span class="count" id="count">All saved</span>
   <span class="spacer"></span>
+  <button id="load" hidden>Load JSON</button>
   <button class="primary" id="save" disabled>Save</button>
 </div>
 
-<div class="off" id="offline" hidden>Not signed in to claude.ai, so nothing on this page
-can be saved. Open it while signed in and your text will persist.</div>
+<div class="off" id="signin" hidden>Saving needs a claude.ai sign-in, and this view
+does not have one. Everything on the page still works &mdash; but nothing typed here will
+be kept. Sign in and reload, or open the copy in the project folder, which saves to a
+JSON file instead.</div>
+
+<div class="off" id="local" hidden><strong>Local file mode.</strong> This copy is not
+talking to claude.ai, so <b>Save</b> writes a <code>gemini-gems.json</code> file instead.
+Chrome and Edge will ask once where to put it &mdash; choose this folder &mdash; and every
+later save goes to that same file without asking. Other browsers drop it in Downloads.
+Your text is also kept in this browser between visits, and <b>Load JSON</b> brings a saved
+file back.</div>
 
 <div id="list">{cards}</div>
 
@@ -274,10 +464,9 @@ edit there and rebuild. Repo:
 </div>
 <script>{JS.replace("__DATA__", data)}</script>
 """
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        f.write(body)
-    print("wrote %s (%d gems, %.1f KB)" % (OUT, len(gems), os.path.getsize(OUT) / 1024))
+    a, b = write_both(body, OUT, LOCAL)
+    print("wrote %s (%d gems, %.1f KB)" % (OUT, len(gems), a / 1024))
+    print("wrote %s (standalone, %.1f KB)" % (LOCAL, b / 1024))
 
 
 if __name__ == "__main__":

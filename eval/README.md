@@ -57,3 +57,23 @@ skimmed, and on a metered token allowance a forty-case suite is a daily cost.
 | `cases.json` | The set. Profiles, obstacles, and two candidate boards per case |
 | `../docs/eval-review.html` | The generated review page |
 | `../tools/build-eval-page.py` | Builds the page from `cases.json` |
+
+## Two copies of the page, one builder
+
+`tools/build-eval-page.py` writes both forms, so they cannot drift:
+
+| File | For | How Save behaves |
+|---|---|---|
+| `docs/eval-review.html` | the published artifact | writes to the artifact database; I read it from here |
+| `eval-review.html` | opening from disk | writes `eval-review.json` next to it |
+
+The published page carries no `<!doctype>` or charset because the artifact runtime
+supplies them. A file opened from disk gets no such wrapper, so the standalone copy
+carries its own skeleton — without it the page renders in quirks mode and every em-dash
+arrives as mojibake.
+
+Saving from disk uses `showSaveFilePicker`, which exists in Chrome and Edge: it asks
+once where the JSON goes, then every later save writes that same file silently. Other
+browsers fall back to an ordinary download, which lands in Downloads and cannot be
+aimed. Either way the state is also kept in that browser's local storage, so reopening
+the file restores it, and **Load JSON** brings a saved file back on another machine.
