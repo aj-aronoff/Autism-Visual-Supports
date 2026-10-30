@@ -114,7 +114,10 @@ An orchestrated workflow in ODC Agent Workbench, not a single prompt.
   cards, script and plan against its knowledge source. Names the practice it used.
 - **Reviewer** checks that draft against the design rules and sends it back on drift:
   labels over three words, negative phrasing, missing Then card, card count out of range.
-- **Illustrator** searches the child's card library before generating anything new.
+- **Illustrator** searches the child's card library before generating anything new. ODC
+  documents image *input* to models but no image *output*, so whether it generates at all
+  is open item 4 in [`AWS-ARCHITECTURE.md`](AWS-ARCHITECTURE.md); `ImageSource` already
+  allows `SymbolSet` and `Uploaded`, so retrieval-only is a complete agent, not a stub.
 
 The retrieval step inside an agent is `GetGroundingData`, part of the `AgentTask` logic.
 It is pointed at two different ODC features, for two different jobs:

@@ -91,7 +91,7 @@ without a migration.
 | Component | AWS service | Confidence | What we configure |
 |---|---|---|---|
 | Text generation (Composer, Reviewer) | **Amazon Bedrock** | Likely | Model choice, prompts, temperature |
-| Image generation (Illustrator) | Bedrock Titan/Nova Canvas, or Azure | **Unknown** | Prompts, size, library-first gating |
+| Image generation (Illustrator) | Bedrock Titan/Nova Canvas, or Azure | **Unknown — and the documentation points the wrong way** | Prompts, size, library-first gating |
 | Agent orchestration | **ODC Agent Workbench** | **Unknown** (availability) | Agents, tools, knowledge source, guardrails |
 | Composer grounding | **ODC knowledge bases** (Beta) | **Unknown** (entitlement) | The uploaded toolkit, and its chunking |
 | Card library reuse | **ODC semantic search** (Beta) | **Unknown** (entitlement) | Searchable attributes, chunking per attribute |
@@ -110,6 +110,32 @@ interface, not the tool.
 Community-supported, v0.1.2, May 2024, explicitly *"not supported by OutSystems."* Usable,
 but not something to discover a dependency on during a seven-day build — which is why
 this is a kickoff question.
+
+#### Image generation: ODC can see pictures, and is not documented to make them
+
+The native AI model integration is **chat-shaped and text-out**. A call builds a `Messages`
+list with `Role` set to `user`, and the answer comes back in `Response.Messages[0]` with
+`Role` `assistant`; the optional parameters are `Temperature`, `MaxTokens`, `Stop` and
+`ExtraBody`. There is a documented path for image **input** — `ContentUrl` or
+`ContentBinaryData` inside `UserMessage.Content`, PNG/JPEG/WebP/GIF, 20 MB per image,
+512px minimum — and **no documented path for image output**. The agent-actions page
+documents no action returning binary.
+
+So this is a sharper question than metering. Three candidate paths, cheapest first:
+
+| Path | Mechanism | Risk |
+|---|---|---|
+| A | `ExtraBody` on a registered Bedrock model | The response is a text field. Nova Canvas returns base64 in a JSON body, so this works only if ODC surfaces the raw body. Undocumented — a 30-minute experiment on day 3, not a plan |
+| B | *Add a custom AI model* + the custom API contract | Contract not readable from outside the portal. A kickoff question |
+| C | An **External Library** (C#, `OutSystems.ExternalLibraries.SDK`) calling the image API directly and returning binary | Works regardless of the connector, but needs **our own** credentials inside the library, which contradicts *"integral to the ODC instance"* and lands on B5 and on Credentials below |
+
+**The fallback is already built, and it is arguably the better design.** `ImageSource` in
+[`SPEC.md §3`](SPEC.md) is already `Generated | Uploaded | SymbolSet`, and
+`assets/cards/` already holds **40 original starter cards**. If generation is
+unavailable or metered punitively, the Illustrator becomes a pure retrieval agent over
+that seeded library plus the parent's own photographs — and `VisualStyle` → `RealPhotos`
+exists in the profile because a photograph of *the child's own shoes* beats any generated
+icon. Nothing about the demo path depends on generating a picture live.
 
 ### 1.5 Messaging — not AWS, and the only third party we hold credentials for
 
@@ -362,7 +388,7 @@ Each has a named fallback, so none of them blocks the build.
 | 1 | Can an exposed method read an inbound HTTP header? | ODC Studio, day 2 | Secret path segment + body token (weaker) |
 | 2 | Is Agent Workbench enabled on hackathon instances? | Kickoff | Three server actions against the JSON contract |
 | 3 | Is Bedrock pre-wired, or do we need the Forge connector? | Kickoff | Forge connector, community-supported |
-| 4 | Which image model, and is it metered per image or per token? | Kickoff | Hand-seed the card library |
+| 4 | Is there a supported path to image *generation* at all — and if so, which model and metered how? | Kickoff, then a day-3 `ExtraBody` test | The 40 seeded cards + parent photo upload; `ImageSource` already allows both |
 | 5 | Are Twilio credentials provided? | Kickoff | Own trial account, number verified day 2 |
 | 6 | Token allocation, and where we can see consumption | Kickoff | Our own `TokenUsage` logging either way |
 | 7 | Region available for provisioning | Provisioning | US region required |
