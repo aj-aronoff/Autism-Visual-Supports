@@ -84,12 +84,14 @@ docs/
   gemini-gems.html                       the Gemini Gem comparison page
   eval-review.html                       the A/B board review page
   project-description.md                 the project write-up
+  add-a-picture.html                     working prototype of the photo-upload screen
 SPEC.md                                  the build spec in Markdown
 MID-SUBMISSION.md                        problem, use case, AI services — due 4 Nov
 AWS-ARCHITECTURE.md                      components, trust boundaries, security controls
 NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 TOKEN-BUDGET.md                          AI token budget, reserve and tracking plan
 ODC-GROUNDING.md                         how the agents retrieve — knowledge bases and semantic search
+CODE-PLAN.md                             what code exists, what must be written, and the review gates
 PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
 tools/token-budget.py                    burn-rate and reserve check against the log
 tools/lab-measure.py                     measures a real model call into the same log

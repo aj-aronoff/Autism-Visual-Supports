@@ -100,6 +100,10 @@ Every board cites which it rests on.
 3. **New Support** — three questions. Tool type can be inferred from the obstacle text.
 4. **Board Editor** — reorder, edit labels against the three-word validator, regenerate
    one card's image, or swap in a photo from the child's own life.
+4a. **Add a picture** — library search by meaning, then the parent's own photo, then the
+   three-word label, with the printed card building live beside the form. A photo of the
+   child's *own* shoes outperforms any generated icon, so this is a first-class path and
+   not a fallback. Working prototype: [`docs/add-a-picture.html`](docs/add-a-picture.html).
 5. **Script & Plan** — on its own tab, because this is the part that gets skipped.
 6. **Use it** — print sheet (cut lines, sized for lamination and Velcro) or tablet mode
    (large targets, tap to check off, works offline).
@@ -211,6 +215,7 @@ complete five-minute demo. Four half-built tool types are not.
 | 3–4 | Composer + Reviewer, First–Then branch only, returning the JSON contract |
 | **4 Nov** | **Mid submission** — problem, use case, AI services and integrations |
 | 5 | Three-question wizard → agents → persisted board; three-word validator |
+| 5 | **Photo upload** — the parent's own camera roll into `CardLibrary`, square crop and badge applied so a photo matches the drawn cards. Prototype: [`docs/add-a-picture.html`](docs/add-a-picture.html) |
 | 5–6 | Illustrator agent, card library reuse, board editor. Reuse is a semantic hit, so the test is *sneakers* finding **Shoes** |
 | 6 | Print sheet with cut lines; tablet use mode |
 | 7 | Twilio script-and-reward SMS; usage log; trust streak |
