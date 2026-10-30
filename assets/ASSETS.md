@@ -202,7 +202,7 @@ Three, deliberately kept apart.
 |---|---|---|
 | `build_art.py` | Storybook artwork - children, swings, sunflowers, covers, avatars, deck scenes | Warm illustrative |
 | `build_diagram.py` | Technical diagrams - the trust-boundary architecture | Four colours, ownership-encoded |
-| `build_cards.py` | The forty starter cards the Illustrator agent reuses | Full palette, flat, on Cloud White |
+| `build_cards.py` | The 201 starter cards the Illustrator agent reuses | Full palette, flat, on Cloud White |
 
 Caution #11 ("keep one copy of the generator") is about not having two copies of
 *the same* generator drifting apart - which is how the tablet-cover block was
@@ -244,17 +244,21 @@ white field. Check every badge in the rendered PNG, not in the SVG source.
 
 ### Starter card library
 
-`cards/` holds forty cards at 512x512, plus `MANIFEST.csv` for loading them into the
+`cards/` holds **201 cards** at 512x512, plus `MANIFEST.csv` for loading them into the
 `CardLibrary` entity. `cards-contact.png` is the whole set at 150px, which is roughly
-card size on a tablet, and is the only honest way to check them.
+card size on a tablet, and is the only honest way to check them. At 201 cards the sheet
+is 2034x3372, too tall to read in one go - render it in three bands and read each back,
+which is how the broken Night crescent and a dozen weak icons were caught.
 
 Every card is one object or one action inside a Horizon Blue badge at 34% opacity, with
 the figure at the 0.766 ratio fixed above. **No text inside the picture** - the label is
 drawn by the application, so one card serves a pre-verbal child and a reader, and the
 same art works in English or any other language.
 
-The set is deliberately weighted towards what actually recurs: eight self-care, six
-dressing, six food, five transitions, eight rewards, four regulation, three school. WAIT,
+The set is deliberately weighted towards what actually recurs: 35 rewards, 28 food,
+24 self-care, 24 regulation, 20 dressing, 20 school, 19 transitions, 13 places, 11 people
+and 7 time. Rewards leads on purpose - the Then card is the one a parent most often
+cannot find a picture for, and a board without a Then card cannot be saved at all. WAIT,
 STOP, ALL DONE and PLAN CHANGED appear on a large share of all boards, so they get
 checked hardest.
 
@@ -264,3 +268,17 @@ two triangles that read as a mountain, a towel on a rail that read as a bin, a d
 pencil tip, and a WAIT card carrying three separate objects. The generator exited cleanly
 every time. All five were caught by looking at `cards-contact.png` and none by looking at
 the code. Render the sheet and read it.
+
+17. **A path that draws nothing fails silently.** The Night crescent was a single
+    `<path>` arc that rendered as empty space, and the card shipped as four yellow dots
+    with no moon. SVG does not error on a degenerate path - it just draws nothing. Cut a
+    crescent with a `<mask>` and an offset circle instead, and re-read the render. This is
+    caution #14 again, and it is the reason the contact sheet exists.
+
+18. **Rhyming labels are not duplicate labels.** A `difflib` pass over the 201 card
+    labels ranked *Swing / Sing* at 0.89 and *Soap / Stop* at 0.75, while missing
+    *Brush hair / Comb hair*, which is the one genuine duplicate in the set. String
+    distance measures spelling; the thing we care about is meaning. That gap is the whole
+    argument for putting `CardLibrary.Label` behind semantic search - see
+    [`ODC-GROUNDING.md`](../ODC-GROUNDING.md) - and the string pass is useful only for
+    spotting the pairs a human should look at.

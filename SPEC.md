@@ -207,7 +207,7 @@ complete five-minute demo. Four half-built tool types are not.
 | Day | Ships |
 |---|---|
 | 2 Nov | Kickoff — re-order everything below against the announced ODC features and scoring |
-| 3 | Entities and static entities; child profile. Knowledge base created and the toolkit uploaded; semantic search enabled on `CardLibrary.Label` and the 40 starter cards seeded, so indexing finishes long before anything queries it |
+| 3 | Entities and static entities; child profile. Knowledge base created and the toolkit uploaded; semantic search enabled on `CardLibrary.Label` and the 201 starter cards seeded, so indexing finishes long before anything queries it |
 | 3–4 | Composer + Reviewer, First–Then branch only, returning the JSON contract |
 | **4 Nov** | **Mid submission** — problem, use case, AI services and integrations |
 | 5 | Three-question wizard → agents → persisted board; three-word validator |

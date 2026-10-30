@@ -16,7 +16,7 @@ Three gates run **before** this agent, cheapest first:
    has a picture for "Shoes", that picture is the right answer every time. The whole
    method depends on the picture being the same picture.
 2. **Exact label match in the seeded starter library** → reuse, no model call. The
-   forty cards in `assets/cards/` cover the routines that actually come up.
+   201 cards in `assets/cards/` cover the routines that actually come up.
 3. **visualStyle is WordsOnly** → no picture, no call.
 
 Only a near miss reaches the model: the child has "Sneakers" and the card wants

@@ -39,3 +39,164 @@ oops.svg,Plan changed,A calendar square crossed through,Regulation,Oops,SymbolSe
 desk.svg,Desk work,A desk and chair,School,First,SymbolSet,starter
 pencil.svg,Pencil,A pencil,School,Step,SymbolSet,starter
 lineup.svg,Line up,Three children standing in a row,School,Step,SymbolSet,starter
+shower.svg,Shower,A shower head with running water,Self-care,First,SymbolSet,starter
+hairwash.svg,Wash hair,A child with shampoo in their hair,Self-care,First,SymbolSet,starter
+medicine.svg,Medicine,A medicine bottle with a cross on the label,Self-care,First,SymbolSet,starter
+bandaid.svg,Plaster,An adhesive plaster,Self-care,Step,SymbolSet,starter
+thermometer.svg,Thermometer,A thermometer,Self-care,Step,SymbolSet,starter
+nosewipe.svg,Wipe nose,A child holding a tissue to their nose,Self-care,Step,SymbolSet,starter
+hairdry.svg,Dry hair,A hairdryer blowing air,Self-care,Step,SymbolSet,starter
+floss.svg,Floss,A reel of dental floss,Self-care,Step,SymbolSet,starter
+comb.svg,Comb hair,A comb,Self-care,Step,SymbolSet,starter
+mirror.svg,Mirror,A hand mirror,Self-care,Step,SymbolSet,starter
+sunscreen.svg,Sunscreen,A bottle of sunscreen with a sun on it,Self-care,Step,SymbolSet,starter
+nails.svg,Cut nails,A hand with nail clippers,Self-care,Step,SymbolSet,starter
+potty.svg,Potty,A child's potty,Self-care,First,SymbolSet,starter
+diaper.svg,Clean nappy,A folded nappy,Self-care,Step,SymbolSet,starter
+mouthwash.svg,Rinse,A bottle of mouthwash,Self-care,Step,SymbolSet,starter
+haircut.svg,Haircut,Scissors and a comb,Self-care,First,SymbolSet,starter
+pants.svg,Trousers,A pair of trousers,Dressing,Step,SymbolSet,starter
+dress.svg,Dress,A dress,Dressing,Step,SymbolSet,starter
+sweater.svg,Jumper,A knitted jumper,Dressing,Step,SymbolSet,starter
+pajamas.svg,Pyjamas,A pyjama top and bottoms,Dressing,Step,SymbolSet,starter
+underwear.svg,Pants on,A pair of underpants,Dressing,Step,SymbolSet,starter
+gloves.svg,Gloves,A pair of gloves,Dressing,Step,SymbolSet,starter
+scarf.svg,Scarf,A scarf around a neck,Dressing,Step,SymbolSet,starter
+boots.svg,Boots,A pair of boots,Dressing,Step,SymbolSet,starter
+sandals.svg,Sandals,A pair of sandals,Dressing,Step,SymbolSet,starter
+zip.svg,Zip up,A zip being pulled closed,Dressing,Step,SymbolSet,starter
+buttons.svg,Buttons,Four buttons,Dressing,Step,SymbolSet,starter
+laces.svg,Tie laces,A shoe with a tied bow,Dressing,Step,SymbolSet,starter
+belt.svg,Belt,A belt with a buckle,Dressing,Step,SymbolSet,starter
+mittens.svg,Mittens,A pair of mittens,Dressing,Step,SymbolSet,starter
+toast.svg,Toast,A slice of toast with butter,Food,Then,SymbolSet,starter
+cereal.svg,Cereal,A bowl of cereal,Food,First,SymbolSet,starter
+milk.svg,Milk,A carton of milk,Food,Then,SymbolSet,starter
+juice.svg,Juice,A juice carton with a straw,Food,Then,SymbolSet,starter
+water.svg,Water,A glass of water,Food,Then,SymbolSet,starter
+yogurt.svg,Yogurt,A pot of yogurt,Food,Then,SymbolSet,starter
+egg.svg,Egg,A fried egg,Food,Then,SymbolSet,starter
+cheese.svg,Cheese,A wedge of cheese,Food,Then,SymbolSet,starter
+pasta.svg,Pasta,A bowl of pasta,Food,First,SymbolSet,starter
+soup.svg,Soup,"A bowl of soup, steaming",Food,First,SymbolSet,starter
+carrot.svg,Carrot,A carrot with green tops,Food,Then,SymbolSet,starter
+broccoli.svg,Broccoli,A head of broccoli,Food,Step,SymbolSet,starter
+grapes.svg,Grapes,A bunch of grapes,Food,Then,SymbolSet,starter
+orange.svg,Orange,An orange with a leaf,Food,Then,SymbolSet,starter
+strawberry.svg,Strawberry,A strawberry,Food,Then,SymbolSet,starter
+cookie.svg,Biscuit,A biscuit with chocolate chips,Food,Then,SymbolSet,starter
+icecream.svg,Ice cream,An ice cream in a cone,Food,Then,SymbolSet,starter
+cake.svg,Cake,A slice of cake with a candle,Food,Then,SymbolSet,starter
+pizza.svg,Pizza,A slice of pizza,Food,Then,SymbolSet,starter
+crackers.svg,Crackers,Two crackers,Food,Then,SymbolSet,starter
+spoon.svg,Spoon,A spoon,Food,Step,SymbolSet,starter
+snack.svg,Snack,A snack pot with pieces inside,Food,Then,SymbolSet,starter
+train.svg,Train,A train seen from the side,Transitions,Then,SymbolSet,starter
+bike.svg,Bike,A bicycle,Transitions,Then,SymbolSet,starter
+scooter.svg,Scooter,A kick scooter,Transitions,Then,SymbolSet,starter
+walk.svg,Walk,A child walking,Transitions,Step,SymbolSet,starter
+stroller.svg,Buggy,A child's buggy,Transitions,Step,SymbolSet,starter
+airplane.svg,Aeroplane,An aeroplane,Transitions,Then,SymbolSet,starter
+elevator.svg,Lift,A lift with up and down arrows,Transitions,Step,SymbolSet,starter
+stairs.svg,Stairs,A flight of four steps,Transitions,Step,SymbolSet,starter
+crosswalk.svg,Crossing,A zebra crossing,Transitions,Step,SymbolSet,starter
+seatbelt.svg,Seatbelt,A fastened seatbelt,Transitions,Step,SymbolSet,starter
+key.svg,Keys,A key,Transitions,Step,SymbolSet,starter
+coathook.svg,Coat hooks,Three coat hooks on a rail,Transitions,Step,SymbolSet,starter
+mat.svg,Shoes by door,Two shoes on a doormat,Transitions,Step,SymbolSet,starter
+wait_car.svg,Wait in car,A car with an open hand above it,Transitions,Wait,SymbolSet,starter
+home.svg,Home,A house with a door and a window,Places,Then,SymbolSet,starter
+school.svg,School,A school building with a red roof,Places,First,SymbolSet,starter
+shop.svg,Shop,A shop front with an awning,Places,First,SymbolSet,starter
+park.svg,Park,A tree on grass,Places,Then,SymbolSet,starter
+playground.svg,Playground,A climbing frame,Places,Then,SymbolSet,starter
+doctor.svg,Doctor,A medical bag with a cross,Places,First,SymbolSet,starter
+dentist.svg,Dentist,A tooth being brushed,Places,First,SymbolSet,starter
+restaurant.svg,Restaurant,A knife and fork,Places,First,SymbolSet,starter
+beach.svg,Beach,"The sea, sand and a sun umbrella",Places,Then,SymbolSet,starter
+grandma.svg,Grandma,An older woman with glasses,Places,Then,SymbolSet,starter
+carpark.svg,Car park,A car park sign,Places,Step,SymbolSet,starter
+library.svg,Library,Four books standing on a shelf,Places,Then,SymbolSet,starter
+church.svg,Church,A church with a steeple,Places,First,SymbolSet,starter
+trampoline.svg,Trampoline,A trampoline with an arrow bouncing up,Rewards,Then,SymbolSet,starter
+sandbox.svg,Sand pit,A sand pit with a spade,Rewards,Then,SymbolSet,starter
+climbing.svg,Climbing wall,A climbing wall with holds,Rewards,Then,SymbolSet,starter
+seesaw.svg,See-saw,A see-saw,Rewards,Then,SymbolSet,starter
+pool.svg,Swimming,A pool of water with ripples,Rewards,Then,SymbolSet,starter
+puzzle.svg,Puzzle,Two interlocking puzzle pieces,Rewards,Then,SymbolSet,starter
+toycar.svg,Toy car,A small red toy car,Rewards,Then,SymbolSet,starter
+toytrain.svg,Toy train,A toy train with carriages,Rewards,Then,SymbolSet,starter
+doll.svg,Doll,A doll with yellow hair,Rewards,Then,SymbolSet,starter
+teddy.svg,Teddy,A teddy bear,Rewards,Then,SymbolSet,starter
+lego.svg,Bricks,Interlocking building bricks,Rewards,Then,SymbolSet,starter
+drawing.svg,Draw,A drawing on paper with a crayon,Rewards,Then,SymbolSet,starter
+paint.svg,Paint,A paint palette with four colours,Rewards,Then,SymbolSet,starter
+playdough.svg,Play dough,Two rolls of play dough,Rewards,Then,SymbolSet,starter
+stickers.svg,Stickers,Three smiling face stickers,Rewards,Then,SymbolSet,starter
+dance.svg,Dance,A child dancing with arms out,Rewards,Then,SymbolSet,starter
+tv.svg,Television,A television on a stand,Rewards,Then,SymbolSet,starter
+trike.svg,Trike,A tricycle,Rewards,Then,SymbolSet,starter
+balloon.svg,Balloon,A balloon on a string,Rewards,Then,SymbolSet,starter
+kite.svg,Kite,A kite with a tail,Rewards,Then,SymbolSet,starter
+sprinkler.svg,Sprinkler,A garden sprinkler spraying water,Rewards,Then,SymbolSet,starter
+swingtire.svg,Tyre swing,A tyre hanging from a rope,Rewards,Then,SymbolSet,starter
+hopscotch.svg,Hopscotch,Numbered hopscotch squares,Rewards,Then,SymbolSet,starter
+video.svg,Video,A screen with a play button,Rewards,Then,SymbolSet,starter
+sensory.svg,Sensory bin,A bowl with coloured balls,Rewards,Then,SymbolSet,starter
+pet.svg,Pet dog,A dog,Rewards,Then,SymbolSet,starter
+sing.svg,Sing,A child singing into a microphone,Rewards,Then,SymbolSet,starter
+breathe.svg,Breathe,Three widening circles with an arrow up,Regulation,Step,SymbolSet,starter
+squeeze.svg,Squeeze,Two hands pressing a ball,Regulation,Step,SymbolSet,starter
+headphones.svg,Ear defenders,A pair of ear defenders,Regulation,Step,SymbolSet,starter
+quiet.svg,Quiet,A child with a finger to their lips,Regulation,Step,SymbolSet,starter
+break.svg,Break,A green pause symbol,Regulation,Step,SymbolSet,starter
+calmcorner.svg,Calm corner,A cushion in a corner with a calm face,Regulation,Step,SymbolSet,starter
+weighted.svg,Weighted blanket,A folded weighted blanket,Regulation,Step,SymbolSet,starter
+fidget.svg,Fidget,A three-armed fidget spinner,Regulation,Step,SymbolSet,starter
+chew.svg,Chew,A chewable pendant,Regulation,Step,SymbolSet,starter
+timer.svg,Timer,"An hourglass, part run through",Regulation,Wait,SymbolSet,starter
+countdown.svg,Time left,A clock face with a filled wedge,Regulation,Wait,SymbolSet,starter
+first.svg,First,A card with the numeral one,Regulation,First,SymbolSet,starter
+then.svg,Then,A card with the numeral two,Regulation,Then,SymbolSet,starter
+choice.svg,Choose,Two cards side by side,Regulation,Choice,SymbolSet,starter
+help.svg,Help,An open hand with a question mark,Regulation,Step,SymbolSet,starter
+more.svg,More,Two hands moving together,Regulation,Step,SymbolSet,starter
+finished.svg,Finished,A white tick in a green circle,Regulation,Step,SymbolSet,starter
+feelings.svg,Feelings,"Three faces, happy, sad and flat",Regulation,Step,SymbolSet,starter
+loud.svg,Too loud,A loudspeaker with sound waves,Regulation,Stop,SymbolSet,starter
+light_off.svg,Lights off,A light bulb with a line through it,Regulation,Stop,SymbolSet,starter
+mum.svg,Mum,A woman in a pink top,People,Then,SymbolSet,starter
+dad.svg,Dad,A man in a blue top,People,Then,SymbolSet,starter
+teacher.svg,Teacher,A teacher holding a book,People,First,SymbolSet,starter
+friend.svg,Friend,Two children holding hands,People,Then,SymbolSet,starter
+share.svg,Share,Two hands passing an object,People,Step,SymbolSet,starter
+turntaking.svg,Take turns,A child inside a circling arrow,People,Step,SymbolSet,starter
+hello.svg,Hello,A child waving,People,Step,SymbolSet,starter
+goodbye.svg,Goodbye,A waving hand and an arrow away,People,Step,SymbolSet,starter
+hug.svg,Hug,Two children hugging,People,Then,SymbolSet,starter
+please.svg,Please,An open hand with a heart,People,Step,SymbolSet,starter
+doctor_visit.svg,See doctor,A doctor with a stethoscope,People,First,SymbolSet,starter
+carpet.svg,Carpet time,A rug with children sitting on it,School,First,SymbolSet,starter
+circletime.svg,Circle time,Six children in a circle,School,First,SymbolSet,starter
+recess.svg,Playtime,A swing in the sun,School,Then,SymbolSet,starter
+gym.svg,PE,A set of gym bars,School,First,SymbolSet,starter
+artclass.svg,Art,A painting on an easel,School,Then,SymbolSet,starter
+musicclass.svg,Music class,A keyboard,School,Then,SymbolSet,starter
+handup.svg,Hand up,A child with one hand raised,School,Step,SymbolSet,starter
+listen.svg,Listen,An ear with sound waves,School,Step,SymbolSet,starter
+sit.svg,Sit down,A chair with a child on it,School,Step,SymbolSet,starter
+hallway.svg,Walk in hallway,A corridor with a child walking,School,Step,SymbolSet,starter
+locker.svg,Locker,Three lockers,School,Step,SymbolSet,starter
+lunchbox.svg,Lunchbox,A lunchbox with a handle,School,Step,SymbolSet,starter
+bell.svg,Bell,A school bell,School,Step,SymbolSet,starter
+busline.svg,Bus line,Three children in a row with an arrow,School,Step,SymbolSet,starter
+worksheet.svg,Worksheet,A worksheet with a tick,School,First,SymbolSet,starter
+scissors.svg,Cut,A pair of scissors,School,Step,SymbolSet,starter
+glue.svg,Glue,A glue stick,School,Step,SymbolSet,starter
+morning.svg,Morning,A sun rising over a line,Time,Step,SymbolSet,starter
+night.svg,Night,A crescent moon and stars,Time,Step,SymbolSet,starter
+clock.svg,Clock,A clock face,Time,Wait,SymbolSet,starter
+calendar.svg,Calendar,A calendar page with dated squares,Time,Step,SymbolSet,starter
+twomore.svg,Two more,A large numeral two,Time,Wait,SymbolSet,starter
+last.svg,Last one,"Three cards, the last one highlighted",Time,Wait,SymbolSet,starter
+sequence.svg,Next,Three numbered cards with arrows,Time,Step,SymbolSet,starter

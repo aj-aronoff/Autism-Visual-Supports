@@ -95,7 +95,7 @@ the cheapest possible win against the image budget in
   searches.
 
 Consequence one: **the 40-card seed goes in early**, not on demo day.
-[`assets/cards/MANIFEST.csv`](assets/cards) is ready, and loading it on day 3 means the
+[`assets/cards/MANIFEST.csv`](assets/cards) is ready with 201 rows, and loading it on day 3 means the
 library is indexed long before the Illustrator first queries it.
 
 Consequence two: **the demo must not create a card and then immediately search for it.**
@@ -165,7 +165,7 @@ provisioned region is not ours to choose.
 
 | Day | Was | Now also |
 |---|---|---|
-| 3 | Entities and static entities | Create the knowledge base, upload the toolkit, enable semantic search on `CardLibrary.Label`, seed the 40 cards |
+| 3 | Entities and static entities | Create the knowledge base, upload the toolkit, enable semantic search on `CardLibrary.Label`, seed the 201 cards |
 | 3–4 | Composer + Reviewer | Point `GetGroundingData` at the knowledge base; compare the two chunkings against the eval set |
 | 5–6 | Illustrator, card library reuse | Reuse now means a semantic hit, so the test is *sneakers* finding **Shoes** |
 | 8 | UX pass | Confirm the knowledge base exists **in the stage the demo is recorded in** |
