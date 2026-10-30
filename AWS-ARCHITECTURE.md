@@ -93,6 +93,8 @@ without a migration.
 | Text generation (Composer, Reviewer) | **Amazon Bedrock** | Likely | Model choice, prompts, temperature |
 | Image generation (Illustrator) | Bedrock Titan/Nova Canvas, or Azure | **Unknown** | Prompts, size, library-first gating |
 | Agent orchestration | **ODC Agent Workbench** | **Unknown** (availability) | Agents, tools, knowledge source, guardrails |
+| Composer grounding | **ODC knowledge bases** (Beta) | **Unknown** (entitlement) | The uploaded toolkit, and its chunking |
+| Card library reuse | **ODC semantic search** (Beta) | **Unknown** (entitlement) | Searchable attributes, chunking per attribute |
 | Token metering | Provided, limited, monitored | **Confirmed** that it exists; amount **Unknown** | Our own `TokenUsage` logging |
 
 `faq.txt:36` confirms AWS and Microsoft AI tokens are *"integral to the ODC instance"* and
@@ -273,6 +275,13 @@ Text prompts carry the profile *attributes* needed for the board — development
 language level, interests — and never the nickname. No profile data is used as training
 input; model invocation is inference only.
 
+**One regional caveat on retrieval.** In Cape Town, Hong Kong, Jakarta, Singapore, Tel
+Aviv and the UAE, ODC semantic search routes its *query* through `eu-central-1` because
+the embedding model is not deployed in those regions; stored data stays local. The query
+is built from the obstacle text a parent typed, so in those regions that text crosses a
+region boundary. We need a US region regardless — open item 7 — which is why this is a
+caveat and not a control.
+
 ### B6 · Outbound SMS — read off a lock screen
 
 The script is deliberately sent when the parent's hands are full, which means it is read
@@ -357,8 +366,12 @@ Each has a named fallback, so none of them blocks the build.
 | 5 | Are Twilio credentials provided? | Kickoff | Own trial account, number verified day 2 |
 | 6 | Token allocation, and where we can see consumption | Kickoff | Our own `TokenUsage` logging either way |
 | 7 | Region available for provisioning | Provisioning | US region required |
+| 8 | Are ODC knowledge bases enabled on the instance? | Kickoff | Grounding digest in the Composer system prompt |
+| 9 | Is ODC semantic search enabled on the instance? | Kickoff | Normalised label match + a synonym table |
 
-Items 2–6 are questions in `email-4-kickoff-questions.txt`.
+Items 2–6 are questions in `email-4-kickoff-questions.txt`. Items 8 and 9 are newer than
+that email and are detailed in [`ODC-GROUNDING.md`](ODC-GROUNDING.md); unlike 2–6 they
+are entitlements rather than behaviours, so no amount of trying it resolves them.
 
 ---
 

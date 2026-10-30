@@ -84,7 +84,9 @@ Azure console, so this is our only view of a limited resource. Plan: [`TOKEN-BUD
 Error · `BoardId`
 
 ### CardLibrary
-Reuse beats regeneration — a given activity keeps the same picture forever.
+Reuse beats regeneration — a given activity keeps the same picture forever. `Label` is
+searched semantically, not matched as a string, so *sneakers* finds the existing
+**Shoes** card instead of generating a second picture for the same activity.
 `ChildId` · `Label` · `Image` · `TimesUsed`
 
 ### EvidencePractice
@@ -113,6 +115,18 @@ An orchestrated workflow in ODC Agent Workbench, not a single prompt.
 - **Reviewer** checks that draft against the design rules and sends it back on drift:
   labels over three words, negative phrasing, missing Then card, card count out of range.
 - **Illustrator** searches the child's card library before generating anything new.
+
+The retrieval step inside an agent is `GetGroundingData`, part of the `AgentTask` logic.
+It is pointed at two different ODC features, for two different jobs:
+
+| Grounding | ODC feature | Indexes |
+|---|---|---|
+| Composer's clinical source | **Knowledge bases in ODC** | `Visual_Supports_Tool_Kit.pdf`, uploaded in the ODC Portal |
+| Illustrator's reuse check | **Semantic search in ODC apps** | `CardLibrary.Label`, matched by meaning rather than by string |
+
+Both are Beta and both need enabling by OutSystems. Both have a stated fallback, and the
+three operational facts that shape the build order — immutable chunking, per-stage
+uploads, asynchronous indexing — are in [`ODC-GROUNDING.md`](ODC-GROUNDING.md).
 
 Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
 `SetScript` · `SetPlan` · `GenerateCardImage` · `SendRoutineSms`
@@ -190,14 +204,14 @@ complete five-minute demo. Four half-built tool types are not.
 | Day | Ships |
 |---|---|
 | 2 Nov | Kickoff — re-order everything below against the announced ODC features and scoring |
-| 3 | Entities and static entities; child profile |
+| 3 | Entities and static entities; child profile. Knowledge base created and the toolkit uploaded; semantic search enabled on `CardLibrary.Label` and the 40 starter cards seeded, so indexing finishes long before anything queries it |
 | 3–4 | Composer + Reviewer, First–Then branch only, returning the JSON contract |
 | **4 Nov** | **Mid submission** — problem, use case, AI services and integrations |
 | 5 | Three-question wizard → agents → persisted board; three-word validator |
-| 5–6 | Illustrator agent, card library reuse, board editor |
+| 5–6 | Illustrator agent, card library reuse, board editor. Reuse is a semantic hit, so the test is *sneakers* finding **Shoes** |
 | 6 | Print sheet with cut lines; tablet use mode |
 | 7 | Twilio script-and-reward SMS; usage log; trust streak |
-| 8 | UX pass over every screen the video touches. Nothing new built |
+| 8 | UX pass over every screen the video touches. Nothing new built. Confirm the knowledge base exists **in the stage the demo is recorded in** — uploads do not carry between stages |
 | 8–9 | Record and cut the five-minute demo |
 | — | *Roadmap:* visual schedule, parameter cards, social narrative, team sharing, offline |
 

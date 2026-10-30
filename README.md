@@ -64,7 +64,7 @@ many boards you have made.
 |---|---|
 | Application | OutSystems Developer Cloud (ODC) |
 | AI | Three agents in Agent Workbench — **Composer**, **Reviewer**, **Illustrator** |
-| Grounding | Vanderbilt TRIAD toolkit + the National Autism Center's 11 evidence-based practices |
+| Grounding | Vanderbilt TRIAD toolkit in an ODC knowledge base + the National Autism Center's 11 evidence-based practices as a static entity |
 | Models | Azure OpenAI / Amazon Bedrock, via the ODC instance |
 | Messaging | Twilio SMS, for the script and the reward confirmation |
 
@@ -89,6 +89,7 @@ MID-SUBMISSION.md                        problem, use case, AI services — due 
 AWS-ARCHITECTURE.md                      components, trust boundaries, security controls
 NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 TOKEN-BUDGET.md                          AI token budget, reserve and tracking plan
+ODC-GROUNDING.md                         how the agents retrieve — knowledge bases and semantic search
 PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
 tools/token-budget.py                    burn-rate and reserve check against the log
 tools/lab-measure.py                     measures a real model call into the same log
