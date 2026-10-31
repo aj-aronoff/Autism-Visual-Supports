@@ -93,6 +93,8 @@ TOKEN-BUDGET.md                          AI token budget, reserve and tracking p
 ODC-GROUNDING.md                         how the agents retrieve — knowledge bases and semantic search
 CODE-PLAN.md                             what code exists, what must be written, and the review gates
 PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
+ODC-FIRST-LOGIN.md                       what to check on first login, and the item each closes
+ODC-AGENT-ANATOMY.md                     the real shape of an ODC agent, from the course exercise
 tools/token-budget.py                    burn-rate and reserve check against the log
 tools/lab-measure.py                     measures a real model call into the same log
 tools/build-gems-page.py                 builds the Gem page from the meta-prompts
