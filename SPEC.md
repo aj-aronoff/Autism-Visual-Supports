@@ -123,7 +123,10 @@ An orchestrated workflow in ODC Agent Workbench, not a single prompt.
   is open item 4 in [`AWS-ARCHITECTURE.md`](AWS-ARCHITECTURE.md); `ImageSource` already
   allows `SymbolSet` and `Uploaded`, so retrieval-only is a complete agent, not a stub.
 
-The retrieval step inside an agent is `GetGroundingData`, part of the `AgentTask` logic.
+The retrieval step inside an agent is the `GetGroundingData` server action, nested inside
+`AgentFlow`, which is itself called by the `Call<AgentName>` service action. The full
+scaffold, and the Event-plus-Workflow pattern that connects the agents to the parent-facing
+app, are in [`ODC-AGENT-ANATOMY.md`](ODC-AGENT-ANATOMY.md).
 It is pointed at two different ODC features, for two different jobs:
 
 | Grounding | ODC feature | Indexes |
@@ -131,8 +134,11 @@ It is pointed at two different ODC features, for two different jobs:
 | Composer's clinical source | **Knowledge bases in ODC** | `Visual_Supports_Tool_Kit.pdf`, uploaded in the ODC Portal |
 | Illustrator's reuse check | **Semantic search in ODC apps** | `CardLibrary.Label`, matched by meaning rather than by string |
 
-Both are Beta and both need enabling by OutSystems. Both have a stated fallback, and the
-three operational facts that shape the build order — immutable chunking, per-stage
+Both are Beta and both needed enabling by OutSystems. **Both are enabled — confirmed in
+the hackathon Slack on 30 October 2026: they are switched on automatically on hackathon
+instances.** So both rows above are the build, not the hoped-for branch of it; the
+fallbacks in [`ODC-GROUNDING.md §4`](ODC-GROUNDING.md) are contingency only. The three
+operational facts that still shape the build order — immutable chunking, per-stage
 uploads, asynchronous indexing — are in [`ODC-GROUNDING.md`](ODC-GROUNDING.md).
 
 Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
