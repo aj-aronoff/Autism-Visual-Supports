@@ -186,7 +186,10 @@ Current state, verified 25 October: **AWS CLI 2.38.5 installed; the agent toolki
 installed 24 skills into `~/.claude/skills`; no credentials, no region, no profile.**
 `aws configure agent-toolkit` installs skills — it does not sign you in.
 
-1. `aws configure sso` *(preferred)* or `aws configure` with an access key.
+1. `aws configure` with an access key, from an IAM user carrying `AmazonBedrockFullAccess`
+   and nothing else. Delete that key when the lab is finished. **Not `aws configure sso`** —
+   corrected 31 October: that wizard connects to an IAM Identity Center that already
+   exists and asks for a start URL, which a standalone account does not have.
 2. `aws configure set region us-east-1` — Bedrock model availability varies by region;
    `us-east-1` and `us-west-2` are the safe choices.
 3. `aws sts get-caller-identity` — confirms the credentials resolve.

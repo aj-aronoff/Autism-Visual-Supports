@@ -90,15 +90,91 @@ without a migration.
 
 | Component | AWS service | Confidence | What we configure |
 |---|---|---|---|
-| Text generation (Composer, Reviewer) | **Amazon Bedrock** | Likely | Model choice, prompts, temperature |
+| Text generation (Composer, Reviewer) | **Amazon Bedrock** | **Confirmed** — two of the three ODC trial models are *via Amazon Bedrock* | Model choice, prompts, temperature |
 | Image generation (Illustrator) | Bedrock Titan/Nova Canvas, or Azure | **Unknown — and the documentation points the wrong way** | Prompts, size, library-first gating |
 | Agent orchestration | **ODC Agent Workbench** | **Unknown** (availability) | Agents, tools, knowledge source, guardrails |
 | Composer grounding | **ODC knowledge bases** (Beta) | **Unknown** (entitlement) | The uploaded toolkit, and its chunking |
 | Card library reuse | **ODC semantic search** (Beta) | **Unknown** (entitlement) | Searchable attributes, chunking per attribute |
-| Token metering | Provided, limited, monitored | **Confirmed** that it exists; amount **Unknown** | Our own `TokenUsage` logging |
+| Token metering | Provided, limited, monitored | **Confirmed**, and there *is* a console: the **Trial Model details** page in the ODC Portal | Our own `TokenUsage` logging, now a cross-check rather than the only record |
 
 `faq.txt:36` confirms AWS and Microsoft AI tokens are *"integral to the ODC instance"* and
-*"limited, and usage will be monitored."* It never names Bedrock — hence *Likely*.
+*"limited, and usage will be monitored."* It never names Bedrock.
+
+**The ODC Portal does, as of 30 October.** ODC ships ready-to-use **trial models**,
+available in every tenant and in Personal Edition, **in the development stage**:
+
+| Trial model | Provider | Image output? |
+|---|---|---|
+| **GPT-5** | OpenAI | No |
+| **Claude Haiku 4.5** | **Amazon Bedrock** | No |
+| **Amazon Nova Pro** | **Amazon Bedrock** | No |
+
+Four things follow, and three of them close open items:
+
+1. **Bedrock is pre-wired.** Two of three trial models are reached through it. The Forge
+   connector comes off the critical path — see the struck-out fallback below.
+2. **No trial model generates images.** All three are text-out chat models; Nova *Canvas*,
+   the image generator in that family, is not on the list. With trial models alone there
+   is no image generation, which makes the seeded card library the design rather than the
+   contingency.
+3. **Trial models are a development-stage feature**, and `1-Click publish` targets
+   Development by default. **Decision: the demo runs from Development.** That also keeps
+   the knowledge base in one stage, which is the `ODC-GROUNDING.md §2` trap defused.
+4. **Limits are a hard stop, and they are visible.** The limits are not time-boxed — they
+   are a total allowance, and *"when reached, prevent the further use of the models."*
+   Consumption is shown on the **Trial Model details** page in the Portal. There is no
+   throttle and no grace period, so the circuit breaker in `TOKEN-BUDGET.md §6.2` is now
+   the difference between a measured stop and a dead demo.
+
+#### We can also add our own model, and that reopens the image question
+
+`INTEGRATE > AI models > Add AI model` offers two tabs. **Trial** adds one of the three
+above in a click. **Provider** configures our own, from: AI21, **Amazon Bedrock**,
+**Anthropic**, Azure OpenAI, Cohere, Databricks, Gemini, IBM watsonx.ai, Mistral, OpenAI,
+or a **Custom** connection with arbitrary headers.
+
+Three consequences, in order of how much they change:
+
+**1. Open item 4 becomes a concrete experiment instead of a question.** A Bedrock
+connection takes a **Model ID** we supply — so `amazon.nova-canvas-v1:0` can be
+configured, and the only remaining unknown is whether ODC's chat-shaped contract can
+carry an image back. That is a 30-minute day-3 test, which is what path A always was,
+except now we know exactly where the dialog is. **It bills to A.J.'s own AWS account**,
+which means the lab bench and the build would stop being separate things — a `CLAUDE.md`
+§1 claim to revisit *only if* we take this path, not now.
+
+**2. The Bedrock authentication design is better than ours was going to be.** The
+recommended method is **IAM Role**, not access keys: *"OutSystems doesn't store any AWS
+credentials. Access is granted through a trust relationship between your AWS account and
+OutSystems, using short-lived credentials that are issued and refreshed automatically at
+runtime."* We supply a **Role ARN**; the Portal offers a **Download policy** button for
+the required trust-policy format, which includes an **External ID** condition — the
+textbook confused-deputy defence. Access keys remain available and are explicitly the
+weaker option.
+
+This matters beyond configuration. §1.4 previously listed credential storage as a risk on
+path C, where an External Library would need our own long-lived keys inside it. The IAM
+Role path removes that risk entirely, and it is the kind of control the Security pillar
+pass on 6 November should credit rather than flag. If we take this path, the
+trust-boundary diagram gains one arrow: `sts:AssumeRole` with an External ID, from
+OutSystems into our account.
+
+**3. There is a platform usage limit.** The add-model flow has a **Usage limit** section
+setting a *daily token limit* per connection — a platform-enforced ceiling worth setting
+on day 3. It backs up but does not replace our own circuit breaker; see
+[`TOKEN-BUDGET.md §6.2`](TOKEN-BUDGET.md).
+
+Two smaller facts from the same page. Endpoints are **per stage**, with priority ordering
+and fallback between them, which is more resilience than we had planned to have. And
+**managing AI models uses the same permissions as managing connections** — so check 1 on
+the first-login sheet gates the model list too, not just Data Fabric.
+
+**And one new risk, which lands on a check we already had.** In a multi-portfolio
+organization, *trial models are available only in the main portfolio.* If the hackathon
+organization is multi-portfolio and our apps are not in the main portfolio, we have no
+models at all — not a degraded path, none. That makes check 2a in
+[`ODC-FIRST-LOGIN.md`](ODC-FIRST-LOGIN.md) the single highest-value thing to look at on
+first login.
 
 **Fallback if Agent Workbench is unavailable:** the three agents become three server
 actions calling the model directly, orchestrated in ODC logic. We lose the visible
@@ -106,10 +182,11 @@ reasoning path, which is a scoring loss, not a functional one. The JSON output c
 in [`SPEC.md §5`](SPEC.md) is what makes this substitution cheap — the contract is the
 interface, not the tool.
 
-**Fallback if Bedrock is not pre-wired:** the `Amazon Bedrock Connector (ODC)` on Forge.
-Community-supported, v0.1.2, May 2024, explicitly *"not supported by OutSystems."* Usable,
-but not something to discover a dependency on during a seven-day build — which is why
-this is a kickoff question.
+~~**Fallback if Bedrock is not pre-wired:** the `Amazon Bedrock Connector (ODC)` on
+Forge.~~ **Resolved 30 October — not needed.** Claude Haiku 4.5 and Amazon Nova Pro are
+both trial models reached *via Amazon Bedrock*, so the integration is native. Recorded
+rather than deleted because the community connector was on the risk register for a week
+and someone may remember it being there.
 
 #### Image generation: ODC can see pictures, and is not documented to make them
 
@@ -125,9 +202,69 @@ So this is a sharper question than metering. Three candidate paths, cheapest fir
 
 | Path | Mechanism | Risk |
 |---|---|---|
-| A | `ExtraBody` on a registered Bedrock model | The response is a text field. Nova Canvas returns base64 in a JSON body, so this works only if ODC surfaces the raw body. Undocumented — a 30-minute experiment on day 3, not a plan |
+| A | `ExtraBody` on a registered Bedrock model | **Weaker than undocumented — see below.** The response is a text field, and the API shape underneath is almost certainly Converse, which has no image-output path at all. Still a 30-minute day-3 test, but expect it to fail at validation |
 | B | *Add a custom AI model* + the custom API contract | Contract not readable from outside the portal. A kickoff question |
 | C | An **External Library** (C#, `OutSystems.ExternalLibraries.SDK`) calling the image API directly and returning binary | Works regardless of the connector, but needs **our own** credentials inside the library, which contradicts *"integral to the ODC instance"* and lands on B5 and on Credentials below |
+
+**Why path A is worse than "undocumented", established 30 October.** ODC's model contract
+is chat-shaped in a very specific way: a `Messages` list in, `Response.Messages[0]` out,
+with `Temperature`, `MaxTokens`, `Stop` and `ExtraBody`. That is the shape of Bedrock's
+**Converse** API, the unified interface AWS tells you to prefer. In Converse the content
+block types — `text`, `image`, `document`, `video`, `audio` — are all **input** types;
+`image` is documented as *"Image input (base64 or S3)."* **There is no image-output block.**
+Image generators return base64 in a provider-specific response body and have to be called
+with **InvokeModel**, which Converse-shaped clients do not expose.
+
+So if ODC rides on Converse, registering `amazon.nova-canvas-v1:0` as a provider model
+cannot work however `ExtraBody` is used, and may be rejected at validation. We do not know
+ODC's internals, so the experiment is still worth half an hour — but **path C is the only
+one of the three with a mechanism that can actually work**, and it carries the credential
+cost. This raises the confidence on the standing decision in point 2 above: **the seeded
+201-card library is the design, and generated artwork is a stretch goal.**
+
+#### Path C already exists on Forge, 31 October
+
+Searching the Forge for Bedrock turns up four ODC components, and one of them is path C
+built and published:
+
+| Forge component | Version | What it is |
+|---|---|---|
+| **`AWSBedrockRuntime` (ODC)** | **1.2.5** | An **external logic library wrapping the `InvokeModel` operation of the official .NET SDK for Amazon Bedrock.** Source: `github.com/stefan-d-p/odc-awsbedrock-library` |
+| `AWS Bedrock Runtime Demo` (ODC) | 1.1.5 | A demo app showing the library's actions |
+| `AWS Bedrock Model Invocations` (ODC) | 0.1.0 | A layer over the same library, for custom imported models |
+| `Amazon Bedrock Connector` (ODC) | 0.1.2 | The older one already on our risk register. May 2024, Claude v2 / Titan / SDXL. Superseded |
+
+**`AWSBedrockRuntime` exposes nine actions, and one of them is
+`StabilityDiffusionTextToImage`** — text to image through Stable Diffusion SDXL 1.0. It
+also exposes `Converse`, and credentials may be **IAM user keys or an IAM role with a
+session token**.
+
+Three things follow:
+
+1. **Image generation through ODC is demonstrated, not hypothetical.** The chat-shaped
+   contract has no image-output path, which is still true and still rules out path A — but
+   `InvokeModel` sidesteps the contract entirely, and somebody has already shipped the
+   wrapper. **Open item 4 is no longer "probably impossible"; it is "possible, at a stated
+   cost."**
+2. **The cost is unchanged and is the real decision.** The library needs **our own AWS
+   credentials** and bills image generation to A.J.'s card, which is exactly the conflict
+   with *"tokens integral to the ODC instance"* that B5 and the Credentials section name.
+   An IAM role with a session token is better than long-lived keys, but the credentials are
+   still ours and still inside a library.
+3. **It needs External Logic to be available on the tenant**, which is a capability we have
+   not confirmed — uploading a .NET package goes through the External Library Generation
+   Service. Added to the second batch in `next-slack-questions.txt`.
+
+The model on offer is **SDXL**, not Nova Canvas. For First→Then cards — flat, iconic,
+consistent across a library — SDXL is a harder tool to get consistency out of than a
+purpose-built icon style, which is an argument for the seeded library quite apart from
+cost.
+
+**The standing decision does not change: the 201 seeded cards plus parent photo upload
+remain the design.** What changes is the fallback's quality. If generation becomes worth
+having on day 5, there is a published component to start from rather than a C# project to
+write — so the stretch goal is genuinely reachable, and open item 4's day-3 experiment
+should test *this* library rather than `ExtraBody`.
 
 **The fallback is already built, and it is arguably the better design.** `ImageSource` in
 [`SPEC.md §3`](SPEC.md) is already `Generated | Uploaded | SymbolSet`, and
@@ -385,19 +522,28 @@ Each has a named fallback, so none of them blocks the build.
 
 | # | Unknown | Resolve | Fallback if the answer is bad |
 |---|---|---|---|
-| 1 | Can an exposed method read an inbound HTTP header? | ODC Studio, day 2 | Secret path segment + body token (weaker) |
-| 2 | Is Agent Workbench enabled on hackathon instances? | Kickoff | Three server actions against the JSON contract |
-| 3 | Is Bedrock pre-wired, or do we need the Forge connector? | Kickoff | Forge connector, community-supported |
-| 4 | Is there a supported path to image *generation* at all — and if so, which model and metered how? | Kickoff, then a day-3 `ExtraBody` test | The 40 seeded cards + parent photo upload; `ImageSource` already allows both |
+| 1 | Can an exposed method read an inbound HTTP header? | ODC Studio — installable now | Secret path segment + body token (weaker) |
+| 2 | Is Agent Workbench enabled on hackathon instances? | **First login** | Three server actions against the JSON contract |
+| ~~3~~ | ~~Is Bedrock pre-wired?~~ **Answered 30 Oct: yes.** Claude Haiku 4.5 and Nova Pro are trial models *via Amazon Bedrock* | — | Not needed |
+| 4 | **Reframed 31 Oct.** Not *can ODC's chat contract return an image* — it cannot — but *can we use the Forge `AWSBedrockRuntime` external library, and is External Logic available on this tenant?* | **Day-3 experiment**: install the Forge library, call `StabilityDiffusionTextToImage` | **The plan, not the fallback:** 201 seeded cards + parent photo upload |
 | 5 | Are Twilio credentials provided? | Kickoff | Own trial account, number verified day 2 |
-| 6 | Token allocation, and where we can see consumption | Kickoff | Our own `TokenUsage` logging either way |
-| 7 | Region available for provisioning | Provisioning | US region required |
-| 8 | Are ODC knowledge bases enabled on the instance? | Kickoff | Grounding digest in the Composer system prompt |
-| 9 | Is ODC semantic search enabled on the instance? | Kickoff | Normalised label match + a synonym table |
+| 6 | Token allocation — the *number*. **Where to see consumption is answered:** the Trial Model details page in the Portal | The limits table on that page | Our own `TokenUsage` logging either way |
+| 7 | Region available for provisioning | **Already decided** — visible in the Portal | US region required |
+| ~~8~~ | ~~Are ODC knowledge bases enabled on the instance?~~ **Answered 30 Oct — yes, automatically.** OutSystems in the hackathon Slack: *"Yes, both are enabled in the the hackathon instance automatically, you dont need to do anything"* | — | Not needed |
+| ~~9~~ | ~~Is ODC semantic search enabled on the instance?~~ **Answered 30 Oct — yes, automatically**, same reply | — | Not needed |
+| ~~10~~ | ~~Does ODC allow a *cycle* of weak dependencies between two apps?~~ **Answered 30 Oct: the question dissolves.** The consumer app raises an **Event**, an **ODC Workflow** calls the agent, and only the agent depends on the consumer app. See [`ODC-AGENT-ANATOMY.md §2`](ODC-AGENT-ANATOMY.md) | — | Not needed |
+| 11 | Is this tenant a **Licensed Customer** or **Personal Edition**? The trial caps differ by 2×, the rate limits differ, and Personal Edition has no GPT-5 row | **First login** — the Trial Model details page | Plan against the Licensed row, which is the tighter of the two |
 
 Items 2–6 are questions in `email-4-kickoff-questions.txt`. Items 8 and 9 are newer than
 that email and are detailed in [`ODC-GROUNDING.md`](ODC-GROUNDING.md); unlike 2–6 they
-are entitlements rather than behaviours, so no amount of trying it resolves them.
+are entitlements rather than behaviours, so no amount of trying it resolves them — but
+whether the Portal offers the feature at all is still visible, and that is the test.
+
+**The ODC environment was created on 30 October**, three days before the kickoff, which
+is why the Resolve column above now says *first login* where it used to say *kickoff*.
+[`ODC-FIRST-LOGIN.md`](ODC-FIRST-LOGIN.md) turns that into seven things to look at, in
+order, each naming the item it closes. Two things looking cannot resolve: the token
+allocation number, and item 9's entitlement.
 
 ---
 
