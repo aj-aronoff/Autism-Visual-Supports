@@ -26,7 +26,7 @@
 | **Nonprofit** | **None, and that is now settled.** An introduction was requested twice; on 2 November the organisers answered *"we do not have relationship with any nonprofit working in the area of autism"* — so none is coming, and no team at this hackathon has one through them. The build is grounded in public clinical material: the Vanderbilt Kennedy Center's TRIAD visual supports toolkit, published through the Autism Speaks Autism Treatment Network, and the National Autism Center's National Standards Report. Citing it is not a relationship and is never written as one. |
 | **Project** | https://taikai.network/outsystems/hackathons/build-for-the-future-2026/projects |
 | **Source** | https://github.com/aj-aronoff/Autism-Visual-Supports (MIT) |
-| **Video** | 60-second concept: https://youtu.be/qJgrdQss0Rs |
+| **Video** | 60-second concept video. **Unlisted and link-only by choice**, so the URL is held privately and deliberately not published here or in this repo's history going forward. Ask A.J. for it. |
 
 ## 1. Problem statement
 

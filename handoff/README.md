@@ -21,11 +21,19 @@ one here.
 | `rules.txt`, `faq.txt`, `prizes.txt`, `Hackathon-announcement.txt` | Verbatim organiser-issued documents. Ours to read, not to republish — and they carry organiser contact addresses |
 | `MID-SUBMISSION.md`, `project-description*.md` | Already in this repo at the root and in `docs/` — a second copy would drift |
 
-## One pre-existing exposure, flagged not fixed
+## The concept-video URL — removed from HEAD, still in history
 
-`MID-SUBMISSION.md` in the repo root carries the **unlisted** concept-video URL in plain text.
-It was introduced by commit `6b9ab52` ("Add the 4 November mid-submission document"), well
-before this handoff, and is not something this snapshot added — the copy here is redacted.
-`CLAUDE.md` treats that video as link-only by choice, so the root file contradicts it.
-**Removing it from the current file does not remove it from git history**, so the realistic
-options are to accept it or to re-issue the video with a new URL. A.J.'s call.
+`MID-SUBMISSION.md` in the repo root used to carry the **unlisted** concept-video URL in plain
+text. It was introduced by commit `6b9ab52` ("Add the 4 November mid-submission document"),
+long before this handoff, and **was removed from the file on 3 November 2026** at A.J.'s
+request. Nothing in the current tree contains it.
+
+**It remains in git history**, in `6b9ab52` and every commit between it and the removal. A
+clone fetches all of that, so the link is recoverable by anyone who looks — removing it from
+the working file stops it appearing in the GitHub file view, the raw URL and a fresh checkout,
+which is worth doing, but it is not erasure. Erasing it would mean rewriting published history
+or re-issuing the video at a new URL and treating the old one as burned. A.J.'s call, and not
+urgent: an unlisted YouTube link is unguessable rather than access-controlled, so its value
+was always in not being indexed.
+
+Do not write the URL back into this repo.
