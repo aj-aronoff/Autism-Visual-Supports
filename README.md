@@ -79,14 +79,16 @@ instead of generating a board. A child's name never appears in an image prompt.
 docs/
   Autism-Visual-Supports-Overview.pdf    the project deck
   Autism-Visual-Supports-Overview.pptx   editable source of the deck
-  Autism-Visual-Supports-Mid-Submission.pdf   the 4 November mid submission
+  Autism-Visual-Supports-Mid-Submission.pdf   NOT a deliverable - there is no mid-week
+                                              submission; kept as video script source
   build-spec.html                        full build spec — data model, screens, agents
   gemini-gems.html                       the Gemini Gem comparison page
   eval-review.html                       the A/B board review page
   project-description.md                 the project write-up
   add-a-picture.html                     working prototype of the photo-upload screen
 SPEC.md                                  the build spec in Markdown
-MID-SUBMISSION.md                        problem, use case, AI services — due 4 Nov
+MID-SUBMISSION.md                        problem, use case, AI services — NOT due;
+                                         no mid-week submission exists (2 Nov)
 AWS-ARCHITECTURE.md                      components, trust boundaries, security controls
 NOTES-ARCHITECTURE-REVIEW.md             AWS Well-Architected review + Trusted Advisor pass
 TOKEN-BUDGET.md                          AI token budget, reserve and tracking plan
@@ -95,6 +97,11 @@ CODE-PLAN.md                             what code exists, what must be written,
 PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
 ODC-FIRST-LOGIN.md                       what to check on first login, and the item each closes
 ODC-AGENT-ANATOMY.md                     the real shape of an ODC agent, from the course exercise
+GUARDRAILS.md                            the seven guardrails, written and tested -- 57 table rows
+schema/board.schema.json                 the board output contract, JSON Schema 2020-12
+schema/examples/                         one valid board and three deliberately invalid ones
+tools/guardrails.py                      reference implementation of the guardrails
+tools/test_guardrails.py                 the guardrail test table -- run it with python3
 tools/token-budget.py                    burn-rate and reserve check against the log
 tools/lab-measure.py                     measures a real model call into the same log
 tools/build-gems-page.py                 builds the Gem page from the meta-prompts

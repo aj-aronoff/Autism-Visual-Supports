@@ -1,10 +1,29 @@
 # Autism Visual Supports — Mid Submission
 
+> **TWO CHANGES LANDED 2 NOVEMBER, BEFORE THIS DOCUMENT IS SENT.** Re-read it against
+> both after the kickoff, in one pass.
+>
+> 1. **THIS DOCUMENT IS NO LONGER A DELIVERABLE. There is no mid-week submission** —
+>    confirmed at the kickoff, 2 November. The only submission is the final one on
+>    **11 November, 2 PM GMT+1 (08:00 EST)**, and it is **two videos**: a strictly
+>    5-minute Demo and a 10-minute Tech Video. `SCORING-CRITERIA.md §C`.
+>
+>    **Do not delete this file, and do not send it anywhere.** What it holds — the
+>    problem statement, the use case, the AI services, the integrations — is most of the
+>    raw material for both video scripts, and it is the only place that content is
+>    written down in one piece. Treat it as **source for the Demo and Tech Video**, and
+>    re-read it against the four Tech buckets and the four UX buckets rather than
+>    against last year's form.
+> 2. **Twilio is out.** *"We will not use twilio for this hackathon."* `§3.4` below is
+>    about a service this hackathon is not using, and the day-7 row in the timeline
+>    goes with it. See `TWILIO-WITHDRAWN-2-NOV.md` for what replaces it and why the
+>    reward loop itself survives.
+
 | | |
 |---|---|
-| **Hackathon** | Build for the Future 2026 · OutSystems · **Day 3 deliverable, 4 November 2026** |
+| **Hackathon** | Build for the Future 2026 · OutSystems · ~~Day 3 deliverable, 4 November 2026~~ — **no mid-week submission exists; this is now script source for the two final videos** |
 | **Team** | Autism Visual Supports (one member) — Avram (A.J.) Aronoff, United States |
-| **Nonprofit** | An autism nonprofit, introduction requested through the organizers. Autism Speaks named as intent; the Vanderbilt Kennedy Center's TRIAD toolkit is the clinical source the build is grounded in. |
+| **Nonprofit** | **None, and that is now settled.** An introduction was requested twice; on 2 November the organisers answered *"we do not have relationship with any nonprofit working in the area of autism"* — so none is coming, and no team at this hackathon has one through them. The build is grounded in public clinical material: the Vanderbilt Kennedy Center's TRIAD visual supports toolkit, published through the Autism Speaks Autism Treatment Network, and the National Autism Center's National Standards Report. Citing it is not a relationship and is never written as one. |
 | **Project** | https://taikai.network/outsystems/hackathons/build-for-the-future-2026/projects |
 | **Source** | https://github.com/aj-aronoff/Autism-Visual-Supports (MIT) |
 | **Video** | 60-second concept: https://youtu.be/qJgrdQss0Rs |

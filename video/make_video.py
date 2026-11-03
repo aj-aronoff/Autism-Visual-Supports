@@ -2,6 +2,9 @@
 """Assemble the concept video: slow push on each frame, crossfades between."""
 import os, subprocess, shlex
 
+# DELIBERATE outward paths, not the caution-11/19 bug: the concept video is kept OUT
+# of the repo on purpose (project CLAUDE.md section 2 -- it is unlisted and link-only),
+# so the mp4 is written to the parent directory and never beside this file.
 FR = "/mnt/c/users/ajaro/claude/resume/hackathon-future/video/frames"
 OUT = "/mnt/c/users/ajaro/claude/resume/hackathon-future/video/Autism-Visual-Supports-concept.mp4"
 FPS, FADE = 30, 0.8

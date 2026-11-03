@@ -101,13 +101,21 @@ bases over the same toolkit with different chunking, run the
 [`eval/cases.json`](eval/cases.json) set against both, and keep the one that retrieves
 the right layout definition. Reconfiguring costs a rebuild; comparing costs an hour.
 
-**Every stage has its own files, its own storage and its own index.** Development, QA
-and Production do not share uploads, and content does not carry over. The data source
-*configuration* does. This is the one that bites silently: publish to the stage the
-demo is recorded in, forget to upload there, and the Composer still answers — just
-ungrounded, generically, and plausibly. **The board comes back looking fine.** So
-uploading to the demo stage is a build-order item, and the check is to run one retrieval
-in that stage and read the chunk that comes back.
+**~~Every stage has its own files, its own storage and its own index.~~ Corrected 1
+November, from the Create knowledge base wizard itself**, which states: *"Each knowledge
+base is scoped to **all the stages** in the organization."* That is the opposite of what
+this section said, and it removes what was described here as the one trap that bites
+silently.
+
+Two things keep it from being a free pass. The wizard's wording is UI text from one
+release, and the failure it would mask is silent — an ungrounded Composer does not error,
+it answers plausibly and the board comes back looking fine. So **run one retrieval in the
+demo stage and read the chunk that comes back** regardless; it costs a minute and it is
+the only way to tell grounded from fluent. And the point is largely moot for this
+submission anyway: this environment has exactly **two stages, Development and
+Production** (confirmed 1 Nov, both US East (N. Virginia)), and **trial models exist only
+in the Development stage** — so the demo runs from Development, and nothing has to cross
+a stage boundary.
 
 **Search quality is best in English**, which is what we have.
 

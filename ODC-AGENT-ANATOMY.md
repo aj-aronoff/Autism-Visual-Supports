@@ -296,7 +296,8 @@ documentation's list as the complete one and the lesson's as the common ones.
 
 ## 10. We now hold a working reference implementation
 
-The two exercise bundles extracted to `../exercises/` carry importable ODC apps:
+The exercise bundles extracted to `../LoanReview/exercises/` carry importable ODC apps
+(moved there from `../exercises/` on 1 November; `../LoanReview/README.md` is the index):
 
 | File | What it is |
 |---|---|

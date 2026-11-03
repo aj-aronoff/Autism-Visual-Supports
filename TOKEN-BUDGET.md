@@ -5,6 +5,14 @@ How AI consumption gets measured, capped and reserved across the seven-day build
 Written 24 October 2026. Every number below marked *(estimate)* is a placeholder to be
 replaced by measurement on 2 November. The structure does not depend on the numbers.
 
+> **READ §2d FIRST — 2 November.** The kickoff announced **two hackathon models, Haiku 5.5
+> and GPT-5.5, at 10,000,000 tokens a day **each**. That is per day and it refills, so the
+> scarcity this document was built around is gone: one day on one model is 2.6× the whole
+> build. §4 (the reserve), §5 (spending) and §6.2 (the circuit breaker) are no longer
+> load-bearing. The `TokenUsage` entity still is, for the reason in §1 — we cannot read
+> their console, the organisers say they will adjust limits daily, and cost-per-board is
+> still the figure worth showing a judge.
+
 ---
 
 ## 1. Why this needs instrumenting in the application
@@ -34,7 +42,7 @@ models cap **requests**, and leave tokens unlimited.
 
 | Model | Context | Max requests | Request rate | Max tokens | Token rate |
 |---|---|---|---|---|---|
-| **GPT-5** | Licensed Customers | **100** | — | — | — |
+| **GPT-5** *(Azure OpenAI, not OpenAI)* | Licensed Customers | **100** | — | — | — |
 | **Claude Haiku 4.5** | Licensed Customers | **1,000** | — | — | — |
 | | Personal Edition | 3,000 | 30/min | 5M | 100k/min |
 | **Amazon Nova Pro** | Licensed Customers | **1,000** | — | — | — |
@@ -44,17 +52,145 @@ Three things to take from the table:
 
 - **The caps are totals, not rates, and nothing refills them.** Every rehearsal spends
   permanently. This is the single most important change to this document.
-- **Which row applies to us is unknown**, and the two differ by a factor of two:
-  Licensed Customers get 2,100 requests across all three models; Personal Edition gets
-  4,000 but has no GPT-5 row at all. It is visible on the Trial Model details page and is
-  now open item 12.
+- **The row is settled: Licensed Customers.** Confirmed 1 November on the Trial Model
+  details page, which reads `0 of 1000 requests` for `TrialClaudeHaiku4_5`; Personal
+  Edition would read 3,000. So the cap is **2,100 requests** across the three models, not
+  4,000, and every conditional figure below collapses to its Licensed branch: reserve
+  **630**, spendable **1,470**, against a gated need of ~770. **The plan does not change**
+  — it was already written against this row, because it is the tighter one.
 - **Nova Pro in Personal Edition is rate-limited to 3 requests a minute**, which is 180 an
   hour. That is unusable as a primary model during a build day and confirms Haiku 4.5 as
   the workhorse on either row.
 
+**Two riders on that confirmation.** First, only Haiku's page has been read; the GPT-5
+(100) and Nova Pro (1,000) figures are still from the published table, not from this
+tenant — worth thirty seconds each while the Portal is open. Second, the consumption
+counter is the proof that the meter is live and starts at zero: **every request from here
+is spent permanently**, rehearsals included, so the day A.J. starts iterating in Studio is
+the day the 1,000 starts falling.
+
 The token figures in §3 are still right, and still worth having — they decide whether we
 fit inside Personal Edition's 5M, and they are what a judge will ask about. They are just
 no longer the binding constraint.
+
+## 2c. A fourth model entry, read 1 November evening — and it is metered in tokens
+
+A.J. read the AI models pages and reported three figures. Two confirm the table above. The
+third is not in the table at all.
+
+| Entry in the Portal | Reads | Unit |
+|---|---|---|
+| `TrialGPT5` | `0 of 100 requests` | requests — **confirms** the published Licensed figure |
+| `TrialClaudeHaiku4_5` | `0 of 1000 requests` | requests — already confirmed 1 Nov morning |
+| **Bedrock Haiku — the entry that does *not* say "trial"** | **`0 of 10,000,000 tokens`** | **tokens** |
+
+**Why the third one matters more than the other two put together.** No row in the
+published trial-limits table carries a 10M figure: Personal Edition's Haiku is 5M and the
+Licensed row lists no token figure at all. So this is a **fourth entry, on its own meter,
+in a different unit** — and 10M tokens against §3's **~3.8M** build estimate is the whole
+build with roughly 2.6× headroom.
+
+It also matches, almost word for word, what the rules promise: *"AWS and Microsoft AI
+services will also be accessible free of charge, but with some limitations."* A
+token-metered Bedrock entry alongside the request-metered trial models is exactly what
+that sentence would look like once provisioned.
+
+**If it is ours to use, the binding constraint moves back to tokens** — which reverses the
+30 October correction at the head of this section. The request caps would then govern only
+the three trial entries, and the real budget would be a token budget again, which is what
+§3 was originally written as. **Do not rewrite §3 yet.** Four things have to be true first:
+
+1. **Is it selectable in a `Call Agent` element**, or is it only visible in the Portal?
+   A model we cannot bind an agent to is not a budget.
+2. **Which stages?** Trial models are Development-only. If this one is too, the constraint
+   is unchanged for a Production demo; if it is not, that is a second reason to care.
+3. **Who provisioned it** — did A.J. add it from the Provider tab, or did OutSystems
+   pre-provision it for the hackathon? The answer decides whether it is a hackathon
+   entitlement or a configuration we are responsible for.
+4. **Does the 10M refill, or is it a total like the trial caps?** Every number in this
+   document turns on totals-not-rates, and that lesson applies here until disproved.
+
+**This is very likely the answer to Slack lead question 2** — *"is the hackathon allowance
+the trial allowance, or additional?"* The evidence now points at **additional**: a separate
+entry, a separate unit, a separate pool. Worth asking anyway, because an inference from a
+Portal page is not a confirmation from the organisers.
+
+**One rider closed, one still open.** GPT-5 is now read from this tenant at 100 requests,
+so the published figure is confirmed. **Amazon Nova Pro's page has still not been read** —
+1,000 requests is still an inference from the table.
+
+## 2d. ANSWERED AT THE KICKOFF, 2 NOVEMBER 10:27 — and the constraint is gone
+
+Source: the *AI Services* slide, `../AI-model-details.png`. Verbatim:
+
+> - Two models available:
+>   - Haiku 5.5 provided by AWS
+>   - GPT5.5 provided by Microsoft
+>   - They are limit to 10000000 Tokens a day each
+> - There is possibility we might need to replace the GPT model in a couple of days.
+> - Token consumption will be checked every day to see if any adjustments are
+>   needed, but these limits should be enough for you to use.
+> - Feel free to configure and use your own models
+
+The slide also shows the AI models page with two entries: **`BedrockHaiku5_5`**
+(*Amazon Bedrock* — "Model provided by AWS Bedrock") and
+**`Microsoft_OpenAI_GPT5_5_te…`** (*Custom connection* — "Model provided by Microsoft.
+**Will be deprecated soon and replaced by another model**").
+
+### Three of §2c's four conditions are now answered
+
+| §2c asked | Answer |
+|---|---|
+| 3. Who provisioned it? | **OutSystems, as a hackathon entitlement.** The slide presents both as provided — "Two models available" |
+| 4. Total or refill? | **Per day.** *"10000000 Tokens a day each"* — it refills, and the totals-not-rates lesson does not apply here |
+| — and a fact §2c did not know | **There are TWO of them**, Haiku 5.5 and GPT-5.5, **10M tokens a day each — 20M a day combined** |
+| 1. Bindable in a `Call Agent` element? | **Still not stated.** They sit on the AI models page, which is where models are registered for agents, and the slide invites configuring more — so this is near-certain. **It is a five-minute check in Studio and it should still be done**, because a model an agent cannot bind to is not a budget |
+| 2. Which stages? | **Still not stated.** The trial models are Development-only; whether these are too is the same question, and it matters only if judging requires Production (L4) |
+
+### What this does to the rest of this document
+
+**§2's correction — "the meter is requests, not tokens" — applies only to the trial
+models.** The build does not have to run on them. Against §3's ~3.8M-token estimate for
+the *entire* build, one day's allowance on one model is **2.6× the whole thing**, and we
+have nine days of two models.
+
+So: **§4's reserve, §5's spending plan and the §6.2 circuit breaker are no longer about
+scarcity.** Do not delete them, and do not keep them for their original reason either.
+`TokenUsage` survives on the argument §1 already makes and which the slide reinforces —
+*"token consumption will be checked every day to see if any adjustments are needed"*,
+by **them**, with limits that can move. We still cannot read their console, we still
+cannot attribute cost to a board, and a cost-per-board figure is still the thing that
+shows engineering maturity to a judge. **Keep the instrument; retire the panic.**
+
+> **CORRECTED 11:38, from the written technical-evaluation document.** "Keep the
+> instrument" understates it. Real-Time Observability is a **named scoring criterion**,
+> and its wording is almost a specification for this entity: *"real-time visibility into
+> response quality and **cost**… track execution metrics, **token consumption, cost**,
+> latency, reliability, and workflow outcomes."* So the instrument is now worth more than
+> the budget it was built to protect, and it belongs in the Tech Video rather than in a
+> footnote. The platform route to the same criterion is **Streaming Observability Data**
+> over OpenTelemetry, plus *Monitoring and Troubleshooting Apps* and **Audit Trail** —
+> see `../RESOURCES-AND-CRITERIA-NOV-2.md §1.3`.
+
+### Two instructions the slide gives that are not about budget at all
+
+1. **Do not hard-bind to the GPT model.** *"There is possibility we might need to replace
+   the GPT model in a couple of days"*, and its own card says it **will be deprecated and
+   replaced**. The model must be a **Setting**, resolved at run time, not a constant baked
+   into an agent — and anything load-bearing should prefer **`BedrockHaiku5_5`**, which
+   carries no such warning. This is an architectural requirement, not a preference.
+2. **"Feel free to configure and use your own models"** — so registering a model against
+   A.J.'s own AWS account is permitted. With 20M tokens a day free, there is no reason to,
+   and that makes the `PRE-BUILD-LAB.md` lab bench optional rather than necessary. It is
+   worth keeping only for what it teaches, not for capacity.
+
+### One correction to carry everywhere
+
+The hackathon models are **Haiku 5.5** and **GPT-5.5** — not the Haiku 4.5 and GPT-5 this
+document and `ODC-FIRST-LOGIN.md` were written against. Those names belong to the *trial*
+entries (`TrialClaudeHaiku4_5`, `TrialGPT5`), which still exist and still cap requests.
+**Four model entries now, in two classes**, and only the hackathon pair matters for the
+build.
 
 ## 2b. The second meter, and why it closed
 
@@ -332,6 +468,23 @@ before the two that trade quality for budget.
    model-backed. If they bill against the same metered pool as our three agents, then
    scaffolding screens spends the budget this document reserves for boards, and that
    changes whether we use them at all. Nothing we have read says either way.
+
+   **ANSWERED 2 November, second-hand:** the Zoom AI summary of the kickoff Q&A reports
+   *"there are **no limits on mentor usage**"*. That is machine-generated and misnames
+   jurors elsewhere in the same summary, so treat it as a lead. **It is cheap to confirm
+   by meter**: read all four model figures in the Portal, run one prompt from
+   `practice-camera-app/mentor-prompt.md`, read them again. If it holds, Mentor costs
+   nothing and the only remaining reason to hand-build is that Mentor cannot scaffold.
+   `RESOURCES-AND-CRITERIA-NOV-2.md §6.2`.
+
+   **There is now an experiment for it, and it costs nothing extra.** A practice camera
+   app is being built with Mentor anyway — it stands in for `SPEC.md` screen 4a, which
+   ships on day 5. The method is to read all three Trial Model usage figures immediately
+   before prompting Mentor and immediately after: if they do not move, Mentor is on a
+   separate allocation and can be used freely for scaffolding; if they move, every Mentor
+   prompt spends the board budget and §3 needs a line for it. The prompt and the capture
+   sheet are outside the repo, in `practice-camera-app/`. **Record the answer here the day
+   it is measured** — it is the only question in this list with a free experiment.
 
 ~~Question 4 is the one to push on.~~ **It resolved in our favour.** OutSystems does
 expose a usage figure, so §6.3 is a real reconciliation rather than a hope, and §6.1's

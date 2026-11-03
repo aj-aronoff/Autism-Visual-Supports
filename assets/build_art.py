@@ -9,7 +9,11 @@ Style rules taken from DivergentTravel + Calm Skies symbol library:
 """
 import os, random
 
-OUT = "/mnt/c/users/ajaro/claude/resume/hackathon-future/assets"
+# Beside this file, so the generator writes into the repo and no hand copy is ever
+# needed -- ASSETS.md caution 11. Until 1 Nov 2026 this was hardcoded to the parent
+# directory's assets/, which is how a second, drifting copy of the asset set came to
+# exist outside the repo. Caution 19.
+OUT = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(OUT, exist_ok=True)
 
 # ---- palette -------------------------------------------------------------

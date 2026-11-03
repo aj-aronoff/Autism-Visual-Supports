@@ -282,3 +282,29 @@ the code. Render the sheet and read it.
     argument for putting `CardLibrary.Label` behind semantic search - see
     [`ODC-GROUNDING.md`](../ODC-GROUNDING.md) - and the string pass is useful only for
     spotting the pairs a human should look at.
+
+19. **Caution 11 was written and then only half applied, and a whole second copy of the
+    asset set grew outside the repo because of it.** On 1 November 2026, nine days after
+    caution 11 said a generator must derive its output path from its own location,
+    `build_art.py` still read
+    `OUT = "/mnt/c/.../hackathon-future/assets"` and `build_video.py` still did
+    `sys.path.insert(0, <that same parent path>)` before `import build_art` — so the
+    repo's own generators were writing the asset set into the **parent** directory and
+    importing the **parent's** copy of themselves. Only `build_diagram.py` had been
+    fixed. What that produced, measured rather than guessed:
+
+    | | parent `assets/` | repo `assets/` |
+    |---|---|---|
+    | `ASSETS.md` | 182 lines — cautions 12–18 **missing** | 284 lines |
+    | `build_diagram.py` | the hardcoded `OUT` caution 11 forbids | derived from `__file__` |
+    | `trust-boundaries-2x.png` | **3413×1920** — caution 16's bug, live | 2560×1440 |
+    | `cards/` | absent | 201 cards + manifest |
+
+    Both generators now derive their paths from `__file__`, and the parent copy was
+    brought level. **The check is `grep -rn "hackathon-future/" --include="*.py"` inside
+    the repo**: it should return `video/make_video.py` and nothing else.
+
+    `make_video.py` is the deliberate exception and carries a comment saying so — the
+    concept video is **intentionally** kept out of the repo, so its outward paths are the
+    design, not a leak of this bug.
+

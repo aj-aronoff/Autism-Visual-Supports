@@ -26,6 +26,11 @@ only credential for the submission; there is no second route in.
 
 ## 1. Nine things to look at, in this order
 
+> **Eight of the nine were run on 1 November** — seven the night the password was set, then
+> check 4 once ODC Studio was installed. Results in
+> §9 at the foot of this file. Two remain: the **Agentic** entry in the Create App dialog
+> (check 4) and everything that needs ODC Studio (check 8, download started).
+
 | # | Look at | Closes | Fallback if the answer is bad |
 |---|---|---|---|
 | 1 | **Whether you are an administrator** — Portal → **Management**, which holds organization, subscription, access and settings | gates 5, 6, 7 and the §6 fallback — *managing AI models uses the same permissions as managing connections* | A request to OutSystems — nothing in our control recovers it |
@@ -150,6 +155,26 @@ further use of the model*. The numbers are on the **Trial Model details** page, 
 also where consumption to date is shown — so check 7 is a page to read and screenshot,
 not a yes-or-no. Those numbers are the input to `TOKEN-BUDGET.md §3`, whose ~3.8M-token
 build estimate is currently sized against nothing.
+
+---
+
+## 9. What the first login actually returned, 1 November 2026
+
+| # | Answer | What it changes |
+|---|---|---|
+| 1 | **Administrator**, inherited role, for all assets | Unblocks checks 5, 6 and 7 and the §6 Data Fabric fallback. The days-long request to OutSystems is not needed |
+| 2 | **Two stages** — Development and Production, both Online | The §2 branch is "two or three stages", but see check 6: knowledge bases turn out to be org-scoped, and trial models are Development-only, so **the demo runs from Development** |
+| 2a | Portfolios exist (`portfolioid` in the Portal URL) and **the trial models are present**, which is the answer that mattered | The no-fallback risk in §8 did not fire |
+| 3 | **US East (N. Virginia)**, platform *and* data-platform region | Closes item 7. The `eu-central-1` routing in §3 does not apply |
+| 4 | **Confirmed in ODC Studio, 1 Nov:** *"Yes Agentic is there. So is web, mobile, Library"* — all four app types | **Closes item 2.** The three-server-action fallback is retired |
+| 5 | Three trial models offered: **Claude Haiku 4.5** and **Amazon Nova Pro** via Amazon Bedrock, **GPT-5 via Azure OpenAI**. `TrialClaudeHaiku4_5` v2.0.1 added 01:54 | **GPT-5 is Microsoft, not OpenAI** — this repo had it wrong. Only Haiku has been added; the other two are a click each and their allowances are separate pools |
+| 6 | Knowledge base wizard present — name, data source configuration, review and create — and it states *"Each knowledge base is scoped to **all the stages** in the organization"* | **Contradicts `ODC-GROUNDING.md §2`**, which said every stage has its own index. Corrected there |
+| 7 | **`0 of 1000 requests`** on Haiku 4.5 | **Licensed Customers row**, so 2,100 requests total and the meter is confirmed live at zero. Closes items 6 and 11 |
+| 8 | Studio installed and running. **`Create → Workflow` is present.** On semantic search A.J. reported *"I installed some Semantic components"* | Workflow confirmed. **The semantic half is not closed**: installing Forge components is not the same as the **Semantic Search** property appearing on an entity attribute, which is what `ODC-GROUNDING.md §4` warns can be missing from a release. Still to look at, with a module open |
+
+**Nothing here forced a plan change.** Two things were corrected — the GPT-5 provider and
+the knowledge-base stage scope — and both corrections make the build easier rather than
+harder. The one genuinely new constraint is that the request meter is now running.
 
 ---
 

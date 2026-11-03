@@ -214,17 +214,25 @@ One tool type end to end before any second tool type. A First–Then board that
 generates, prints, goes on a fridge, texts the parent and records the reward is a
 complete five-minute demo. Four half-built tool types are not.
 
+> **THE TABLE BELOW IS OUT OF DATE AS OF 2 NOVEMBER, 10:22 ET, IN BOTH DIRECTIONS.**
+> The deadline moved to **11 November, 2 PM GMT+1 — 08:00 EST in New York**, which adds
+> two days and removes the final morning, so the real ship date is the evening of
+> **Tuesday 10 November**. And the submission is **two videos**: the five-minute demo
+> below is the *Demo*, and a separate **10-minute Tech Video** covering *"technical
+> implementation, key architectural decisions, and agent workflows"* is new work with no
+> row here. Re-plan against `SCORING-CRITERIA.md §C` before using this table.
+
 | Day | Ships |
 |---|---|
-| 2 Nov | Kickoff — re-order everything below against the announced ODC features and scoring |
+| 2 Nov | Kickoff — re-order everything below against the announced ODC features and scoring. **Done: `SCORING-CRITERIA.md` holds all three slides** |
 | 3 | Entities and static entities; child profile. Knowledge base created and the toolkit uploaded; semantic search enabled on `CardLibrary.Label` and the 201 starter cards seeded, so indexing finishes long before anything queries it |
 | 3–4 | Composer + Reviewer, First–Then branch only, returning the JSON contract |
-| **4 Nov** | **Mid submission** — problem, use case, AI services and integrations |
+| ~~**4 Nov**~~ | ~~**Mid submission**~~ — **cancelled: there is no mid-week submission**, confirmed at the kickoff. `MID-SUBMISSION.md` survives as script source for the two final videos. **This row is now free build time** |
 | 5 | Three-question wizard → agents → persisted board; three-word validator |
 | 5 | **Photo upload** — the parent's own camera roll into `CardLibrary`, square crop and badge applied so a photo matches the drawn cards. Prototype: [`docs/add-a-picture.html`](docs/add-a-picture.html) |
 | 5–6 | Illustrator agent, card library reuse, board editor. Reuse is a semantic hit, so the test is *sneakers* finding **Shoes** |
 | 6 | Print sheet with cut lines; tablet use mode |
-| 7 | Twilio script-and-reward SMS; usage log; trust streak |
+| 7 | ~~Twilio script-and-reward SMS~~ — **withdrawn 2 Nov**, the organiser confirmed Twilio is not used in this hackathon. Usage log and trust streak survive; the caregiver script becomes an on-screen/printable script with no third party. **A reclaimed day** — spend it on the UX pass or the demo, not on new scope |
 | 8 | UX pass over every screen the video touches. Nothing new built. Confirm the knowledge base exists **in the stage the demo is recorded in** — uploads do not carry between stages |
 | 8–9 | Record and cut the five-minute demo |
 | — | *Roadmap:* visual schedule, parameter cards, social narrative, team sharing, offline |

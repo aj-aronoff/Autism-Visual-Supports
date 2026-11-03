@@ -7,11 +7,14 @@ the same artwork the product itself draws.
 """
 import os, sys
 
-ASSETS = "/mnt/c/users/ajaro/claude/resume/hackathon-future/assets"
+# Derived from this file, not hardcoded -- ASSETS.md cautions 11 and 19. This used to
+# point at the parent directory's assets/, so it imported THAT copy of build_art and
+# regenerated the asset set there rather than in the repo.
+ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
 sys.path.insert(0, ASSETS)
 import build_art as A  # noqa: E402  (regenerates the asset set on import; idempotent)
 
-OUT = "/mnt/c/users/ajaro/claude/resume/hackathon-future/video/frames"
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frames")
 os.makedirs(OUT, exist_ok=True)
 W, H = 1920, 1080
 F = A.FONT

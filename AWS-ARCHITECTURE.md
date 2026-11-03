@@ -276,15 +276,28 @@ icon. Nothing about the demo path depends on generating a picture live.
 
 ### 1.5 Messaging — not AWS, and the only third party we hold credentials for
 
+> **WITHDRAWN 2 NOVEMBER — read this before anything below it.** Asked whether
+> Twilio credentials come with the instance, the organiser answered: *"We will not
+> use twilio for this hackathon."* That supersedes `rules.txt:36`, which names
+> Twilio use as a condition of a special Twilio prize. **The "Confirmed as
+> required" in the table below was never confirmation of a platform capability —
+> it was a reading of that one rules line**, and the line no longer holds.
+> The section is kept, struck rather than deleted, because the caregiver script is
+> a real feature with evidence behind it; what dies is the *transport*. It can ship
+> as an on-screen script the parent reads or prints: no third party, no
+> credentials, no inbound webhook, and boundaries **B3 and B6 disappear with it**.
+> The decision to cut is A.J.'s and is recorded in `QUESTIONS-consolidated.txt`
+> under THE TWILIO DECISION.
+
 | Component | Service | Confidence | What we configure |
 |---|---|---|---|
-| Outbound caregiver script | **Twilio Programmable SMS** | **Confirmed** as required | Message content, send trigger |
-| Inbound reward confirmation | Twilio → our exposed ODC REST endpoint | **Confirmed** supported | The endpoint, its auth, its idempotency |
-| Credentials source | Provided with instance, or our own account | **Unknown** | Where the auth token is stored |
+| ~~Outbound caregiver script~~ | ~~**Twilio Programmable SMS**~~ | **Withdrawn 2 Nov** — was "required" only via `rules.txt:36` | Message content, send trigger |
+| ~~Inbound reward confirmation~~ | ~~Twilio → our exposed ODC REST endpoint~~ | **Withdrawn 2 Nov** | The endpoint, its auth, its idempotency |
+| ~~Credentials source~~ | ~~Provided with instance, or our own account~~ | **Answered 2 Nov: neither. Twilio is not in this hackathon** | — |
 
-`rules.txt:36` makes Twilio use a condition of the Twilio prize. A Forge component
-`Twilio Messaging (ODC)` v0.1.1 exists and returns the message SID — useful, because that
-SID is the idempotency key the design needs.
+A Forge component `Twilio Messaging (ODC)` v0.1.1 exists and returns the message SID,
+which would have been the idempotency key the design needed. Recorded for a future
+roadmap item, not for this build.
 
 ### 1.6 What is explicitly *not* in this system
 
@@ -406,11 +419,14 @@ and corrupt the only number the home screen reports.
    the Twilio `MessageSid` on `UsageLog` under a unique index and make the write an
    upsert. Return 2xx fast; do the work after.
 
-**Open item:** the ODC docs describe the callback sequence but do not state whether an
-exposed method can read an arbitrary inbound header such as `X-Twilio-Signature`. Verify
-in ODC Studio on day 2 — this control depends on it. If headers are not reachable, the
-fallback is a high-entropy secret path segment plus a shared token in the body, which is
-weaker and should be treated as a last resort.
+**Open item 1 — now conditional on the Twilio decision.** The ODC docs describe the
+callback sequence but do not state whether an exposed method can read an arbitrary
+inbound header such as `X-Twilio-Signature`. If headers are not reachable, the fallback
+is a high-entropy secret path segment plus a shared token in the body, which is weaker
+and should be treated as a last resort. **But the only caller of this boundary was
+Twilio, and Twilio was withdrawn on 2 November** (§1.5). If the SMS path is cut, this
+item closes untested and B3 stops existing — do not spend a Studio experiment on it
+until the Twilio decision is made.
 
 ### B4 · The agent tool surface — the confused-deputy boundary
 
@@ -522,17 +538,24 @@ Each has a named fallback, so none of them blocks the build.
 
 | # | Unknown | Resolve | Fallback if the answer is bad |
 |---|---|---|---|
-| 1 | Can an exposed method read an inbound HTTP header? | ODC Studio — installable now | Secret path segment + body token (weaker) |
-| 2 | Is Agent Workbench enabled on hackathon instances? | **First login** | Three server actions against the JSON contract |
+| 1 | Can an exposed method read an inbound HTTP header? **Conditional since 2 Nov** — its only caller was the withdrawn Twilio webhook, so this may close untested | ODC Studio — only worth doing if the SMS path survives | Secret path segment + body token (weaker) |
+| ~~2~~ | ~~Is Agent Workbench enabled on hackathon instances?~~ **Answered 1 Nov in ODC Studio: yes.** A.J. opened Create app and reported *"Yes Agentic is there. So is web, mobile, Library"* — the four documented app types, with **Agentic** among them. The Portal had already listed `template_Agent` (*"AI Software that makes decisions autonomously based on data"*, v0.1.9) and `Template_TestAgent` as system assets created by OutSystems on 23 Oct; the dialog confirms it. **ODC Workflow is present too**, from the same check | — | Not needed. The three-server-action fallback is retired |
 | ~~3~~ | ~~Is Bedrock pre-wired?~~ **Answered 30 Oct: yes.** Claude Haiku 4.5 and Nova Pro are trial models *via Amazon Bedrock* | — | Not needed |
 | 4 | **Reframed 31 Oct.** Not *can ODC's chat contract return an image* — it cannot — but *can we use the Forge `AWSBedrockRuntime` external library, and is External Logic available on this tenant?* | **Day-3 experiment**: install the Forge library, call `StabilityDiffusionTextToImage` | **The plan, not the fallback:** 201 seeded cards + parent photo upload |
-| 5 | Are Twilio credentials provided? | Kickoff | Own trial account, number verified day 2 |
-| 6 | Token allocation — the *number*. **Where to see consumption is answered:** the Trial Model details page in the Portal | The limits table on that page | Our own `TokenUsage` logging either way |
-| 7 | Region available for provisioning | **Already decided** — visible in the Portal | US region required |
+| ~~5~~ | ~~Are Twilio credentials provided?~~ **Answered 2 Nov: the question dissolves.** *"We will not use twilio for this hackathon"* — so there are no credentials to provide and no prize to qualify for. §1.5 is struck through; whether the SMS feature is cut or re-shaped as an on-screen script is A.J.'s decision, not an unknown about the platform | — | The on-screen caregiver script: same feature, no third party |
+| ~~6~~ | ~~Token allocation — the *number*~~ **Answered 1 Nov: `0 of 1000 requests` on Claude Haiku 4.5**, read off the Trial Model details page. That is the Licensed Customers figure, so the cap is **2,100 requests** across the three models — see [`TOKEN-BUDGET.md §2`](TOKEN-BUDGET.md) | — | `TokenUsage` is still needed: that page is for a human to read and cannot attribute cost to a board |
+| ~~7~~ | ~~Region available for provisioning~~ **Answered 1 Nov: US East (N. Virginia)**, both platform region and data-platform region. The `eu-central-1` retrieval routing in [`ODC-FIRST-LOGIN.md §3`](ODC-FIRST-LOGIN.md) does not apply | — | Not needed |
 | ~~8~~ | ~~Are ODC knowledge bases enabled on the instance?~~ **Answered 30 Oct — yes, automatically.** OutSystems in the hackathon Slack: *"Yes, both are enabled in the the hackathon instance automatically, you dont need to do anything"* | — | Not needed |
 | ~~9~~ | ~~Is ODC semantic search enabled on the instance?~~ **Answered 30 Oct — yes, automatically**, same reply | — | Not needed |
 | ~~10~~ | ~~Does ODC allow a *cycle* of weak dependencies between two apps?~~ **Answered 30 Oct: the question dissolves.** The consumer app raises an **Event**, an **ODC Workflow** calls the agent, and only the agent depends on the consumer app. See [`ODC-AGENT-ANATOMY.md §2`](ODC-AGENT-ANATOMY.md) | — | Not needed |
-| 11 | Is this tenant a **Licensed Customer** or **Personal Edition**? The trial caps differ by 2×, the rate limits differ, and Personal Edition has no GPT-5 row | **First login** — the Trial Model details page | Plan against the Licensed row, which is the tighter of the two |
+| ~~11~~ | ~~Licensed Customer or Personal Edition?~~ **Answered 1 Nov: Licensed Customer**, the tighter of the two rows. Haiku 4.5 reads 1,000 requests; Personal Edition would read 3,000. The fallback was *plan against the Licensed row*, so **nothing in the plan changes** | — | Not needed |
+
+**One provider correction, 1 November.** The Portal lists GPT-5 under **Azure OpenAI**,
+not OpenAI, which is what this repo said. That is not cosmetic: the hackathon rules promise
+*"AWS and Microsoft AI services … free of charge"*, so the trial roster spans **both**
+named providers — Bedrock for Haiku 4.5 and Nova Pro, Microsoft for GPT-5. At 100 requests
+GPT-5 is a demonstrator rather than a workhorse, but a model comparison costing ~20
+requests is a cheap thing for a judge to see.
 
 Items 2–6 are questions in `email-4-kickoff-questions.txt`. Items 8 and 9 are newer than
 that email and are detailed in [`ODC-GROUNDING.md`](ODC-GROUNDING.md); unlike 2–6 they
@@ -541,7 +564,7 @@ whether the Portal offers the feature at all is still visible, and that is the t
 
 **The ODC environment was created on 30 October**, three days before the kickoff, which
 is why the Resolve column above now says *first login* where it used to say *kickoff*.
-[`ODC-FIRST-LOGIN.md`](ODC-FIRST-LOGIN.md) turns that into seven things to look at, in
+[`ODC-FIRST-LOGIN.md`](ODC-FIRST-LOGIN.md) turns that into nine things to look at, in
 order, each naming the item it closes. Two things looking cannot resolve: the token
 allocation number, and item 9's entitlement.
 

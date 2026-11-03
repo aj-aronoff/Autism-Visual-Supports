@@ -72,7 +72,15 @@ SystemPrompt and a truncation guard in the logic. Our board JSON is far longer t
 200-character summary, so entity attributes get sized deliberately and the guard stays.
 [`ODC-AGENT-ANATOMY.md §6`](ODC-AGENT-ANATOMY.md).
 
-### 3.2 The seven guardrails — *specified, not written*
+### 3.2 The seven guardrails — ~~*specified, not written*~~ **written 1 November 2026**
+
+**Done.** [`GUARDRAILS.md`](GUARDRAILS.md) is the document,
+[`tools/guardrails.py`](tools/guardrails.py) the reference implementation and
+[`tools/test_guardrails.py`](tools/test_guardrails.py) the table — **57 rows across 19
+tests, all passing**, plus [`schema/board.schema.json`](schema/board.schema.json), which
+enforces rules 1, 3 and 4 structurally as well. The table caught three real defects on
+its first run, including a hole in rule 5, the one rule with a safety cost. The rest of
+this section is the specification it was built from and still reads true.
 
 `SPEC.md §6` states them in prose. Each is a validation in a server action, and in ODC
 that means a visual flow — but the **logic** is authorable and testable now, as a small
@@ -93,7 +101,15 @@ Rules 1, 2, 4 and 5 are pure functions over text. Write them in Python with a ta
 cases, review them, then port the logic into ODC flows on day 5. The Python version does
 not ship — it is the specification that gets reviewed, and the test table outlives it.
 
-### 3.3 The Twilio inbound webhook — *the highest-risk authorable piece*
+### 3.3 ~~The Twilio inbound webhook~~ — *withdrawn 2 November*
+
+> **Twilio is not in this hackathon.** The organiser, 2 Nov: *"We will not use
+> twilio for this hackathon."* Everything in this section was the highest-risk
+> authorable piece in the project and it now scores nothing, so the
+> recommendation is to cut it and reclaim the day — see THE TWILIO DECISION in
+> `QUESTIONS-consolidated.txt`. Kept for reference because the reasoning about
+> B3 is sound and would apply to any future inbound callback.
+
 
 Boundary **B3** in `AWS-ARCHITECTURE.md` is the only unauthenticated path into the
 system, and the one thing a managed platform does not do for us. It needs:
