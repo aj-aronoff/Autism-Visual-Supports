@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ODC Plan Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column of numbered decisions; each one a card with a
+   verdict strip on the left, its source cited in mono, and a comment box. */
+:root{
+  --paper:#f7f5f1; --card:#fffefc; --ink:#1c1b19; --ink-2:#55514b; --ink-3:#8a847c;
+  --rule:#e2ddd4; --accent:#1f6f78; --accent-soft:#e3f0f1;
+  --ok:#2f6d46; --ok-soft:#e4efe7; --flag:#9a4a21; --flag-soft:#f8e9e0;
+  --font-display:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#16181a; --card:#1e2124; --ink:#eceae6; --ink-2:#aaa49c; --ink-3:#7d7871;
+  --rule:#303438; --accent:#5fb6bf; --accent-soft:#15343a;
+  --ok:#7cc294; --ok-soft:#142a1d; --flag:#dd9868; --flag-soft:#33200f;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#16181a; --card:#1e2124; --ink:#eceae6; --ink-2:#aaa49c; --ink-3:#7d7871;
+  --rule:#303438; --accent:#5fb6bf; --accent-soft:#15343a;
+  --ok:#7cc294; --ok-soft:#142a1d; --flag:#dd9868; --flag-soft:#33200f;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:52rem; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 5rem;
+}
+
+/* masthead */
+header.top{padding-block:2.5rem 1.75rem; border-bottom:2px solid var(--ink)}
+.eyebrow{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 .6rem;
+}
+h1{
+  font-family:var(--font-display); font-weight:600; font-size:clamp(1.9rem,5.5vw,2.7rem);
+  line-height:1.1; margin:0 0 .7rem; text-wrap:balance; letter-spacing:-.01em;
+}
+.standfirst{margin:0; max-width:40rem; color:var(--ink-2); font-size:1.02rem}
+.standfirst b{color:var(--ink); font-weight:600}
+
+/* sticky bar */
+.bar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
+  background:var(--paper); border-bottom:1px solid var(--rule);
+  display:flex; flex-wrap:wrap; gap:.6rem .9rem; align-items:center;
+  padding-block:.7rem; margin-bottom:1.5rem;
+}
+.tally{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-2); flex:1 1 9rem; min-width:0}
+.tally b{color:var(--ink)}
+button{
+  font-family:var(--font-body); font-size:.82rem; font-weight:500;
+  padding:.44rem .9rem; border-radius:2px; border:1px solid var(--rule);
+  background:var(--card); color:var(--ink); cursor:pointer;
+}
+button:hover:not(:disabled){border-color:var(--ink-3)}
+button:disabled{opacity:.42; cursor:default}
+button.primary{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+button.primary:hover:not(:disabled){opacity:.86}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* sections */
+section{margin-block:2.4rem 0}
+h2{
+  font-family:var(--font-display); font-size:1.26rem; font-weight:600;
+  margin:0 0 .25rem; display:flex; gap:.6rem; align-items:baseline; text-wrap:balance;
+}
+h2 .num{font-family:var(--font-mono); font-size:.8rem; color:var(--accent); font-weight:500}
+.sect-note{margin:0 0 1.1rem; color:var(--ink-3); font-size:.88rem; max-width:38rem}
+
+/* item cards */
+.item{
+  background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--rule);
+  padding:1rem 1.1rem; margin-bottom:.8rem;
+}
+.item.agreed{border-left-color:var(--ok)}
+.item.flagged{border-left-color:var(--flag)}
+.item.open{border-left-color:var(--accent)}
+.ihead{display:flex; gap:.7rem; align-items:baseline; margin-bottom:.35rem}
+.iid{
+  font-family:var(--font-mono); font-size:.76rem; color:var(--ink-3);
+  font-variant-numeric:tabular-nums; padding-top:.1rem;
+}
+.ititle{font-weight:600; font-size:.97rem; margin:0; flex:1; min-width:0; text-wrap:balance}
+.ibody{margin:0 0 .5rem; color:var(--ink-2); font-size:.92rem}
+.ibody strong{color:var(--ink); font-weight:600}
+.src{font-family:var(--font-mono); font-size:.74rem; color:var(--ink-3); margin:0 0 .7rem}
+.pill{
+  display:inline-block; font-family:var(--font-mono); font-size:.66rem;
+  letter-spacing:.07em; text-transform:uppercase; padding:.14rem .45rem;
+  border-radius:2px; background:var(--accent-soft); color:var(--accent);
+  white-space:nowrap;
+}
+.verdict{display:flex; gap:.4rem; margin-bottom:.55rem; flex-wrap:wrap}
+.verdict button{font-size:.76rem; padding:.3rem .7rem}
+.verdict button[aria-pressed="true"].yes{background:var(--ok-soft); border-color:var(--ok); color:var(--ok)}
+.verdict button[aria-pressed="true"].no{background:var(--flag-soft); border-color:var(--flag); color:var(--flag)}
+textarea{
+  width:100%; min-height:2.5rem; resize:vertical; font-family:var(--font-body);
+  font-size:.88rem; line-height:1.5; color:var(--ink); background:var(--paper);
+  border:1px solid var(--rule); border-radius:2px; padding:.5rem .6rem;
+}
+textarea::placeholder{color:var(--ink-3)}
+footer{
+  margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--rule);
+  font-size:.84rem; color:var(--ink-3);
+}
+footer code{font-family:var(--font-mono); font-size:.8rem; color:var(--ink-2)}
+@media (max-width:420px){
+  .ihead{flex-wrap:wrap; gap:.3rem}
+  .iid{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Autism Visual Supports &middot; Build for the Future 2026</p>
+  <h1>ODC Plan Review</h1>
+  <p class="standfirst">Every standing decision about what gets built in OutSystems
+  Developer Cloud, in one pass. <b>Agree or flag each one, and say why in the box.</b>
+  Items marked <span class="pill">open</span> are not decided yet and are the ones
+  worth your attention first.</p>
+</header>
+
+<div class="bar">
+  <span class="tally" id="tally">&nbsp;</span>
+  <button id="load">Load a saved file</button>
+  <button id="save" class="primary">Save</button>
+</div>
+
+<main id="plan"></main>
+
+<footer>
+  <p>Saving writes <code>odc-plan-review.json</code>. The first save asks where to put it;
+  after that the same file is rewritten in place. Your answers are also kept in this
+  browser, so closing the tab does not lose them.</p>
+</footer>
+</div>
+
+<script>
+const PLAN = [
+ {n:"1", h:"Shape of the submission", note:"Decided on 30 October from the course exercises and the ODC architecture documentation. These four shape everything else.", items:[
+  {id:"1.1", t:"Two ODC apps, by construction", s:"CODE-PLAN.md §8",
+   b:"A <strong>Web</strong> app holding the entities, screens, guardrail server actions, print sheet and the Twilio endpoint; an <strong>Agentic</strong> app holding Composer, Reviewer and Illustrator. Agents have no UI, so this split is forced rather than chosen."},
+  {id:"1.2", t:"Event and Workflow, not a dependency cycle", s:"ODC-AGENT-ANATOMY.md §2",
+   b:"The Web app raises an Event; an ODC <strong>Workflow</strong> calls the agent; only the agentic app depends on the Web app. The question of whether ODC permits a cycle of weak dependencies dissolves — there is no cycle."},
+  {id:"1.3", t:"The demo runs from the Development stage", s:"AWS-ARCHITECTURE.md §1.4", pill:"open",
+   b:"Trial models are a <strong>development-stage</strong> feature, and that is also where the knowledge base lives, so one stage keeps both simple. <strong>Unresolved:</strong> whether judging expects a Production publish. Question 1 in <code>next-slack-questions.txt</code>."},
+  {id:"1.4", t:"The parent-facing path is synchronous", s:"ODC-AGENT-ANATOMY.md §11",
+   b:"The course exercises route even interactive chat through an event, a workflow and a refresh button. For a parent with four minutes that is the wrong product, so the Web app calls <strong>Call&lt;Agent&gt; as a service action directly</strong> and shows progress. The Event-and-Workflow path carries the asynchronous work: Illustrator top-up and the SMS send."},
+  {id:"1.5", t:"This is not built on AWS", s:"CLAUDE.md §1",
+   b:"ODC is provisioned and operated by OutSystems. The entire AWS surface our code touches is <strong>Amazon Bedrock</strong>, reached through ODC. The personal AWS account is a lab bench billed to your card, not the build."}
+ ]},
+ {n:"2", h:"The three agents", note:"Each agent answers from a rule or from the library when it can, and reaches for a model when it cannot.", items:[
+  {id:"2.1", t:"Composer — intake to board", s:"SPEC.md §5",
+   b:"Three questions from the parent produce board JSON against a fixed contract. Grounded in a <strong>knowledge base over the Vanderbilt TRIAD toolkit</strong>, so the clinical basis is the source document rather than our paraphrase of it."},
+  {id:"2.2", t:"Reviewer — deterministic first", s:"TOKEN-BUDGET.md §3a, SPEC.md §6",
+   b:"Six of the seven guardrails are rules, not judgements, so they run as server actions and the model is called only on the ambiguous remainder — roughly one call in five. Saves about <strong>0.8 requests a board</strong>."},
+  {id:"2.3", t:"Illustrator — retrieval first", s:"ODC-GROUNDING.md §3",
+   b:"Searches the seeded card library by meaning before considering generation, so <em>sneakers</em> finds the existing <em>Shoes</em> card. Saves about <strong>0.85 requests a board</strong>, and matches the clinical point that the same activity should keep the same picture forever."},
+  {id:"2.4", t:"A fourth, conversational agent?", s:"ODC-AGENT-ANATOMY.md §11", pill:"open",
+   b:"The course's fourth agent keeps conversation memory keyed to the business record, which for us would be a <strong>child</strong>. It would let a parent say <em>make it shorter</em> or <em>text it to me</em> and have it understood in context. <strong>Not currently in the plan.</strong> It costs requests and build hours; it is also the most demo-friendly thing in the whole course. Your call."},
+  {id:"2.5", t:"Gating does not cost the agentic story", s:"TOKEN-BUDGET.md §3a",
+   b:"Three agents remain three agents. A gate in front of a model call is better engineering than a model call every time — worth saying out loud at the demo so it reads as deliberate rather than as an absence."}
+ ]},
+ {n:"3", h:"Models and the request budget", note:"The meter is requests, not tokens. That single correction is what makes the numbers below binding.", items:[
+  {id:"3.1", t:"Claude Haiku 4.5 via Bedrock, GPT-5 in reserve", s:"AWS-ARCHITECTURE.md §1.4",
+   b:"Of the three trial models, Haiku 4.5 has the most generous caps and arrives <strong>via Amazon Bedrock</strong>. Amazon Nova Pro is unusable at 3 requests a minute on the Personal Edition row."},
+  {id:"3.2", t:"About 1.6 requests a board", s:"TOKEN-BUDGET.md §3a",
+   b:"Ungated, three model calls plus retries is roughly 4 requests a board: 1,870 for the build, <strong>89% of the Licensed ceiling, which fails.</strong> With 2.2 and 2.3 gated it falls to ~1.6, about 770 requests, <strong>37% — comfortable.</strong>"},
+  {id:"3.3", t:"Three ceilings at three scopes", s:"TOKEN-BUDGET.md §6.2",
+   b:"The Portal's <strong>Usage limit</strong> caps daily tokens on the model connection; a <strong>Call Condition</strong> in the Action calling settings caps one agent's tool use; our own wrapper caps requests per board and per run. Set all three."},
+  {id:"3.4", t:"The breaker degrades, it does not fail", s:"TOKEN-BUDGET.md §6.2",
+   b:"Within the reserve floor, the wrapper refuses the model call and returns a <strong>deterministic template board</strong>. A First-Then board is two cards and a phrase; it does not strictly need a model. One mechanism covers loop termination, Twilio degradation and the token reserve."},
+  {id:"3.5", t:"Reserve = max(30% of cap, 160 requests)", s:"TOKEN-BUDGET.md §4",
+   b:"Sized from what the last two days actually need: 76 runs at 1.6 requests, plus 30% headroom. Protected by code rather than by remembering."},
+  {id:"3.6", t:"Log usage ourselves and reconcile daily", s:"TOKEN-BUDGET.md §6.1, §6.3",
+   b:"The Portal's <strong>Trial Model details</strong> page shows consumption, but it is a page for a human to read, not a feed the breaker can query, and it cannot attribute cost to a board. So a <code>TokenUsage</code> entity stays, and the page becomes the authority to reconcile against each evening."}
+ ]},
+ {n:"4", h:"Grounding and data", note:"Both Beta features were confirmed enabled on 30 October, so the primary design is the design.", items:[
+  {id:"4.1", t:"Knowledge base over the clinical toolkit", s:"ODC-GROUNDING.md §2",
+   b:"Confirmed enabled automatically on hackathon instances. The toolkit is 1.1 MB against a 20 MB limit. Note the three operational facts: <strong>immutable chunking, per-stage uploads, asynchronous indexing</strong> — all three shape the build order."},
+  {id:"4.2", t:"Semantic search over the card library", s:"ODC-GROUNDING.md §3",
+   b:"Also confirmed. This is the <strong>load-bearing one</strong>: without it the fallback was a label match plus a synonym table, which would have missed real synonyms, duplicated pictures, and taken the 37% figure in 3.2 with it."},
+  {id:"4.3", t:"Serialize a projection, never a whole entity", s:"ODC-GROUNDING.md §1",
+   b:"The grounding lesson calls this <em>a critical optimization problem that directly affects your budget</em> — and then the exercise breaks its own rule. A child carries a routine history; a board needs one routine. <strong>Cheapest single token saving in the design.</strong>"},
+  {id:"4.4", t:"Pass identifiers, re-read the record", s:"ODC-AGENT-ANATOMY.md §9",
+   b:"The Workflow hands an identifier between agents, not a payload, so each agent re-reads current state. Slightly more work, and the right default: a decision on stale data is a decision on false information."},
+  {id:"4.5", t:"Clinical rules as an entity, not prose", s:"CODE-PLAN.md §10", pill:"open",
+   b:"The course's underwriter grounds on a <strong>BankPolicy entity</strong> — policy as rows, editable without republishing. Ours are currently prose in prompts. A <code>ClinicalPractice</code> table would let a clinician correct a row and let each board link to the practice it rests on. <strong>Changes the entity count in SPEC.md</strong>, which appears in submission material, so it is listed rather than done."}
+ ]},
+ {n:"5", h:"Contracts and correctness", note:"Most of these came out of the four course exercises on 30 and 31 October. Two are corrections to what the exercises themselves do.", items:[
+  {id:"5.1", t:"Structured output, no hand-written parsing", s:"ODC-AGENT-ANATOMY.md §8",
+   b:"A Structure with a Description on the structure and every attribute, attached in the <strong>Structured output</strong> tab; the AgentFlow Response becomes a typed object. The regex-and-deserialize chain stays documented as a fallback only."},
+  {id:"5.2", t:"No decision is ever read by substring", s:"ODC-AGENT-ANATOMY.md §8",
+   b:"The shipped course exercise uses <code>Index(Decision,\"Approved\") &lt;&gt; -1</code>. <strong>\"Not Approved\" contains \"Approved\".</strong> We compare for equality or map through a static entity. This matters most at guardrail 5 — the escalation path must not be reachable by a substring accident."},
+  {id:"5.3", t:"Arithmetic lives in server actions", s:"CODE-PLAN.md §9",
+   b:"OutSystems' own exercise warns the model gets the debt-to-income ratio wrong and says to hand the calculation to code. So step counts, durations and timer maths are server actions the agent calls, never sentences in a prompt."},
+  {id:"5.4", t:"ChildId is pinned, never AI-generated", s:"ODC-AGENT-ANATOMY.md §7",
+   b:"Add an input parameter to the Call Agent element and bind the tool argument to it. The course's words: <em>we ensure the agent uses the actual decision made by the officer, rather than hallucinating a value.</em> Anything that scopes a query to one family is pinned. <strong>A security property, not a style choice.</strong>"},
+  {id:"5.5", t:"Descriptions are the interface", s:"ODC-AGENT-ANATOMY.md §7",
+   b:"The model picks which action to call from the action's Description and fills arguments from each parameter's Description. Both are empty by default. A tool with no description is a tool the model will not use correctly."},
+  {id:"5.6", t:"60-second timeout, length caps, truncation guard", s:"ODC-AGENT-ANATOMY.md §6",
+   b:"Default Timeout to 60 on <strong>both</strong> apps. Model responses overflow database columns — the exercise names the errors — so size attributes deliberately and keep a truncation guard in the logic as well as a length rule in the prompt."},
+  {id:"5.7", t:"Prompts live in Settings", s:"ODC-AGENT-ANATOMY.md §5",
+   b:"SystemPrompt and UserPrompt as ODC Settings, retunable in the Portal <strong>without republishing</strong>. The rule for which is which: if removing the instruction would break the agent on <em>any</em> call it is system; per-call context is user."}
+ ]},
+ {n:"6", h:"Claims that must stay true", note:"These survive a reviewer, a clinician, or a parent reading them. They are not style preferences.", items:[
+  {id:"6.1", t:"No diagnosis, no clinical advice", s:"SPEC.md §6, guardrail 5",
+   b:"Self-injury, aggression or escalation in a parent's text surfaces <strong>referral guidance instead of a board</strong>. The only guardrail with a safety cost if it is wrong, which is why 5.2 matters."},
+  {id:"6.2", t:"The nonprofit partner is unconfirmed", s:"CLAUDE.md §2",
+   b:"Autism Speaks is named as <strong>intent, never as a relationship</strong>. Citing public material — the TRIAD toolkit, the National Standards Report — is not a partnership and must never be written as one."},
+  {id:"6.3", t:"The same child, and never by name", s:"CLAUDE.md §2",
+   b:"Always the same child across the If and the Then picture — a clinical point, not a style one. The child's name never appears in an image prompt; prompts say <em>a child</em>."},
+  {id:"6.4", t:"Every board names its practice", s:"SPEC.md §7",
+   b:"Each board states which of the eleven National Standards practices it rests on. This is the claim that 4.5 would make checkable rather than asserted."}
+ ]},
+ {n:"7", h:"Integrations and interface", note:"Where the product meets a parent, a phone and a printer.", items:[
+  {id:"7.1", t:"Photo upload is a priority surface", s:"ODC-AGENT-ANATOMY.md §4",
+   b:"ODC's multimodal input path is documented and concrete: two ListAppends per item inside a ForEach, text then image binary. A photograph of the child's <strong>own</strong> shoes beats any generated icon, so this is both the better clinical answer and the prettiest screen in the app."},
+  {id:"7.2", t:"Twilio SMS out, webhook in", s:"AWS-ARCHITECTURE.md §5 item 1", pill:"open",
+   b:"Outbound routine reminders plus an inbound endpoint with idempotency. <strong>Open:</strong> whether an exposed ODC method can read an inbound HTTP header, which Twilio signature validation needs. Fallback is a secret path segment plus a body token, which is weaker."},
+  {id:"7.3", t:"Print at real physical size", s:"SPEC.md §4",
+   b:"A sheet with cut lines that prints at the right size, plus a tablet mode. The boards get posted on a wall; a card that prints at the wrong scale is useless."},
+  {id:"7.4", t:"The library is seeded, not generated", s:"AWS-ARCHITECTURE.md §1.4",
+   b:"No trial model emits images, and ODC's model contract is chat-shaped with <strong>no image-output path</strong> — Converse has input blocks only. So 201 seeded cards plus parent photos is <strong>the design</strong>, and generated artwork is a stretch goal tested in half an hour on day 3."}
+ ]},
+ {n:"8", h:"Build order and gates", note:"Seven days, one mandatory kickoff, two scheduled architecture passes.", items:[
+  {id:"8.1", t:"Day 1: import the finished course apps", s:"ODC-AGENT-ANATOMY.md §10",
+   b:"We hold <code>Agent01Intake.oml</code> and <code>agent02-enrichment.oml</code> — working agentic apps. Reading real wiring in Studio is <strong>worth more than any further documentation</strong>: it shows how the Call Agent element is really configured and what the scaffold contains before we delete the memory nodes."},
+  {id:"8.2", t:"Nine first-login checks, 2a first", s:"ODC-FIRST-LOGIN.md",
+   b:"Check <strong>2a</strong> outranks everything: in a multi-portfolio organization trial models exist only in the main portfolio. If our apps are not in it we have <strong>no models at all</strong> — not a degraded path, none."},
+  {id:"8.3", t:"Mid-submission 4 November, final 9 November", s:"CLAUDE.md §6",
+   b:"Kickoff 2 November, attendance mandatory. The rules and the Taikai timeline disagree on the final deadline by about eleven hours, which is an outstanding question."},
+  {id:"8.4", t:"Two Well-Architected passes", s:"NOTES-ARCHITECTURE-REVIEW.md",
+   b:"Security and Reliability on 6 November; all six pillars on 8 November. Trusted Advisor <strong>cannot</strong> run against the ODC tenant — it is an account-level inspector and we hold no account there."},
+  {id:"8.5", t:"Plans now, authorable code this weekend", s:"CODE-PLAN.md §5",
+   b:"Stage A plans 31 October to 1 November; the authorable column — JSON contract, guardrail reference implementation, seed data, print CSS — on 1 and 2 November, reviewed before any Studio work starts."}
+ ]},
+ {n:"9", h:"Still genuinely open", note:"Each has a named fallback, so none blocks the build. Ranked by what changes if the answer is bad.", items:[
+  {id:"9.1", t:"Main portfolio or not", s:"AWS-ARCHITECTURE.md §5", pill:"open",
+   b:"Highest consequence on the list: the wrong answer means no models. Visible on first login, so it is a look rather than a question."},
+  {id:"9.2", t:"Licensed Customer or Personal Edition", s:"AWS-ARCHITECTURE.md §5 item 11", pill:"open",
+   b:"The request caps differ by <strong>three times</strong> for Haiku 4.5. We have planned against the tighter row. Question 2 in <code>next-slack-questions.txt</code>."},
+  {id:"9.3", t:"Does judging require a Production publish", s:"next-slack-questions.txt", pill:"open",
+   b:"If yes, trial models do not reach it and we would register our own provider model instead — a different build. The sharpest question of the three being asked."},
+  {id:"9.4", t:"Twilio credentials: provided or ours", s:"AWS-ARCHITECTURE.md §5 item 5", pill:"open",
+   b:"Fallback is a trial account with the number verified on day 2, which works but stamps <em>Sent from your Twilio trial account</em> on every message — visible in a demo video."},
+  {id:"9.5", t:"Is Mentor Studio enabled, and is it metered", s:"TOKEN-BUDGET.md §8", pill:"open",
+   b:"If Mentor's own usage draws on the same allowance, the prompt-driven build path is not free and we scaffold by hand. Mentor is also unreliable: it can report success without applying a change."}
+ ]}
+];
+
+const KIND="odc-plan-review", LSKEY="avs-odc-plan-v1", FILENAME="odc-plan-review.json";
+const ITEMS=PLAN.flatMap(s=>s.items.map(i=>i.id));
+const st={}; ITEMS.forEach(id=>st[id]={verdict:"",comment:""});
+const dirty=new Set();
+let fileHandle=null, saving=false, timer=null;
+const el=id=>document.getElementById(id);
+
+function render(){
+  el("plan").innerHTML = PLAN.map(sec=>`
+    <section>
+      <h2><span class="num">${sec.n}</span>${sec.h}</h2>
+      <p class="sect-note">${sec.note}</p>
+      ${sec.items.map(it=>`
+        <article class="item" id="card-${it.id}">
+          <div class="ihead">
+            <span class="iid">${it.id}</span>
+            <h3 class="ititle">${it.t}${it.pill?` <span class="pill">${it.pill}</span>`:""}</h3>
+          </div>
+          <p class="ibody">${it.b}</p>
+          <p class="src">${it.s}</p>
+          <div class="verdict">
+            <button type="button" class="yes" data-v="agree" data-id="${it.id}" aria-pressed="false">Agreed</button>
+            <button type="button" class="no" data-v="flag" data-id="${it.id}" aria-pressed="false">Flag this</button>
+          </div>
+          <textarea id="c-${it.id}" rows="2" placeholder="Comment on ${it.id}&hellip;"></textarea>
+        </article>`).join("")}
+    </section>`).join("");
+
+  document.querySelectorAll(".verdict button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const id=b.dataset.id, v=b.dataset.v;
+      st[id].verdict = st[id].verdict===v ? "" : v;
+      paint(id); queue(id);
+    });
+  });
+  ITEMS.forEach(id=>{
+    el("c-"+id).addEventListener("input",e=>{ st[id].comment=e.target.value; queue(id); });
+  });
+  ITEMS.forEach(paint);
+  tally();
+}
+
+function paint(id){
+  const card=el("card-"+id), v=st[id].verdict;
+  card.classList.toggle("agreed", v==="agree");
+  card.classList.toggle("flagged", v==="flag");
+  card.querySelectorAll(".verdict button").forEach(b=>
+    b.setAttribute("aria-pressed", String(b.dataset.v===v)));
+}
+
+function tally(){
+  if(dirty.size){ el("tally").innerHTML=`<b>${dirty.size}</b> unsaved`; return; }
+  const a=ITEMS.filter(i=>st[i].verdict==="agree").length;
+  const f=ITEMS.filter(i=>st[i].verdict==="flag").length;
+  const c=ITEMS.filter(i=>st[i].comment.trim()).length;
+  el("tally").innerHTML=`<b>${a+f}</b> of ${ITEMS.length} reviewed &middot; ${f} flagged &middot; ${c} with comments`;
+}
+
+function collect(){
+  return {kind:KIND, savedAt:new Date().toISOString(),
+          items:Object.fromEntries(ITEMS.map(i=>[i,st[i]]))};
+}
+function apply(o){
+  let n=0;
+  const src=(o&&o.items)||{};
+  ITEMS.forEach(id=>{
+    const r=src[id]; if(!r) return;
+    st[id].verdict=r.verdict||""; st[id].comment=r.comment||"";
+    el("c-"+id).value=st[id].comment; paint(id);
+    if(st[id].verdict||st[id].comment.trim()) n++;
+  });
+  return n;
+}
+function stash(){ try{ localStorage.setItem(LSKEY,JSON.stringify(collect())); }catch(e){} }
+
+async function writeFile(force){
+  const text=JSON.stringify(collect(),null,2);
+  if(window.showSaveFilePicker){
+    try{
+      if(!fileHandle&&force){
+        fileHandle=await showSaveFilePicker({suggestedName:FILENAME,
+          types:[{description:"JSON file",accept:{"application/json":[".json"]}}]});
+      }
+      if(fileHandle){
+        const w=await fileHandle.createWritable();
+        await w.write(text); await w.close();
+        return {ok:true,how:"file",name:fileHandle.name};
+      }
+    }catch(err){
+      if(err&&err.name==="AbortError") return {ok:false,how:"cancel"};
+      fileHandle=null;
+    }
+  }
+  if(!force) return {ok:false,how:"none"};
+  const blob=new Blob([text],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=FILENAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  return {ok:true,how:"download",name:FILENAME};
+}
+
+async function save(auto){
+  if(saving||(auto&&!dirty.size)) return;
+  saving=true; el("save").disabled=true; el("save").textContent="Saving…";
+  stash();
+  const res=await writeFile(!auto);
+  if(res.ok){
+    dirty.clear();
+    el("tally").textContent = res.how==="download" ? "Downloaded "+res.name : "Saved to "+res.name;
+  } else if(res.how==="cancel"){
+    el("tally").textContent="Save cancelled — still unsaved.";
+  } else {
+    el("tally").innerHTML=`<b>${dirty.size}</b> kept in this browser &middot; press Save to write the file`;
+  }
+  saving=false; el("save").textContent="Save"; el("save").disabled=false;
+}
+
+function queue(id){
+  dirty.add(id); tally();
+  clearTimeout(timer); timer=setTimeout(()=>save(true),1500);
+}
+
+function load(){
+  const inp=document.createElement("input");
+  inp.type="file"; inp.accept=".json,application/json";
+  inp.addEventListener("change",()=>{
+    const f=inp.files&&inp.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const o=JSON.parse(r.result);
+        if(o&&o.kind&&o.kind!==KIND){ el("tally").textContent="That file belongs to another page."; return; }
+        const n=apply(o); stash(); dirty.clear();
+        el("tally").textContent="Loaded "+n+" answers from "+f.name;
+      }catch(e){ el("tally").textContent="Could not read that file."; }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+render();
+el("save").addEventListener("click",()=>save(false));
+el("load").addEventListener("click",load);
+try{ const r=localStorage.getItem(LSKEY); if(r){ apply(JSON.parse(r)); dirty.clear(); tally(); } }catch(e){}
+window.addEventListener("beforeunload",e=>{ if(dirty.size){ e.preventDefault(); e.returnValue=""; } });
+</script>
+</body>
+</html>

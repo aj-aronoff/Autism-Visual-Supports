@@ -1,0 +1,63 @@
+GOOGLE TASKS — Autism Visual Supports
+Written 30 October 2026. Kickoff 2 Nov · Mid-submission 4 Nov · Final 9 Nov 11:59 PM CET
+Each line is: TITLE  /  details (the one-line description)
+
+--- DUE TODAY, 30 OCT ---------------------------------------------------------
+
+1. Swap the Taikai attachment
+   Replace Visual_Supports_Tool_Kit.pdf with docs/Autism-Visual-Supports-Overview.pdf — the toolkit is Vanderbilt copyright being re-hosted and tells a judge nothing.
+
+2. Check for the ODC access email
+   Registration closed 28 Oct and access is gated on that, not on the kickoff, so it may already be sitting in the inbox.
+
+3. Post the image-generation question in Slack
+   Draft is in slack-2-image-generation.txt — ODC documents image input to models and no image output, and the Illustrator depends on the answer.
+
+4. Sign in to AWS and set the region
+   aws configure sso, then aws configure set region us-east-1, then aws sts get-caller-identity to confirm it resolves.
+
+5. Enable Bedrock model access in the console
+   Console only, no CLI equivalent; a fresh account has none and this is the step most often mistaken for a broken credential.
+
+6. Create the $25 AWS budget before the first model call
+   Lab calls bill your own card; image generation is per image and is where a careless loop becomes real money.
+
+--- DUE 31 OCT: STAGE A, PLANS ------------------------------------------------
+
+7. Review the three weak starter cards
+   Cut nails, Floss and Please still do not read at card size — look at cards-contact.png and say whether to redraw or drop them.
+
+8. Approve the JSON schema for the output contract
+   SPEC.md carries an example, not a schema; field types and the card-count range per support type are what every substitution depends on.
+
+9. Approve the guardrail test table
+   Seven rules, four of them pure text functions — rule 5, clinical escalation, is the only one with a safety cost if it is wrong.
+
+--- DUE 1 NOV: STAGE B, AUTHORABLE CODE ---------------------------------------
+
+10. Review the Twilio signature check
+    Boundary B3 is the only unauthenticated path into the system and the one thing a managed platform will not do for us.
+
+11. Work through the eval set and the Gem pages
+    Eight cases, two boards each — your picks and comments are what turn composer.md from a draft into something tuned.
+
+--- DUE 2 NOV: KICKOFF ---------------------------------------------------------
+
+12. Attend the kickoff and capture the token allocation
+    Mandatory attendance; every projection in TOKEN-BUDGET.md is parameterised on a number only they can give you.
+
+13. Ask where the 4 November mid-submission goes
+    The rules require the document but never say whether it is a Taikai attachment, an email or a Slack post.
+
+14. Test whether an exposed method can read a request header
+    Open item 1 — if X-Twilio-Signature is unreachable the fallback is a secret path segment plus a body token, which is weaker.
+
+--- DUE 4 NOV -----------------------------------------------------------------
+
+15. Submit the mid-submission document
+    MID-SUBMISSION.md is written and ready — problem, use case, AI services and integrations.
+
+--- HOUSEKEEPING, NO DUE DATE --------------------------------------------------
+
+16. Delete the stale duplicate deck
+    hackathon-future/Autism-Visual-Supports-Overview.pptx has diverged from the repo copy and can be grabbed by mistake.

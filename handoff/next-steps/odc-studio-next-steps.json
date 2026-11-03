@@ -1,0 +1,66 @@
+{
+  "kind": "odc-studio-next-steps",
+  "savedAt": "2026-11-01T20:19:47.834Z",
+  "steps": {
+    "s1": {
+      "done": false,
+      "note": ""
+    },
+    "s2": {
+      "done": true,
+      "note": "Yes Agentic is there. So is web, ,mobile, Library and "
+    },
+    "s3": {
+      "done": true,
+      "note": "Workflow is there I installed some Semantic components"
+    },
+    "s4": {
+      "done": false,
+      "note": ""
+    },
+    "s5": {
+      "done": false,
+      "note": ""
+    },
+    "b1": {
+      "done": false,
+      "note": ""
+    },
+    "b2": {
+      "done": false,
+      "note": ""
+    },
+    "b3": {
+      "done": false,
+      "note": ""
+    },
+    "b4": {
+      "done": false,
+      "note": ""
+    },
+    "c1": {
+      "done": false,
+      "note": ""
+    },
+    "c2": {
+      "done": false,
+      "note": ""
+    },
+    "c3": {
+      "done": false,
+      "note": ""
+    },
+    "c4": {
+      "done": false,
+      "note": ""
+    },
+    "c5": {
+      "done": false,
+      "note": ""
+    },
+    "c6": {
+      "done": false,
+      "note": ""
+    }
+  }
+}

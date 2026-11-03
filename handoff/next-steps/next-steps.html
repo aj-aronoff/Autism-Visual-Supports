@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Steps</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5f3f7; --panel:#fffdff; --panel-2:#ece8f0;
+  --fg:#1f1b26; --fg-2:#4e4659; --fg-3:#827a8e;
+  --rule:#dcd6e4; --rule-2:#c3bad0;
+  --accent:#5b3a86; --accent-soft:#eee3f5; --accent-ink:#46296b;
+  --ok:#2f6b4f; --ok-soft:#e4efe9;
+  --warn:#8a5a00; --warn-soft:#f6ecd5;
+  --stop:#9a2b2b; --stop-soft:#f6e0de;
+  --shadow:0 1px 2px rgba(40,30,60,.07), 0 6px 18px rgba(40,30,60,.05);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17151c; --panel:#201d27; --panel-2:#282431;
+    --fg:#ece8f2; --fg-2:#b9b1c6; --fg-3:#8a8299;
+    --rule:#332e3d; --rule-2:#453f52;
+    --accent:#b99ae0; --accent-soft:#2c2038; --accent-ink:#d3bdf0;
+    --ok:#6cc08f; --ok-soft:#1f3328;
+    --warn:#e0b45c; --warn-soft:#352b14;
+    --stop:#e58b82; --stop-soft:#3a1f1d;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17151c; --panel:#201d27; --panel-2:#282431;
+  --fg:#ece8f2; --fg-2:#b9b1c6; --fg-3:#8a8299;
+  --rule:#332e3d; --rule-2:#453f52;
+  --accent:#b99ae0; --accent-soft:#2c2038; --accent-ink:#d3bdf0;
+  --ok:#6cc08f; --ok-soft:#1f3328;
+  --warn:#e0b45c; --warn-soft:#352b14;
+  --stop:#e58b82; --stop-soft:#3a1f1d;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:400 16px/1.6 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.wrap{
+  max-width:52rem; margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0 4rem;
+}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--panel);z-index:10}
+.bar{
+  position:sticky; top:env(safe-area-inset-top, 0px); z-index:9;
+  background:var(--panel); border-bottom:1px solid var(--rule);
+  margin-left:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right:calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:.6rem;
+  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
+}
+.bar .count{font:500 .82rem/1.3 "IBM Plex Mono",ui-monospace,monospace;color:var(--fg-2);margin-right:auto}
+.bar .count b{color:var(--fg);font-weight:600}
+button{
+  font:500 .86rem/1 "IBM Plex Sans",sans-serif; color:var(--fg);
+  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:7px;
+  padding:.52rem .8rem; cursor:pointer;
+}
+button:hover{border-color:var(--fg-3)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] button.primary,
+:root:not([data-theme="light"]) button.primary{color:#17151c}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) button.primary{color:#fff}}
+button:disabled{opacity:.55;cursor:default}
+
+header{padding-block:2.6rem 1.4rem;border-bottom:1px solid var(--rule)}
+.kicker{
+  font:500 .72rem/1 "IBM Plex Mono",monospace; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:.9rem;
+}
+h1{
+  font:600 clamp(1.85rem,5.6vw,2.6rem)/1.12 "IBM Plex Serif",Georgia,serif;
+  margin:0 0 .8rem; text-wrap:balance; letter-spacing:-.015em;
+}
+.lede{margin:0;color:var(--fg-2);max-width:40rem;font-size:1.03rem}
+.lede strong{color:var(--fg);font-weight:600}
+
+.clock{
+  margin-block:1.8rem; background:var(--stop-soft);
+  border:1px solid var(--stop); border-left-width:4px; border-radius:4px 10px 10px 4px;
+  padding:1.1rem 1.2rem;
+}
+.clock h2{font:600 1.02rem/1.3 "IBM Plex Sans",sans-serif;margin:0 0 .5rem;color:var(--fg)}
+.clock p{margin:0 0 .6rem;color:var(--fg-2);font-size:.95rem}
+.clock p:last-child{margin-bottom:0}
+.clock code{background:rgba(0,0,0,.06)}
+:root[data-theme="dark"] .clock code,
+:root:not([data-theme="light"]) .clock code{background:rgba(255,255,255,.07)}
+
+.dates{
+  margin-block:1.6rem; display:grid; gap:.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+}
+.d{background:var(--panel);border:1px solid var(--rule);border-radius:9px;padding:.7rem .8rem;min-width:0}
+.d .dd{font:500 .74rem/1.3 "IBM Plex Mono",monospace;color:var(--accent);display:block;margin-bottom:.2rem}
+.d .dl{font-size:.88rem;color:var(--fg-2)}
+.d.now{border-color:var(--accent);background:var(--accent-soft)}
+.d.now .dl{color:var(--fg)}
+
+section{margin-block:2.4rem 0}
+.shead{display:flex;gap:.7rem;align-items:baseline;margin-bottom:.3rem;flex-wrap:wrap}
+.snum{font:500 .78rem/1.5 "IBM Plex Mono",monospace;color:var(--accent)}
+h2.stitle{font:600 1.28rem/1.25 "IBM Plex Serif",Georgia,serif;margin:0;letter-spacing:-.01em;min-width:0}
+.snote{margin:0 0 1.1rem;color:var(--fg-3);font-size:.9rem;max-width:40rem}
+.snote strong{color:var(--fg-2)}
+
+.step{
+  background:var(--panel); border:1px solid var(--rule); border-radius:11px;
+  box-shadow:var(--shadow); margin-bottom:.85rem; overflow:hidden;
+}
+.step.done{border-color:var(--ok);background:var(--ok-soft)}
+.srow{display:flex;gap:.8rem;align-items:flex-start;padding:1rem 1.1rem .2rem}
+.srow input[type=checkbox]{
+  appearance:none;flex:0 0 auto;width:1.25rem;height:1.25rem;margin:.18rem 0 0;
+  border:1.5px solid var(--rule-2);border-radius:5px;background:var(--panel-2);cursor:pointer;
+  position:relative;
+}
+.srow input[type=checkbox]:checked{background:var(--ok);border-color:var(--ok)}
+.srow input[type=checkbox]:checked::after{
+  content:"";position:absolute;left:.33rem;top:.14rem;width:.3rem;height:.6rem;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.sbody{min-width:0;flex:1}
+.sid{font:500 .74rem/1.4 "IBM Plex Mono",monospace;color:var(--fg-3);display:block;margin-bottom:.15rem}
+.st{font:600 1rem/1.35 "IBM Plex Sans",sans-serif;margin:0 0 .4rem;color:var(--fg)}
+.sd{margin:0 0 .6rem;color:var(--fg-2);font-size:.94rem}
+.sd:last-child{margin-bottom:0}
+.sd strong{color:var(--fg);font-weight:600}
+.pills{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.55rem}
+.who,.mins{display:inline-block;font:500 .72rem/1 "IBM Plex Mono",monospace;padding:.25rem .5rem;border-radius:5px}
+.who.you{background:var(--accent-soft);color:var(--accent-ink)}
+.who.me{background:var(--panel-2);color:var(--fg-2);border:1px solid var(--rule)}
+.mins{background:var(--panel-2);color:var(--fg-3);border:1px solid var(--rule)}
+
+pre{
+  margin:.1rem 0 .7rem; background:var(--panel-2); border:1px solid var(--rule);
+  border-radius:8px; padding:.7rem .8rem; overflow-x:auto;
+  font:400 .84rem/1.6 "IBM Plex Mono",ui-monospace,monospace; color:var(--fg);
+}
+code{font:400 .89em/1.4 "IBM Plex Mono",ui-monospace,monospace}
+.sd code,.snote code,li code,.dl code{background:var(--panel-2);padding:.08em .32em;border-radius:4px}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+:root[data-theme="dark"] a,:root:not([data-theme="light"]) a{color:var(--accent-ink)}
+
+.flag{
+  margin:.5rem 0 .7rem; padding:.6rem .75rem; border-radius:7px;
+  background:var(--warn-soft); border-left:3px solid var(--warn);
+  font-size:.9rem; color:var(--fg-2);
+}
+.flag b{color:var(--fg)}
+
+.notes{padding:0 1.1rem 1rem 3.1rem}
+textarea{
+  width:100%; min-height:3.1rem; resize:vertical;
+  font:400 .9rem/1.55 "IBM Plex Sans",sans-serif; color:var(--fg);
+  background:var(--panel-2); border:1px solid var(--rule); border-radius:7px;
+  padding:.5rem .65rem;
+}
+textarea::placeholder{color:var(--fg-3)}
+textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+@media (max-width:460px){.notes{padding-left:1.1rem}}
+
+.gotchas{margin-top:1rem;background:var(--panel);border:1px solid var(--rule);border-radius:11px;padding:1.1rem 1.2rem;box-shadow:var(--shadow)}
+.gotchas ol{margin:0;padding-left:1.3rem}
+.gotchas li{margin-bottom:.7rem;color:var(--fg-2);font-size:.94rem}
+.gotchas li:last-child{margin-bottom:0}
+.gotchas li b{color:var(--fg)}
+
+footer{margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--rule);color:var(--fg-3);font-size:.84rem}
+footer code{background:var(--panel-2);padding:.08em .32em;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="bar">
+  <span class="count" id="tally">0 of 0 done</span>
+  <button id="load">Load</button>
+  <button id="save" class="primary">Save</button>
+</div>
+
+<header>
+  <div class="kicker">Autism Visual Supports &middot; Sunday 1 November 2026</div>
+  <h1>What happens next, in order</h1>
+  <p class="lede">Twenty-two steps between tonight and the final submission, each with the
+  reason it sits where it does. <strong>Four of them are tonight</strong>; one of those is
+  two minutes long and nothing else in the project works without it. Items marked
+  <strong>me</strong> are mine, not yours — they are here so you can see what you are
+  waiting on.</p>
+</header>
+
+<div class="clock">
+  <h2>The kickoff is tomorrow and it is not on your calendar</h2>
+  <p>Monday 2 November, <b>10:00–11:00 Eastern</b>. Gmail is holding the invite as
+  <em>"Invitation from an unknown sender — this event isn't in your calendar yet"</em>,
+  because you had never corresponded with the organiser. <b>No reminder will fire.</b>
+  Open that email and press <em>Add to calendar</em>, or work from
+  <code>KICKOFF-NOV-2.md</code>, which has the Zoom link, ID <MEETING-ID-WITHHELD> and passcode
+  <PASSCODE-WITHHELD>.</p>
+  <p>Google labelled your attendance <em>optional</em>. That is Google's RSVP flag, not the
+  organiser's wording, which was: <em>"at least one member of your team attends… we will
+  share important information, including the specific technical criteria that will help you
+  gain points."</em> You are the whole team, and scoring criterion one is the application
+  of the ODC features presented at that kickoff.</p>
+</div>
+
+<div class="dates">
+  <div class="d now"><span class="dd">Sun 1 Nov</span><span class="dl">Tonight — four items</span></div>
+  <div class="d"><span class="dd">Mon 2 Nov</span><span class="dl">Kickoff, 10:00 ET</span></div>
+  <div class="d"><span class="dd">Wed 4 Nov</span><span class="dl">Mid-submission</span></div>
+  <div class="d"><span class="dd">Fri 6 Nov</span><span class="dl">Well-Architected pass 1</span></div>
+  <div class="d"><span class="dd">Sun 8 Nov</span><span class="dl">Well-Architected pass 2</span></div>
+  <div class="d"><span class="dd">Mon 9 Nov</span><span class="dl"><b>Final — 5:59 PM NY</b></span></div>
+  <div class="d"><span class="dd">Tue 10 Nov</span><span class="dl">Delete the AWS key</span></div>
+</div>
+
+<section>
+  <div class="shead"><span class="snum">01</span><h2 class="stitle">Tonight, Sunday 1 November</h2></div>
+  <p class="snote">In this order. <strong>a2 is the one that matters</strong> — it is the
+  gate in front of every ODC task on this page, and it has been open since Friday.</p>
+  <div id="sec-a"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">02</span><h2 class="stitle">Monday 2 November — kickoff day</h2></div>
+  <p class="snote">The call is one hour. Everything else here is work that wants the
+  answers the call gives you, or housekeeping that the 4 November document depends on.</p>
+  <div id="sec-b"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">03</span><h2 class="stitle">Waiting on me, not on you</h2></div>
+  <p class="snote"><strong>Both were written on the night of 1 November.</strong> They are
+  no longer waiting on me — they are waiting on your review, which is item d4.
+  <code>GUARDRAILS.md</code> is the document; <code>python3 tools/test_guardrails.py</code>
+  runs the table.</p>
+  <div id="sec-c"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">04</span><h2 class="stitle">Your reviews, when there is a quiet half hour</h2></div>
+  <p class="snote">None of these blocks anything this week, and all three are places where
+  the thing I cannot supply is a human judgement — a clinical one, or a parent's one.</p>
+  <div id="sec-d"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">05</span><h2 class="stitle">By Wednesday 4 November — the mid-submission</h2></div>
+  <p class="snote">The document is written. What is not certain is where it goes, which is
+  why that question is on the kickoff list.</p>
+  <div id="sec-e"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">06</span><h2 class="stitle">The run to Monday 9 November</h2></div>
+  <p class="snote">Build days are 2–8 November. These are the fixed points inside them.</p>
+  <div id="sec-f"></div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">07</span><h2 class="stitle">Six things that will bite if they are forgotten</h2></div>
+  <div class="gotchas">
+    <ol>
+      <li><b>The final deadline is 5:59 PM in New York, not midnight.</b> The rules say
+      9 November 11:59 PM CET, which is six hours earlier than it reads to a New York eye.
+      Treat 5 PM Eastern as the line and the evening as gone.</li>
+      <li><b>The trial model caps are totals and nothing refills them.</b> Not a rate, not
+      a monthly allowance — every rehearsal spends permanently. Which row applies to us,
+      Licensed Customers or Personal Edition, differs by a factor of two and is still
+      unknown; it is lead question 2 in Slack and open item 12.</li>
+      <li><b>There is still no nonprofit partner.</b> Autism Speaks is named as intent and
+      must never be written as a relationship. This is a charity contest, so it is the
+      biggest soft risk to the entry — hence b2.</li>
+      <li><b>The ODC verification codes live one hour.</b> Both Friday codes are long dead.
+      Request the password reset at the moment you are sitting in front of it, and put the
+      result in the password manager immediately, because there is no second route in.</li>
+      <li><b>Trial models are development-stage only.</b> If judging requires a Production
+      stage, the agents do not run there. That is lead question 1, and it is the one answer
+      that could force a design change rather than a number change.</li>
+      <li><b>A Personal Edition was provisioned on Friday as well.</b> It is a different
+      organisation from the hackathon tenant and does not answer which row we are on — but
+      it carries its own allowance, so rehearsals can be spent there instead of against the
+      tenant's hard caps. OutSystems deletes idle ones, so export anything built there.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  Saves to <code>next-steps.json</code> beside this file. The live task list is Google
+  Tasks, list <b>Build For the Future</b>; this page is the ordered reading of it, with the
+  reasoning attached. Dates and deadlines: <code>CLAUDE.md</code> §6. Kickoff joining
+  details: <code>KICKOFF-NOV-2.md</code>.
+</footer>
+
+</div>
+<script>
+const FILENAME="next-steps.json";
+const KIND="next-steps";
+const LSKEY="avs-next-steps-v1";
+
+const STEPS={
+ "sec-a":[
+  {id:"a1",who:"you",mins:"2 min",t:"Add the kickoff invite to your calendar",
+   body:`<p class="sd">Open the invite from the organiser in Gmail — subject begins
+   <em>"Invitation from an unknown sender"</em> — and press <b>Add to calendar</b>. Gmail
+   will not do it for you because the sender is new to your mailbox.</p>
+   <p class="sd">If you would rather not, set your own 09:45 alarm and keep
+   <code>KICKOFF-NOV-2.md</code> open. What must not happen is relying on a reminder that
+   does not exist.</p>`},
+  {id:"a2",who:"you",mins:"10 min",t:"Finish the ODC password setup",
+   body:`<p class="sd"><strong>This blocks everything else in ODC</strong> — the nine
+   first-login checks, importing the course app, the Trial Model details page, ODC Studio.
+   It has been the open gate since Friday.</p>
+   <p class="sd">The environment exists and the user was created for you by OutSystems. Use
+   the <b>Configure Password</b> link in the environment-access email. Both codes mailed on
+   30 October have expired, so request a fresh one and use it inside the hour.</p>
+   <div class="flag"><b>There is no second route in.</b> No SSO, no admin who can reset it
+   for you quickly. Put the password in the password manager before you close the tab.</div>`},
+  {id:"a3",who:"you",mins:"5 min",t:"Send email-4-kickoff-questions",
+   body:`<p class="sd">You said Sunday night, and it is written. <b>Delete its question 7
+   before sending</b> — the eleven-hour deadline discrepancy is already question 7 in
+   <code>next-slack-questions.txt</code>, and asking the same thing in two channels invites
+   two different answers you then have to reconcile.</p>`},
+  {id:"a4",who:"you",mins:"5 min",t:"Post the three lead questions in Slack",
+   body:`<p class="sd">The <b>POST THIS FIRST</b> block of
+   <code>next-slack-questions.txt</code>: (1) trial models are development-stage only — does
+   judging need a Production stage, (2) are we a Licensed Customer or Personal Edition and
+   is the hackathon allowance the trial allowance or additional, (3) is the Provider tab
+   usable.</p>
+   <p class="sd">Answer 2 rewrites every number in <code>TOKEN-BUDGET.md</code>. Posting
+   tonight means the answer is waiting before the kickoff rather than after it.</p>
+   <div class="flag"><b>Not</b> <code>slack-2-image-generation.txt</code> as written. The
+   Forge component <code>AWSBedrockRuntime</code> already exposes
+   <code>StabilityDiffusionTextToImage</code>, so the question is no longer whether ODC can
+   return an image — it is whether External Logic is installable on the hackathon tenant,
+   which is question 9.</div>`}
+ ],
+ "sec-b":[
+  {id:"b1",who:"you",mins:"60 min",t:"Attend the kickoff and write down what they name",
+   body:`<p class="sd">10:00 Eastern. Five things to come away with, listed in
+   <code>KICKOFF-NOV-2.md</code>. The first one is the whole reason to be there: <b>the
+   specific ODC features criterion one scores</b>. Capture them verbatim, not paraphrased —
+   the wording is what the submission then has to echo.</p>`},
+  {id:"b2",who:"you",mins:"2 min",t:"Ask on the call for the introduction to an autism group",
+   body:`<p class="sd">You asked the organisers for this and it is still pending. A charity
+   contest entry with no partner organisation is the single largest soft risk here, and the
+   Zoom chat is a cheap place to ask again in front of the people who can do it.</p>
+   <div class="flag">Keep the wording as intent. Autism Speaks and the Vanderbilt TRIAD
+   toolkit are <b>public evidence we cite</b>, never a relationship we claim.</div>`},
+  {id:"b3",who:"you",mins:"done",t:"Swap the Taikai attachment — DONE 1 Nov",
+   body:`<div class="flag" style="background:var(--ok-soft);border-left-color:var(--ok)">
+   <b>Done on 1 November.</b> <code>Visual_Supports_Tool_Kit.pdf</code> removed from the
+   Taikai project, <code>Autism-Visual-Supports-Overview.pdf</code> uploaded in its place,
+   saved and confirmed on the public page. This was overdue from 30 October and it was the
+   one open item with a <em>copyright</em> exposure rather than a presentation one.</div>
+   <p class="sd">Tick it and move on. The original wording is kept below because the
+   reasoning still applies to anything else that gets attached.</p>
+   <p class="sd">Replace <code>Visual_Supports_Tool_Kit.pdf</code> with
+   <code>Autism-Visual-Supports/docs/Autism-Visual-Supports-Overview.pdf</code> — it had
+   to happen before the 4 November document, which points at the attachment.</p>
+   <div class="flag"><b>Two reasons, and the first is not optional.</b> The toolkit is
+   Vanderbilt TRIAD copyright being re-hosted. It also tells a judge nothing about what we
+   built.</div>`},
+  {id:"b4",who:"you",mins:"1 min",t:"Delete the stale duplicate deck",
+   body:`<p class="sd"><code>hackathon-future/Autism-Visual-Supports-Overview.pptx</code> is
+   still there, dated 23 October, and has diverged from the live copy in
+   <code>Autism-Visual-Supports/docs/</code>. One minute, and it removes a real chance of
+   attaching the wrong file under time pressure.</p>`},
+  {id:"b5",who:"you",mins:"30 min",t:"Run the nine ODC first-login checks",
+   body:`<p class="sd"><code>ODC-FIRST-LOGIN.md</code>. <b>Do check 2a first</b> — whether
+   you are an administrator — because five of the others branch on the answer.</p>
+   <p class="sd">Checks 6 and 8 are now confirmations rather than questions: OutSystems said
+   in Slack that knowledge bases and semantic search are on automatically. An entitlement
+   is not the same as the node being present in the release we were given, so still look.</p>`},
+  {id:"b6",who:"you",mins:"20 min",t:"Import Agent01Intake.oml in ODC Studio",
+   body:`<p class="sd"><code>LoanReview/exercises/enrichment/Agent01Intake.oml</code> is a finished
+   agentic app from the OutSystems course. It is the most useful thing to open first,
+   because it shows the real scaffold rather than the documented one —
+   <code>ODC-AGENT-ANATOMY.md</code> §10 lists all four reference implementations.</p>`},
+  {id:"b7",who:"you",mins:"say the word",t:"Decide whether to push the three commits",
+   body:`<p class="sd">Three commits sit on <code>main</code>, 1,200 insertions, deliberately
+   unpushed. The content was checked against the not-public list and was clean.</p>
+   <p class="sd"><b>Why it has a date:</b> line 9 of <code>MID-SUBMISSION.md</code> gives
+   the repository URL as the project's source. A judge following that link on 4 November
+   sees whatever <code>origin/main</code> holds, which is currently 30 October. Say push and
+   I will push.</p>`}
+ ],
+ "sec-c":[
+  {id:"c1",who:"me",mins:"",t:"The JSON Schema for the board output contract",
+   body:`<p class="sd"><code>SPEC.md</code> carries an example board, not a schema. Field
+   types and the permitted card count per support type are what every substitution, every
+   guardrail and the structured-output configuration all depend on.</p>
+   <p class="sd"><strong>Written 1 Nov:</strong> <code>schema/board.schema.json</code>,
+   JSON Schema 2020-12, with the card-count range per support type expressed as four
+   <code>if</code>/<code>then</code> blocks and the Then card as a <code>contains</code>.
+   Four fixtures in <code>schema/examples/</code>, one valid and three invalid, all
+   behaving.</p>`},
+  {id:"c2",who:"me",mins:"",t:"The seven-guardrail implementation and its test table",
+   body:`<p class="sd">Four of the seven are pure text functions and testable on a table.
+   Rule 5, clinical escalation, is the only one with a safety cost if it is wrong.</p>
+   <div class="flag"><b>The course material ships the exact bug to avoid.</b>
+   <code>Index(Response.Decision, "Approved") &lt;&gt; -1</code> also matches
+   <b>"Not Approved"</b>. Compare for equality or map through a static entity; never run a
+   substring test on a decision.</div>
+   <p class="sd"><strong>Written 1 Nov:</strong> <code>GUARDRAILS.md</code>,
+   <code>tools/guardrails.py</code> and <code>tools/test_guardrails.py</code> — <b>57 table
+   rows across 19 tests, all passing</b>. The table caught three real defects on its first
+   run, one of them a hole in rule 5.</p>`}
+ ],
+ "sec-d":[
+  {id:"d1",who:"you",mins:"30 min",t:"Work through odc-plan-review.html",
+   body:`<p class="sd">46 plan decisions, Agreed or Flag plus a comment on each, saving to
+   <code>odc-plan-review.json</code>. <b>Three need you specifically:</b> 2.4, a fourth
+   conversational agent; 4.5, moving the clinical rules into a <code>ClinicalPractice</code>
+   entity — which changes the entity count already published in <code>SPEC.md</code>; and
+   1.3 with 9.3, Development versus Production stage.</p>
+   <p class="sd">No answers have been saved yet — there is no
+   <code>odc-plan-review.json</code> on disk.</p>`},
+  {id:"d2",who:"you",mins:"45 min",t:"Pick your way through the eval set and the Gem pages",
+   body:`<p class="sd">Eight cases, two candidate boards each, in
+   <code>eval-review.html</code>; the Gemini comparison prompts in
+   <code>gemini-gems.html</code>. Your picks and comments are what turn the composer prompt
+   from a draft into something tuned to how your family actually uses a board.</p>`},
+  {id:"d4",who:"you",mins:"30 min",t:"Review the guardrails and the board schema",
+   body:`<p class="sd">Read <code>GUARDRAILS.md</code> §2, the three decisions worth
+   arguing with, and §6, what is still open. Then run
+   <code>python3 tools/test_guardrails.py</code>.</p>
+   <div class="flag"><b>One item may need a clinician, not you.</b> Rule 6's
+   neurodiversity-affirming term list is a starting list of twelve, and it includes the
+   identity-first preference — <em>autistic person</em> rather than <em>person with
+   autism</em> — which is a community preference with real disagreement in it.
+   <code>SPEC.md §6</code> asks for a reviewed list and <code>CODE-PLAN.md §3.2</code> says
+   explicitly "not a guess".</div>
+   <p class="sd">Rule 5 is the other one: it is deliberately over-inclusive, so
+   <em>meltdown</em>, <em>aggressive</em> and <em>destroy</em> all route to referral
+   instead of a board. Removing a term is a clinical decision.</p>`},
+  {id:"d3",who:"you",mins:"10 min",t:"Rule on the three weak starter cards",
+   body:`<p class="sd">Cut nails, Floss and Please still do not read at card size. Look at
+   <code>cards-contact.png</code> and say redraw or drop. At 201 cards the sheet is
+   2034×3372, so slice it into three bands rather than squinting at the whole thing —
+   caution 14 in <code>assets/ASSETS.md</code>.</p>`}
+ ],
+ "sec-e":[
+  {id:"e1",who:"you",mins:"5 min",t:"Find out where the mid-submission actually goes",
+   body:`<p class="sd">The rules require the document but never say whether it is a Taikai
+   attachment, an email or a Slack post. Ask on the kickoff call; it is item 2 on the
+   capture list.</p>`},
+  {id:"e2",who:"you",mins:"15 min",t:"Submit the mid-submission document",
+   body:`<p class="sd"><code>MID-SUBMISSION.md</code> is written and ready — problem, use
+   case, AI services, integrations. <b>The attachment it points at is now the right one</b>
+   — b3 was done on 1 November. What it still needs is the delivery route from e1, and
+   ideally the repository current from b7.</p>`}
+ ],
+ "sec-f":[
+  {id:"f1",who:"you",mins:"",t:"Friday 6 and Sunday 8 November — the two Well-Architected passes",
+   body:`<p class="sd"><code>NOTES-ARCHITECTURE-REVIEW.md</code> holds both. Remember what
+   can and cannot be reviewed: <b>Trusted Advisor cannot run against the submission</b> —
+   it inspects an account, and we hold none in the ODC tenant. It has a legitimate target
+   on the personal lab account, which is a different thing and not what is judged.</p>`},
+  {id:"f2",who:"you",mins:"",t:"Monday 9 November — final submission by 5:59 PM New York",
+   body:`<p class="sd">11:59 PM CET. The rules and the Taikai timeline disagree by about
+   eleven hours, which is question 2 in <code>email-4-kickoff-questions.txt</code>; until
+   someone answers it, the earlier of the two is the deadline.</p>`},
+  {id:"f3",who:"you",mins:"5 min",t:"Tuesday 10 November — delete the AWS key and the IAM user",
+   body:`<p class="sd">Section 4 of <code>aws-lab-signin.html</code>. An access key never
+   expires on its own; the only thing that ends it is you, on a date. Then
+   <code>rm ~/.aws/credentials</code>, and a last look at Cost Explorer for 1–10 November
+   grouped by service — expect Bedrock and nothing else.</p>`}
+ ]
+};
+
+const ORDER=[];
+Object.keys(STEPS).forEach(k=>STEPS[k].forEach(s=>ORDER.push(s.id)));
+const st={}; ORDER.forEach(id=>st[id]={done:false,note:""});
+const el=id=>document.getElementById(id);
+
+function render(){
+  Object.keys(STEPS).forEach(key=>{
+    el(key).innerHTML=STEPS[key].map(s=>`
+      <div class="step" id="w-${s.id}">
+        <div class="srow">
+          <input type="checkbox" id="k-${s.id}" aria-label="done">
+          <div class="sbody">
+            <span class="sid">${s.id}</span>
+            <p class="st">${s.t}</p>
+            <div class="pills">
+              <span class="who ${s.who}">${s.who==="me"?"waiting on me":"you"}</span>
+              ${s.mins?`<span class="mins">${s.mins}</span>`:""}
+            </div>
+            ${s.body}
+          </div>
+        </div>
+        <div class="notes">
+          <textarea id="n-${s.id}" placeholder="What happened, what they said, what you decided…"></textarea>
+        </div>
+      </div>`).join("");
+  });
+  ORDER.forEach(id=>{
+    el("k-"+id).addEventListener("change",e=>{st[id].done=e.target.checked;paint(id);queue(id)});
+    el("n-"+id).addEventListener("input",e=>{st[id].note=e.target.value;queue(id)});
+  });
+  tally();
+}
+function paint(id){
+  el("w-"+id).classList.toggle("done",st[id].done);
+  el("k-"+id).checked=st[id].done;
+}
+function tally(){
+  if(dirty.size){ el("tally").innerHTML=`<b>${dirty.size}</b> unsaved`; return; }
+  const d=ORDER.filter(i=>st[i].done).length;
+  const n=ORDER.filter(i=>st[i].note.trim()).length;
+  el("tally").innerHTML=`<b>${d}</b> of ${ORDER.length} done &middot; ${n} with notes`;
+}
+
+function collect(){
+  return {kind:KIND, savedAt:new Date().toISOString(),
+          steps:Object.fromEntries(ORDER.map(i=>[i,st[i]]))};
+}
+function apply(o){
+  let n=0; const src=(o&&o.steps)||{};
+  ORDER.forEach(id=>{
+    const r=src[id]; if(!r) return;
+    st[id].done=!!r.done; st[id].note=r.note||"";
+    el("n-"+id).value=st[id].note; paint(id);
+    if(st[id].done||st[id].note.trim()) n++;
+  });
+  return n;
+}
+function stash(){ try{ localStorage.setItem(LSKEY,JSON.stringify(collect())); }catch(e){} }
+
+let fileHandle=null, saving=false, timer=null;
+const dirty=new Set();
+
+async function writeFile(force){
+  const text=JSON.stringify(collect(),null,2);
+  if(window.showSaveFilePicker){
+    try{
+      if(!fileHandle&&force){
+        fileHandle=await showSaveFilePicker({suggestedName:FILENAME,
+          types:[{description:"JSON file",accept:{"application/json":[".json"]}}]});
+      }
+      if(fileHandle){
+        const w=await fileHandle.createWritable();
+        await w.write(text); await w.close();
+        return {ok:true,how:"file",name:fileHandle.name};
+      }
+    }catch(err){
+      if(err&&err.name==="AbortError") return {ok:false,how:"cancel"};
+      fileHandle=null;
+    }
+  }
+  if(!force) return {ok:false,how:"none"};
+  const blob=new Blob([text],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=FILENAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  return {ok:true,how:"download",name:FILENAME};
+}
+
+async function save(auto){
+  if(saving||(auto&&!dirty.size)) return;
+  saving=true; el("save").disabled=true; el("save").textContent="Saving…";
+  stash();
+  const res=await writeFile(!auto);
+  if(res.ok){
+    dirty.clear();
+    el("tally").textContent = res.how==="download" ? "Downloaded "+res.name : "Saved to "+res.name;
+  } else if(res.how==="cancel"){
+    el("tally").textContent="Save cancelled — still unsaved.";
+  } else {
+    el("tally").innerHTML=`<b>${dirty.size}</b> kept in this browser &middot; press Save to write the file`;
+  }
+  saving=false; el("save").textContent="Save"; el("save").disabled=false;
+}
+
+function queue(id){
+  dirty.add(id); tally();
+  clearTimeout(timer); timer=setTimeout(()=>save(true),1500);
+}
+
+function load(){
+  const inp=document.createElement("input");
+  inp.type="file"; inp.accept=".json,application/json";
+  inp.addEventListener("change",()=>{
+    const f=inp.files&&inp.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const o=JSON.parse(r.result);
+        if(o&&o.kind&&o.kind!==KIND){ el("tally").textContent="That file belongs to another page."; return; }
+        const n=apply(o); stash(); dirty.clear();
+        el("tally").textContent="Loaded "+n+" steps from "+f.name;
+      }catch(e){ el("tally").textContent="Could not read that file."; }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+render();
+el("save").addEventListener("click",()=>save(false));
+el("load").addEventListener("click",load);
+try{ const r=localStorage.getItem(LSKEY); if(r){ apply(JSON.parse(r)); dirty.clear(); tally(); } }catch(e){}
+window.addEventListener("beforeunload",e=>{ if(dirty.size){ e.preventDefault(); e.returnValue=""; } });
+</script>
+</body>
+</html>

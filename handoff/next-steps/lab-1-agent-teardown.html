@@ -1,0 +1,804 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lab 1 Agent Teardown</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one 68ch column of prose, widened to full measure for diagrams,
+   tables and the trace rail. Section numbers only where order is real. */
+:root {
+  --bg: #eef1f0;
+  --surface: #f9fbfa;
+  --sunk: #e4e9e7;
+  --ink: #111b1a;
+  --muted: #55645f;
+  --line: #d2dad7;
+  --accent: #0c6b66;
+  --accent-soft: #d8e9e7;
+  --warn: #92440f;
+  --warn-soft: #f4e4d6;
+  --display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1413;
+    --surface: #141e1d;
+    --sunk: #101917;
+    --ink: #e3ebe8;
+    --muted: #93a5a0;
+    --line: #26332f;
+    --accent: #43b9b0;
+    --accent-soft: #10302d;
+    --warn: #dc9a5e;
+    --warn-soft: #30210f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1413;
+  --surface: #141e1d;
+  --sunk: #101917;
+  --ink: #e3ebe8;
+  --muted: #93a5a0;
+  --line: #26332f;
+  --accent: #43b9b0;
+  --accent-soft: #10302d;
+  --warn: #dc9a5e;
+  --warn-soft: #30210f;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 5rem;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 56rem; margin: 0 auto; }
+.col { max-width: 40rem; }
+
+h1, h2, h3, .eyebrow, .meta, .tag, th, .num, .btn { font-family: var(--display); }
+h1 {
+  font-size: clamp(2.3rem, 7vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(1.35rem, 3.4vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+h3 {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0;
+}
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--accent); }
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.25rem;
+}
+.standfirst {
+  font-size: 1.2rem;
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+header.hero { padding-block: 3.5rem 2rem; }
+
+/* fact strip */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 2.5rem;
+}
+.fact { background: var(--surface); padding: 0.85rem 1rem; }
+.fact dt {
+  font-family: var(--display);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.fact dd {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.fact dd small { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+
+section { padding-block: 2.75rem; border-top: 1px solid var(--line); }
+.sechead { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 1.5rem; }
+.sechead .num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+
+figure { margin: 2rem 0; }
+figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  max-width: 38rem;
+}
+.scroller { overflow-x: auto; }
+svg { max-width: 100%; height: auto; display: block; }
+
+/* tool cards */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+.tool {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1.15rem 1.25rem 1.25rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.tool .sig {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  word-break: break-word;
+}
+.tool p { font-size: 0.95rem; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.steps li {
+  display: grid;
+  grid-template-columns: 1.35rem 1fr;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  align-items: start;
+}
+.steps b {
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--sunk);
+  border-radius: 2px;
+  text-align: center;
+  padding: 0.15rem 0;
+  line-height: 1.4;
+}
+.cost {
+  margin-top: auto;
+  font-family: var(--display);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding-top: 0.7rem;
+}
+
+/* trace rail */
+.trace { list-style: none; margin: 1.75rem 0 0; padding: 0; position: relative; }
+.trace::before {
+  content: "";
+  position: absolute;
+  left: 1.05rem;
+  top: 0.6rem;
+  bottom: 0.9rem;
+  width: 1px;
+  background: var(--line);
+}
+.trace li {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  align-items: start;
+}
+.trace .num {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.trace li[data-kind="router"] .num { border-color: var(--accent); color: var(--accent); }
+.trace .what { font-family: var(--mono); font-size: 0.85rem; }
+.trace .note { font-size: 0.9rem; color: var(--muted); }
+
+/* evidence block */
+.evidence {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--warn);
+  border-radius: 3px;
+  padding: 1.1rem 1.25rem;
+  margin: 1.75rem 0;
+  display: grid;
+  gap: 0.9rem;
+}
+.evidence h3 { color: var(--warn); }
+.fingerprints { display: grid; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
+.fingerprints li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  font-size: 0.93rem;
+  align-items: start;
+}
+.fingerprints .tick { color: var(--warn); font-family: var(--mono); font-weight: 700; }
+
+pre {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  background: var(--sunk);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  margin: 0;
+  tab-size: 2;
+}
+code { font-family: var(--mono); font-size: 0.86em; }
+p code, li code, td code { background: var(--sunk); padding: 0.1em 0.35em; border-radius: 2px; }
+.del { color: var(--warn); }
+.ins { color: var(--accent); }
+.cmt { color: var(--muted); }
+
+/* charts */
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 1rem; min-width: 0; }
+.panel .tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  border-radius: 2px;
+  margin-bottom: 0.7rem;
+}
+.tag.bad { background: var(--warn-soft); color: var(--warn); }
+.tag.good { background: var(--accent-soft); color: var(--accent); }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { text-align: left; padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom-color: var(--ink);
+  white-space: nowrap;
+}
+td.mono, th.mono { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* checklist */
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.checkgroup { background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 1rem 1.15rem; min-width: 0; }
+.checkgroup h3 { margin-bottom: 0.8rem; display: flex; gap: 0.5rem; align-items: baseline; }
+.checkgroup h3 span { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
+.checkgroup ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.checkgroup li { font-size: 0.9rem; display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; }
+.checkgroup li em {
+  font-family: var(--display);
+  font-style: normal;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--sunk);
+  padding: 0.22em 0.4em;
+  border-radius: 2px;
+  height: fit-content;
+  white-space: nowrap;
+}
+
+footer { border-top: 1px solid var(--line); padding-block: 2rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 30rem) {
+  .trace li { grid-template-columns: 1.8rem 1fr; gap: 0.7rem; }
+  .trace::before { left: 0.9rem; }
+  .trace .num { width: 1.8rem; height: 1.8rem; font-size: 0.68rem; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Evaluating AI Agents &middot; DeepLearning.AI with Arize AI</p>
+  <h1>Lab 1 Agent Teardown</h1>
+  <p class="standfirst">A router, three tools, and seven model calls per question. What the agent does, what it actually did when it ran, and the four defects that run exposes.</p>
+
+  <dl class="facts">
+    <div class="fact"><dt>Router model</dt><dd>gpt&#8209;4o&#8209;mini</dd></div>
+    <div class="fact"><dt>Tools</dt><dd>3</dd></div>
+    <div class="fact"><dt>Model calls, full query</dt><dd>7</dd></div>
+    <div class="fact"><dt>Router turns observed</dt><dd>3</dd></div>
+    <div class="fact"><dt>Dataset</dt><dd>33 <small>stores, Nov 2021</small></dd></div>
+  </dl>
+</header>
+
+<section>
+  <div class="sechead"><span class="num">01</span><h2>The shape of the agent</h2></div>
+  <div class="col">
+    <p>Every request goes to the router, a single <code>gpt-4o-mini</code> call with three function schemas attached. The router decides which tool to run, the tool runs locally, its output is appended to the message list, and control returns to the router. That loop repeats until the router answers in plain text instead of asking for a tool.</p>
+    <p>Nothing in the loop is a planner. The entire plan is whatever the model happens to emit as a tool call on each turn, which is exactly why the course spends its later lessons measuring the path the agent took rather than only its final answer.</p>
+  </div>
+
+  <figure>
+    <div class="scroller">
+      <svg viewBox="0 0 760 330" role="img" aria-label="Diagram: the user sends a question to the router, which dispatches to three tools and loops back before answering.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"></path>
+          </marker>
+          <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"></path>
+          </marker>
+        </defs>
+
+        <!-- user -->
+        <rect x="8" y="132" width="96" height="56" rx="28" fill="var(--sunk)" stroke="var(--line)"></rect>
+        <text x="56" y="165" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="var(--ink)">User</text>
+
+        <path d="M108 148 L176 148" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#ara)" fill="none"></path>
+        <path d="M176 172 L108 172" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)" fill="none"></path>
+
+        <!-- router -->
+        <rect x="180" y="118" width="150" height="84" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"></rect>
+        <text x="255" y="148" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" font-weight="700" fill="var(--accent)">Router</text>
+        <text x="255" y="167" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">gpt-4o-mini</text>
+        <text x="255" y="183" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">function calling</text>
+
+        <!-- spokes -->
+        <path d="M334 142 L404 58" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)" fill="none"></path>
+        <path d="M334 160 L404 160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)" fill="none"></path>
+        <path d="M334 178 L404 262" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)" fill="none"></path>
+
+        <!-- tool 1 -->
+        <rect x="408" y="26" width="172" height="62" rx="4" fill="var(--surface)" stroke="var(--line)"></rect>
+        <text x="422" y="50" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Look up sales data</text>
+        <text x="422" y="69" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">parquet &#8594; DuckDB &#8594; SQL</text>
+        <text x="596" y="62" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">1 LLM</text>
+
+        <!-- tool 2 -->
+        <rect x="408" y="128" width="172" height="62" rx="4" fill="var(--surface)" stroke="var(--line)"></rect>
+        <text x="422" y="152" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Analyze sales data</text>
+        <text x="422" y="171" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">rows &#8594; prose answer</text>
+        <text x="596" y="164" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">1 LLM</text>
+
+        <!-- tool 3 -->
+        <rect x="408" y="230" width="172" height="62" rx="4" fill="var(--surface)" stroke="var(--line)"></rect>
+        <text x="422" y="254" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Generate visualization</text>
+        <text x="422" y="273" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">config &#8594; chart code</text>
+        <text x="596" y="266" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">2 LLM</text>
+
+        <!-- return loop -->
+        <path d="M660 26 L660 10 L255 10 L255 112" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#ar)" fill="none"></path>
+        <path d="M660 128 L690 128 L690 10" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"></path>
+        <path d="M660 230 L712 230 L712 10" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"></path>
+        <text x="470" y="318" font-family="Archivo, sans-serif" font-size="11" fill="var(--muted)">every tool result goes back to the router as a message</text>
+      </svg>
+    </div>
+    <figcaption>Tools never call each other. Tool&nbsp;2 and tool&nbsp;3 receive tool&nbsp;1&rsquo;s output only because the router copies it into their arguments as a string.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">02</span><h2>The three tools</h2></div>
+  <div class="col">
+    <p>Each tool is a block of multi-step logic, not a single API call. The step counts matter: they are the spans the tracing lesson will ask you to instrument, and the places a failure can hide.</p>
+  </div>
+
+  <div class="tools">
+    <article class="tool">
+      <h3>Database lookup</h3>
+      <p class="sig">lookup_sales_data(prompt)</p>
+      <ol class="steps">
+        <li><b>1</b><span>Read the parquet file into a DuckDB table named <code>sales</code></span></li>
+        <li><b>2</b><span>Ask the model to write SQL, given the column names and the user&rsquo;s unchanged prompt</span></li>
+        <li><b>3</b><span>Strip markdown fences, execute, return <code>df.to_string()</code></span></li>
+      </ol>
+      <p class="cost">1 model call &middot; text&#8209;to&#8209;SQL</p>
+    </article>
+
+    <article class="tool">
+      <h3>Data analysis</h3>
+      <p class="sig">analyze_sales_data(prompt, data)</p>
+      <ol class="steps">
+        <li><b>1</b><span>Interpolate the rows and the question into one prompt and return the model&rsquo;s prose</span></li>
+      </ol>
+      <p>The simplest tool and the hardest to grade. There is no ground truth for &ldquo;what trends do you see&rdquo;, so this is where LLM&#8209;as&#8209;a&#8209;judge earns its place.</p>
+      <p class="cost">1 model call &middot; open&#8209;ended output</p>
+    </article>
+
+    <article class="tool">
+      <h3>Data visualization</h3>
+      <p class="sig">generate_visualization(data, goal)</p>
+      <ol class="steps">
+        <li><b>1</b><span>Produce a chart config (type, x, y, title) as a structured Pydantic object</span></li>
+        <li><b>2</b><span>Turn that config into Python plotting code</span></li>
+      </ol>
+      <p>Split in two because one call asked to pick a chart <em>and</em> write correct matplotlib does neither reliably.</p>
+      <p class="cost">2 model calls &middot; sequential</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">03</span><h2>One question, seven model calls</h2></div>
+  <div class="col">
+    <p>This is the trajectory from the actual lab run, for the query <em>&ldquo;Show me the code for graph of sales by store in Nov 2021, and tell me what trends you see.&rdquo;</em> The notebook printed three router calls and two rounds of tool execution, so the second round dispatched two tools at once.</p>
+  </div>
+
+  <ol class="trace">
+    <li data-kind="router"><span class="num">1</span><div><div class="what">router &rarr; lookup_sales_data</div><div class="note">The router reads the question and asks for data first.</div></div></li>
+    <li><span class="num">2</span><div><div class="what">generate_sql_query</div><div class="note">Writes <code>SELECT</code> over the <code>sales</code> table; DuckDB executes it; 33 rows come back as one string.</div></div></li>
+    <li data-kind="router"><span class="num">3</span><div><div class="what">router &rarr; generate_visualization + analyze_sales_data</div><div class="note">Two tool calls in a single turn, both handed the lookup output.</div></div></li>
+    <li><span class="num">4</span><div><div class="what">extract_chart_config</div><div class="note">Structured output call. This is the one that silently failed.</div></div></li>
+    <li><span class="num">5</span><div><div class="what">create_chart</div><div class="note">Writes matplotlib code from whatever config it was handed.</div></div></li>
+    <li><span class="num">6</span><div><div class="what">analyze_sales_data</div><div class="note">Produces the &ldquo;Trends Observed&rdquo; prose.</div></div></li>
+    <li data-kind="router"><span class="num">7</span><div><div class="what">router &rarr; final answer</div><div class="note">No tool calls. The router composes code and commentary into one reply.</div></div></li>
+  </ol>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">04</span><h2>The bar chart that wasn&rsquo;t</h2></div>
+  <div class="col">
+    <p>The lab asks tool&nbsp;3 for <em>&ldquo;A bar chart of sales by product SKU. Put the product SKU on the x-axis and the sales on the y-axis.&rdquo;</em> It returned <code>plt.plot()</code> and rendered a line.</p>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <span class="tag bad">What the lab produced</span>
+      <div id="chart-line"></div>
+    </div>
+    <div class="panel">
+      <span class="tag good">What was asked for</span>
+      <div id="chart-bar"></div>
+    </div>
+  </div>
+  <p class="col" style="margin-top:1rem;font-size:0.9rem;color:var(--muted)">Both panels plot the same 30 rows: store 1320, 1 November 2021, sales value per SKU. The left panel places SKUs at their numeric positions, which is why it bunches and why the real notebook&rsquo;s x&#8209;axis reads <code>6.175&hellip;6.195</code> with a <code>1e6</code> offset.</p>
+
+  <div class="evidence">
+    <h3>Three fingerprints of the fallback path</h3>
+    <ul class="fingerprints">
+      <li><span class="tick">1</span><span><code>chart_type</code> came out <code>"line"</code>, which is the hardcoded value in the <code>except</code> branch.</span></li>
+      <li><span class="tick">2</span><span>The chart title is the entire request sentence, verbatim. The fallback sets <code>"title": visualization_goal</code>. A real config would have said &ldquo;Sales by Product SKU&rdquo;.</span></li>
+      <li><span class="tick">3</span><span>SKU codes were plotted on a continuous axis, so the x&#8209;axis carried a <code>1e6</code> offset label instead of category ticks.</span></li>
+    </ul>
+  </div>
+
+  <div class="col">
+    <p>The cause is one attribute access. A structured-output response puts the parsed model on <code>.parsed</code>; <code>.content</code> is still the raw JSON string, so <code>content.chart_type</code> raises <code>AttributeError</code> and the bare <code>except</code> swallows it.</p>
+  </div>
+
+<pre><span class="cmt"># notebook</span>
+content = response.choices[0].message.<span class="del">content</span>   <span class="cmt"># a str</span>
+return {"chart_type": content.chart_type, ...}       <span class="cmt"># AttributeError &rarr; fallback</span>
+
+<span class="cmt"># fixed</span>
+parsed = response.choices[0].message.<span class="ins">parsed</span>    <span class="cmt"># a VisualizationConfig</span>
+return {"chart_type": parsed.chart_type, ..., "used_fallback": False}</pre>
+
+  <div class="col" style="margin-top:1.25rem">
+    <p>Two consequences worth sitting with. First, every chart the lab produces is a line chart no matter what you ask for, and nothing in the output says so. Second, the fallback config names columns <code>date</code> and <code>value</code> that do not exist in this dataset, yet the generated code labelled the axes &ldquo;Product SKU&rdquo; and &ldquo;Total Sales Value&rdquo; correctly. The code-writing model ignored the broken config and re-derived everything from the data blob, which means step&nbsp;1 of tool&nbsp;3 contributed nothing at all to the output.</p>
+    <p>This is the course&rsquo;s own argument in miniature. The run did not crash, nothing was logged, the answer looked plausible, and the only way to catch it is an evaluator that checks the chart type against the request.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">05</span><h2>The data underneath</h2></div>
+  <div class="col">
+    <p>One parquet file of retail transactions, one row per SKU per store per day. Values below are from the real file, store 1320 on 1 November 2021.</p>
+  </div>
+
+  <div class="scroller" style="margin-top:1.5rem">
+    <table>
+      <thead>
+        <tr><th>Column</th><th class="mono">Example</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">Store_Number</td><td class="mono">1320</td><td>33 stores, from 330 to 4840</td></tr>
+        <tr><td class="mono">SKU_Coded</td><td class="mono">6173050</td><td>An integer code, not a label. Spacing between codes is meaningless.</td></tr>
+        <tr><td class="mono">Product_Class_Code</td><td class="mono">22875</td><td>22800, 22850, 22875, 22950, 22975, 24375, 24400, 24425</td></tr>
+        <tr><td class="mono">Sold_Date</td><td class="mono">2021-11-01</td><td>One month, 1&ndash;30 November 2021</td></tr>
+        <tr><td class="mono">Qty_Sold</td><td class="mono">1</td><td>Small integers. Most rows are a single unit.</td></tr>
+        <tr><td class="mono">Total_Sale_Value</td><td class="mono">99.980003</td><td><strong>float32</strong>. The trailing digits are storage artifacts, not cents.</td></tr>
+        <tr><td class="mono">On_Promo</td><td class="mono">0</td><td>Rare. 29 of the 30 rows in that slice are zero.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="col" style="margin-top:1rem;font-size:0.9rem;color:var(--muted)">The float32 detail matters later: any regression test that asserts an exact sum has to be written against float32, or it will drift against a float64 recomputation.</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">06</span><h2>Seven defects in the lab code</h2></div>
+  <div class="col">
+    <p>None of these stop the notebook from running. That is the point. Each one is a place where the agent can be wrong while looking fine.</p>
+  </div>
+
+  <div class="scroller" style="margin-top:1.5rem">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Lab code</th><th>Problem</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">1</td><td class="mono">message.content</td>
+          <td>Structured output read off the wrong attribute, so every chart silently falls back to a line</td>
+          <td class="mono">message.parsed</td>
+        </tr>
+        <tr>
+          <td class="mono">2</td><td class="mono">parse() outside try</td>
+          <td>Only the attribute access is protected, so a real API error kills the tool instead of falling back</td>
+          <td>Wrap the call</td>
+        </tr>
+        <tr>
+          <td class="mono">3</td><td class="mono">while True:</td>
+          <td>A router that keeps requesting tools never exits</td>
+          <td>Cap the turns</td>
+        </tr>
+        <tr>
+          <td class="mono">4</td><td class="mono">CREATE TABLE IF NOT EXISTS</td>
+          <td>A changed parquet file is ignored for the rest of the session</td>
+          <td class="mono">CREATE OR REPLACE</td>
+        </tr>
+        <tr>
+          <td class="mono">5</td><td class="mono">return f"Error: {e}"</td>
+          <td>A failure is returned as an ordinary string, so the router cannot tell it apart from data</td>
+          <td>Tag it <code>TOOL_ERROR:</code></td>
+        </tr>
+        <tr>
+          <td class="mono">6</td><td class="mono">exec(code)</td>
+          <td>Model-written Python executed unread, in the same process</td>
+          <td>Return the string</td>
+        </tr>
+        <tr>
+          <td class="mono">7</td><td class="mono">to_string()</td>
+          <td>Rows pass between tools as formatted text, so the dataset is re-sent and re-parsed by the model</td>
+          <td>Pass a handle</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="col" style="margin-top:1rem;font-size:0.9rem;color:var(--muted)">Defect 7 is visible in the final answer of the real run: the model copied the entire lookup result back out as a hardcoded <code>data = [...]</code> literal inside the chart code it wrote.</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="num">07</span><h2>What there is to evaluate</h2></div>
+  <div class="col">
+    <p>Every component gets its own evaluator, and the path through them gets one more. The label on each item is the kind of evaluator that fits it.</p>
+  </div>
+
+  <div class="checks">
+    <div class="checkgroup">
+      <h3>Router <span>R</span></h3>
+      <ul>
+        <li><em>truth</em><span>Picks the right tool for the question</span></li>
+        <li><em>truth</em><span>Fills parameters from the user&rsquo;s actual words</span></li>
+        <li><em>truth</em><span>Answers directly when no tool is needed</span></li>
+        <li><em>code</em><span>Terminates within the turn cap</span></li>
+        <li><em>code</em><span>Passes tool&nbsp;1&rsquo;s real output to tools 2 and 3</span></li>
+      </ul>
+    </div>
+
+    <div class="checkgroup">
+      <h3>Lookup <span>T1</span></h3>
+      <ul>
+        <li><em>code</em><span>Generated SQL parses and executes</span></li>
+        <li><em>truth</em><span>Result matches a hand-written query</span></li>
+        <li><em>code</em><span>Markdown fences stripped</span></li>
+        <li><em>code</em><span>Read-only; no DDL or DML slips through</span></li>
+        <li><em>code</em><span>Failures surface as errors, not as data</span></li>
+      </ul>
+    </div>
+
+    <div class="checkgroup">
+      <h3>Analysis <span>T2</span></h3>
+      <ul>
+        <li><em>judge</em><span>Answers the question that was asked</span></li>
+        <li><em>judge</em><span>Every figure cited appears in the input rows</span></li>
+        <li><em>judge</em><span>No invented trend beyond the data&rsquo;s range</span></li>
+        <li><em>human</em><span>Useful to a store owner</span></li>
+      </ul>
+    </div>
+
+    <div class="checkgroup">
+      <h3>Visualization <span>T3</span></h3>
+      <ul>
+        <li><em>truth</em><span>Chart type matches the request</span></li>
+        <li><em>code</em><span>Fallback config never passes silently</span></li>
+        <li><em>code</em><span>Axes name real columns</span></li>
+        <li><em>code</em><span>Generated code parses</span></li>
+        <li><em>judge</em><span>Chart form suits the data</span></li>
+      </ul>
+    </div>
+
+    <div class="checkgroup">
+      <h3>Trajectory <span>X</span></h3>
+      <ul>
+        <li><em>truth</em><span>Tool sequence matches the expected path</span></li>
+        <li><em>code</em><span>No repeated identical call</span></li>
+        <li><em>code</em><span>Converges in the expected number of turns</span></li>
+        <li><em>code</em><span>No tool runs on an upstream error</span></li>
+      </ul>
+    </div>
+
+    <div class="checkgroup">
+      <h3>System <span>S</span></h3>
+      <ul>
+        <li><em>code</em><span>Latency and token cost per run</span></li>
+        <li><em>code</em><span>Every span recorded, including failures</span></li>
+        <li><em>truth</em><span>Fixed dataset replays without regression</span></li>
+        <li><em>human</em><span>Production traces annotated and fed back</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="col">
+    <p>Built from the Lab 1 notebook, the lesson transcripts, and a captured run of the lab. Numbers, SKU codes and sale values on this page are from that run; the trajectory is the one the notebook printed.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+// Store 1320, 2021-11-01: SKU code and Total_Sale_Value, straight from the run.
+var ROWS = [
+  [6173050, 4.99], [6174250, 0.89], [6176200, 99.98], [6176800, 14.97],
+  [6177250, 6.89], [6177300, 9.99], [6177350, 16.98], [6177700, 3.19],
+  [6178000, 6.38], [6178250, 16.59], [6179250, 14.99], [6179300, 9.98],
+  [6179400, 29.98], [6179450, 14.99], [6179500, 14.99], [6179750, 39.98],
+  [6180550, 15.99], [6182050, 7.99], [6183750, 38.97], [6184100, 59.97],
+  [6188550, 15.98], [6190050, 19.95], [6190150, 8.99], [6190200, 8.99],
+  [6190250, 7.99], [6190350, 6.99], [6190400, 6.99], [6193750, 6.99],
+  [6195350, 6.99], [6195800, 25.72]
+];
+
+var W = 330, H = 210, PAD_L = 34, PAD_R = 8, PAD_T = 10, PAD_B = 30;
+var PLOT_W = W - PAD_L - PAD_R, PLOT_H = H - PAD_T - PAD_B;
+var TICKS = [0, 25, 50, 75, 100];
+var YMAX = 100;
+
+function y(v) { return PAD_T + PLOT_H - (v / YMAX) * PLOT_H; }
+function el(name, attrs, text) {
+  var n = document.createElementNS("http://www.w3.org/2000/svg", name);
+  for (var k in attrs) n.setAttribute(k, attrs[k]);
+  if (text != null) n.textContent = text;
+  return n;
+}
+
+function frame(label) {
+  var svg = el("svg", {
+    viewBox: "0 0 " + W + " " + H,
+    role: "img",
+    "aria-label": label
+  });
+  TICKS.forEach(function (t) {
+    svg.appendChild(el("line", {
+      x1: PAD_L, x2: W - PAD_R, y1: y(t), y2: y(t),
+      stroke: "var(--line)", "stroke-width": 1
+    }));
+    svg.appendChild(el("text", {
+      x: PAD_L - 6, y: y(t) + 3.5, "text-anchor": "end",
+      "font-family": "JetBrains Mono, monospace", "font-size": 9,
+      fill: "var(--muted)"
+    }, "$" + t));
+  });
+  return svg;
+}
+
+function axisLabel(svg, text) {
+  svg.appendChild(el("text", {
+    x: PAD_L + PLOT_W / 2, y: H - 6, "text-anchor": "middle",
+    "font-family": "Archivo, sans-serif", "font-size": 10, fill: "var(--muted)"
+  }, text));
+}
+
+// Left: SKU code as a continuous number, joined by a line. What the lab did.
+(function () {
+  var svg = frame("Line chart of sale value against SKU code, the output the lab produced");
+  var codes = ROWS.map(function (r) { return r[0]; });
+  var lo = Math.min.apply(null, codes), hi = Math.max.apply(null, codes);
+  var x = function (c) { return PAD_L + ((c - lo) / (hi - lo)) * PLOT_W; };
+
+  var d = ROWS.map(function (r, i) {
+    return (i ? "L" : "M") + x(r[0]).toFixed(1) + " " + y(r[1]).toFixed(1);
+  }).join(" ");
+  svg.appendChild(el("path", {
+    d: d, fill: "none", stroke: "var(--warn)", "stroke-width": 1.6,
+    "stroke-linejoin": "round"
+  }));
+  ROWS.forEach(function (r) {
+    svg.appendChild(el("circle", {
+      cx: x(r[0]).toFixed(1), cy: y(r[1]).toFixed(1), r: 2.4, fill: "var(--warn)"
+    }));
+  });
+  [6175000, 6180000, 6185000, 6190000, 6195000].forEach(function (c) {
+    svg.appendChild(el("text", {
+      x: x(c), y: H - PAD_B + 13, "text-anchor": "middle",
+      "font-family": "JetBrains Mono, monospace", "font-size": 8.5, fill: "var(--muted)"
+    }, (c / 1e6).toFixed(3)));
+  });
+  axisLabel(svg, "SKU code  (×10⁶)");
+  document.getElementById("chart-line").appendChild(svg);
+})();
+
+// Right: one bar per SKU, evenly spaced. What the request described.
+(function () {
+  var svg = frame("Bar chart of sale value by SKU, the chart that was requested");
+  var slot = PLOT_W / ROWS.length;
+  var bw = slot * 0.62;
+  ROWS.forEach(function (r, i) {
+    var cx = PAD_L + slot * (i + 0.5);
+    svg.appendChild(el("rect", {
+      x: (cx - bw / 2).toFixed(1), y: y(r[1]).toFixed(1),
+      width: bw.toFixed(1), height: (PAD_T + PLOT_H - y(r[1])).toFixed(1),
+      fill: "var(--accent)"
+    }));
+  });
+  [0, 9, 19, 29].forEach(function (i) {
+    svg.appendChild(el("text", {
+      x: PAD_L + slot * (i + 0.5), y: H - PAD_B + 13, "text-anchor": "middle",
+      "font-family": "JetBrains Mono, monospace", "font-size": 8.5, fill: "var(--muted)"
+    }, String(ROWS[i][0]).slice(-4)));
+  });
+  axisLabel(svg, "SKU  (30 categories)");
+  document.getElementById("chart-bar").appendChild(svg);
+})();
+</script>
+
+</body></html>

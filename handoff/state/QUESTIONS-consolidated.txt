@@ -1,0 +1,482 @@
+CONSOLIDATED QUESTION LIST — Autism Visual Supports
+Written 1 November 2026, evening. Supersedes the unsent blocks in
+next-slack-questions.txt and the unsent email-4-kickoff-questions.txt.
+
+--------------------------------------------------------------------------------
+STATUS, 2 NOVEMBER — ALL FIVE ANSWERED. ONE ANSWER CHANGES THE BUILD.
+--------------------------------------------------------------------------------
+
+ANSWERED 2 NOVEMBER, in the organiser's own words. Nothing here is paraphrased:
+
+  L1  introduction to an autism organisation
+      "As I already mentioned, we do not have relationship with any nonprofit
+       working in the area of autism"
+      CLOSED, AND THE ANSWER IS NO. Asked twice; do not ask a third time. No
+      introduction is coming from OutSystems, so the entry stands on public
+      material only -- the Vanderbilt TRIAD toolkit and the National Standards
+      Report -- and A.J.'s own household as the test user. The organisers having
+      no relationship ALSO means nobody at the hackathon is expecting one, so
+      "no partner" is the normal case here, not a gap in our entry.
+
+  L3  Twilio credentials
+      "We will not use twilio for this hackathon"
+      CLOSED, AND IT DELETES THE QUESTION AND THE PRIZE WITH IT. rules.txt:36
+      still says Twilio use is a condition of a special Twilio prize; this
+      answer supersedes the rules text. See THE TWILIO DECISION below.
+
+  T6  the 10,000,000-token Bedrock entry
+      "It will be explained in the kick off session"
+      DEFERRED TO THE CALL, which makes parts (b) and (c) things to LISTEN for
+      rather than ask cold: is it additional to the trial caps or a shared pool,
+      and can an agent bind to it in a Call Agent element. If the session does
+      not cover them, ask in #help afterwards.
+
+  T7  where Mentor's consumption is reported
+      "We will share enablement resources that you can consult"
+      NOT ANSWERED. This is a pointer to documentation, not a figure, and open
+      question 6 in TOKEN-BUDGET.md §8 stays open. The cheap experiment still
+      stands and is now the only route: read the trial meter, run one Mentor
+      prompt, read it again.
+
+  L2  where the 4 November mid-submission goes
+      "The submission this year will be different and we will explain everything
+       during the kick-off session"
+      THE BIGGEST OF THE FIVE, and the call delivered on it. THERE IS NO
+      MID-WEEK SUBMISSION -- the 4 November deliverable simply does not exist.
+      The only submission is the final one, 11 November at 2 PM GMT+1 = 08:00
+      EST New York, and it is TWO VIDEOS: a strictly 5-minute Demo for the Demo,
+      UX and Innovation juries, and a 10-minute Tech Video for Product
+      Management. Both are linked from the Taikai project page -- Gallery takes
+      the YouTube/Vimeo link, Description takes the other. MID-SUBMISSION.md is
+      kept and never sent; its content is script source. SCORING-CRITERIA.md C.
+
+NOT SENT — these are now KICKOFF QUESTIONS, today at 10:00 ET:
+  L4  which stage do judges evaluate; is Production required?
+  L5  the eleven-hour final-deadline discrepancy
+  T8  can we install Forge components and External Logic on this tenant?
+
+ADDED 2 NOVEMBER, AND THERE IS NOW A PLACE TO PUT IT:
+  T9  is there any route to run a native mobile app on an iPad this week?
+
+  A #help channel has appeared in the hackathon Slack. That changes routing,
+  not content: technical questions go there, and the kickoff call stays the
+  place for anything about SCORING or DEADLINES, because those want the
+  organiser's own words and a room full of witnesses rather than a thread.
+  So L4 stays on the call (L5 was answered there on 2 Nov); T8 and T9 can go to #help the moment the call
+  ends. The Twilio prize question is GONE -- not deferred, gone: the organiser
+  said on 2 Nov that Twilio is not being used in this hackathon at all.
+
+THE TWILIO DECISION — opened 2 November, A.J.'s to make
+
+  The gap in what went out no longer matters. The heading said "Credentials and
+  the prize" and only the credentials half was asked; the answer closed both,
+  because "we will not use twilio for this hackathon" removes the prize that was
+  the only reason Twilio was in the design.
+
+  What that was buying, and what it cost: AWS-ARCHITECTURE.md §1.5 listed Twilio
+  as "Confirmed as required" on the strength of rules.txt:36 alone. CODE-PLAN.md
+  §3.3 calls the inbound webhook "the highest-risk authorable piece" -- HMAC-SHA1
+  signature validation, constant-time compare, MessageSid idempotency -- and it
+  is boundary B3, the only unauthenticated path into the system. Open item 1
+  (can an exposed method read an inbound header?) exists only to serve it.
+
+  RECOMMENDATION: cut it. With no prize, a day of the hardest security work in
+  the project scores nothing against criterion one, which rewards named ODC
+  features. Cutting it reclaims day 7, closes open item 1, and removes two trust
+  boundaries (B3 and B6) from the Well-Architected pass. Nothing else in the
+  five-minute demo depends on an SMS.
+
+  WHAT TO KEEP EITHER WAY: the caregiver script itself is a real feature and the
+  evidence base supports it. It can ship as an on-screen script the parent reads
+  or prints, with no third party, no credentials and no webhook. That is the
+  substance without the boundary.
+
+  NOT YET EDITED OUT. The design documents still describe the Twilio path; they
+  are marked, not deleted, because the call may redefine the submission in a way
+  that changes what is worth keeping. Decide after the kickoff.
+
+ONE GAP IN WHAT WENT OUT:
+
+  T6  Only part (a) was asked: "is it the hackathon's AWS allocation, and is it
+      ours to use?" Parts (b) through (e) did not go. The one that matters most
+      is (b): IS IT ADDITIONAL TO THE TRIAL CAPS, OR DOES IT SHARE A POOL WITH
+      THEM? A plain "yes, it is yours" leaves the budget question exactly where
+      it was, because 10M tokens that share a pool with 1,000 Haiku requests is
+      not 10M tokens. Ask (b) as the follow-up to whatever comes back, and ask
+      (c) -- can an agent bind to it in a Call Agent element -- at the kickoff,
+      because a model we cannot bind an agent to is not a budget.
+
+--------------------------------------------------------------------------------
+
+WHICH GROUP GOES FIRST: LOGISTICS.
+
+Not because it matters more, but because of lead time. Every logistics question
+below depends on a human doing something, and two of them need days. Almost every
+technical question either has a fallback already written, or can be answered by
+trying it in Studio tomorrow morning - and a question you can answer yourself is
+a question you should not spend somebody's goodwill on.
+
+One technical question breaks that rule and rides along with the first batch:
+the 10,000,000-token Bedrock entry. It is the only unknown left that would
+rewrite the budget rather than adjust it.
+
+Keep the first post to four or five questions. slack-1 worked - three short
+questions, each saying what it changes, each with our own fallback named - and it
+came back overnight. A list of twelve gets one answer to the easiest one.
+
+================================================================================
+GROUP 1 — LOGISTICS. Post tonight.
+================================================================================
+
+Ordered by lead time, longest first. This is deliberately NOT deadline order:
+Q1 has no deadline at all and should still be asked first, because it is the only
+one where the answer has to travel through another organisation.
+
+L1. THE INTRODUCTION TO AN AUTISM ORGANISATION
+    *** ANSWERED 2 NOV: NO. The organisers have no nonprofit relationship of
+    their own. CLOSED -- do not ask again. Kept below for the reasoning. ***
+
+    This is the longest lead time on the list and the biggest soft risk to the
+    entry. It is a charity contest and we have no partner organisation.
+
+    Our evidence base is the Vanderbilt Kennedy Center TRIAD visual supports
+    toolkit, published through the Autism Speaks Autism Treatment Network, plus
+    the National Autism Center's National Standards Report. We cite that public
+    material and name the practice behind every board. We have never claimed a
+    relationship and will not.
+
+    What we would like is an introduction to someone at Autism Speaks or any
+    autism organisation you work with - partly so they are comfortable with how
+    we cite their material, and mostly because they will have opinions about
+    what we have got wrong. A parent is not a clinician.
+
+L2. WHERE DOES THE 4 NOVEMBER MID-SUBMISSION GO?
+    *** ANSWERED 2 NOV, AND THE QUESTION DISSOLVES: THERE IS NO MID-WEEK
+    SUBMISSION. The 4 November deliverable does not exist. The only submission is
+    the final one -- 11 November, 2 PM GMT+1 (08:00 EST) -- and it is TWO VIDEOS,
+    a strictly 5-minute Demo and a 10-minute Tech Video, both linked from the
+    Taikai project page. See SCORING-CRITERIA.md sections C and C7. CLOSED. ***
+
+    Three days away and the rules do not say. Taikai attachment, email, or a
+    Slack post? The document is written - problem statement, use case, AI
+    services, integrations - so this is purely a delivery question.
+
+L3. TWILIO — CREDENTIALS, AND THE PRIZE
+    *** ANSWERED 2 NOV: "We will not use twilio for this hackathon." BOTH
+    halves are dead, and so is the prize. The paragraph below about why the SMS
+    is not a bolt-on still holds -- the feature survives as an on-screen script
+    with no third party. See THE TWILIO DECISION in the header. ***
+
+    (a) Are SMS credentials provided with the hackathon instance, or do we bring
+        our own account? Lead time is the reason this is in the first batch: a
+        Twilio trial project can only send SMS to numbers verified in advance,
+        and it prefixes every message with "Sent from your Twilio trial
+        account" - which is visible in a demo video. If we are bringing our own,
+        we would rather verify the numbers on day 2 than on day 7.
+
+    (b) The rules say teams are expected to use Twilio to be eligible for a
+        special Twilio prize, but the prize is not described on the prizes page.
+        What is it, and what counts as qualifying use?
+
+    Why it matters to us beyond eligibility: the SMS is not a feature bolted on
+    for the prize. When the routine is due the caregiver script goes out by
+    text, and afterwards one question comes back - did the promised reward
+    actually happen? That single field is the one no parent will ever open an
+    app to fill in, because at that moment their hands are full of shoes.
+
+L4. WHICH STAGE DO JUDGES EVALUATE — IS PRODUCTION REQUIRED?
+
+    Our environment has two stages, Development and Production. The trial models
+    are a development-stage feature, so our plan is to demo from Development.
+
+    If judging requires the app published to Production, the trial models do not
+    reach it and we would have to register a provider model instead. That is a
+    different build, not a different setting, which is why this is a logistics
+    question and not a technical one.
+
+L5. THE FINAL DEADLINE — TWO TIMES, ELEVEN HOURS APART
+    *** ANSWERED AT THE KICKOFF, 2 NOV 10:22: BOTH WERE WRONG. The submission
+    slide reads "November 11, 2026 - 2 PM GMT+1" = WEDNESDAY 11 NOVEMBER, 08:00
+    EST IN NEW YORK. Two days later than the rules, and with no working morning
+    on the day itself, so the night of TUESDAY 10 NOVEMBER is the real deadline.
+    CLOSED. See SCORING-CRITERIA.md section C. ***
+
+    The rules say 9 November, 11:59 PM CET. The Taikai timeline shows Evaluation
+    beginning 9 November at 12:00 PM UTC, roughly eleven hours earlier. Which one
+    closes submissions? We are planning against the earlier of the two.
+
+================================================================================
+GROUP 2 — TECHNICAL. Q6 goes with the first batch; the rest can wait.
+================================================================================
+
+T6. THE 10,000,000-TOKEN BEDROCK ENTRY
+    *** ANSWERED ON THE CALL, 10:27, AND IT IS BETTER THAN HOPED. The AI
+    Services slide: TWO hackathon models -- Haiku 5.5 from AWS and GPT-5.5 from
+    Microsoft -- "limit to 10000000 Tokens a day each". PER DAY, and it refills.
+    Part (b) is answered: ADDITIONAL, a separate pool in a separate unit from the
+    trial request caps. Part (c), bindable in a Call Agent element, was NOT
+    stated -- near-certain, still a five-minute check in Studio.
+    Two riders that are not about budget: the GPT model "will be deprecated soon
+    and replaced", so the model must be a SETTING and not a constant; and "feel
+    free to configure and use your own models", which makes the AWS lab bench
+    optional. Written up in Autism-Visual-Supports/TOKEN-BUDGET.md section 2d. ***
+
+    Our Portal shows three trial models metered in REQUESTS - GPT-5 0 of 100,
+    Claude Haiku 4.5 0 of 1,000, Amazon Nova Pro - and a fourth Bedrock Claude
+    Haiku entry that is NOT labelled trial and is metered in TOKENS, reading
+    0 of 10,000,000.
+
+    (a) Is that entry the hackathon's AWS allocation, and is it ours to use?
+    (b) Is it in addition to the trial-model request caps, or does it share a
+        pool with them?
+    (c) Can an agent be bound to it in a Call Agent element, or is it
+        Portal-only?
+    (d) Both stages, or Development only like the trial models?
+    (e) Is the 10M a running total that never refills, like the trial caps, or
+        does it reset?
+
+    Why this one jumps the queue: our build estimate is about 3.8M tokens. If
+    that entry is ours, the whole build fits inside it and we plan against tokens
+    instead of against 1,000 Haiku requests - a different posture entirely. We
+    have planned against the tighter reading, so a "no" costs us nothing.
+
+T7. WHERE IS MENTOR'S CONSUMPTION REPORTED?
+    *** ASKED 2 NOV, NOT ANSWERED: "We will share enablement resources that you
+    can consult." A pointer, not a figure. The before/after meter experiment
+    below is now the only route. Re-ask in #help only if the resources arrive
+    and do not cover it. ***
+
+    *** THE RESOURCES ARRIVED, 2 NOV 16:34 UTC, and they do not carry a figure -
+    but the Zoom AI summary of the Q&A says "there are no limits on mentor
+    usage". That is second-hand from a summary that misnames two jurors, so it
+    is a lead, not an answer. DO NOT RE-ASK IN #help: run the meter experiment
+    instead - four figures, one prompt, four figures again. It costs one prompt
+    and settles it. RESOURCES-AND-CRITERIA-NOV-2.md 6.2. ***
+
+    Mentor Web and Mentor Studio are both model-backed, and we cannot find a
+    usage figure for either anywhere in the Portal. Does using Mentor draw on the
+    trial-model allowance, on the 10M-token Bedrock entry, or on neither - and if
+    it draws on something, where is that visible?
+
+    We would like to use Mentor to scaffold, and it is an ODC feature that the
+    scoring rewards. But if a scaffolding prompt spends from the same 1,000 Haiku
+    requests the boards need, we would rather know before we spend them.
+
+    Lower priority because we have an experiment: read all four figures before and
+    after a Mentor session. The reason to ask anyway is that a zero delta may be a
+    false negative - if Mentor runs on an OutSystems-side model, nothing in our
+    tenant would move while Mentor had still spent something.
+
+T8. CAN WE INSTALL FORGE COMPONENTS AND EXTERNAL LOGIC ON THIS TENANT?
+
+    Three specific ones matter to us: AWSBedrockRuntime (ODC), which wraps
+    InvokeModel and is the only route we know to an image generator; OmniDoc2MD
+    (ODC), which the intake exercise names for converting a file binary to
+    Markdown; and the Markdown Renderer (ODC) that the same exercise lists as a
+    prerequisite.
+
+    Is Forge installation enabled, and is External Logic - a C# library against
+    the ODC SDK - available to us?
+
+    Our plan does not depend on any of them: 201 pre-drawn cards plus parent
+    photo upload is the design, not the fallback. But it is the last open item in
+    our architecture document and it is cheap to answer.
+
+T9. IS THERE ANY ROUTE TO RUN A NATIVE MOBILE APP ON AN IPAD THIS WEEK?
+    *** added 2 November -- ask in the new #help channel ***
+
+    Is there an OutSystems-provided way to install and run an ODC native mobile
+    app on an iPad during the hackathon -- a test harness, a signing path, a
+    TestFlight arrangement -- or does an iOS build require our own Apple
+    Developer account and signing certificates?
+
+    WHY THIS AND NOT THE QUESTION IT CAME FROM. A.J. raised the four iOS
+    usage-description keys: NSCameraUsageDescription,
+    NSPhotoLibraryUsageDescription, NSPhotoLibraryAddUsageDescription,
+    NSMicrophoneUsageDescription. Where to put them is already documented -- the
+    mobile app's Extensibility Configurations JSON -- so asking that spends a
+    slot on a documented answer. And they only exist inside a native binary's
+    Info.plist. Our parent app is a Web app, where Safari writes the camera
+    prompt and we cannot word it, and an installed PWA on iOS is still a web
+    view with no Info.plist either. So the keys are downstream of THIS question.
+
+    WHAT EACH ANSWER DOES FOR US. "Your own Apple account" closes it: a native
+    build is out on cost and on time, the four keys stay moot, and the Web app
+    plus getUserMedia stops being a choice and becomes the only option -- which
+    is worth having in writing for the submission. "Yes, here is the path" makes
+    the keys real work, and the follow-up is whether an app can override the
+    Camera Plugin's own default strings.
+
+    Of the four keys, only two would ever be ours even in a native build:
+    camera and photo-library read. We never write to the camera roll and we
+    record no audio. Full reasoning: practice-camera-app/NOTES-devices.md section 6.
+
+    AND THE PART THAT IS OURS EITHER WAY: because Safari's prompt cannot be
+    worded by us, the explanation has to sit on our own screen above the button
+    that triggers it. That is a UI item, not a question.
+
+================================================================================
+ELIMINATED — do not ask these, we already know
+================================================================================
+
+Keeping the list so nobody re-adds them in a later session.
+
+ANSWERED BY OUTSYSTEMS ALREADY (30 October, in Slack)
+  Are knowledge bases enabled?        Yes, automatically on hackathon instances
+  Is semantic search enabled?         Yes, same answer
+
+ANSWERED BY THE FIRST LOGIN AND BY ODC STUDIO (1 November)
+  Am I an administrator?              Yes, Administrator, inherited, all assets
+  Which region?                       US East (N. Virginia), platform and data
+  How many stages?                    Two: Development and Production
+  Licensed Customer or Personal?      Licensed - Haiku reads 0 of 1000
+  Trial model request numbers?        GPT-5 100, Haiku 1,000, both read directly
+  Is Bedrock pre-wired?               Yes - Haiku and Nova are Bedrock trials
+  Is Agent Workbench available?       Yes - Agentic IS one of the four app types,
+                                      confirmed in the Create app dialog
+  Is ODC Workflow available?          Yes, present in Studio
+  Is the org multi-portfolio and are  Moot - the trial models are present, which
+  we in the main portfolio?           was the only thing that question protected
+  Where can we see consumption?       The Trial Model details page, per model
+  Is GPT-5 OpenAI or Microsoft?       Azure OpenAI
+  Are knowledge bases per stage?      No - scoped to all stages in the org
+
+ANSWERED BY DOCUMENTATION WE NOW HOLD
+  Does the Camera Plugin suit us?     No - it needs a native app or a PWA, and
+                                      a PWA in ODC is a Mobile app, so it would
+                                      mean a third app. Capture is a file input
+                                      plus getUserMedia instead
+  How are file bytes stored?          A Binary Data attribute, with FileFormat
+                                      as Text beside it (intake exercise)
+  Can a model read an image?          Yes, directly, as AIContentType.ImageBinary
+  When is the kickoff?                Monday 2 November, 10:00-11:00 Eastern,
+                                      joining details in KICKOFF-NOV-2.md
+  What is the registration cutoff?    Moot - we are registered
+
+ANSWER BY TRYING IT, NOT BY ASKING
+  Can an exposed method read a        Expose a throwaway REST method and hit it
+  request header?                     with curl -H. Twenty minutes, and it is
+                                      open item 1
+  Is Semantic Search on an entity     Open any entity in Studio and look at an
+  attribute?                          attribute's settings
+  Which function converts base64 to   Look in Studio, then Forge. If it is
+  Binary Data?                        awkward, store base64 as Text
+  Does the Upload widget do drag and  Try it
+  drop, or multiple selection?
+  How does the camera behave on an    The plugin documentation never mentions
+  iPad?                               iPad, iPadOS or Safari - not once. Only
+                                      testing answers this
+  Does Mentor spend the allowance?    Read all four meters before and after -
+                                      though see T7 for why asking as well is
+                                      still worth it
+
+DEMOTED, NOT ELIMINATED
+  Is image generation on a separate   Was urgent when generated art was the
+  per-image quota?                    plan. The plan is now 201 pre-drawn cards
+                                      plus parent photos, so this only matters
+                                      if we revive the Illustrator's generate
+                                      path. Fold into T8 if it comes up
+  Is the Provider tab usable?         Largely answered by the existence of the
+                                      non-trial Bedrock entry. T6(a) covers it
+
+================================================================================
+THE ONE YOU WERE ABOUT TO RESEARCH, WHICH IS A LOOK AND NOT A QUESTION
+================================================================================
+
+Roles, to log in to the Camera Sample App clone.
+
+This is a look, not a question for OutSystems, and it is almost certainly one of
+two things:
+
+  1. The app defines an end-user role that your user has not been granted. In
+     Studio the app's roles are visible among its elements; in the Portal, roles
+     are granted to users in the user management area. You are an Administrator
+     of the organisation, which is NOT the same as holding an app's end-user
+     role - that distinction is the usual cause of this exact confusion.
+
+  2. The sample app expects the built-in Users application, or a default
+     administrator account that a clone did not carry with it.
+
+Worth five minutes before it becomes a question. If it turns into a real
+platform limitation rather than a grant you can make yourself, it earns a place
+in group 2 - but do not spend a Slack question on a role assignment.
+
+
+================================================================================
+GROUP A — THE AWS RESOURCE QUESTIONS, for #help. Added 2 Nov, after the
+post-kickoff email. ASK A1 AND A2 FIRST: between them they decide whether any
+AWS account work happens at all this week.
+================================================================================
+
+Context that shapes all six: the written technical criteria say "DataFabric &
+Hyperscaler Integration: Seamless alignment with AWS and Microsoft
+infrastructure using ODC's DataFabric", and that is 20% of the technical score.
+But the Zoom AI summary of the kickoff Q&A says Data Fabric is "optional, with
+mock integrations also being acceptable". Those two cannot both be fully true,
+and the difference is several days of work. A1 exists to settle it in writing.
+
+A1. DATA FABRIC — OPTIONAL, AND DOES A MOCK SCORE THE SAME?
+    "The technical criteria list DataFabric & Hyperscaler Integration as one of
+     the scored areas, and in the kickoff Q&A I understood Data Fabric to be
+     optional with mock integrations acceptable. Could you confirm: for the
+     Connectivity / DataFabric score, does a mocked or simulated integration
+     score the same as a real Data Fabric connection to an external system, or
+     is a real connection scored higher?"
+    -> If a mock scores the same, A3, A4 and A5 are all unnecessary and the AWS
+       lab account stays optional. If not, A3 becomes the week's biggest
+       decision. Phrase it as "could you confirm" rather than "is it true" -
+       the source is a machine summary and may have garbled it.
+
+A2. IS THE AWS/MICROSOFT CATEGORY ABOUT THE SPONSORED MODELS, OR ABOUT USING
+    THE CLOUD OURSELVES?
+    "For the AWS and Microsoft special awards: is the category satisfied by
+     using the sponsored models in ODC (BedrockHaiku5_5 / the Microsoft GPT
+     entry), or does it mean building something in our own AWS or Azure
+     account? And can a project select both categories?"
+    -> The summary says "AWS, Microsoft, or both". Confirming "both" is free
+       points. The first half decides whether the special award needs an AWS
+       account at all.
+
+A3. IS THERE ANY AWS ACCOUNT OR CREDIT FOR TEAMS?
+    "Are AWS accounts or credits provided to teams for this hackathon, or is
+     anything we host in AWS ourselves at our own cost? The rules say AWS and
+     Microsoft AI services are accessible free of charge with some
+     limitations, and I want to be sure that refers to the models inside ODC
+     rather than to an AWS account."
+    -> faq.txt:36 places the free tokens inside the ODC instance, so the
+       expected answer is "your own cost". Asking is still worth it: if credits
+       exist, a real Data Fabric source in AWS becomes cheap and A1 stops
+       mattering.
+
+A4. CAN THE SPONSORED BEDROCK MODEL BE USED IN THE PRODUCTION STAGE?
+    "Is BedrockHaiku5_5 available in the Production stage as well as
+     Development, and which stage will the judges evaluate?"
+    -> This is L4 (the stage question) and the open part of T6 in one sentence.
+       The trial models are Development-only; if judging needs Production and
+       the sponsored models do not reach it, that is a different build, not a
+       different setting. Highest consequence of the six.
+
+A5. IS PRIVATE GATEWAY AVAILABLE ON HACKATHON TENANTS?
+    "Is Configure a Private Gateway available on the hackathon environments? The
+     resources document names it for reaching private services and data sources
+     hosted in cloud environments, which looks like the route for a Data Fabric
+     connection to something in AWS that is not publicly exposed."
+    -> Only matters if A1 says a real connection scores higher. The security
+       alternative - exposing a database to the internet - is not an answer we
+       want to give a judge.
+
+A6. WHICH DATA FABRIC PROVIDERS ARE ENABLED ON THIS TENANT?
+    "Which Data Fabric connection types are enabled on the hackathon
+     environments?"
+    -> ASK ONLY IF THE PORTAL DOES NOT SHOW IT. Open INTEGRATE > Data Fabric >
+       Connections first; it is a ten-minute look and A.J. is an Administrator.
+       A #help question spent on something the screen answers is a question
+       wasted.
+
+NOT in this group, deliberately:
+  - Whether Bedrock works at all from ODC. Two trial models already run through
+    it; that is settled.
+  - Mentor's consumption (T7). The post-kickoff email closed the resources
+    half, and the summary says there are no limits on Mentor usage. Confirm it
+    with the meter, not with a question.
+  - Twilio. Settled twice over: unsponsored, no credits, 2027 partnership.
