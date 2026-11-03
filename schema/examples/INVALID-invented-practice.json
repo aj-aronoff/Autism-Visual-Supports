@@ -1,0 +1,27 @@
+{
+  "supportType": "VisualSchedule",
+  "title": "Morning routine",
+  "cards": [
+    { "sequenceNo": 1, "role": "Step", "label": "Wake up", "altText": "A bed" },
+    { "sequenceNo": 2, "role": "Step", "label": "Get dressed", "altText": "A shirt" },
+    { "sequenceNo": 3, "role": "Step", "label": "Eat breakfast", "altText": "A bowl" },
+    { "sequenceNo": 4, "role": "Step", "label": "Shoes on", "altText": "Sneakers" }
+  ],
+  "script": [
+    { "phase": "Before", "phrase": "Here is the morning." },
+    { "phase": "During", "phrase": "Next one." },
+    { "phase": "OnCompletion", "phrase": "All done morning." },
+    { "phase": "IfRefusal", "phrase": "First one, then next." }
+  ],
+  "plan": {
+    "promptHierarchy": [
+      { "level": 1, "kind": "VisualPoint", "instruction": "Point to the next card." },
+      { "level": 2, "kind": "Gesture", "instruction": "Hand over the item." }
+    ],
+    "reinforcement": "Tick each card off together.",
+    "placement": "On the fridge, at the child's eye level.",
+    "ifChallengingBehavior": "Return to the card, not the behavior."
+  },
+  "evidenceBasis": ["Visual Scaffolding Package"],
+  "citations": ["TRIAD Visual Supports and Autism (2011), Visual Schedule"]
+}
