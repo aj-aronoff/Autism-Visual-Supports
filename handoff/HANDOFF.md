@@ -53,20 +53,43 @@ licences. An AWS-CLI build would be a different, non-qualifying project.
 
 ```
 github.com/aj-aronoff/Autism-Visual-Supports   PUBLIC
-main = 832d563   pushed 2 Nov 2026   working tree clean   level with origin/main
+main = 3813f83   pushed 3 Nov 2026   working tree clean
 ```
 
-Recent commits, all 2 Nov: `832d563` guardrails layer + board contract + tests ·
-`f78093e` kickoff and first-login answers, plus the generator path fix ·
+Recent commits: `3813f83` removes the unlisted concept-video URL from the tracked tree (3 Nov) ·
+`9382397` publishes this handoff snapshot (3 Nov) · then, all 2 Nov, `832d563` guardrails layer +
+board contract + tests · `f78093e` kickoff and first-login answers, plus the generator path fix ·
 `0578cbf` `2df2ed3` `eec5a24` the three that had been held back.
+
+`3813f83` is the **published** tip, measured 3 Nov with `git ls-remote origin main`, not assumed.
+An earlier copy of this section said `832d563`; that was two commits stale.
 
 **A cloud session gets the repo by cloning it, and the repo is the authority on the build.**
 This `handoff/` directory is the redacted snapshot committed alongside it — see §11 for what
 was withheld. The unredacted set stays in the parent folder, which is not in git.
 
-**Verify before trusting (one command):** `python3 tools/test_guardrails.py` → expect
-`Ran 19 tests ... OK`. Use plain `python3`. **Not `python3 -I`**, which drops the script's own
-directory from `sys.path` and breaks `import guardrails`.
+**The checkout a cloud session starts with has no `origin` and cannot push.** Measured 3 Nov:
+`git remote -v` is empty and `git ls-remote origin` fails with *"'origin' does not appear to be
+a git repository"*. So a cloud session can commit and have the work die with the container.
+Attaching the repo (`add_repo`, push access) gives a second clone that does have `origin` and
+clones fine — but **push can still be refused** at the GitHub-App layer, which is a separate
+permission from attaching. Check it before doing work you intend to ship: if push is refused,
+GitHub must be connected and the Claude GitHub App installed on the repository at
+`https://claude.ai/connect-github`. **Confirm push works before relying on a cloud session for
+anything that has to leave the container.**
+
+**Verify before trusting (two commands):**
+
+1. `python3 tools/test_guardrails.py` → expect `Ran 19 tests ... OK`. Use plain `python3`.
+   **Not `python3 -I`**, which drops the script's own directory from `sys.path` and breaks
+   `import guardrails`.
+2. The board contract, against its own examples — `jsonschema` is present in the cloud
+   container (4.26.0, measured 3 Nov), so this runs there: validate `schema/examples/*.json`
+   with `Draft202012Validator` against `schema/board.schema.json`. Expect
+   `first-then-shoes-swing.json` **valid** and all three `INVALID-*.json` **rejected**, each for
+   the reason its name gives — the four-word label fails the label pattern, the invented
+   practice fails the `evidenceBasis` enum, and the missing Then card fails the cards contract.
+   Verified 3 Nov: 1 valid, 3 rejected, as designed.
 
 ## 5. Four generators own their output — never hand-edit, never hand-copy
 
@@ -87,33 +110,48 @@ concept video is kept out of the repo on purpose).
 
 `assets/ASSETS.md` carries 19 numbered cautions. Read it before touching any image.
 
-## 6. What a CLOUD session will NOT have
+## 6. What a CLOUD session does and does not have
 
-This matters more than anything else in this file, because several documented workflows simply
-will not run.
+> **This section was written from prediction and was wrong in five places. Corrected 3 November
+> from inside a cloud container (`anthropic_cloud`), by running the commands rather than
+> guessing at them.** The pattern in the errors is one-directional: every wrong line
+> *understated* what the cloud can do, and the work was handed back to A.J. unnecessarily. The
+> rule from §14 applies to this file too — measure, and when the measurement contradicts the
+> prediction, say so.
+
+**Genuinely not available, and these are the ones that matter:**
 
 - **No ODC Studio and no ODC Portal session.** Studio is a desktop application and the tenant
   needs an interactive login. **Any task that says "check in Studio" or "read the Portal" is
-  A.J.'s, not the agent's.**
-- **No Windows Chrome**, so **SVG cannot be rasterized** the documented way
-  (`/mnt/c/Program Files/Google/Chrome/Application/chrome.exe`). Every image-rendering caution
-  in `ASSETS.md` assumes it.
-- **No `soffice`**, so the deck cannot be re-exported to PDF.
+  A.J.'s, not the agent's.** This is the one real boundary, and it is the whole reason §12
+  exists.
 - **No Google Tasks.** It needs `../google-tasks/tasks.py` run with that directory's own
   `.venv/bin/python`, which lives outside the repo.
-- **No Gmail, Notion or Docs MCP**, so the organiser mail cannot be re-read.
+- **No `boto3`** — measured, absent. So no Bedrock call from a cloud session even if credentials
+  existed, which they do not.
+- **No push remote by default**, and attaching one may still not grant push. See §4.
 - **The AWS lab account has nothing in it** — measured 2 Nov, not assumed: `aws configure list`
   returns `<not set>` for key, secret and region; `aws configure list-profiles` is empty;
   `~/.aws/` has no credentials file; no Bedrock model access; no budget;
   `tools/token-log.csv` holds only its header, so **no lab call has ever run**.
   `aws configure agent-toolkit` installs skills — **it does not sign you in**.
   **Do not stand any of it up** (§8, question A1/A2).
-- `python-pptx`, `boto3` and `jsonschema` are not installed on the local machine and system pip
-  is blocked by PEP 668; a cloud container may differ — check, don't assume either way.
 
-**So the work that travels to the cloud is: documents, specs, schema, guardrails, Python,
-video scripts and the two descriptions. The work that does not travel is anything needing
-Studio, the Portal, a browser raster, or Google Tasks.**
+**Available after all — five lines this section previously got wrong:**
+
+| Previously claimed | Measured 3 Nov in the container |
+|---|---|
+| "No Windows Chrome, so **SVG cannot be rasterized**" | **Chrome is present and rasterizing works.** `/usr/bin/google-chrome` (Chrome for Testing 153.0.8010.12), plus Playwright's Chromium at `/opt/pw-browsers/chromium`. Rendering the committed `assets/trust-boundaries.svg` headless produced a 1600×1200 RGBA PNG. The Windows path in `ASSETS.md` is A.J.'s machine, not a requirement |
+| "No `soffice`, so the deck cannot be re-exported to PDF" | **`/usr/bin/soffice` and `/usr/bin/libreoffice` are both present.** The deck can be re-exported from the cloud |
+| "`python-pptx` … not installed" | **Present, 1.0.2.** The deck's `.pptx` source can be read and edited from the cloud |
+| "`jsonschema` … not installed" | **Present, 4.26.0.** The board contract validates in the cloud — see §4, verification 2 |
+| "No Gmail, Notion or Docs MCP, so the organiser mail cannot be re-read" | **Gmail and Claude Docs MCP were both connected in this session.** The organiser mail *can* be re-read from the cloud when those connectors are attached. Do not assume; check what this session actually has, and do not hand this back to A.J. without looking |
+
+**So the work that travels to the cloud is: documents, specs, schema, guardrails, Python, video
+scripts, the two descriptions — and, contrary to the original version of this section, every
+image regeneration and raster, the deck's PPTX and PDF, and anything needing the organiser
+mail. The work that genuinely does not travel is ODC Studio, the ODC Portal, Google Tasks, and
+anything that must reach Bedrock.**
 
 ## 7. Scoring — where the points are and where we are weak
 
@@ -169,7 +207,11 @@ never a constant**, and anything load-bearing prefers the Bedrock Haiku entry.
 ## 9. Open build work, roughly in order
 
 1. Write the **Inclusivity** section into `SPEC.md` and check contrast and touch targets — it
-   is half of UX's heaviest bucket and is close to unwritten.
+   is half of UX's heaviest bucket. **Not "close to unwritten" — absent.** Measured 3 Nov:
+   `grep -niE "inclusiv|contrast|touch target|WCAG|accessib" SPEC.md` returns **nothing**, and
+   the eight section headings run from "The finding that shapes the build" to "Build order" with
+   no accessibility section among them. This is the largest single scoring gap in the repo and
+   it is pure document work, so a cloud session can close it.
 2. Move guardrails, the validator and the board contract into an **ODC Library** (Logic
    Isolation, 20% bucket).
 3. Make the parent review a **Workflow checkpoint that pauses agent execution** (HITL).
@@ -249,7 +291,7 @@ the same breath as what was finished.
 ## 15. Inventory of this published copy
 
 ```
-HANDOFF.md                                      16451 bytes
+HANDOFF.md                                      18940 bytes
 instructions/project-CLAUDE.md                  38839 bytes
 next-steps/lab-1-agent-teardown.html            35127 bytes
 next-steps/next-steps-tasks.txt                  3417 bytes
