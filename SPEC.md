@@ -151,6 +151,11 @@ Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
   "supportType": "FirstThenBoard",
   "title": "First shoes, then swing",
   "theme": "Train station",
+  // theme is REQUIRED and is never null, never omitted. Where no theme can be
+  // derived the value is the exact string "TBD", and "themeNote" must then carry a
+  // question for the parent, a recommended theme, or why plain is better:
+  //   "theme": "TBD",
+  //   "themeNote": "Ask what she looks at when nobody has asked her to.",
   "cards": [
     { "sequenceNo": 1, "role": "First", "label": "Put on shoes",
       "imagePrompt": "Flat vector icon, plain white background, no detail: a child's sneakers",

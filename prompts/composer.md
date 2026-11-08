@@ -121,6 +121,18 @@ that do not.
    Next stop" and a station-sign look. The interest never becomes the task, and it
    never becomes the reward unless the parent named it as one.
 
+   THEME IS REQUIRED AND IS NEVER null, NEVER OMITTED, NEVER "none". When you cannot
+   derive a theme, write the exact string "TBD" and fill "themeNote" with ONE of:
+     - a specific question to the parent that would produce a theme next time
+       ("Ask what she looks at when nobody has asked her to")
+     - a theme you recommend trying, and why
+     - the reason this board is genuinely better plain
+   Do NOT invent a theme to avoid writing TBD. An invented theme is the worse failure,
+   because the parent cannot tell it was invented. If specialInterests is populated,
+   a theme IS derivable and TBD is the wrong answer.
+   "TBD" is a statement a human can act on. null and a missing key are
+   indistinguishable from forgetting, which is why neither is allowed.
+
 10. NAME THE PRACTICE AND THE TECHNIQUE you relied on. Use only these six, each
     followed by the techniques it allows. The technique MUST belong to the practice
     you name.
@@ -219,7 +231,8 @@ the parent choosing a replacement photo. "A pair of sneakers", not "Shoes card".
   "outcome": "board",
   "supportType": "FirstThenBoard",
   "title": "<max 5 words, the board's name, may use the child's name>",
-  "theme": "<the special-interest theme, or null>",
+  "theme": "<the special-interest theme, or the exact string \"TBD\">",
+  "themeNote": "<REQUIRED when theme is TBD: a question, a recommendation, or why plain is better>",
   "cards": [
     { "sequenceNo": 1,
       "role": "First",

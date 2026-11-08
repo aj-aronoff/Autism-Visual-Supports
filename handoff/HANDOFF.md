@@ -1,8 +1,10 @@
 # HANDOFF — Autism Visual Supports, OutSystems hackathon
 
 **Written 2 November 2026 for a Claude Code session taking over, including a cloud session.**
-Read this file, then `instructions/project-CLAUDE.md`, then `DO-NOT-PUBLISH.md`. Nothing else
-is required to start.
+Read this file, then `instructions/project-CLAUDE.md`. Nothing else is required to start.
+**`DO-NOT-PUBLISH.md` and `instructions/global-CLAUDE.md` are NOT in this copy** — both were
+withheld deliberately (`README.md` says why), so do not go looking for them; their rules
+survive in §11 and §14 below.
 
 ---
 
@@ -15,6 +17,12 @@ is required to start.
 not estimated. It supersedes both `reference/rules.txt` (9 Nov, 11:59 PM CET) and the Taikai
 timeline — the eleven-hour discrepancy is answered by both being wrong. The event was extended
 two days to accommodate Diwali.
+
+**A.J. confirmed both dates on 3 November and set the ship target: EVERYTHING SUBMITTED BY
+MIDNIGHT EST AT THE END OF TUESDAY 10 NOVEMBER** — that is 00:00 Wednesday 11 November, eight
+hours before the 08:00 EST deadline. Treat **Tue 10 Nov 23:59 EST as the internal deadline**
+and the eight hours after it as buffer, not working time. Taikai requires an **explicit
+publish** after the last edit, so the final act is a publish, not a save.
 
 **THERE IS NO MID-WEEK SUBMISSION.** Confirmed at the kickoff. The 4 November deliverable this
 project once planned for does not exist. Anything still showing a 4 Nov milestone is stale.
@@ -53,10 +61,26 @@ licences. An AWS-CLI build would be a different, non-qualifying project.
 
 ```
 github.com/aj-aronoff/Autism-Visual-Supports   PUBLIC
-main = 832d563   pushed 2 Nov 2026   working tree clean   level with origin/main
 ```
 
-Recent commits, all 2 Nov: `832d563` guardrails layer + board contract + tests ·
+**Do not trust a commit hash written in this file.** One was, and by 7 November it claimed
+the tree was clean and level with origin while four commits sat unpushed. Read the state
+instead of the sentence:
+
+```bash
+git log --oneline -1                      # what HEAD actually is
+git ls-remote origin refs/heads/main      # what the remote actually has
+git diff --stat ; git diff --cached --stat   # different questions, run both
+```
+
+Use `git ls-remote`, **never** `git status -sb` — that prints a bare
+`## main...origin/main` whether the branch is level or the tracking ref cannot be resolved
+at all. That distinction is why the stale line above went unnoticed for four days.
+
+Two commits created this directory: `9382397` published the redacted handoff snapshot and
+`3813f83` removed the unlisted concept-video URL from the tracked tree.
+
+Before that, all 2 Nov: `832d563` guardrails layer + board contract + tests ·
 `f78093e` kickoff and first-login answers, plus the generator path fix ·
 `0578cbf` `2df2ed3` `eec5a24` the three that had been held back.
 
@@ -194,6 +218,18 @@ never a constant**, and anything load-bearing prefers the Bedrock Haiku entry.
 - `next-steps/odc-studio-next-steps.html` holds up much better — it is Studio build order,
   which the kickoff did not change. Its "held until after the kickoff" section is now
   unblocked. Single stale references to 4 Nov and 9 Nov.
+- **`next-steps/next-steps-tasks.txt` is the most misleading of the set** and was not flagged
+  here before. Its header reads "Kickoff 2 Nov · Mid-submission 4 Nov · Final 9 Nov 11:59 PM
+  CET" — all three superseded — and its items are grouped under "DUE TODAY, 30 OCT". Treat it
+  as a 30 October snapshot, not a task list.
+- **`next-steps/odc-plan-review.html`** also carries the dead calendar: one 4 Nov, one 9 Nov,
+  one mid-submission reference.
+- **Measured 3 Nov: nothing in `next-steps/` mentions 11 November at all**, and three of the
+  five files still describe the Twilio SMS path as live — `odc-plan-review.html` 6 mentions,
+  `odc-studio-next-steps.html` 5, `next-steps-tasks.txt` 2. The cut is in
+  `state/TWILIO-WITHDRAWN-2-NOV.md`; these files predate it.
+- `next-steps/lab-1-agent-teardown.html` is the one file in that folder with **no** stale
+  dates, no mid-submission and no Twilio.
 - `SPEC.md`'s day table and the Google Tasks list also predate the kickoff.
 
 ## 11. You are reading the REDACTED, PUBLIC copy
@@ -239,7 +275,8 @@ not instead. Before posting, check the **eliminated** list in
 
 ## 14. How to report
 
-`instructions/global-CLAUDE.md` asks for the iteration-loop format and it applies:
+A.J.'s global preferences file asks for the iteration-loop format and it applies. That file
+is **withheld from this copy** (`README.md`), so the requirement is restated here in full:
 🧠 Thought Process & Iteration Loop, then 🚀 Final Solution, with a confidence score that must
 reach 95%. Beyond the format: **measure rather than estimate, and when a measured number
 contradicts a prediction, say so and find out why.** State what was left undone and why, in
@@ -248,21 +285,42 @@ the same breath as what was finished.
 ---
 ## 15. Inventory of this published copy
 
+**Names only, deliberately.** This list used to carry byte counts, and on 7 November two of
+its seventeen rows were wrong — `instructions/project-CLAUDE.md` was recorded as 44,589
+bytes when the file was 18,344, because the project `CLAUDE.md` had been split in two and
+the published half shrank by 26 KB. A reader who trusted that number would have concluded
+the file was truncated. Names change when a file is added or removed; sizes change whenever
+anybody edits anything, so a size is a trap. For the current sizes, ask the filesystem:
+
+```bash
+cd handoff && find . -type f | sort | xargs ls -l | awk '{print $5, $9}'
 ```
-HANDOFF.md                                      16451 bytes
-instructions/project-CLAUDE.md                  38839 bytes
-next-steps/lab-1-agent-teardown.html            35127 bytes
-next-steps/next-steps-tasks.txt                  3417 bytes
-next-steps/next-steps.html                      32883 bytes
-next-steps/odc-plan-review.html                 28968 bytes
-next-steps/odc-studio-next-steps.html           33237 bytes
-next-steps/odc-studio-next-steps.json            1056 bytes
-reference/if-then-board-prompt.txt               2692 bytes
-reference/project-link.txt                        637 bytes
-reference/visual-support-prompt.txt              2392 bytes
-state/QUESTIONS-consolidated.txt                27912 bytes
-state/RESOURCES-AND-CRITERIA-NOV-2.md           17928 bytes
-state/SCORING-CRITERIA.md                       23424 bytes
-state/SOURCE-MATERIAL.md                        14927 bytes
-state/TWILIO-WITHDRAWN-2-NOV.md                  4508 bytes
+
 ```
+HANDOFF.md
+README.md
+instructions/project-CLAUDE.md
+next-steps/lab-1-agent-teardown.html
+next-steps/next-steps-tasks.txt
+next-steps/next-steps.html
+next-steps/odc-plan-review.html
+next-steps/odc-studio-next-steps.html
+next-steps/odc-studio-next-steps.json
+reference/if-then-board-prompt.txt
+reference/project-link.txt
+reference/visual-support-prompt.txt
+state/QUESTIONS-consolidated.txt
+state/RESOURCES-AND-CRITERIA-NOV-2.md
+state/RESOURCES-LINK-INDEX-NOV-3.md
+state/SCORING-CRITERIA.md
+state/SOURCE-MATERIAL.md
+state/TWILIO-WITHDRAWN-2-NOV.md
+```
+
+**Freshness is not the same as presence.** Two files here are published copies of documents
+that live in the parent directory and have drifted before:
+
+| Published copy | How it is kept in step |
+|---|---|
+| `state/SOURCE-MATERIAL.md` | `tools/sync-handoff-source-material.py` — run it, or `--check` to see whether it is stale without writing. **It had fallen two whole sections behind before this script existed.** |
+| `state/RESOURCES-AND-CRITERIA-NOV-2.md` | Still a hand copy with one hand redaction (the Zoom recording link). Verified faithful on 7 November by a full diff — one line differs, and it is the intended one. |

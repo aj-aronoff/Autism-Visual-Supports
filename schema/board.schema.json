@@ -8,6 +8,7 @@
   "required": [
     "supportType",
     "title",
+    "theme",
     "cards",
     "script",
     "plan",
@@ -31,8 +32,9 @@
       "maxLength": 80
     },
     "theme": {
-      "description": "Drawn from Child.SpecialInterests. Optional: a board with no theme is valid, a board with an invented theme is not.",
+      "description": "Drawn from Child.SpecialInterests. REQUIRED. Never null and never omitted -- when no theme can be derived, the value is the sentinel \"TBD\" and themeNote must say what the Composer needs or recommends. null and an absent key both mean 'unknown or forgotten' and cannot be told apart; \"TBD\" is a statement. An invented theme is still invalid.",
       "type": "string",
+      "minLength": 3,
       "maxLength": 40
     },
     "cards": {
@@ -324,6 +326,12 @@
     "agentRunId": {
       "description": "Written by the platform, not the model. Present on a stored board, absent on a freshly returned one.",
       "type": "string"
+    },
+    "themeNote": {
+      "description": "Required when theme is \"TBD\", and only meaningful then. One sentence in which the Composer does ONE of three things: asks the parent a specific question that would yield a theme, recommends a theme to try, or states why this board is better plain. This is the exception path the whole TBD convention exists for -- a board that cannot be themed should say so and say what would fix it, not fall silent.",
+      "type": "string",
+      "minLength": 15,
+      "maxLength": 240
     }
   },
   "$defs": {
@@ -611,6 +619,24 @@
             ]
           }
         }
+      }
+    },
+    {
+      "description": "The TBD exception path. A board with no derivable theme must say what it needs: a question for the parent, a recommendation, or the reason plain is better. Without this block \"TBD\" would be a silent shrug, which is the thing null already did badly.",
+      "if": {
+        "properties": {
+          "theme": {
+            "const": "TBD"
+          }
+        },
+        "required": [
+          "theme"
+        ]
+      },
+      "then": {
+        "required": [
+          "themeNote"
+        ]
       }
     }
   ]

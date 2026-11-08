@@ -241,6 +241,14 @@ What it does change:
 Two emails arrived while this was being written. The first is the organisers' own; the
 second is machine-generated and has to be graded differently.
 
+## 6. What the organisers said, and how far to trust each source
+
+Four sources on the same event, in descending order of authority: the organisers' own
+email, Zoom's machine summary of the call, the corrections that summary needs, and a
+verification of the two live Docs. **6.4 was written on 3 November and numbered 6.3 by
+mistake, colliding with the section already called 6.3; renumbered and moved into order
+on 7 November.**
+
 ## 6.1 `makeadifference@outsystems.com`, 2 Nov 16:34 UTC — authoritative
 
 Snezana Djurisic, *"As promised, we are sharing all information you need"*. Four links,
@@ -307,3 +315,50 @@ prize and the hardest security work in the project behind it, it still comes out
 4. **Support escalation, restated:** `#help` first, and a support ticket for *"bugs or
    product friction"* must carry **"Hackathon" in the title** — and be posted in `#help`
    as well, not instead.
+
+---
+
+## 6.4 Both Docs fetched and verified, 3 November 2026
+
+**No drift.** Both live Google Docs were exported and compared against the 2 November PDF
+snapshots. Ignoring whitespace only, each pair is **character-identical with a matching
+SHA-256** — technical criteria 2,803 chars (`bdb5cb81397951f6`), enablement resources 4,238
+chars (`0f738d1a0f301792`). So the PDFs in this directory are faithful, and the §6.2 warning
+that the organisers can edit the originals has **not** yet come true. Re-run the check before
+submitting; the method is below.
+
+**Link inventory.** The **technical criteria doc contains no links at all.** The
+**enablement resources doc contains 27**, and two of them are broken:
+
+| Dead link, as the doc has it | The page that actually exists |
+|---|---|
+| `outsystems_developer_cloud/libraries/` | `outsystems_developer_cloud/building_apps/libraries/` — plus `.../libraries/use_public_elements/` |
+| `outsystems_developer_cloud/forge/install_or_update_a_forge_asset/` | `outsystems_developer_cloud/building_apps/forge/install_or_update_a_forge_asset/` |
+
+**The Libraries one matters**: ODC Libraries is exactly what §1.2 identifies as the
+requirement behind *Logic Isolation* in the Modular Architecture bucket, and the organisers'
+own pointer to it 404s. Use the corrected path.
+
+**How these were checked, because the obvious method does not work.**
+`success.outsystems.com` is a single-page app that returns **HTTP 200 for any path** — a
+deliberately bogus URL returns 200 with the same shell. **A status code proves nothing
+there.** Each link was instead matched against the site's own sitemap (4,502 URLs, from
+`https://extranetprdintegrations.outsystems.net/Documentation_API/rest/Sitemap/GetSitemap`,
+which `robots.txt` points to), with the bogus path as a control — absent, as it should be.
+The three YouTube links were confirmed through oEmbed, which 404s on a dead video id.
+
+**Provenance, and why to distrust the list a little.** **23 of the 27 links carry
+`?utm_source=chatgpt.com`**, so the document was assembled with ChatGPT's help and not fully
+proofed — which is exactly how `/outsystems_developer_cloud/libraries/` comes to exist as a
+plausible-looking path that was never real. Treat it as a reading list to verify, not an
+index. It is also a second, independent reason to distrust the Zoom summary's *"Hugging Face
+5.5"* (§6.2): the same materials, assembled the same way.
+
+**The three videos, titles as returned by YouTube:** *A sneak peek into Agent Workbench* ·
+*Agent Workbench: Agent Orchestration, workflows and humans!* · *AI Governance with
+OutSystems: Protect your Agents with Guardrails* — all in playlist
+`PLxALhSwsaivy1afIHT5TElTJJs9OMHNcX`. The third is on the feature this project built by hand.
+
+**All 27 links, each with its verdict, are in a file of their own** so this one stays an
+analysis rather than an index: **`RESOURCES-LINK-INDEX-NOV-3.md`**, beside this file. The
+two dead links and their working paths are repeated there.

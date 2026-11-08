@@ -408,15 +408,30 @@ def render_board(t):
         extra += '<div class="note"><b>Sensory</b> &mdash; %s</div>' % e(t["sensoryHandling"])
     if t.get("specGap"):
         extra += '<div class="note"><b>Spec gap</b> &mdash; %s</div>' % e(t["specGap"])
-    return ('<p class="type">%s</p><p class="btitle">%s</p><p class="theme">%s</p>'
+    return ('<p class="type">%s</p><p class="btitle">%s</p>%s'
             '<h4>Cards</h4><ul class="cards">%s</ul>'
             '<h4>What the parent says</h4><dl class="script">%s</dl>'
             '<h4>Plan</h4><ul class="plan">%s</ul>'
             '<h4>Prompt hierarchy</h4><ol class="hier">%s</ol>'
             '<div class="ev">%s</div>%s'
             % (e(pretty_type(t["supportType"])), e(t["title"]),
-               e(t["theme"]) if t.get("theme") else "No theme",
+               theme_html(t),
                cards, script, plan, hier, ev, extra))
+
+
+def theme_html(t):
+    """theme is required and is never null. "TBD" is the Composer saying it could not
+    derive one, and themeNote then carries the question, the recommendation, or the
+    reason plain is better -- so TBD is shown WITH its note, never as a bare shrug."""
+    th = t.get("theme")
+    note = t.get("themeNote")
+    if th == "TBD":
+        return ('<p class="theme"><b>Theme: TBD</b>%s</p>'
+                % ((" &mdash; " + e(note)) if note else
+                   " &mdash; <b>no themeNote, which the contract requires</b>"))
+    if th:
+        return '<p class="theme">%s</p>' % e(th)
+    return '<p class="theme">No theme</p>'
 
 
 def render_referral(t):

@@ -27,7 +27,8 @@
           "design": "Takes the parent's own reward at face value. Two cards, no theme, swing in the garden before the car.",
           "supportType": "FirstThenBoard",
           "title": "First shoes, then swing",
-          "theme": null,
+          "theme": "TBD",
+          "themeNote": "Left plain on purpose: four minutes is tight and the trains look takes longer to build. Ask whether Sam reads station signs on paper or only on the platform -- if on paper, theme it.",
           "cards": [
             {
               "sequenceNo": 1,
@@ -397,7 +398,8 @@
           "design": "Reads the trigger note literally. The problem is not motivation, it is the absence of a warning. Two parameter cards, no reward.",
           "supportType": "ParameterCards",
           "title": "Two more, then done",
-          "theme": null,
+          "theme": "TBD",
+          "themeNote": "Plain is better here. The problem named is a missing warning, not missing motivation, and a diggers look would decorate the warning rather than make it land sooner.",
           "cards": [
             {
               "sequenceNo": 1,
@@ -1005,7 +1007,8 @@
           "design": "A boundary, not a bargain. One WAIT card plus a visual timer. Bets that the forty asks are a question with no visible answer, and that a reliable answer ends them.",
           "supportType": "ParameterCards",
           "title": "Tablet after dinner",
-          "theme": null,
+          "theme": "TBD",
+          "themeNote": "Deliberately plain. A WAIT card has to read as a boundary, and a Minecraft border risks making the wait look like part of the game it is holding back.",
           "cards": [
             {
               "sequenceNo": 1,
@@ -2492,7 +2495,8 @@
           "design": "Plain and literal. No theme, shortest possible labels, the reward is the thing she asks for anyway.",
           "supportType": "FirstThenBoard",
           "title": "First blocks away, then cat brushing",
-          "theme": null,
+          "theme": "TBD",
+          "themeNote": "Plain on purpose, to see whether it is enough. If Mira walks past it without looking, try the Pepper theme in B -- her cat is the interest she already brings up herself.",
           "cards": [
             {
               "sequenceNo": 1,
@@ -2646,6 +2650,191 @@
             {
               "practice": "Antecedent Package",
               "technique": "priming"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c16-no-theme-available",
+      "name": "Nothing in the profile is a theme",
+      "tests": "Reviewer question 11, THEME_NOTE_EMPTY. The profile names no special interest, so \"TBD\" is the right answer and the whole value is in what themeNote says. Try A invents a theme to avoid writing TBD; try B writes TBD and asks a question the parent can actually answer.",
+      "profile": {
+        "nickname": "Elias",
+        "ageYears": 4,
+        "visualStyle": "Photos",
+        "languageLevel": "SingleWords",
+        "developmentalStage": "EarlyLearner",
+        "specialInterests": "",
+        "sensoryNotes": "Dislikes cold water; covers ears at the hand dryer",
+        "triggerNotes": "Wet sleeves"
+      },
+      "request": {
+        "goal": "Hands washed before he eats",
+        "environment": "Home",
+        "obstacle": "He will not wash his hands before eating. I left the interests box empty because I honestly do not know what he is into yet -- he is four and he moves on fast."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Fills the gap rather than reporting it. Invents a dinosaur theme from nothing in the profile, so the parent cannot tell it was guessed.",
+          "supportType": "FirstThenBoard",
+          "title": "First hands washed, then snack",
+          "theme": "Dinosaurs at the sink",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Hands washed",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bar of soap under a tap",
+              "altText": "A bar of soap under a tap"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Snack",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bowl of apple slices",
+              "altText": "A bowl of apple slices"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First wash, then snack."
+            },
+            {
+              "phase": "During",
+              "phrase": "Nearly clean."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Hands done. Snack!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Wash first."
+            }
+          ],
+          "plan": {
+            "placement": "On the kitchen wall beside the sink, at Elias's eye level.",
+            "boardAction": "Both cards stay up while he washes. When the tap goes off and his hands are dry, take the soap card down and point to the snack card.",
+            "reinforcement": "The snack is ready on the counter before the board comes out. No waiting.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait. Say nothing new. The snack still follows.",
+            "generalization": "The same pair works before dinner at his grandmother's.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Turn the tap on and step back."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Wash your own hands beside him."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand under the water, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Writes TBD and spends the note on a question the parent can answer from the doorway, rather than one that needs them to already know the answer.",
+          "supportType": "FirstThenBoard",
+          "title": "First hands washed, then snack",
+          "theme": "TBD",
+          "themeNote": "No interest is recorded yet. Watch what he picks up when nobody has asked him to, for two days, and tell me the first thing he goes back to twice -- that is the theme.",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Hands washed",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bar of soap under a tap",
+              "altText": "A bar of soap under a tap"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Snack",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bowl of apple slices",
+              "altText": "A bowl of apple slices"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First wash, then snack."
+            },
+            {
+              "phase": "During",
+              "phrase": "Nearly clean."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Hands done. Snack!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Wash first."
+            }
+          ],
+          "plan": {
+            "placement": "On the kitchen wall beside the sink, at Elias's eye level.",
+            "boardAction": "Both cards stay up while he washes. When the tap goes off and his hands are dry, take the soap card down and point to the snack card.",
+            "reinforcement": "The snack is ready on the counter before the board comes out. No waiting.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait. Say nothing new. The snack still follows.",
+            "generalization": "The same pair works before dinner at his grandmother's.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Turn the tap on and step back."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Wash your own hands beside him."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand under the water, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "errorless learning"
             }
           ]
         }

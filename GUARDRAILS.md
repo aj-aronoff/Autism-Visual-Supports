@@ -31,6 +31,7 @@ confirm, and they are marked below.
 | 7 | The parent owns and can export everything | — | — | **not a validator**: a screen and a data decision |
 | 8 | Prompt hierarchy least-intrusive-first, levels contiguous | partial | ✅ `check_prompt_hierarchy` | yes |
 | 9 | A board with cards to work through says what the parent's hands do | ✅ `if`/`then`, FirstThen and VisualSchedule | — | **presence is schema-only**; whether the action is real and fits the board is Reviewer question 10, `BOARD_NOT_OPERABLE` |
+| 10 | `theme` is required and is **never `null`, never omitted** — the sentinel is `"TBD"` | ✅ required + `if`/`then` forcing `themeNote` when `TBD` | — | **A.J.'s decision, 7 Nov.** `null` and a missing key cannot be told apart from forgetting; `"TBD"` is a statement, and `themeNote` turns the gap into a question, a recommendation or a reason. Whether the note is worth reading is Reviewer question 11, `THEME_NOTE_EMPTY` |
 
 Rule 8 is not one of the seven. It is here because the schema cannot express
 contiguity, and a hierarchy that starts at level 2 or opens with `PhysicalGuide` is

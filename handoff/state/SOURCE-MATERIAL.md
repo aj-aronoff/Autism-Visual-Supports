@@ -9,6 +9,31 @@ decision belongs in `Autism-Visual-Supports/` instead, with the source named.
 
 ---
 
+## Unlogged arrivals — check this FIRST, and leave it empty
+
+**The tables below answer "what did we do with this file". This section answers "is there a
+file nobody has looked at", which is the question that goes stale silently.** The 1, 2 and
+7 November tables carry a *Grade* column instead of the old *Read?* column, so a file that
+arrives and is never processed leaves no trace at all — it simply has no row. Run this at
+the start of a session; anything it prints is either a new arrival or one of our own outputs:
+
+```bash
+cd <PARENT-DIR-WITHHELD>/hackathon-future
+ls -A | while read -r f; do
+  grep -qF -- "${f%.*}" SOURCE-MATERIAL.md || echo "UNLOGGED  $f"
+done
+```
+
+It over-reports: our own generated files (`CLAUDE.md`, the HTML pages, `assets/`,
+`video-75s/`) are not source material and never need a row. **Judge by whether A.J. put it
+there.** Run on 7 November it found one genuine miss, now logged:
+
+| File | Status |
+|---|---|
+| `More-details.png` (835 KB, 2 Nov 10:25) | **Found 7 Nov, never logged.** It is the kickoff **"Submission — Demo"** slide — *Video 2: Demo (Max 5 min)*, target audience the full jury, with the full shot list. **Its content is already captured**, transcribed from the PDF deck into `RESOURCES-AND-CRITERIA-NOV-2.md §4`, so nothing was lost and it does not need re-reading. Logged so the next `ls -lt` does not raise it again. Note it is a *different file* from `more-details2.png`, which the tables below do name |
+
+---
+
 ## Added 30 October 2026
 
 | File | What it is | Read? | Where it landed |
@@ -71,13 +96,19 @@ calculation to a server action.
 | File | Status |
 |---|---|
 | `slack-1-beta-features.txt` | **Asked, answered 30 Oct** — reply appended to the file; closed open items 8 and 9 |
-| `slack-2-image-generation.txt` | **Written, not yet posted.** Post as-is |
-| `next-slack-questions.txt` | **Written 30 Oct, not yet posted.** Three questions to post first — the lead one is whether judging requires a Production stage, since trial models are development-stage only — then a second batch, then a list of things not to ask because first login answers them |
-| `email-4-kickoff-questions.txt` | Unsent. Overlaps `next-slack-questions.txt` question 7 — ask the deadline question in one channel, not both |
+| `slack-2-image-generation.txt` | **Written 30 Oct, still not posted as of 7 Nov — 8 days.** Post as-is |
+| `next-slack-questions.txt` | **Written 30 Oct, still not posted as of 7 Nov — 8 days, and 4 days before the deadline.** Three questions to post first — the lead one is whether judging requires a Production stage, since trial models are development-stage only — then a second batch, then a list of things not to ask because first login answers them |
+| `email-4-kickoff-questions.txt` | **Unsent as of 7 Nov.** Overlaps `next-slack-questions.txt` question 7 — ask the deadline question in one channel, not both |
 
 **Every answer gets recorded twice**: appended to the file that carried the question, and
 struck through in `AWS-ARCHITECTURE.md §5`. An answer that lives only in Slack scrollback
 is one we will re-ask.
+
+**Dates are written into the rows above on purpose.** Before 7 November they read "not yet
+posted" and looked the same on day one as on day eight. The lead question in
+`next-slack-questions.txt` — **whether judging requires a Production stage, since trial
+models are development-stage only** — shapes the submission, so it ages differently from
+the rest. A.J. said on 7 November he would post these that night.
 
 ## Not hackathon material — moved out
 
@@ -156,4 +187,26 @@ though we will not use the plugin.
 | Source | Grade | What came of it |
 |---|---|---|
 | **`makeadifference@outsystems.com`, "2026 hackathon kick-off session", 2 Nov 16:34 UTC** — read from Gmail | **Authoritative — the organiser's own email** | Closes T7: the promised *"enablement resources"* is the Resources document already read. Carries the **recording link**, the deck as an attachment, and **live Google Docs** for the technical criteria and the resources — so the three PDFs are a *snapshot* of 11:38 ET and the Docs can change under them; re-check before submitting. Restates `#help` as the support route. `RESOURCES-AND-CRITERIA-NOV-2.md §6.1` |
-| **The Zoom AI meeting summary** of the kickoff, same thread, 2 Nov 15:59 UTC | **SECOND-HAND.** Machine-generated, stamped *"AI can make mistakes"*, and it misnames Kris Lande, Jennifer Forman and Haiku 5.5 in the text it is being quoted for | **It is the only record of the question period**, and three answers matter: **Data Fabric is "optional, with mock integrations also being acceptable"** (which would defuse the 20% Connectivity hole — flagged against `SCORING-CRITERIA.md §A4` but not acted on until confirmed in `#help`), **"no limits on mentor usage"** (`TOKEN-BUDGET.md §8` q6), and **Twilio is unsponsored rather than banned**, with a 2027 partnership planned. Also: the category may be **AWS, Microsoft or both**; the two-day extension was for **Diwali**; support tickets must carry *"Hackathon"* in the title. `RESOURCES-AND-CRITERIA-NOV-2.md §6.2`–`§6.3` |
+| **The Zoom AI meeting summary** of the kickoff, same thread, 2 Nov 15:59 UTC | **SECOND-HAND.** Machine-generated, stamped *"AI can make mistakes"*, and it misnames Kris Lande, Jennifer Forman and Haiku 5.5 in the text it is being quoted for | **It is the only record of the question period**, and three answers matter: **Data Fabric is "optional, with mock integrations also being acceptable"** (which would defuse the 20% Connectivity hole — flagged against `SCORING-CRITERIA.md §A4` but not acted on until confirmed in `#help`), **"no limits on mentor usage"** (`TOKEN-BUDGET.md §8` q6), and **Twilio is unsponsored rather than banned**, with a 2027 partnership planned. Also: the category may be **AWS, Microsoft or both**; the two-day extension was for **Diwali**; support tickets must carry *"Hackathon"* in the title. `RESOURCES-AND-CRITERIA-NOV-2.md §6.2` and `§6.3` (the verification is now `§6.4`) |
+
+---
+
+## Added 7 November 2026 — the Australian practitioner video and its transcript
+
+| Source | Grade | What came of it |
+|---|---|---|
+| **`Communication Tips & Strategies- 'First and Then' Boards (via DW YouTube Downloader).mp4`** — 48.6 MB, ~2:50, a speech-pathology service's "Communication Toolbox" episode presented by a clinician named Danielle | **Not readable here.** No ASR tooling exists in this environment and `ffmpeg`/`ffprobe` are not on the sandbox PATH, so the audio could not be transcribed locally. **A.J. transcribed it himself** rather than have the attempt made | Superseded by the transcript below. Keep the .mp4 as the primary record; it is **not** repo material (48 MB, third-party content) |
+| **`First-then-board-transcript-from-australia.txt`** — A.J.'s transcript, 2,468 bytes, 11 timestamped blocks, complete from the greeting to the sign-off | **SECOND-TIER, but the best second-tier source we have.** A practising speech pathologist demonstrating the technique, not a vendor article selling a programme — so it is a cleaner read on *mechanics* than `sources-web/autism360-first-then/`. It is still **not a citation source**: no study, no standards body, and the service is a commercial provider. The two citable sources stay the TRIAD toolkit and the National Standards Report | **Confirms four things we already do and names two we do not.** See the two rows below |
+
+**What it confirms** — each already in the build, so no change: move to the Then *quickly* once the First is done (Reviewer Q1 already bounds this at sixty seconds); pick a First at the child's level and not too hard; keep the board **in the child's sight** so they can work independently (Reviewer Q7 placement); and offer a **choice board** for the Then rather than always choosing it for the child (`Choice` is already a card Role, `choice` already a technique under Antecedent Package, and SPEC.md §7 already carries the Choice-board row).
+
+**Gap 1 — the board never tells the parent what to do with the cards.** The transcript states the hand mechanic twice: *"Once the first activity is completed, remove the symbol from the board and then show the child the then activity."* Our contract covers what to **say** (`script`, four phases including `OnCompletion`), where to **put it** (`plan.placement`) and how to **prompt** (`plan.promptHierarchy`) — but nothing in `$defs/plan` or in `prompts/composer.md` says to clear the First card and reveal the Then. A parent following our board exactly would leave both cards up, which is the state that teaches the child the two pictures are simultaneous rather than sequential. **FIXED 7 November 2026**, commit `db04aeb`: a new `plan.boardAction`, required only for `FirstThenBoard` and `VisualSchedule` via the schema's `if`/`then` pattern, plus Composer rule 13, Reviewer question 10 `BOARD_NOT_OPERABLE`, and 12 records backfilled. **Decided at the same time, because the transcript is ambiguous and it changes every board: both cards stay visible from the start and the FIRST card comes off on completion** — a covered reward is not a motivator. Three eval cases test it (`c12`, `c13`, `c14`).
+
+**Gap 2 — no graduated step between First–Then and a full schedule.** *"If they find the first then activity easy to complete, you can make it a little bit harder… by adding in an additional then. So then your visual becomes first, then, then."* Our four `supportType` values jump straight from `FirstThenBoard` to `VisualSchedule`. The optional `plan.generalization` field is the nearest home for it, and nothing currently names it. **Candidate fix: name the first→then→then step in `plan.generalization` guidance** rather than adding a fifth support type, which would cost a layout template. **STILL OPEN** — A.J. has decided gap 1 and the eval cases but not this one, so do not apply it without him.
+
+## Added 7 November 2026 — the First–Then failure-mode article
+
+| Source | Grade | What came of it |
+|---|---|---|
+| **`First-then-board-possible-problems.pdf`** — A.J.'s *Microsoft: Print To PDF* capture of the Autism 360 article, 27 pages, 6.7 MB | **UNUSABLE AS A FILE.** It has **no text layer at all**: `pdftotext` returns 27 characters for the whole document, `pdffonts` lists **zero** embedded fonts, and `pypdf` finds 0 characters and 4–10 images per page. It is 27 page *pictures*. This is exactly the check `ODC-GROUNDING.md §2` says to run on any new source, firing for the first time | **Do not upload it to the knowledge base.** No OCR tool is installed here (`tesseract`, `ocrmypdf`, `pdfimages`, ImageMagick all absent), so the text cannot be recovered locally. It did not need recovering — the live page was fetched instead. **Keep the PDF only as a visual record**, or delete it |
+| **The article itself**, fetched from the live site, HTTP 200, 316,687 bytes → `sources-web/autism360-first-then/` as `page.html` plus `article.md` (4,135 words) | **SECOND-TIER — commercial, not clinical.** Autism 360 sells a paid programme and the article body carries three promotions for it. **It must not become a third citation source** beside the TRIAD toolkit and the National Standards Report; a board citing a vendor blog is worse than one citing nothing. Full reasoning: `sources-web/autism360-first-then/PROVENANCE.md` | **Its value is failure modes, which need no citation.** Six ways a First–Then board fails in a real house, of which **two are not covered anywhere in our design**: the board sliding into *bribery* when the reward is offered after distress has already started, and the child who does not yet understand the first→then *sequence* and needs two preferred activities first. Both are Reviewer questions we do not ask. It also names the underlying theory — **Premack's principle** — which is independently citable and maps to `Antecedent Package` |

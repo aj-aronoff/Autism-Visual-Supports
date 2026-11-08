@@ -1,6 +1,8 @@
 {
   "supportType": "VisualSchedule",
   "title": "Morning routine",
+  "theme": "TBD",
+  "themeNote": "No child profile accompanies this board. A morning strip themed as a journey works for most children -- recommend trying that once an interest is known.",
   "cards": [
     {
       "sequenceNo": 1,
