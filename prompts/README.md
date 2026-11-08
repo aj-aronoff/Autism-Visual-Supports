@@ -10,6 +10,16 @@ Two different things live in this folder.
 | [`reviewer.md`](reviewer.md) | Reviewer — judges what a validator cannot | no |
 | [`illustrator.md`](illustrator.md) | Illustrator — reuse before generate | yes |
 
+**Two further prompts in this folder are NOT the shipping architecture.**
+[`AGENT-1-IF-THEN-ARCHITECT.md`](AGENT-1-IF-THEN-ARCHITECT.md) and
+[`AGENT-2-SAFETY-STORY-COCREATOR.md`](AGENT-2-SAFETY-STORY-COCREATOR.md) came from a
+parallel session on 4 November and describe a different pair of agents. **A.J. decided on
+7 November to ship Composer + Reviewer and port three ideas out of those two files rather
+than switch** — the Sensory Safety Kit, literal-language-only, and giving the child a real
+choice. Each file now opens with a banner saying so and naming where its ideas went. Do
+not wire either to an agent for this hackathon. The reasoning and the measurements are in
+`../../kb-with-new-agents.html`, in the parent directory.
+
 Each file has a short header explaining the design decision, then the literal prompt
 in a `text` fence. The fence contents are the prompt — paste them verbatim.
 

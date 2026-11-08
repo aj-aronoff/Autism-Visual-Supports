@@ -215,6 +215,61 @@ def check_affirming_language(text: str) -> Verdict:
     return Verdict(True, "6")
 
 
+# ---------------------------------------------------------------- rule 11
+
+# PORTED 7 November 2026 from prompts/AGENT-1-IF-THEN-ARCHITECT.md principle 5, which
+# the other session got right and this project did not have. Rule 2 forbids NEGATIVE
+# phrasing and rule 6 forbids NON-AFFIRMING phrasing; neither forbids FIGURATIVE
+# phrasing, and a literal reading of an idiom is one of the most ordinary ways a script
+# fails an autistic child. "The doctor will take a peek" earns a refusal the adult then
+# reads as defiance.
+#
+# Deliberately a SHORT list of idioms that actually turn up in parenting talk, not a
+# general idiom dictionary. A false positive here costs a regenerate; the Reviewer's
+# question 12 carries the judgement calls this cannot.
+_FIGURATIVE = {
+    "take a peek": "look at",
+    "have a look-see": "look at",
+    "piece of cake": "easy",
+    "hold your horses": "wait",
+    "hang on a sec": "wait",
+    "in a minute": "say the actual number of minutes",
+    "under the weather": "unwell",
+    "butterflies in": "a funny feeling in",
+    "break a leg": "good luck",
+    "spill the beans": "tell",
+    "hit the road": "go",
+    "hop in": "get in",
+    "jump in the": "get in the",
+    "a little birdie": "someone",
+    "cat got your tongue": "never use this",
+    "pull yourself together": "never use this",
+    "keep your chin up": "never use this",
+    "big boy": "name the action instead",
+    "big girl": "name the action instead",
+    "all ears": "listening",
+    "give me a hand": "help me",
+    "in two shakes": "very soon",
+    "on cloud nine": "very happy",
+    "wrap it up": "finish",
+    "time flies": "never use this",
+}
+
+
+def check_figurative_language(text: str) -> Verdict:
+    """RULE 11 -- literal language only.
+
+    Applies to anything the CHILD hears or reads: card labels, script phrases, story
+    text. It does NOT apply to the parent-facing plan, where idiom is harmless -- the
+    caller decides what to pass.
+    """
+    t = _norm(text)
+    for phrase, better in _FIGURATIVE.items():
+        if phrase in t:
+            return Verdict(False, "11", f"'{phrase}' is figurative -> {better}.")
+    return Verdict(True, "11")
+
+
 # ---------------------------------------------------------------- rule 8 (structural)
 
 PROMPT_ORDER = ["VisualPoint", "Gesture", "Verbal", "Model", "PhysicalGuide"]

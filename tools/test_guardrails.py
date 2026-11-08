@@ -7,7 +7,8 @@ Each row is (input, expected verdict, why this row exists).
 import unittest
 from guardrails import (
     check_label_length, check_positive_phrasing, check_then_card, check_card_count,
-    check_escalation, check_affirming_language, check_prompt_hierarchy,
+    check_escalation, check_affirming_language,
+    check_figurative_language, check_prompt_hierarchy,
     decision_is, check_board, words,
 )
 
@@ -140,6 +141,41 @@ class Rule6Affirming(unittest.TestCase):
         for text, expected, why in self.TABLE:
             with self.subTest(text=text, why=why):
                 self.assertEqual(bool(check_affirming_language(text)), expected, why)
+
+
+class Rule11Figurative(unittest.TestCase):
+    """Ported 7 Nov 2026 from the other session's AGENT-1 principle 5.
+
+    Rule 2 forbids negative phrasing and rule 6 forbids non-affirming phrasing.
+    NEITHER forbids figurative phrasing, which is how "the doctor will take a peek"
+    reached a child's script unflagged. A literal reading of that sentence is a
+    reasonable reading, and the refusal it earns gets read back as defiance.
+    """
+
+    TABLE = [
+        ("First shoes, then swing",                PASS, "the ordinary board, untouched"),
+        ("The doctor will look in your ears",      PASS, "the literal rewrite must survive"),
+        ("The doctor will take a peek",            FAIL, "the canonical example"),
+        ("Hold your horses",                       FAIL, "idiom for wait"),
+        ("We are leaving in a minute",             FAIL, "a number of minutes, or the child times it"),
+        ("You are being such a big boy",           FAIL, "praise that is really surprise, and figurative"),
+        ("Give me a hand with the blocks",         FAIL, "asks for a body part"),
+        ("Brush teeth",                            PASS, "two-word label"),
+        ("Put the blocks in the box",              PASS, "concrete, literal, unambiguous"),
+        ("Cat got your tongue?",                   FAIL, "never use this one"),
+    ]
+
+    def test_table(self):
+        for text, expected, why in self.TABLE:
+            with self.subTest(text=text, why=why):
+                self.assertEqual(bool(check_figurative_language(text)), expected, why)
+
+    def test_reason_names_the_replacement(self):
+        """A flag the Composer cannot act on is a flag it will reproduce."""
+        v = check_figurative_language("The doctor will take a peek")
+        self.assertFalse(bool(v))
+        self.assertIn("take a peek", v.reason)
+        self.assertIn("look at", v.reason)
 
 
 class Rule8Hierarchy(unittest.TestCase):

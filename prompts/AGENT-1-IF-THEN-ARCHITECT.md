@@ -6,6 +6,28 @@
 **Purpose:** Generate 3 customized First→Then visual support boards for autistic children  
 **Output Format:** Structured JSON with board layouts, icon references, and sensory integrations
 
+
+> ## ⛔ NOT THE SHIPPING ARCHITECTURE — decided 7 November 2026
+>
+> **A.J. decided on 7 November that the hackathon submission ships `composer.md` +
+> `reviewer.md`, not this pair.** Do not build from this file for the hackathon, and do
+> not wire it to an agent in ODC Studio.
+>
+> The reasoning, with the measurements behind it, is in `../../kb-with-new-agents.html`
+> (parent directory, not published). In short: Composer + Reviewer is already bound to
+> `schema/board.schema.json`, 21 passing guardrail tests and a 16-case eval set, and
+> this pair is unbuilt. **Nothing here was judged wrong — three ideas from these two
+> files were judged BETTER and have been ported into the shipping prompts:**
+>
+> | Idea taken from here | Where it now lives |
+> |---|---|
+> | The Sensory Safety Kit, as an enumerable list rather than free text | `board.schema.json` → `sensorySupports` (8-value enum, max 3) + `sensorySupportOther`; Composer rule 15 |
+> | Literal language only, with before/after pairs | Composer rule 14, Reviewer question 12 `FIGURATIVE_LANGUAGE`, and `tools/guardrails.py` → `check_figurative_language` with a 10-row test table |
+> | Interactive checkpoints — give the child a real decision | `plan.childChoice`; Composer rule 16 |
+>
+> **This file is kept, not deleted**, because it is the source of those three and the
+> starting point if the work resumes. See `PHASE-2-FUTURE-WORK.md`.
+
 ---
 
 ## System Role & Persona

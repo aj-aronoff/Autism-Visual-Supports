@@ -211,6 +211,41 @@ Next checkpoint: Re-assess in 2 weeks."
 
 ---
 
+## Deferred on 7 November 2026: the Safety & Story Co-Creator
+
+`prompts/AGENT-2-SAFETY-STORY-COCREATOR.md` was built for Phase 1 and is **deferred to
+Phase 2 by A.J.'s decision**, for two reasons that were measured rather than argued:
+
+1. **The knowledge base cannot ground it.** The TRIAD toolkit has **zero hits for "story"
+   or "social story"**. The National Standards extract names *Story-based Intervention
+   Package* among the eleven established treatments, so it supports the *claim* but
+   carries **no method**. Shipping it would mean generating guidance that cites nothing,
+   against the one claim this whole project rests on.
+2. **It gives de-escalation advice with no referral path.** All 581 lines searched for
+   `refer`, `professional`, `therapist`, `crisis`, `911` — the only hits are the word
+   *doctor* inside example story text. Guardrail 5 is the only guardrail with a safety
+   cost if it is wrong, and that file has no equivalent of it.
+
+**What Phase 2 needs before this resumes**, in order:
+
+- A **third knowledge-base document covering how a social story is actually written.**
+  Carol Gray's Social Stories criteria are the obvious candidate and are **copyright —
+  never re-host**, the same rule that already governs the TRIAD toolkit: private
+  grounding is not republishing. Run both checks we already run on any new source — does
+  the PDF have a text layer, and is the source clinical or commercial.
+- **A referral path inside the story agent itself**, not only in the caller. Guardrail 5
+  branches *before* composing; a story agent needs the same branch.
+- **A decision on the word "meltdown".** It is on the escalation blocklist at
+  `tools/guardrails.py` AND flagged as non-affirming by Reviewer question 5, so our own
+  pipeline refuses the word the feature is named after. Many autistic adults use the word
+  about themselves; the point is that the two files must agree, whichever way it goes.
+
+The sibling file `prompts/AGENT-1-IF-THEN-ARCHITECT.md` is also not shipping, but for a
+different and happier reason: its three best ideas were **ported into the shipping
+prompts** on 7 November rather than deferred. Its banner lists where each one went.
+
+---
+
 ## Notes for Developers
 
 - **Do not include Phase 2 in Nov 10 submission** — it dilutes the MVP

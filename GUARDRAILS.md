@@ -6,7 +6,7 @@
 | File | What it is |
 |---|---|
 | [`tools/guardrails.py`](tools/guardrails.py) | Reference implementation. Pure functions, no I/O, no model call |
-| [`tools/test_guardrails.py`](tools/test_guardrails.py) | **57 table rows across 19 tests. All passing.** Run `python3 tools/test_guardrails.py` |
+| [`tools/test_guardrails.py`](tools/test_guardrails.py) | **67 table rows across 21 tests. All passing.** Run `python3 tools/test_guardrails.py` |
 | [`schema/board.schema.json`](schema/board.schema.json) | The output contract, JSON Schema 2020-12. Rules 1, 3 and 4 are *also* enforced structurally here |
 | [`schema/examples/`](schema/examples) | One valid board and three deliberately invalid ones, used as fixtures by both |
 
@@ -32,6 +32,8 @@ confirm, and they are marked below.
 | 8 | Prompt hierarchy least-intrusive-first, levels contiguous | partial | ✅ `check_prompt_hierarchy` | yes |
 | 9 | A board with cards to work through says what the parent's hands do | ✅ `if`/`then`, FirstThen and VisualSchedule | — | **presence is schema-only**; whether the action is real and fits the board is Reviewer question 10, `BOARD_NOT_OPERABLE` |
 | 10 | `theme` is required and is **never `null`, never omitted** — the sentinel is `"TBD"` | ✅ required + `if`/`then` forcing `themeNote` when `TBD` | — | **A.J.'s decision, 7 Nov.** `null` and a missing key cannot be told apart from forgetting; `"TBD"` is a statement, and `themeNote` turns the gap into a question, a recommendation or a reason. Whether the note is worth reading is Reviewer question 11, `THEME_NOTE_EMPTY` |
+| 11 | **Literal language only** in anything the child hears or reads | — | ✅ `check_figurative_language` | yes. **Ported 7 Nov** from the parallel session's AGENT-1 principle 5 — rule 2 forbids *negative* phrasing and rule 6 *non-affirming* phrasing, and neither forbade *figurative* phrasing. A short idiom list on purpose; the judgement calls are Reviewer question 12, `FIGURATIVE_LANGUAGE`. **Does not apply to the parent-facing plan** |
+| 12 | Sensory tools come from a **closed list**, and only ones the child has | ✅ `enum` ×8, `maxItems` 3, `uniqueItems` | — | **Ported 7 Nov.** `sensorySupports`, with `sensorySupportOther` as the named escape hatch. Availability and trigger collisions are the Reviewer's `TRIGGER_COLLISION`; the schema can only check the list is closed |
 
 Rule 8 is not one of the seven. It is here because the schema cannot express
 contiguity, and a hierarchy that starts at level 2 or opens with `PhysicalGuide` is

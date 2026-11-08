@@ -387,6 +387,7 @@ def render_board(t):
     plan = "".join('<li><b>%s</b><span>%s</span></li>' % (lbl, e(p[k]))
                    for k, lbl in (("placement", "Placement"),
                                   ("boardAction", "What your hands do"),
+                                  ("childChoice", "What the child chooses"),
                                   ("reinforcement", "Reinforcement"),
                                   ("ifChallengingBehavior", "If it goes wrong"),
                                   ("generalization", "Elsewhere")) if p.get(k))
@@ -408,6 +409,7 @@ def render_board(t):
         extra += '<div class="note"><b>Sensory</b> &mdash; %s</div>' % e(t["sensoryHandling"])
     if t.get("specGap"):
         extra += '<div class="note"><b>Spec gap</b> &mdash; %s</div>' % e(t["specGap"])
+    extra += sensory_html(t)
     return ('<p class="type">%s</p><p class="btitle">%s</p>%s'
             '<h4>Cards</h4><ul class="cards">%s</ul>'
             '<h4>What the parent says</h4><dl class="script">%s</dl>'
@@ -417,6 +419,26 @@ def render_board(t):
             % (e(pretty_type(t["supportType"])), e(t["title"]),
                theme_html(t),
                cards, script, plan, hier, ev, extra))
+
+
+KIT_LABEL = {"NoiseCancellingHeadphones": "noise-cancelling headphones",
+             "FidgetToy": "fidget toy", "Chewelry": "chewelry",
+             "ComfortBlanket": "comfort blanket", "SunflowerLanyard": "sunflower lanyard",
+             "FavouriteSnack": "favourite snack", "Music": "music",
+             "SpecialInterestItem": "special-interest item"}
+
+
+def sensory_html(t):
+    """sensorySupports is a closed list of eight; most boards name none, and that is
+    correct rather than missing, so nothing is rendered when it is absent."""
+    items = [KIT_LABEL.get(x, x) for x in t.get("sensorySupports", [])]
+    other = t.get("sensorySupportOther")
+    if other:
+        items.append(e(other) + " <i>(not on the list)</i>")
+    if not items:
+        return ""
+    return ('<div class="note"><b>Sensory tools</b> &mdash; %s</div>'
+            % ", ".join(e(x) if "<i>" not in x else x for x in items))
 
 
 def theme_html(t):

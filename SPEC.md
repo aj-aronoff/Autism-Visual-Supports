@@ -151,6 +151,7 @@ Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
   "supportType": "FirstThenBoard",
   "title": "First shoes, then swing",
   "theme": "Train station",
+  "sensorySupports": ["FidgetToy"],
   // theme is REQUIRED and is never null, never omitted. Where no theme can be
   // derived the value is the exact string "TBD", and "themeNote" must then carry a
   // question for the parent, a recommended theme, or why plain is better:
@@ -178,6 +179,7 @@ Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
     "reinforcement": "Deliver the swing immediately. Do not delay or substitute.",
     "placement": "By the front door, at the child's eye level.",
     "boardAction": "When both shoes are on, take the shoes card off the board and point to the swing card.",
+    "childChoice": "He picks which shoe goes on first.",
     "ifChallengingBehavior": "Keep prompting the FIRST task. Stay on the task, not the behavior. Then still give the swing."
   },
   "evidenceBasis": [

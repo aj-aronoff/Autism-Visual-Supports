@@ -2839,6 +2839,193 @@
           ]
         }
       ]
+    },
+    {
+      "id": "c17-loud-shop",
+      "name": "The shop is too loud",
+      "tests": "The two rules ported from the parallel session on 7 Nov. Try A uses figurative language a child can reasonably take literally and names no sensory tool although the obstacle names noise as the cause. Try B is literal, puts the tool where it PREVENTS the problem rather than rewarding survival of it, and gives the child a real choice.",
+      "profile": {
+        "nickname": "Kai",
+        "ageYears": 6,
+        "visualStyle": "Icons",
+        "languageLevel": "Phrases",
+        "specialInterests": "Vacuum cleaners, especially uprights",
+        "sensoryNotes": "Covers his ears in loud places; seeks deep pressure",
+        "triggerNotes": "Sudden announcements over the shop tannoy"
+      },
+      "request": {
+        "goal": "Get the shopping done together",
+        "environment": "Community",
+        "obstacle": "The shop is too loud for him and by the cereal aisle he is on the floor with his hands over his ears. We leave with half the list undone."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Reads the obstacle as a motivation problem. Named no sensory tool although the request names noise as the cause, and the script talks the way an adult talks.",
+          "supportType": "FirstThenBoard",
+          "title": "First shopping list, then vacuum aisle",
+          "theme": "Vacuum cleaners",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Shopping list",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a paper shopping list",
+              "altText": "A paper shopping list"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Vacuum aisle",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: an upright vacuum cleaner",
+              "altText": "An upright vacuum cleaner"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "Hold your horses, nearly there."
+            },
+            {
+              "phase": "During",
+              "phrase": "We are leaving in a minute."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All done shopping. Vacuum aisle!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Shopping list first."
+            }
+          ],
+          "plan": {
+            "placement": "Clipped to the trolley handle where he can see it.",
+            "boardAction": "Cross off each item as it goes in. When the list is done, take the list card off the clip and point to the vacuum card.",
+            "reinforcement": "Five minutes in the vacuum aisle before the checkout, every time.",
+            "ifChallengingBehavior": "Stop the trolley, say nothing, wait. Then point at the FIRST card again.",
+            "generalization": "The same pair works at the garden centre.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the list out at his height."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Name the next item once."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put the first item in the trolley yourself."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand on the trolley bar, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Treats noise as the cause, so the headphones go on BEFORE the doors rather than as a reward afterwards, and every phrase survives a literal reading.",
+          "supportType": "FirstThenBoard",
+          "title": "First shopping list, then vacuum aisle",
+          "theme": "Vacuum cleaners",
+          "sensorySupports": [
+            "NoiseCancellingHeadphones"
+          ],
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Shopping list",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a paper shopping list",
+              "altText": "A paper shopping list"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Vacuum aisle",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: an upright vacuum cleaner",
+              "altText": "An upright vacuum cleaner"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First list, then vacuums."
+            },
+            {
+              "phase": "During",
+              "phrase": "Two things left on the list."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "List all done. Vacuum aisle!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "List first."
+            }
+          ],
+          "plan": {
+            "placement": "Clipped to the trolley handle where he can see it.",
+            "boardAction": "Cross off each item as it goes in. When the list is done, take the list card off the clip and point to the vacuum card.",
+            "childChoice": "He chooses whether the headphones go on in the car park or at the door.",
+            "reinforcement": "Five minutes in the vacuum aisle before the checkout, every time.",
+            "ifChallengingBehavior": "Stop the trolley, say nothing, wait. Then point at the FIRST card again.",
+            "generalization": "The same pair works at the garden centre.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the list out at his height."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Name the next item once."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put the first item in the trolley yourself."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand on the trolley bar, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "environmental modification"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

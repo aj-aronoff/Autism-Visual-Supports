@@ -332,6 +332,31 @@
       "type": "string",
       "minLength": 15,
       "maxLength": 240
+    },
+    "sensorySupports": {
+      "description": "Which regulation tools this board tells the parent to have ready, drawn from the child's own kit. PORTED 7 Nov 2026 from the other session's AGENT-1 prompt, which had an enumerable Sensory Safety Kit where this project had only free-text sensoryNotes -- a closed list the Composer can act on, the Reviewer can cross-check against triggers, and the card library can illustrate. Name only tools the profile says the child HAS; a board that calls for headphones the family does not own is a board that fails on first use. Optional and often empty: most boards need none, and listing tools for the sake of it is the failure mode here. SunflowerLanyard is the hidden-disabilities lanyard, which signals to strangers rather than regulating the child -- it belongs on a board about being out, not about brushing teeth.",
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "NoiseCancellingHeadphones",
+          "FidgetToy",
+          "Chewelry",
+          "ComfortBlanket",
+          "SunflowerLanyard",
+          "FavouriteSnack",
+          "Music",
+          "SpecialInterestItem"
+        ]
+      }
+    },
+    "sensorySupportOther": {
+      "description": "One tool this child uses that the eight do not cover -- a weighted lap pad, a particular cup, a sibling's hoodie. The enum is a closed list on purpose so the common case is checkable; this is the escape hatch so the uncommon case is not silently dropped. Name the object, not its purpose.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 60
     }
   },
   "$defs": {
@@ -473,6 +498,12 @@
           "type": "string",
           "minLength": 20,
           "maxLength": 240
+        },
+        "childChoice": {
+          "description": "One sentence naming a decision that belongs to the CHILD -- which of two Thens they work for, which order two equal steps go in, where the board hangs. Ported 7 Nov 2026 from the other session's interactive checkpoints, and it lands on machinery this project already had: Choice is a card Role and 'choice' is a technique under Antecedent Package. Optional. THE FIRST IS NEVER THE CHOICE -- the board rests on the First happening, and nothing here lets a child decline the task. Offer only choices the adult will honour; a choice overruled is worse than one never offered.",
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 200
         },
         "ifChallengingBehavior": {
           "type": "string",

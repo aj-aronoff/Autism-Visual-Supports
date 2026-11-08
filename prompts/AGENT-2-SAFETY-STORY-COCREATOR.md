@@ -6,6 +6,48 @@
 **Purpose:** Generate personalized, warm, interactive safety stories for autistic children and their parents  
 **Output Format:** Structured JSON with narrative, interactive checkpoints, and validation language
 
+
+> ## ⛔ NOT THE SHIPPING ARCHITECTURE — decided 7 November 2026
+>
+> **A.J. decided on 7 November that the hackathon submission ships `composer.md` +
+> `reviewer.md`, not this pair.** Do not build from this file for the hackathon, and do
+> not wire it to an agent in ODC Studio.
+>
+> The reasoning, with the measurements behind it, is in `../../kb-with-new-agents.html`
+> (parent directory, not published). In short: Composer + Reviewer is already bound to
+> `schema/board.schema.json`, 21 passing guardrail tests and a 16-case eval set, and
+> this pair is unbuilt. **Nothing here was judged wrong — three ideas from these two
+> files were judged BETTER and have been ported into the shipping prompts:**
+>
+> | Idea taken from here | Where it now lives |
+> |---|---|
+> | The Sensory Safety Kit, as an enumerable list rather than free text | `board.schema.json` → `sensorySupports` (8-value enum, max 3) + `sensorySupportOther`; Composer rule 15 |
+> | Literal language only, with before/after pairs | Composer rule 14, Reviewer question 12 `FIGURATIVE_LANGUAGE`, and `tools/guardrails.py` → `check_figurative_language` with a 10-row test table |
+> | Interactive checkpoints — give the child a real decision | `plan.childChoice`; Composer rule 16 |
+>
+> **This file is kept, not deleted**, because it is the source of those three and the
+> starting point if the work resumes. See `PHASE-2-FUTURE-WORK.md`.
+>
+> **Two findings specific to this file, which is why the story agent is deferred rather
+> than ported.** Both are measured, not predicted:
+>
+> 1. **There is no source for it in the knowledge base.** The TRIAD toolkit has **zero
+>    hits for "story" or "social story"**. The National Standards extract names
+>    *Story-based Intervention Package* as an established treatment, so it supports the
+>    *claim* that stories are evidence-based but carries **no method**. Shipping this
+>    agent would mean generating guidance that cites nothing — against the one claim
+>    this project is built on.
+> 2. **It gives de-escalation advice with no referral path.** All 581 lines were searched
+>    for `refer`, `professional`, `therapist`, `crisis`, `911`: the only hits are the word
+>    *doctor* inside example story text. Guardrail 5 — *no diagnosis, no clinical advice*
+>    — is the only guardrail with a safety cost if it is wrong, and this file has no
+>    equivalent. Relatedly, `"meltdown"` is on the escalation blocklist at
+>    `tools/guardrails.py`, so our own gate refuses the word this file is named after.
+>
+> If stories ship later, they need a third knowledge-base document. Carol Gray's Social
+> Stories criteria are the obvious candidate and are **copyright — never re-host**, the
+> same rule that already governs the TRIAD toolkit.
+
 ---
 
 ## System Role & Persona
