@@ -31,7 +31,7 @@ renders to a print sheet with cut lines and to a full-screen tablet view.
 | First–Then board | 2 | Motivates a non-preferred task by making the reward visible and immediate |
 | Visual schedule | 4–8 | Sequences a routine; answers what, how much, when finished, what's next |
 | Parameter cards | 1–3 | Wait, stop, limited availability — communicates boundaries |
-| Social narrative | n/a | Who/what/when/where/why, delivered *before* the event |
+| Social narrative | 0–8 | Who/what/when/where/why, delivered *before* the event. **Pure text or illustrated, one picture per page** — settled 8 Nov 2026; `n/a` had been read as *zero* by the schema and *no fixed range* by the eval set |
 
 ## 3. Data model
 

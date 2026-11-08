@@ -96,19 +96,30 @@ calculation to a server action.
 | File | Status |
 |---|---|
 | `slack-1-beta-features.txt` | **Asked, answered 30 Oct** — reply appended to the file; closed open items 8 and 9 |
-| `slack-2-image-generation.txt` | **Written 30 Oct, still not posted as of 7 Nov — 8 days.** Post as-is |
-| `next-slack-questions.txt` | **Written 30 Oct, still not posted as of 7 Nov — 8 days, and 4 days before the deadline.** Three questions to post first — the lead one is whether judging requires a Production stage, since trial models are development-stage only — then a second batch, then a list of things not to ask because first login answers them |
-| `email-4-kickoff-questions.txt` | **Unsent as of 7 Nov.** Overlaps `next-slack-questions.txt` question 7 — ask the deadline question in one channel, not both |
+| `slack-2-image-generation.txt` | **Written 30 Oct, still unposted — and A.J. decided on 8 Nov to SKIP it.** It asks for a supported image-*generation* path for the Illustrator. Two things changed since: no trial model generates images, which made the seeded card library the design rather than the contingency, and the Illustrator is deferred. A `#help` question is scarce and the answer would not change what ships. Keep for Phase 2 |
+| ~~`next-slack-questions.txt`~~ | **CORRECTED 8 Nov 2026 — THIS FILE IS DEAD AND MUST NOT BE SENT.** It is in `archive-superseded/`, moved there 3 Nov and **absorbed into `QUESTIONS-consolidated.txt` on 1 Nov**; most of its questions were answered by the first ODC login or at the kickoff. The 7 Nov row said "not posted, 8 days" and added an aging date **without checking the file was still live** — `CLAUDE.md` §6 already said never send it. The Production-stage question it carried survives as **L4 in `QUESTIONS-consolidated.txt`**, which is where it should be read |
+| ~~`email-4-kickoff-questions.txt`~~ | **CORRECTED 8 Nov 2026 — DEAD, in `archive-superseded/`.** It asked for kickoff joining details and pre-kickoff questions; the kickoff happened 2 Nov. Same mistake as the row above |
 
 **Every answer gets recorded twice**: appended to the file that carried the question, and
 struck through in `AWS-ARCHITECTURE.md §5`. An answer that lives only in Slack scrollback
 is one we will re-ask.
 
 **Dates are written into the rows above on purpose.** Before 7 November they read "not yet
-posted" and looked the same on day one as on day eight. The lead question in
-`next-slack-questions.txt` — **whether judging requires a Production stage, since trial
-models are development-stage only** — shapes the submission, so it ages differently from
-the rest. A.J. said on 7 November he would post these that night.
+posted" and looked the same on day one as on day eight.
+
+**The 8 November correction, kept because the mistake is instructive.** On 7 November I aged
+three rows as though all three files were live questions waiting to be posted. **Two of the
+three had been dead since 3 November** and are in `archive-superseded/`, which `CLAUDE.md` §6
+says never to send. Aging a row is not the same as checking it still exists, and a tracker
+that ages a dead item makes it look more urgent the longer it is dead.
+
+**The live question list is `QUESTIONS-consolidated.txt`, and it always was.** The two
+questions that actually matter are in it, not in any file here:
+
+| Question | Status, 8 Nov |
+|---|---|
+| **L4 — which stage do the judges evaluate; is Production required?** | Open. **A.J. decided 8 Nov to build the Development version first and ask about judging afterwards** — low risk, because `TrialClaudeHaiku` is a development-stage feature anyway, so Development is forced regardless of the answer. The question only decides whether a provider model is ALSO needed |
+| **GROUP A, A1 and A2 — Data Fabric, and what the AWS/Microsoft category means** | Open. The file's own instruction: *"ASK A1 AND A2 FIRST: between them they decide whether any AWS account work happens at all this week."* **A.J. said on 8 Nov he would post these to `#help` himself** |
 
 ## Not hackathon material — moved out
 

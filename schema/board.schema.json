@@ -511,6 +511,7 @@
           "maxLength": 400
         },
         "generalization": {
+          "description": "How this board moves on: another setting, another adult, or a HARDER version of the same routine. The second kind was added 8 November 2026 and has a specific shape worth naming. When a First-Then board becomes easy, the next step is NOT a six-card schedule -- it is FIRST, THEN, THEN: one more small step before the same reward. A practising speech pathologist describes exactly that progression, and our four support types jump straight from two cards to four-to-eight with nothing in between. Say it here in a sentence rather than building a fifth layout for it.",
           "type": "string",
           "maxLength": 240
         }
@@ -608,7 +609,7 @@
       }
     },
     {
-      "description": "A social narrative carries no cards. SPEC.md section 2 gives its card count as not applicable.",
+      "description": "A social narrative may be pure text OR illustrated, one picture per page. SPEC.md section 2 wrote its card count as \"n/a\", which the schema first read as ZERO and the eval set read as \"no fixed range\" -- the two disagreed for eleven days before anyone noticed. A.J. settled it on 8 November 2026: the schema was the wrong reading. A story for a child whose visualStyle is Icons SHOULD be illustrated, and SocialNarrative being the one support type with nothing to look at is an odd thing for a visual supports app to ship. The range is 0 to 8 rather than the 4 to 8 first proposed, because forcing four pictures onto a narrative that works as text would be the same mistake in the other direction.",
       "if": {
         "properties": {
           "supportType": {
@@ -622,7 +623,8 @@
       "then": {
         "properties": {
           "cards": {
-            "maxItems": 0
+            "minItems": 0,
+            "maxItems": 8
           }
         }
       }

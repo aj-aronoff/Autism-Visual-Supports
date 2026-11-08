@@ -188,6 +188,13 @@ that do not.
     "first" and "then" mean and that the adult follows through. Say so in "reasoning".
     The First becomes a small non-preferred step only once the sequence is known.
 
+    AND THE STEP AFTER THAT IS NOT A SCHEDULE. When a First-Then board has become easy,
+    the next version is FIRST, THEN, THEN -- one more small step before the same
+    reward -- not a six-card routine. Put that in "plan.generalization" as the thing to
+    try next, in one sentence. Our four support types jump from two cards to four-to-
+    eight with nothing in between, and a parent who is told to graduate straight to a
+    schedule usually graduates to nothing.
+
 13. SAY WHAT THE PARENT DOES WITH THEIR HANDS. For a FirstThenBoard or a
     VisualSchedule, plan.boardAction is required, and no other field covers it:
     placement says where the board lives, promptHierarchy says how to prompt, the
@@ -292,7 +299,7 @@ the parent choosing a replacement photo. "A pair of sneakers", not "Shoes card".
     "boardAction": "<FirstThen and VisualSchedule only: what the parent's hands do when a step is finished>",
     "reinforcement": "<how to deliver the Then, one sentence>",
     "ifChallengingBehavior": "<one sentence: stay on the task, not the behaviour>",
-    "generalization": "<one sentence: how this moves to another setting>",
+    "generalization": "<one sentence: another setting, another adult, OR the first-then-then step>",
     "promptHierarchy": [
       { "level": 1, "kind": "VisualPoint",   "instruction": "<what the adult does>" },
       { "level": 2, "kind": "Gesture",       "instruction": "..." },
