@@ -51,7 +51,7 @@ unreadable.
 | `swing-badge.png` | 600×600 | Circular, transparent — for dark slides |
 | `background-odc.png` | 1920×1080 | Title-slide / section background |
 | `deck-board.png` | 1200×822 | The First→Then board on white |
-| `deck-sms.png` | 900×1120 | Phone showing the Twilio loop |
+| `deck-log.png` | 900×996 | Phone showing the reward loop **in the app** — the board, *Did the swing happen?*, Yes / Not yet, then the streak. **Renamed from `deck-sms.png` on 8 Nov 2026**: it used to draw an SMS thread with *Reply Y or N*, and there is no SMS anywhere in this design. The loop survived, the transport did not. The frame is sized from its content, so changing the board changes the phone height — do not hard-code 996 |
 | `deck-agents.png` | 1500×620 | Composer → Reviewer → Illustrator |
 
 ## Palette

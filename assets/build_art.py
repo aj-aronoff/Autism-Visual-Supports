@@ -390,7 +390,7 @@ body = f'''
 </g>
 {sunflower(322, 566, 38)}
 <text x="92" y="790" font-family="{FONT}" font-size="24" font-weight="700" fill="{CLEAR_SKY}" letter-spacing="1">BUILT ON OUTSYSTEMS ODC</text>
-<text x="92" y="828" font-family="{FONT}" font-size="22" fill="{GRAY}">Agentic AI &#183; Twilio &#183; Build for the Future 2026</text>
+<text x="92" y="828" font-family="{FONT}" font-size="22" fill="{GRAY}">Agentic AI &#183; Evidence-based &#183; Build for the Future 2026</text>
 '''
 write("cover-v2-board-first.svg", svg(CW, CH, body, CLOUD_WHITE))
 
@@ -409,7 +409,7 @@ body = f'''
 <text x="92" y="182" font-family="{FONT}" font-size="28" fill="{HORIZON}">{SUB}</text>
 {board3}
 {sunflower(1244, 184, 64)}
-<text x="92" y="790" font-family="{FONT}" font-size="26" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>
+<text x="92" y="790" font-family="{FONT}" font-size="26" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; EVIDENCE-BASED</text>
 <text x="92" y="828" font-family="{FONT}" font-size="22" fill="{HORIZON}">Build for the Future Hackathon 2026</text>
 '''
 write("cover-v3-odc-night.svg", svg(CW, CH, body, NAVY))
@@ -424,35 +424,57 @@ bhd, boardd = first_then_board(40, 40, 1120, bg=CLOUD_WHITE)
 write("deck-board.svg", svg(1200, bhd + 112, boardd, "#FFFFFF"))
 
 
-def bubble(x, y, w, h, text_lines, fill, fg, tail="left", fs=30):
-    rows = "".join(f'<text x="{x+30}" y="{y+52+i*40}" font-family="{FONT}" font-size="{fs}" '
-                   f'fill="{fg}">{t}</text>' for i, t in enumerate(text_lines))
-    tp = (f'<path d="M{x+6} {y+h-26} L{x-14} {y+h} L{x+34} {y+h-4} Z" fill="{fill}"/>' if tail == "left"
-          else f'<path d="M{x+w-6} {y+h-26} L{x+w+14} {y+h} L{x+w-34} {y+h-4} Z" fill="{fill}"/>')
-    return f'<g>{tp}<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="22" fill="{fill}"/>{rows}</g>'
+# REWRITTEN 8 November 2026. This slide used to be an SMS thread -- two chat bubbles
+# and "Reply Y or N" -- which depicted a transport that no longer exists. Twilio was
+# withdrawn by the organisers on 2 November and A.J. reconfirmed on 8 November that there
+# is NO SMS anywhere in the design. The LOOP is what mattered and the loop survives: the
+# parent taps the outcome on the board they already have open. Renamed deck-sms -> deck-log
+# so the filename stops advertising the thing we removed.
+
+def row(x, y, w, h, title, sub, fill, fg, sub_fg):
+    t2 = (f'<text x="{x+28}" y="{y+h-26}" font-family="{FONT}" font-size="24" '
+          f'fill="{sub_fg}">{sub}</text>' if sub else "")
+    return (f'<g><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="20" fill="{fill}"/>'
+            f'<text x="{x+28}" y="{y+(46 if sub else h/2+11)}" font-family="{FONT}" '
+            f'font-size="30" font-weight="700" fill="{fg}">{title}</text>{t2}</g>')
 
 
-PW, PH = 900, 1120
+def tap_button(x, y, w, h, label, fill, fg):
+    return (f'<g><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{h/2}" fill="{fill}"/>'
+            f'<text x="{x+w/2}" y="{y+h/2+11}" font-family="{FONT}" font-size="30" '
+            f'font-weight="700" fill="{fg}" text-anchor="middle">{label}</text></g>')
+
+
+_bh, _board = first_then_board(168, 200, 564, bg="#FFFFFF", show_header=False)
+# The frame is sized FROM the content. The first build left ~190px of empty phone
+# below the streak strip, which reads as a cropping mistake rather than a design.
+_content_bottom = 200 + _bh + 212 + 146          # streak strip, bottom edge
+_pad = 48                                        # same breathing room as the top
+PW = 900
+PH = int(_content_bottom + _pad + 18 + 30)       # inner pad + bezel + outer margin
 body = f'''
 <rect width="{PW}" height="{PH}" fill="#FFFFFF"/>
-<rect x="110" y="30" width="680" height="1060" rx="62" fill="{SLATE}"/>
-<rect x="128" y="48" width="644" height="1024" rx="48" fill="{CLOUD_WHITE}"/>
+<rect x="110" y="30" width="680" height="{PH - 60}" rx="62" fill="{SLATE}"/>
+<rect x="128" y="48" width="644" height="{PH - 96}" rx="48" fill="{CLOUD_WHITE}"/>
 <rect x="128" y="48" width="644" height="92" rx="48" fill="{CLEAR_SKY}"/>
-<rect x="128" y="112" width="644" height="28" fill="{CLEAR_SKY}"/>
+<!-- cover starts at y=96, where the header's rx=48 curve ends. Starting it at 112
+     left two white slivers at the header's waist, visible at full size. -->
+<rect x="128" y="96" width="644" height="44" fill="{CLEAR_SKY}"/>
 <text x="450" y="106" font-family="{FONT}" font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">Visual Supports</text>
-<text x="168" y="206" font-family="{FONT}" font-size="24" fill="{GRAY}">Today 7:40 AM</text>
-{bubble(160, 226, 470, 160, ["First shoes,", "then swing."], HORIZON, SLATE)}
-<text x="168" y="446" font-family="{FONT}" font-size="24" fill="{GRAY}">8:05 AM</text>
-{bubble(160, 466, 530, 200, ["Did the swing happen?", "Reply Y or N."], HORIZON, SLATE)}
-{bubble(640, 706, 110, 92, ["Y"], MEADOW, "#FFFFFF")}
-<g transform="translate(160,850)">
-  <rect width="580" height="146" rx="20" fill="{SAGE}" opacity=".55"/>
-  {sunflower(66, 73, 34)}
-  <text x="128" y="62" font-family="{FONT}" font-size="28" font-weight="700" fill="{SLATE}">Reward delivered</text>
-  <text x="128" y="104" font-family="{FONT}" font-size="26" fill="{SLATE}">9 mornings in a row</text>
+<text x="168" y="182" font-family="{FONT}" font-size="24" fill="{GRAY}">This morning &#183; 7:40</text>
+{_board}
+<text x="168" y="{200 + _bh + 56}" font-family="{FONT}" font-size="30" font-weight="700" fill="{SLATE}">Did the swing happen?</text>
+{tap_button(168, 200 + _bh + 80, 268, 84, "Yes", MEADOW, "#FFFFFF")}
+{tap_button(456, 200 + _bh + 80, 268, 84, "Not yet", "#FFFFFF", GRAY)}
+<rect x="456" y="{200 + _bh + 80}" width="268" height="84" rx="42" fill="none" stroke="{HORIZON}" stroke-width="3"/>
+<g transform="translate(168,{200 + _bh + 212})">
+  <rect width="564" height="146" rx="20" fill="{SAGE}" opacity=".55"/>
+  {sunflower(60, 73, 34)}
+  <text x="120" y="62" font-family="{FONT}" font-size="28" font-weight="700" fill="{SLATE}">Reward delivered</text>
+  <text x="120" y="104" font-family="{FONT}" font-size="26" fill="{SLATE}">9 mornings in a row</text>
 </g>
 '''
-write("deck-sms.svg", svg(PW, PH, body, "#FFFFFF"))
+write("deck-log.svg", svg(PW, PH, body, "#FFFFFF"))
 
 
 def agent(cx, cy, r, title, sub, col, glyph):
@@ -625,7 +647,7 @@ body = f'''
 <text x="90" y="222" font-family="{FONT}" font-size="60" font-weight="700" fill="{CLOUD_WHITE}">Visual Supports</text>
 <text x="90" y="278" font-family="{FONT}" font-size="27" fill="{HORIZON}">Printable visual supports, made in two minutes</text>
 <rect x="90" y="300" width="128" height="6" rx="3" fill="{SUNFLOWER}"/>
-<text x="90" y="790" font-family="{FONT}" font-size="25" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>
+<text x="90" y="790" font-family="{FONT}" font-size="25" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; EVIDENCE-BASED</text>
 <text x="90" y="828" font-family="{FONT}" font-size="21" fill="{HORIZON}">Build for the Future Hackathon 2026</text>
 '''
 write("cover-v4-reading-tree.svg", svg(CW, CH, body, NAVY))
@@ -786,7 +808,7 @@ def night(w, h, rcx, rcy, ctx, cty, cs=1.0, rain=15, gid="n"):
 <g transform="translate({ctx},{cty}) scale({cs})">{odc_cloud()}</g>'''
 
 
-FOOT1 = f'<text x="92" y="792" font-family="{FONT}" font-size="25" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>'
+FOOT1 = f'<text x="92" y="792" font-family="{FONT}" font-size="25" font-weight="700" fill="{SUNFLOWER}" letter-spacing="2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; EVIDENCE-BASED</text>'
 FOOT2 = f'<text x="92" y="830" font-family="{FONT}" font-size="21" fill="{HORIZON}">Build for the Future Hackathon 2026</text>'
 
 # ---- V5: standing, device held out, text column on the left ----
@@ -872,7 +894,7 @@ def banner(name, cs, ctx, cty, rain=11):
 <text x="56" y="122" font-family="{FONT}" font-size="40" font-weight="700" fill="{CLOUD_WHITE}">Visual Supports</text>
 <rect x="58" y="140" width="92" height="5" rx="2.5" fill="{SUNFLOWER}"/>
 <text x="58" y="177" font-family="{FONT}" font-size="19" fill="{HORIZON}">Print it, post it, trust it.</text>
-<text x="58" y="209" font-family="{FONT}" font-size="14" font-weight="700" fill="{SUNFLOWER}" letter-spacing="1.2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; TWILIO</text>
+<text x="58" y="209" font-family="{FONT}" font-size="14" font-weight="700" fill="{SUNFLOWER}" letter-spacing="1.2">OUTSYSTEMS ODC &#183; AGENTIC AI &#183; EVIDENCE-BASED</text>
 {boy_head(hcx, hcy, hr)}
 <rect x="{hcx-44:.0f}" y="{hcy+28:.0f}" width="88" height="34" rx="14" fill="{SKY}"/>
 <path d="M{tx+56} {ty+th-6} Q{tx-26} {hy+40:.0f} {tx-12} {hy:.0f}" stroke="{CLEAR_SKY}" stroke-width="21" fill="none" stroke-linecap="round"/>

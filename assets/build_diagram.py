@@ -53,7 +53,10 @@ SVC = [("Aurora Serverless v2", "encrypted at rest", 370),
 SVC_W = 245
 PARENT = (60, 300, 240, 86)           # parent browser / tablet
 PHONE  = (1480, 200, 380, 86)
-TWILIO = (1480, 362, 380, 100)
+# TWILIO removed 8 November 2026. The organisers confirmed Twilio is not used in this
+# hackathon and A.J. confirmed no SMS at all, so the transport is gone from the design.
+# The reward-confirmation LOOP survives -- it is now an on-screen check-off, which is why
+# the parent's phone stays on the diagram and now talks to our own edge like any browser.
 BEDROCK= (1480, 782, 380, 100)
 
 p = []
@@ -151,7 +154,9 @@ def build(slide=False):
     # Legend. On the slide it moves into the column the key vacates, where it has
     # room to be read from the back of a room.
     lx, ly, step, rr, tsz = (64, 556, 48, 13, 24) if slide else (1322, 60, 30, 9, 18)
-    for i, (kind, lab) in enumerate((("ours", "ours to secure \u2014 4"),
+    # Counts recomputed 8 Nov 2026 after Twilio came out: B2 and B3 ours, B4 and B5
+    # shared, B1 inherited. It was 4/2/1 with the two Twilio hops in.
+    for i, (kind, lab) in enumerate((("ours", "ours to secure \u2014 2"),
                                      ("shared", "shared \u2014 2"),
                                      ("inherited", "inherited \u2014 1"))):
         y = ly + i * step
@@ -204,9 +209,8 @@ def build(slide=False):
 
     # external actors
     chip(PARENT[0], PARENT[1], PARENT[2], PARENT[3], "Parent", "browser / tablet", INK, PAPER)
-    chip(PHONE[0], PHONE[1], PHONE[2], PHONE[3], "Parent's phone", "SMS, hands full", INK, PAPER)
-    chip(TWILIO[0], TWILIO[1], TWILIO[2], TWILIO[3], "Twilio Programmable SMS",
-         "third party \u00b7 our credentials", EXT, EXT_BG, EXT)
+    chip(PHONE[0], PHONE[1], PHONE[2], PHONE[3], "Parent's phone",
+         "the board \u00b7 hands full", INK, PAPER)
     chip(BEDROCK[0], BEDROCK[1], BEDROCK[2], BEDROCK[3], "Amazon Bedrock",
          "metered tokens \u00b7 no console for us", EXT, EXT_BG, EXT)
 
@@ -226,32 +230,30 @@ def build(slide=False):
     # B5  agent workbench -> bedrock
     ay = SVC_Y + SVC_H / 2
     arrow([(1135 + SVC_W, ay), (BEDROCK[0] - 4, ay)], EXT)
-    # B3  twilio -> our code  (inbound webhook)
-    arrow([(TWILIO[0] - 4, TWILIO[1] + 72), (1300, 424), (cx + cw + 4, cy + 58)], OURS)
-    # B6  our code -> twilio  (outbound script)
-    arrow([(cx + cw + 4, cy + 182), (1330, 560), (TWILIO[0] + 150, TWILIO[1] + TWILIO[3] + 4)], OURS)
-    # phone <-> twilio
-    add('<path d="M %g %g L %g %g" fill="none" stroke="%s" stroke-width="2.5" '
-        'marker-end="url(#ah-%s)" marker-start="url(#ah-%s)"/>'
-        % (1670, PHONE[1] + PHONE[3] + 6, 1670, TWILIO[1] - 6, EXT,
-           EXT.lstrip("#"), EXT.lstrip("#")))
-    text(1687, 334, "SMS", SUB, EXT)
+    # phone -> the same edge every browser reaches. It crosses B1 like any other
+    # client; the old inbound webhook and outbound SMS hops are gone with Twilio.
+    arrow([(PHONE[0] - 4, PHONE[1] + PHONE[3] / 2), (1300, 243),
+           (EDGE[0] + EDGE[2] / 2 + 60, EDGE[1] - 4)], GRAY)
+    text(1300, 228, "HTTPS", SUB, GRAY, "normal", "middle")
 
     # --- boundary badges --------------------------------------------------------
     badge(zx, ey, "B1", "inherited")
     badge(548, 744, "B2", "ours")
-    badge(1198, 744, "B4", "ours")
-    badge(zx + zw, ay, "B5", "shared")
-    badge(zx + zw, 418, "B3", "ours")
-    badge(zx + zw, 536, "B6", "ours")
-    badge(370 + SVC_W / 2, SVC_Y + SVC_H + 32, "B7", "shared")
+    badge(1198, 744, "B3", "ours")
+    badge(zx + zw, ay, "B4", "shared")
+    badge(370 + SVC_W / 2, SVC_Y + SVC_H + 32, "B5", "shared")
 
     # --- the key, or the callout that replaces it ---------------------------
     if slide:
         # Seven rows of 19px text is a reference table, not a slide. The one
-        # sentence a viewer needs is the one about B3; the rest is narration.
-        text(64, 452, "The only unauthenticated", 30, INK, "bold")
-        text(64, 490, "path in is B3.", 30, INK, "bold")
+        # sentence a viewer needs is this one; the rest is narration.
+        # Rewritten 8 Nov 2026: it used to read "the only unauthenticated path in is
+        # B3", meaning Twilio's inbound webhook. With Twilio gone there is no
+        # unauthenticated path at all, which is a stronger sentence than the one it
+        # replaces -- and leaving the old one would have pointed at B3, which is now
+        # "our code -> agent" and needs a logged-in parent like everything else.
+        text(64, 452, "There is no unauthenticated", 30, INK, "bold")
+        text(64, 490, "path in. None.", 30, INK, "bold")
         add("</g>")
         add("</svg>")
         return "\n".join(p)
@@ -262,24 +264,22 @@ def build(slide=False):
         % (kx, ky + 12, kx + 240, ky + 12, OURS))
     KEY = [("B1", "internet \u2192 edge", "inherited"),
            ("B2", "parent \u2192 their data", "ours"),
-           ("B3", "Twilio \u2192 our endpoint", "ours"),
-           ("B4", "our code \u2192 agent", "ours"),
-           ("B5", "agent \u2192 Bedrock", "shared"),
-           ("B6", "our code \u2192 Twilio", "ours"),
-           ("B7", "data at rest", "shared")]
+           ("B3", "our code \u2192 agent", "ours"),
+           ("B4", "agent \u2192 Bedrock", "shared"),
+           ("B5", "data at rest", "shared")]
     for i, (b, lab, kind) in enumerate(KEY):
         y = ky + 48 + i * 37
         col = OURS if kind == "ours" else (INK if kind == "shared" else GRAY)
         text(kx, y, b, 19, col, "bold")
         text(kx + 42, y, lab, 19, INK if kind != "inherited" else GRAY)
 
-    text(kx, 800, "The only unauthenticated", 17, INK, "bold")
-    text(kx, 824, "path in is B3.", 17, INK, "bold")
-    text(kx, 856, "Everything else needs a", 17, GRAY)
+    text(kx, 800, "There is no unauthenticated", 17, INK, "bold")
+    text(kx, 824, "path in. None.", 17, INK, "bold")
+    text(kx, 856, "Every path needs a", 17, GRAY)
     text(kx, 878, "logged-in parent.", 17, GRAY)
 
     text(48, H - 28,
-         "Four boundaries fully ours, two shared, one inherited.  "
+         "Two boundaries fully ours, two shared, one inherited.  "
          "A small enumerable surface beats a large one with a thick document in front of it.",
          17, GRAY, style="italic")
 

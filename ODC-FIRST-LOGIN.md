@@ -101,6 +101,13 @@ arrived early. The AWS and Microsoft AI tokens and Twilio are still unaccounted 
 the Twilio one is the one with a lead time: a trial project can only send SMS to numbers
 verified in advance, which is a thing to discover this week and not on 8 November.
 
+> **Overtaken by events — this paragraph is a record of 1 November, not a live concern.**
+> Twilio was withdrawn by the organisers on 2 November and A.J. reconfirmed on 8 November
+> that there is **no SMS anywhere in the design**, so the verified-numbers lead time never
+> applied. The AI tokens did arrive: two hackathon models at 10,000,000 tokens a day each,
+> plus the development-stage trial models. Left in place because the reasoning about lead
+> times is the reusable part.
+
 The email came from a named Developer Advocate at OutSystems. That is a better-targeted
 reader for *"is Agent Workbench enabled on the hackathon instances"* than a shared
 mailbox, and replying in that thread does not require finding an address.

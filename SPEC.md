@@ -71,7 +71,10 @@ Ordered hierarchy, least intrusive first.
 `Instruction`
 
 ### UsageLog
-The loop. Written by SMS reply, not by hand.
+The loop. **Not SMS** — Twilio is out of this hackathon and there is no text message
+anywhere in the design. The parent taps the outcome on the board they already have open,
+which is one fewer thing to set up and one fewer third party to trust with a child's
+routine.
 `BoardId` · `UsedOn` · `Outcome` → Independent | WithPrompt | Refused | Skipped ·
 `PromptLevelUsed` · **`RewardDelivered` (required)** · `Notes`
 
@@ -107,7 +110,10 @@ Every board cites which it rests on.
 5. **Script & Plan** — on its own tab, because this is the part that gets skipped.
 6. **Use it** — print sheet (cut lines, sized for lamination and Velcro) or tablet mode
    (large targets, tap to check off, works offline).
-7. **Log** — by SMS; in-app logging stays for prompt level and notes.
+7. **Log** — one tap on the board itself: did it happen, at which prompt level, was the
+   reward delivered. **No SMS and no Twilio** — withdrawn 2 November and confirmed again
+   8 November. The reward-confirmation *loop* is the point and it survives; the transport
+   was never the point.
 8. **Share with the team** — read-only board access for a teacher, aide or SLP.
 
 ## 5. AI layer

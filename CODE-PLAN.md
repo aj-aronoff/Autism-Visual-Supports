@@ -18,7 +18,7 @@ That is not a complaint, it is a planning fact, and it splits the work in two:
 | | What it is | Can it be written before 2 November? | Can it be reviewed as code? |
 |---|---|---|---|
 | **Authorable** | Prompts, contracts, validators, C# external libraries, CSS, SQL-shaped seed data, our own tooling | **Yes** | Yes |
-| **Studio work** | Entities, screens, logic flows, agent wiring, the Twilio connector | No | Only by demonstration |
+| **Studio work** | Entities, screens, logic flows, agent wiring | No | Only by demonstration |
 
 So the honest answer to *"can we lay out all the code that needs to be written"* is: yes
 for the authorable column, which is larger than it looks, and no for the other, which gets
@@ -101,7 +101,7 @@ Rules 1, 2, 4 and 5 are pure functions over text. Write them in Python with a ta
 cases, review them, then port the logic into ODC flows on day 5. The Python version does
 not ship — it is the specification that gets reviewed, and the test table outlives it.
 
-### 3.3 ~~The Twilio inbound webhook~~ — *withdrawn 2 November*
+### 3.3 ~~The Twilio inbound webhook~~ — *withdrawn 2 November, reconfirmed 8 November*
 
 > **Twilio is not in this hackathon.** The organiser, 2 Nov: *"We will not use
 > twilio for this hackathon."* Everything in this section was the highest-risk
@@ -109,6 +109,13 @@ not ship — it is the specification that gets reviewed, and the test table outl
 > recommendation is to cut it and reclaim the day — see THE TWILIO DECISION in
 > `QUESTIONS-consolidated.txt`. Kept for reference because the reasoning about
 > B3 is sound and would apply to any future inbound callback.
+>
+> **Reconfirmed 8 November 2026.** A.J.: *"Slack and the [organisers] said that TWILIO is
+> OUT. NO SMS."* **There is no text message anywhere in this design.** The
+> reward-confirmation *loop* survives as a tap on the board the parent already has open —
+> see `SPEC.md` §3 `UsageLog` and screen 7. Cutting it also removed the project's only
+> unauthenticated inbound path, which is why `assets/trust-boundaries.svg` now reads
+> *"there is no unauthenticated path in. None."* where it used to point at B3.
 
 
 Boundary **B3** in `AWS-ARCHITECTURE.md` is the only unauthenticated path into the
@@ -233,7 +240,7 @@ app:
 
 | App | Holds | From `SPEC.md` |
 |---|---|---|
-| **Web** | 10 entities + 3 static entities, 8 screens, the 7 guardrail server actions, the print sheet, the exposed Twilio endpoint | §3, §4, §6 |
+| **Web** | 10 entities + 3 static entities, 8 screens, the 7 guardrail server actions, the print sheet. **No exposed endpoint at all** — it went with Twilio, and §3.3 explains why that is a security gain and not only a cut | §3, §4, §6 |
 | **Agentic** | Composer, Reviewer, Illustrator, and their tools | §5 |
 
 **The problem is that the dependency wants to go both ways.** The Web app depends on the
@@ -271,8 +278,10 @@ tidiest and costs the most.
 Two smaller consequences of the same page:
 
 - **Configuration lives in the app, per stage** — including values an app consumes from a
-  library. So the Twilio credentials are Web-app settings, set once per stage, which is
-  the same per-stage discipline as the knowledge base in `ODC-GROUNDING.md §2`.
+  library. The worked example used to be the Twilio credentials; with Twilio gone the live
+  one is **the model name**, which `CLAUDE.md` §4 requires to be a Setting and never a
+  constant, so exhausting the trial allowance mid-demo is a config change rather than a
+  rebuild. Same per-stage discipline as the knowledge base in `ODC-GROUNDING.md §2`.
 - **The course for this decision** is *Architecture fundamentals in ODC*, a free journey
   in the training catalog: <https://learn.outsystems.com/training/journeys/architecture-fundamentals-559>.
   Not the paid two-day *ODC Architecture Boot Camp*, which is a different thing.

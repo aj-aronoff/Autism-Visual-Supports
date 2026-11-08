@@ -99,23 +99,33 @@ together:
 The parent then either prints the sheet (cut lines, sized for lamination and Velcro) or
 opens tablet mode (large targets, tap to check off, works offline).
 
-### 2.3 The loop that makes it work — SMS
+### 2.3 The loop that makes it work
 
-At the time the routine is due, **Twilio sends the parent the script** — not a
-notification telling them to open an app, the actual words, on the lock screen, where
-they are standing at the front door holding a pair of shoes.
+> **REWRITTEN 8 November 2026. This section described an SMS loop and there is no SMS.**
+> Twilio was withdrawn by the organisers on 2 November and A.J. reconfirmed on 8 November:
+> *"TWILIO is OUT. NO SMS."* **This file is the raw material for both video scripts**, so
+> leaving the old wording here would have put a feature we do not have into a narrated
+> video. The loop below is the one that ships.
 
-Afterwards, one inbound question: **did the reward happen?** A one-word reply writes
-`UsageLog.RewardDelivered`. That single field is what the whole method rests on, and it
-is precisely the field no parent would ever open an application to fill in. So the home
-screen counts **promises kept, not boards made** — because that is the number that
+The board is already open on the phone, propped by the front door, because that is where
+the parent is standing holding a pair of shoes. **The script is on the board itself** —
+the actual words, not a notification telling them to open an app.
+
+Afterwards, one question on the same screen: **did the reward happen?** One tap writes
+`UsageLog.RewardDelivered`. That single field is what the whole method rests on. So the
+home screen counts **promises kept, not boards made** — because that is the number that
 predicts whether the next board will work.
+
+**Losing the text message cost less than it looks and bought something.** The script and
+the check-off were always the point; SMS was only how they reached the parent. Removing it
+also removed the project's only unauthenticated inbound path, which is why
+`assets/trust-boundaries.svg` now reads *"there is no unauthenticated path in. None."*
 
 ### 2.4 What the judges will be able to replicate
 
 The five-minute demo is one support type carried end to end: profile → three questions →
-agents compose and review → board persisted → printable sheet → SMS script out → reply in
-→ reward logged → streak updated. One complete loop, not four partial features.
+agents compose and review → board persisted → printable sheet → script on the board →
+one tap → reward logged → streak updated. One complete loop, not four partial features.
 
 ### 2.5 Explicitly out of scope for 9 November
 
