@@ -19,8 +19,9 @@ child can see them.
 The method is not in question. The Vanderbilt Kennedy Center's TRIAD toolkit,
 published through the Autism Speaks Autism Treatment Network, documents First–Then
 boards, visual schedules and parameter cards as core practice. The National Autism
-Center's *National Standards Report* lists Schedules, Antecedent Packages and
-Story-based Intervention among the interventions with compelling scientific evidence.
+Center's *National Standards Report* lists Schedules, Antecedent Package and
+Story-based Intervention Package among the interventions with compelling scientific
+evidence.
 
 What fails is the **making**. A good board means finding pictures the child
 recognises, cutting them to size, keeping every label to three words or fewer,

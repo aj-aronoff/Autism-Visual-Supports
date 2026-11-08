@@ -106,24 +106,207 @@
       "$ref": "#/$defs/plan"
     },
     "evidenceBasis": {
-      "description": "Which National Standards practices this board rests on. A closed list is the point: it is what stops a model inventing a twelfth practice. Must stay in step with the EvidencePractice static entity, which is the single source of truth.",
+      "description": "Which National Standards (2009) Established Treatments this board rests on, each with the specific technique within it. A closed list is the point: it is what stops a model inventing a twelfth practice. The enum here is the SIX this application can honestly claim, not all eleven -- a First-Then board cannot rest on Peer Training Package. All eleven remain in the EvidencePractice static entity as the reference table. Names are verbatim from the legend under Table 3 of the National Standards Report.",
       "type": "array",
       "minItems": 1,
       "maxItems": 4,
       "uniqueItems": true,
       "items": {
-        "enum": [
-          "Antecedent Package",
-          "Behavior Package",
-          "Comprehensive Behavioral Treatment for Young Children",
-          "Joint Attention Intervention",
-          "Modeling",
-          "Naturalistic Teaching Strategies",
-          "Peer Training",
-          "Pivotal Response Treatment",
-          "Schedules",
-          "Self-management",
-          "Story-based Intervention"
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "practice",
+          "technique"
+        ],
+        "properties": {
+          "practice": {
+            "enum": [
+              "Antecedent Package",
+              "Behavioral Package",
+              "Naturalistic Teaching Strategies",
+              "Schedules",
+              "Self-management",
+              "Story-based Intervention Package"
+            ]
+          },
+          "technique": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 80,
+            "description": "The named technique within that package, from the report's own examples."
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Antecedent Package"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "behavior chain interruption",
+                    "behavioral momentum",
+                    "choice",
+                    "contriving motivational operations",
+                    "cueing and prompting/prompt fading",
+                    "environmental enrichment",
+                    "environmental modification",
+                    "errorless learning",
+                    "errorless compliance",
+                    "habit reversal",
+                    "incorporating special interests into tasks",
+                    "maintenance interspersal",
+                    "noncontingent access",
+                    "noncontingent reinforcement",
+                    "priming",
+                    "stimulus variation",
+                    "time delay"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Behavioral Package"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "behavioral sleep package",
+                    "behavioral toilet training",
+                    "chaining",
+                    "contingency contracting",
+                    "contingency mapping",
+                    "delayed contingencies",
+                    "differential reinforcement",
+                    "discrete trial teaching",
+                    "functional communication training",
+                    "generalization training",
+                    "mand training",
+                    "noncontingent escape with instructional fading",
+                    "progressive relaxation",
+                    "reinforcement",
+                    "scheduled awakenings",
+                    "shaping",
+                    "stimulus-stimulus pairing with reinforcement",
+                    "successive approximation",
+                    "task analysis",
+                    "token economy"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Naturalistic Teaching Strategies"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "focused stimulation",
+                    "incidental teaching",
+                    "milieu teaching",
+                    "embedded teaching",
+                    "responsive education and prelinguistic milieu teaching"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Schedules"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "written words",
+                    "pictures or photographs",
+                    "work stations"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Self-management"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "checklists",
+                    "wrist counters",
+                    "visual prompts",
+                    "tokens"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "practice": {
+                  "const": "Story-based Intervention Package"
+                }
+              },
+              "required": [
+                "practice"
+              ]
+            },
+            "then": {
+              "properties": {
+                "technique": {
+                  "enum": [
+                    "Social Stories"
+                  ]
+                }
+              }
+            }
+          }
         ]
       }
     },

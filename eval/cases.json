@@ -91,7 +91,10 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
           ]
         },
         {
@@ -163,8 +166,14 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package",
-            "Schedules"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            },
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            }
           ]
         }
       ]
@@ -257,7 +266,10 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
           ],
           "sensoryHandling": "Plan notes: swap to a non-mint toothpaste before trying this board. Mint is named as aversive and no reward outranks a taste she cannot tolerate."
         },
@@ -344,8 +356,14 @@
             ]
           },
           "evidenceBasis": [
-            "Schedules",
-            "Self-management"
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            },
+            {
+              "practice": "Self-management",
+              "technique": "checklists"
+            }
           ],
           "sensoryHandling": "Plan notes: swap to a non-mint toothpaste before trying this board. Step 2 is the step that fails otherwise."
         }
@@ -439,7 +457,10 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
           ]
         },
         {
@@ -511,7 +532,10 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
           ]
         }
       ]
@@ -627,8 +651,14 @@
             ]
           },
           "evidenceBasis": [
-            "Schedules",
-            "Self-management"
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            },
+            {
+              "practice": "Self-management",
+              "technique": "checklists"
+            }
           ]
         },
         {
@@ -709,8 +739,14 @@
             ]
           },
           "evidenceBasis": [
-            "Schedules",
-            "Self-management"
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            },
+            {
+              "practice": "Self-management",
+              "technique": "checklists"
+            }
           ]
         }
       ]
@@ -821,7 +857,10 @@
             ]
           },
           "evidenceBasis": [
-            "Story-based Intervention"
+            {
+              "practice": "Story-based Intervention Package",
+              "technique": "Social Stories"
+            }
           ],
           "narrativeText": [
             "On Tuesday I am going to the dentist.",
@@ -919,7 +958,10 @@
             ]
           },
           "evidenceBasis": [
-            "Story-based Intervention"
+            {
+              "practice": "Story-based Intervention Package",
+              "technique": "Social Stories"
+            }
           ],
           "narrativeText": [
             "On Tuesday the car goes to the dentist.",
@@ -1003,7 +1045,10 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
           ]
         },
         {
@@ -1070,8 +1115,14 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package",
-            "Behavior Package"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            },
+            {
+              "practice": "Behavioral Package",
+              "technique": "reinforcement"
+            }
           ]
         }
       ]
@@ -1154,8 +1205,14 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package",
-            "Schedules"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            },
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            }
           ]
         },
         {
@@ -1224,8 +1281,14 @@
             ]
           },
           "evidenceBasis": [
-            "Antecedent Package",
-            "Self-management"
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            },
+            {
+              "practice": "Self-management",
+              "technique": "checklists"
+            }
           ],
           "specGap": "Card.Role includes Choice but SPEC section 2 defines no choice-board support type, and ParameterCards is specified as Wait, Stop, Oops. Preferring B means either adding a fifth type or widening ParameterCards."
         }

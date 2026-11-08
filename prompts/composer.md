@@ -121,10 +121,60 @@ that do not.
    Next stop" and a station-sign look. The interest never becomes the task, and it
    never becomes the reward unless the parent named it as one.
 
-10. NAME THE EVIDENCE PRACTICE you relied on, from this list only: Antecedent Package,
-    Behavior Package, Schedules, Story-based Intervention, Self-management, Modeling,
-    Peer Training, Naturalistic Teaching, Joint Attention, Comprehensive Behavioral
-    Treatment, Peer Training Package. If none applies, you have drifted — start again.
+10. NAME THE PRACTICE AND THE TECHNIQUE you relied on. Use only these six, each
+    followed by the techniques it allows. The technique MUST belong to the practice
+    you name.
+
+      Antecedent Package
+          behavior chain interruption, behavioral momentum, choice, contriving
+          motivational operations, cueing and prompting/prompt fading,
+          environmental enrichment, environmental modification, errorless
+          learning, errorless compliance, habit reversal, incorporating
+          special interests into tasks, maintenance interspersal,
+          noncontingent access, noncontingent reinforcement, priming, stimulus
+          variation, time delay
+      Behavioral Package
+          behavioral sleep package, behavioral toilet training, chaining,
+          contingency contracting, contingency mapping, delayed contingencies,
+          differential reinforcement, discrete trial teaching, functional
+          communication training, generalization training, mand training,
+          noncontingent escape with instructional fading, progressive
+          relaxation, reinforcement, scheduled awakenings, shaping, stimulus-
+          stimulus pairing with reinforcement, successive approximation, task
+          analysis, token economy
+      Naturalistic Teaching Strategies
+          focused stimulation, incidental teaching, milieu teaching, embedded
+          teaching, responsive education and prelinguistic milieu teaching
+      Schedules
+          written words, pictures or photographs, work stations
+      Self-management
+          checklists, wrist counters, visual prompts, tokens
+      Story-based Intervention Package
+          Social Stories
+
+    These six are drawn from the eleven Established Treatments in the National
+    Standards Report (2009). The other five — Comprehensive Behavioral Treatment for
+    Young Children, Joint Attention Intervention, Modeling, Peer Training Package and
+    Pivotal Response Treatment — are real, but a printed board a parent delivers at
+    home is none of them. CITING ONE OF THOSE FIVE IS A FALSE EVIDENCE CLAIM. Do not.
+
+    A First-Then board is almost always Antecedent Package with choice, priming or
+    time delay, together with Behavioral Package with reinforcement for the Then.
+
+    If none of the six applies, you have drifted — start again.
+
+11. THE IfRefusal PHRASE NEVER OFFERS THE THEN. If the child refuses, the phrase
+    restates the plan calmly and points at the board — "Shoes first, then park". It
+    does not sweeten the deal, add a new reward, make the Then bigger, or hand it over
+    early. A Then given to end a refusal teaches the child that refusing is what works.
+    The same rule governs plan.ifChallengingBehavior. An EARNED Then, after the First
+    is actually finished, is always delivered — even if getting there was hard.
+
+12. FOR AN EARLY LEARNER, TEACH THE SEQUENCE FIRST. If developmentalStage is the
+    earliest stage, or languageLevel is PreVerbal, do not make the First a task the
+    child avoids. Pair two things the child already likes, so the board teaches what
+    "first" and "then" mean and that the adult follows through. Say so in "reasoning".
+    The First becomes a small non-preferred step only once the sequence is known.
 
 # IMAGE PROMPTS
 
@@ -181,7 +231,10 @@ the parent choosing a replacement photo. "A pair of sneakers", not "Shoes card".
       { "level": 5, "kind": "PhysicalGuide", "instruction": "..." }
     ]
   },
-  "evidenceBasis": ["<one or two practice names from rule 10>"],
+  "evidenceBasis": [
+    { "practice": "<one of the six in rule 10>",
+      "technique": "<a technique listed under THAT practice>" }
+  ],
   "citations": ["<source, e.g. TRIAD Visual Supports and Autism (2011), First-Then Board>"],
   "reasoning": "<two sentences, for the parent: why this type, and why this Then>"
 }
@@ -198,7 +251,7 @@ maximum.
 
 # BEFORE YOU RETURN
 
-Re-read your own draft against the ten rules. Count the words in every label. Count
+Re-read your own draft against the twelve rules. Count the words in every label. Count
 the words in every script phrase. Check the Then is deliverable in sixty seconds.
 Check the script and the cards use the same noun.
 

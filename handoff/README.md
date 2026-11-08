@@ -20,6 +20,7 @@ one here.
 | `aws-lab-signin.html` | A walkthrough for A.J.'s personal AWS account |
 | `rules.txt`, `faq.txt`, `prizes.txt`, `Hackathon-announcement.txt` | Verbatim organiser-issued documents. Ours to read, not to republish — and they carry organiser contact addresses |
 | `MID-SUBMISSION.md`, `project-description*.md` | Already in this repo at the root and in `docs/` — a second copy would drift |
+| `CLAUDE-DETAIL.md` | **New 7 November 2026.** The project `CLAUDE.md` was split in two so its 11,000 tokens of prose stop loading on every request: a lean rules file (published here as `instructions/project-CLAUDE.md`) and a detail file holding the reasoning, the closed incidents and the measurements. The detail half carries the real video URL and the real ODC hostname, and it lives in the parent directory a cloud session cannot read in any case. **Where a published rule states a fact without its evidence, the evidence exists — ask A.J. instead of re-deriving it.** |
 
 ## The concept-video URL — removed from HEAD, still in history
 

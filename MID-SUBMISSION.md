@@ -39,8 +39,8 @@ child can see them. This is not a novel idea — it is documented practice. The 
 Kennedy Center's TRIAD / Autism Speaks ATN toolkit *Visual Supports and Autism* (2011)
 specifies the First–Then board, the visual schedule, parameter cards and the social
 narrative; the National Autism Center's *National Standards Report* (2009) places the
-underlying practices — Antecedent Package, Schedules, Story-based Intervention, Behavior
-Package, Self-management — among its eleven Established treatments.
+underlying practices — Antecedent Package, Schedules, Story-based Intervention
+Package, Behavioral Package, Self-management — among its eleven Established Treatments.
 
 So the method is settled. **Two things still fail, and both are delivery problems rather
 than clinical ones.**

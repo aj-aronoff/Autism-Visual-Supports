@@ -63,7 +63,10 @@
     "ifChallengingBehavior": "Return to the card, not the behavior."
   },
   "evidenceBasis": [
-    "Visual Scaffolding Package"
+    {
+      "practice": "Visual Scaffolding Package",
+      "technique": "priming"
+    }
   ],
   "citations": [
     "TRIAD Visual Supports and Autism (2011), Visual Schedule"

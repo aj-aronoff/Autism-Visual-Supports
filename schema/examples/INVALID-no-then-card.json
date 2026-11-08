@@ -51,7 +51,10 @@
     "ifChallengingBehavior": "Stay on the task, not the behavior."
   },
   "evidenceBasis": [
-    "Antecedent Package"
+    {
+      "practice": "Antecedent Package",
+      "technique": "priming"
+    }
   ],
   "citations": [
     "TRIAD Visual Supports and Autism (2011)"

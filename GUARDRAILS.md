@@ -134,13 +134,19 @@ evidence practice each rejected with the right error.
   list of twelve with suggested replacements, including the identity-first preference
   (`autistic person`, not `person with autism`) — which is a community preference with
   real disagreement in it, and therefore exactly the kind of thing not to settle alone.
-- **The `evidenceBasis` enum must stay in step with the `EvidencePractice` static
-  entity.** Two names in the schema differ from the National Standards Report's own
-  wording (`Behavior Package` for *Behavioral Package*, `Peer Training` for *Peer
-  Training Package*, `Story-based Intervention` for *Story-based Intervention Package*),
-  because those are the spellings `SPEC.md §7` uses. **Whichever the static entity uses
-  wins** — the entity is the single source of truth, and a closed list is what stops a
-  model inventing a twelfth practice.
+- **~~The `evidenceBasis` enum must stay in step with the `EvidencePractice` static
+  entity.~~ RESOLVED 7 November 2026 — and it was worse than this note said.** The three
+  naming mismatches recorded here were real, but the prompt and the schema also held
+  **different sets**: `prompts/composer.md` rule 10 listed `Peer Training` *and*
+  `Peer Training Package` as separate entries, so it named only **ten** distinct
+  practices, and it **omitted Pivotal Response Treatment** entirely. Every board citing
+  one of six abbreviated names would have failed the enum.
+  **Settled against the primary source** — the legend under Table 3 of the National
+  Standards Report (2009), read from the report itself, not from memory. All three files
+  now use those names. The enum holds the **six practices this application can honestly
+  claim**; all eleven stay in `EvidencePractice` as the reference table, with a `Citable`
+  flag. An item is now `{practice, technique}` and the schema binds the technique to its
+  own practice, so *Schedules — token economy* is rejected.
 - **No image-prompt check for the child's name.** `SPEC.md §5` requires that prompts say
   *"a child"*. The schema cannot see the profile and the pure functions do not take it,
   so this is a server-action check against `Child.Nickname` at generation time.

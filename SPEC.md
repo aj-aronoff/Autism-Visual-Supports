@@ -197,16 +197,31 @@ Each is a validation in a server action, so a model that drifts cannot ship a ba
 
 ## 7. Evidence basis
 
-| Feature | Practice | Source detail |
-|---|---|---|
-| First–Then board | Antecedent Package | Modifies what precedes the challenge; cueing and prompt fading |
-| Visual & task schedules | Schedules | Answers what, how much, when finished, what's next |
-| Social narrative | Story-based Intervention | Who/what/when/where/why, delivered before the event |
-| Choice board | Antecedent Package | Constrained choice; open-ended choice can overwhelm |
-| Special-interest theming | Antecedent Package | Incorporating special interests into tasks |
-| Tap-to-check-off, streaks | Self-management | Child records the behaviour and is reinforced for doing so |
-| Prompt hierarchy & fading | Behavior Package | Chaining, positive reinforcement, mand training |
-| Share with teacher / SLP | Peer Training, Modeling | Same visuals carried across every setting |
+**Names are verbatim from the legend under Table 3 of the National Standards Report (2009),
+re-checked against the report itself on 7 November 2026.** A board cites a **practice and a
+technique within it**, and the technique must belong to that practice — `schema/board.schema.json`
+enforces the pairing.
+
+| Feature | Practice | Technique | Source detail |
+|---|---|---|---|
+| First–Then board | Antecedent Package | priming / time delay | Modifies what precedes the challenge |
+| Visual & task schedules | Schedules | pictures or photographs | Answers what, how much, when finished, what's next |
+| Social narrative | Story-based Intervention Package | Social Stories | Who/what/when/where/why, delivered before the event |
+| Choice board | Antecedent Package | choice | Constrained choice; open-ended choice can overwhelm |
+| Special-interest theming | Antecedent Package | incorporating special interests into tasks | The report names this technique in those words |
+| Tap-to-check-off, streaks | Self-management | checklists | Child records the behaviour and is reinforced for doing so |
+| Prompt hierarchy & fading | Antecedent Package | cueing and prompting/prompt fading | Least intrusive first |
+| The Then card | Behavioral Package | reinforcement | The reward is structural, not decoration |
+| Share with teacher / SLP | Behavioral Package | generalization training | Same visuals carried across every setting |
+
+**Corrected 7 November 2026.** The last row previously read *Peer Training, Modeling*. **Peer
+Training Package means training a child's peers** — other children — to facilitate interaction;
+it is not a teacher seeing the same board, and claiming it was a false evidence claim. Two other
+names here were abbreviated in a way the schema enum rejects (`Behavior Package`,
+`Story-based Intervention`). **Five of the eleven practices are not citable by this application
+at all** — Comprehensive Behavioral Treatment for Young Children, Joint Attention Intervention,
+Modeling, Peer Training Package and Pivotal Response Treatment — and the schema enum now holds
+only the six that are.
 
 ## 8. Build order
 

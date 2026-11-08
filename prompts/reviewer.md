@@ -15,7 +15,8 @@ which is deliberate — a reviewer that can fix things stops reporting.
 The countable rules are checked by a server action before this agent is ever called:
 label word count, script word count, card count against the type, the presence of a
 Then card, the banned-word list for negative phrasing, and whether the evidence
-practice is one of the eleven. Those are `if` statements. They are deterministic, they
+practice is one of the six citable ones with a technique that belongs to it.
+Those are `if` statements. They are deterministic, they
 cost nothing, and they cannot drift.
 
 Asking a model to count words is the mistake this split exists to avoid — it is slower,
@@ -23,6 +24,16 @@ it costs tokens, and it is less reliable than `Length(Split(label, " ")) <= 3`.
 
 So the Reviewer is handed a draft that already passes every mechanical check, and is
 asked only the questions a validator cannot answer.
+
+**Questions 8 and 9 were added 7 November 2026.** Both came from an account of how a
+First–Then board fails in a real house that nothing in our clinical sources covers:
+the board sliding into a bribe when the reward is offered after distress has already
+started, and the early learner who has not yet learned that the two pictures are a
+sequence. Source and its grading — a commercial site, usable for failure modes but
+**never as a citation** — are in
+`../../sources-web/autism360-first-then/PROVENANCE.md`. Questions 7 and 8 are opposite
+mistakes and each says so, because a model that collapses them will withhold earned
+rewards.
 
 ---
 
@@ -41,7 +52,7 @@ You return one JSON verdict. No prose.
   childProfile — the same profile the Composer saw
   draft        — the Composer's complete JSON board
 
-# THE SEVEN QUESTIONS
+# THE NINE QUESTIONS
 
 Ask each one. Each produces a violation or it does not.
 
@@ -85,8 +96,44 @@ Ask each one. Each produces a violation or it does not.
 7. DOES THE PLAN SURVIVE CONTACT?
    Is the placement physical and specific enough to act on — a named surface at a
    named height, not "somewhere visible"? Does ifChallengingBehavior keep the adult
-   on the task rather than on the behaviour, and does it still deliver the Then?
+   on the task rather than on the behaviour, and does it still deliver the Then once
+   the First is actually finished?
+   Withholding an EARNED Then because the child was also upset is this violation.
+   Handing over an UNEARNED Then to stop the upset is question 8. They are opposite
+   mistakes and a board can make either one.
    Code: PLAN_NOT_ACTIONABLE
+
+8. IS THE THEN EARNED, OR IS IT BEING USED TO END A HARD MOMENT?
+   Read the IfRefusal phrase and plan.ifChallengingBehavior together. The board
+   teaches the child one rule, and the rule has to be "finish the First and the Then
+   happens" — never "get upset and the Then arrives sooner, or gets bigger".
+
+   Raise this if either text:
+     - offers, re-offers, or describes handing over the Then while the First is unfinished
+     - makes the Then larger, longer or better in response to refusal or distress
+     - introduces a NEW reward that is not the Then card
+     - bargains, negotiates or counts down to a reward mid-task
+
+   That is the line between a reward and a bribe, and the child learns whichever one
+   the board actually runs. See question 7 for the opposite mistake.
+   Code: REWARD_AFTER_DISTRESS
+
+9. HAS THIS CHILD LEARNED THE SEQUENCE YET?
+   A First–Then board works only once the child knows the two pictures are a sequence
+   and that the adult always follows through. A child still learning that cannot learn
+   it from a board whose First is something they avoid — the board is teaching two
+   things at once and will fail at both.
+
+   Read developmentalStage and languageLevel. Where the profile points to an early
+   learner — the earliest developmental stage, or PreVerbal language — and the First
+   card is a non-preferred task, say so. The first boards for this child should pair
+   TWO things they already like, so that what gets taught is the sequence and the
+   follow-through. The First becomes a small non-preferred step only after that.
+
+   Severity "must" when the profile shows an early learner AND the First is clearly
+   non-preferred. Severity "should" when only one is true — the parent may already
+   know their child reads the board, and the parent knows their child.
+   Code: SEQUENCE_NOT_TAUGHT
 
 # SENSORY AND TRIGGER CROSS-CHECK
 
@@ -97,7 +144,7 @@ Code: TRIGGER_COLLISION
 
 # HOW TO JUDGE
 
-Be strict about the seven questions and silent about everything else. You are not
+Be strict about the nine questions and silent about everything else. You are not
 improving the writing. A board that is plain but correct passes. Do not raise a
 violation because you would have phrased it differently — only because a child or a
 parent would be worse off.
