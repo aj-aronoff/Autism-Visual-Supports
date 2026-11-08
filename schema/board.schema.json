@@ -460,6 +460,12 @@
           "minLength": 10,
           "maxLength": 240
         },
+        "boardAction": {
+          "description": "What the parent does with their HANDS, which no other field covers. placement says where the board lives, promptHierarchy says how to prompt, script says what to say -- none of them say to move a card. Both cards stay visible from the start, because the child has to see what they are working for; the First card comes OFF when the first activity is finished, and the parent points to the Then. Leaving both cards up for the whole routine is a picture of two things that are both true, which is a choice board. The sequence is carried by the card moving. Required for the two support types that have cards to move, see allOf below.",
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 240
+        },
         "ifChallengingBehavior": {
           "type": "string",
           "minLength": 10,
@@ -578,6 +584,31 @@
         "properties": {
           "cards": {
             "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "description": "A board whose cards never move teaches simultaneity rather than sequence, so the two support types that HAVE cards to move must say what to do with them. ParameterCards are shown and put away rather than worked through, and a SocialNarrative carries no cards at all, so neither is required to carry this field and neither should invent one.",
+      "if": {
+        "properties": {
+          "supportType": {
+            "enum": [
+              "FirstThenBoard",
+              "VisualSchedule"
+            ]
+          }
+        },
+        "required": [
+          "supportType"
+        ]
+      },
+      "then": {
+        "properties": {
+          "plan": {
+            "required": [
+              "boardAction"
+            ]
           }
         }
       }

@@ -48,6 +48,7 @@
     ],
     "reinforcement": "Deliver the reward immediately.",
     "placement": "By the front door, at eye level.",
+    "boardAction": "When both shoes are on, take the shoes card off the board and point to the card beside it.",
     "ifChallengingBehavior": "Stay on the task, not the behavior."
   },
   "evidenceBasis": [

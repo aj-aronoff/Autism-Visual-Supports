@@ -172,9 +172,12 @@ Tools: `GetChildProfile` · `SearchCardLibrary` · `CreateBoard` · `AddCard` ·
     ],
     "reinforcement": "Deliver the swing immediately. Do not delay or substitute.",
     "placement": "By the front door, at the child's eye level.",
+    "boardAction": "When both shoes are on, take the shoes card off the board and point to the swing card.",
     "ifChallengingBehavior": "Keep prompting the FIRST task. Stay on the task, not the behavior. Then still give the swing."
   },
-  "evidenceBasis": ["Antecedent Package", "Schedules"],
+  "evidenceBasis": [
+    { "practice": "Antecedent Package", "technique": "priming" }
+  ],
   "citations": ["TRIAD Visual Supports and Autism (2011), First-Then Board"]
 }
 ```

@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2026-10-28",
-  "note": "Gold-standard set. Each case has two candidate boards. The one A.J. picks becomes the reference for that case; the comments say why, which is the part that generalises.",
+  "note": "Gold-standard set. Each case has two candidate boards. The one A.J. picks becomes the reference for that case; the comments say why, which is the part that generalises. Cases 9 to 15 were added 7 November 2026 for reviewer questions 8, 9 and 10; in each of those, one try commits the violation and the other does not. c15 is a NEGATIVE CONTROL in which neither try breaks a rule.",
   "cases": [
     {
       "id": "c1-out-the-door",
@@ -64,6 +64,7 @@
           ],
           "plan": {
             "placement": "Inside the front door, at Sam's eye level.",
+            "boardAction": "When both shoes are on, take the shoes card off the board and point to the swing card.",
             "reinforcement": "Two minutes on the garden swing, before the car. Do not substitute.",
             "ifChallengingBehavior": "Keep pointing at the FIRST card. Add no new words. Then still give the swing.",
             "generalization": "The same two cards go in the go-bag for grandma's.",
@@ -139,6 +140,7 @@
           ],
           "plan": {
             "placement": "Inside the front door at Sam's eye level, laid out left to right like a route map.",
+            "boardAction": "When the shoes are on, take the shoes-on card off the route and point to the train song card at the end of it.",
             "reinforcement": "Start the train song as the car door shuts. Every time, same song.",
             "ifChallengingBehavior": "Point at the FIRST card and wait. Do not repeat the sentence. The song still plays afterwards.",
             "generalization": "Same two cards, same song, for the childminder's car.",
@@ -239,6 +241,7 @@
           ],
           "plan": {
             "placement": "Taped to the bathroom mirror at Mia's eye level.",
+            "boardAction": "When the brushing is done, take the teeth card off the mirror and point to the dinosaur book card.",
             "reinforcement": "The dinosaur book, in bed, straight afterwards. It is not read on nights she skips teeth.",
             "ifChallengingBehavior": "Point at the FIRST card and wait without talking. She has time. Being rushed is a trigger.",
             "generalization": "Both cards travel in the overnight bag.",
@@ -329,6 +332,7 @@
           ],
           "plan": {
             "placement": "A strip of four cards along the bathroom mirror, left to right, with Velcro so she moves each one to a DONE box.",
+            "boardAction": "As each step is finished, peel that card off the Velcro and let Mia put it in the done envelope, so the next step is the leftmost card left on the strip.",
             "reinforcement": "Moving the last card to DONE is the finish. The dinosaur book follows in bed.",
             "ifChallengingBehavior": "Name only the current step. Do not mention the remaining ones.",
             "generalization": "The same four steps work at her dad's house with the same cards.",
@@ -505,6 +509,7 @@
           ],
           "plan": {
             "placement": "Two cards on a key ring on your belt. Shown at the gate, not at the slide.",
+            "boardAction": "Hold up both cards at the gate. Once she is in the car seat, flip the walk-to-car card behind the ring so only the digger video card is showing.",
             "reinforcement": "The digger video starts once he is buckled. Two minutes, then it stops.",
             "ifChallengingBehavior": "Point at the FIRST card. Keep walking towards the car. The video still plays once he is in.",
             "generalization": "Works for leaving the supermarket with the same two cards.",
@@ -629,6 +634,7 @@
           ],
           "plan": {
             "placement": "A vertical strip on his bedroom door, drawn as a tube line with six stations and a slider he moves down.",
+            "boardAction": "Move the slider down one station as each step is finished, so the station the slider sits at is always the step he is on. No cards come off.",
             "reinforcement": "Reaching the last station before the clock is the win. He reports his own station, which is the point.",
             "ifChallengingBehavior": "Ask which station he is at. Do not list what is left.",
             "generalization": "The same line format becomes his bedtime line, with four stations.",
@@ -717,6 +723,7 @@
           ],
           "plan": {
             "placement": "A vertical strip on his bedroom door with four stations and a slider.",
+            "boardAction": "Move the slider down one station as each step is done. Four stations, so the whole morning stays visible at once.",
             "reinforcement": "He moves the slider himself. Four moves is a finishable number.",
             "ifChallengingBehavior": "Ask which stop he is at. Nothing else.",
             "generalization": "Add a fifth stop only once four are automatic.",
@@ -1093,6 +1100,7 @@
           ],
           "plan": {
             "placement": "On the fridge at Ben's eye level, where he asks from.",
+            "boardAction": "When dinner is finished, take the dinner card off the fridge and point to the tablet card. The tablet card stays up through the meal.",
             "reinforcement": "Twenty minutes of tablet straight after dinner. Set it before he starts, so ending it is already agreed.",
             "ifChallengingBehavior": "Point at the FIRST card. Do not discuss how much dinner counts. The tablet still comes.",
             "generalization": "The same pair works for homework and for the bath.",
@@ -1330,6 +1338,1316 @@
           "guidance": "Ring the paediatrician or Theo's assessment team this week and tell them exactly what you told me, including how often. Until you have spoken to them, shop without him if there is any way to do that.",
           "stillUseful": null,
           "whatItDoesNotDo": "Nothing is offered deliberately. Anything offered here would be the thing that gets tried."
+        }
+      ]
+    },
+    {
+      "id": "c9-bath-bribery",
+      "name": "The offer that keeps growing",
+      "tests": "Reviewer question 8, REWARD_AFTER_DISTRESS. The parent describes the bribery spiral in their own words. Try A reproduces it; try B holds the Then at its stated size.",
+      "profile": {
+        "nickname": "Noah",
+        "ageYears": 5,
+        "visualStyle": "Photos",
+        "languageLevel": "SingleWords",
+        "specialInterests": "Diggers and roadworks",
+        "sensoryNotes": "Hates the sound of the hand dryer; loves warm water",
+        "triggerNotes": "Being hurried; anything ending sooner than he expected"
+      },
+      "request": {
+        "goal": "Out of the bath without screaming",
+        "environment": "Home",
+        "obstacle": "Bath time ends in screaming every night. I end up promising him more and more screen time just to get him out of the tub, and now he waits for the offer before he moves."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Does what the parent already does, written down. The IfRefusal line sweetens the deal and the behaviour plan hands the reward over to stop the screaming.",
+          "supportType": "FirstThenBoard",
+          "title": "First out of bath, then digger video",
+          "theme": "Roadworks",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Out of bath",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's bath with the plug pulled",
+              "altText": "An empty bath"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Digger video",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a yellow digger",
+              "altText": "A yellow digger"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First out, then digger video."
+            },
+            {
+              "phase": "During",
+              "phrase": "Plug is out. Nearly done."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All done bath. Digger video!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Out now and get extra time."
+            }
+          ],
+          "plan": {
+            "placement": "On the bathroom wall beside the towel rail, at Noah's eye level.",
+            "boardAction": "When he is out and in the towel, take the bath card off and point to the digger card.",
+            "reinforcement": "Ten minutes of digger videos, and more if he needs calming.",
+            "ifChallengingBehavior": "If he screams, show him the digger card and tell him he can have it now if he gets out.",
+            "generalization": "The same two cards work for getting out of the paddling pool.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the towel open at his height."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Pull the plug yourself so he sees the water go."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand to the towel, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Behavioral Package",
+              "technique": "reinforcement"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Same board, but the Then never changes size and is never offered early. The refusal line restates the sequence and nothing else.",
+          "supportType": "FirstThenBoard",
+          "title": "First out of bath, then digger video",
+          "theme": "Roadworks",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Out of bath",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's bath with the plug pulled",
+              "altText": "An empty bath"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Digger video",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a yellow digger",
+              "altText": "A yellow digger"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First out, then digger video."
+            },
+            {
+              "phase": "During",
+              "phrase": "Plug is out. Nearly done."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All done bath. Digger video!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Out of bath first."
+            }
+          ],
+          "plan": {
+            "placement": "On the bathroom wall beside the towel rail, at Noah's eye level.",
+            "boardAction": "When he is out and in the towel, take the bath card off and point to the digger card.",
+            "reinforcement": "Ten minutes of digger videos. Ten, whether getting out was easy or hard.",
+            "ifChallengingBehavior": "Keep pointing at the FIRST card and add no new words. Offer nothing extra. Once he is out, the digger video happens exactly as promised.",
+            "generalization": "The same two cards work for getting out of the paddling pool.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the towel open at his height."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Pull the plug yourself so he sees the water go."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand to the towel, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "behavioral momentum"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c10-earned-but-crying",
+      "name": "She finished it, but she cried",
+      "tests": "The trap case. Questions 7 and 8 are OPPOSITE mistakes, and a Reviewer that collapses them withholds EARNED rewards. Try A withholds; try B delivers and fixes the First instead.",
+      "profile": {
+        "nickname": "Isla",
+        "ageYears": 7,
+        "visualStyle": "Icons",
+        "languageLevel": "Sentences",
+        "specialInterests": "Horses, especially grooming them",
+        "sensoryNotes": "Sensitive to overhead strip lighting",
+        "triggerNotes": "Being watched while she works"
+      },
+      "request": {
+        "goal": "Get through the reading homework",
+        "environment": "Home",
+        "obstacle": "She does finish her reading, but she cries through the last five minutes of it. I have been holding back the horse video afterwards, because I do not want to teach her that crying gets her what she wants."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Takes the parent's reasoning at face value and writes it into the plan: the reward is withheld because she was upset, even though she finished.",
+          "supportType": "FirstThenBoard",
+          "title": "First one page, then horse video",
+          "theme": "Stables",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Read one page",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: an open reading book",
+              "altText": "An open book"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Horse video",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a horse standing in a field",
+              "altText": "A horse in a field"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First one page, then horses."
+            },
+            {
+              "phase": "During",
+              "phrase": "Halfway down the page."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Page finished. Horse video!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "One page first."
+            }
+          ],
+          "plan": {
+            "placement": "Propped on the kitchen table, turned towards her.",
+            "boardAction": "When the page is finished, take the reading card off the stand and point to the horse card.",
+            "reinforcement": "Five minutes of horse videos, if she got through it calmly.",
+            "ifChallengingBehavior": "If she cries while reading, the horse video waits until tomorrow, so she learns that crying does not earn it.",
+            "generalization": "The same pair works for the spelling list.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Slide the book towards her."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Read the first two words aloud with her."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Read one sentence yourself, then hand it back."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief finger-under-the-line, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Behavioral Package",
+              "technique": "differential reinforcement"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Delivers the earned reward and treats the crying as a sign the First was too big, which is a change to the board rather than to the reward.",
+          "supportType": "FirstThenBoard",
+          "title": "First one page, then horse video",
+          "theme": "Stables",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Read one page",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: an open reading book",
+              "altText": "An open book"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Horse video",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a horse standing in a field",
+              "altText": "A horse in a field"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First one page, then horses."
+            },
+            {
+              "phase": "During",
+              "phrase": "Halfway down the page."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Page finished. Horse video!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "One page first."
+            }
+          ],
+          "plan": {
+            "placement": "Propped on the kitchen table, turned towards her.",
+            "boardAction": "When the page is finished, take the reading card off the stand and point to the horse card.",
+            "reinforcement": "Five minutes of horse videos. She finished the page, so it is hers.",
+            "ifChallengingBehavior": "If she cries, stay on the page and say nothing new. She still gets the horse video when the page is done. If she cries most days, the page is too long: cut it to half a page tomorrow and build back up.",
+            "generalization": "The same pair works for the spelling list.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Slide the book towards her."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Read the first two words aloud with her."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Read one sentence yourself, then hand it back."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief finger-under-the-line, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Behavioral Package",
+              "technique": "successive approximation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c11-sequence-not-learned",
+      "name": "He has never used a board before",
+      "tests": "Reviewer question 9, SEQUENCE_NOT_TAUGHT. An early learner meeting a First-Then board for the first time. Try A teaches two things at once; try B teaches the sequence by itself.",
+      "profile": {
+        "nickname": "Theo",
+        "ageYears": 3,
+        "visualStyle": "Photos",
+        "languageLevel": "PreVerbal",
+        "developmentalStage": "EarlyLearner",
+        "specialInterests": "Bubbles, running water",
+        "sensoryNotes": "Seeks movement; mouths objects",
+        "triggerNotes": "Having something taken out of his hands"
+      },
+      "request": {
+        "goal": "Let me get his nappy changed",
+        "environment": "Home",
+        "obstacle": "He has never used any kind of picture board. Nappy changes are a wrestling match and I was told a first-then board might help."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Goes straight at the obstacle the parent named. The First is the thing he fights hardest, on a board he has not learned to read yet.",
+          "supportType": "FirstThenBoard",
+          "title": "First nappy change, then bubbles",
+          "theme": "Bubbles",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Nappy change",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a folded clean nappy",
+              "altText": "A clean folded nappy"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Bubbles",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bubble wand with bubbles",
+              "altText": "A bubble wand"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First nappy, then bubbles."
+            },
+            {
+              "phase": "During",
+              "phrase": "Nearly done."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All done nappy. Bubbles!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Nappy first."
+            }
+          ],
+          "plan": {
+            "placement": "Taped to the wall beside the changing mat, where he looks.",
+            "boardAction": "When the nappy is on, take the nappy card off the wall and point to the bubble card.",
+            "reinforcement": "Thirty seconds of bubbles, blown low so he can reach them.",
+            "ifChallengingBehavior": "Keep pointing at the FIRST card. Add no new words. Bubbles still follow.",
+            "generalization": "The same pair works at nursery.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the clean nappy where he can see it."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Change the teddy's nappy first, with him watching."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief support at the hips, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Teaches the board before using the board. Two things he already likes, so the only lesson is that the second picture really does follow the first.",
+          "supportType": "FirstThenBoard",
+          "title": "First water, then bubbles",
+          "theme": "Bubbles",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Water play",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a running tap over a basin",
+              "altText": "A running tap"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Bubbles",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a bubble wand with bubbles",
+              "altText": "A bubble wand"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First water, then bubbles."
+            },
+            {
+              "phase": "During",
+              "phrase": "Still water."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All done water. Bubbles!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Water first."
+            }
+          ],
+          "plan": {
+            "placement": "Propped on the bathroom windowsill, at his eye level.",
+            "boardAction": "When the tap goes off, take the water card off the sill and point to the bubble card.",
+            "reinforcement": "Thirty seconds of bubbles, every single time, within a few seconds.",
+            "ifChallengingBehavior": "There is nothing to refuse here. That is the point of starting this way.",
+            "generalization": "Once he looks from the First card to the Then card by himself, swap the First for one small step he is less keen on, and keep the Then the same.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Turn the tap on and step back."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put your own hands under the tap first."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Not needed here. If he walks off, end the turn and try later."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "errorless learning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c12-cards-never-move",
+      "name": "The board that never changes",
+      "tests": "Reviewer question 10, BOARD_NOT_OPERABLE. Try A's boardAction restates the placement and gives a hand nothing to do, so both cards stay up all morning. Try B moves a card.",
+      "profile": {
+        "nickname": "Ava",
+        "ageYears": 6,
+        "visualStyle": "Icons",
+        "languageLevel": "Phrases",
+        "specialInterests": "Her scooter, and cats",
+        "sensoryNotes": "Dislikes hoods touching her neck",
+        "triggerNotes": "Wet weather changing the plan"
+      },
+      "request": {
+        "goal": "Coat on before we leave for school",
+        "environment": "Home",
+        "obstacle": "The coat is the fight. She can see the scooter in the hall the whole time, which does not seem to help."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "A complete, correct-looking board whose boardAction describes no movement at all. Nothing on the board changes when the coat goes on.",
+          "supportType": "FirstThenBoard",
+          "title": "First coat, then scooter",
+          "theme": "Cats",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Coat on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's zipped raincoat",
+              "altText": "A child's raincoat"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Scooter",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's kick scooter",
+              "altText": "A kick scooter"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First coat, then scooter."
+            },
+            {
+              "phase": "During",
+              "phrase": "One arm in."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Coat on. Scooter time!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Coat first."
+            }
+          ],
+          "plan": {
+            "placement": "On the hall wall by the front door, at Ava's eye level.",
+            "boardAction": "Keep the board on the hall wall where she can see it, and mark the first step complete once the coat is on.",
+            "reinforcement": "Scooter out of the cupboard and down the path.",
+            "ifChallengingBehavior": "Keep pointing at the FIRST card and add no new words. Scooter still follows.",
+            "generalization": "The same pair works for the walk to the park.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the coat open by the shoulders."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put your own coat on where she can see."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief guide of one arm into a sleeve, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Identical board, except the finished step physically stops looking current.",
+          "supportType": "FirstThenBoard",
+          "title": "First coat, then scooter",
+          "theme": "Cats",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Coat on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's zipped raincoat",
+              "altText": "A child's raincoat"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Scooter",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a child's kick scooter",
+              "altText": "A kick scooter"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First coat, then scooter."
+            },
+            {
+              "phase": "During",
+              "phrase": "One arm in."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Coat on. Scooter time!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Coat first."
+            }
+          ],
+          "plan": {
+            "placement": "On the hall wall by the front door, at Ava's eye level.",
+            "boardAction": "Both cards stay up while she gets her coat on. The moment it is zipped, lift the coat card off the hook and put it in the pocket below, then point to the scooter card.",
+            "reinforcement": "Scooter out of the cupboard and down the path.",
+            "ifChallengingBehavior": "Keep pointing at the FIRST card and add no new words. Scooter still follows.",
+            "generalization": "The same pair works for the walk to the park.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the coat open by the shoulders."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put your own coat on where she can see."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief guide of one arm into a sleeve, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c13-hidden-reward",
+      "name": "Should the reward be a surprise?",
+      "tests": "Reviewer question 10, the covered-Then variant. Try A hides the Then until it is earned, which removes the motivator the board exists to show. Try B keeps both visible and removes the First. Decided 7 November 2026: both cards visible from the start.",
+      "profile": {
+        "nickname": "Rowan",
+        "ageYears": 8,
+        "visualStyle": "Photos",
+        "languageLevel": "Sentences",
+        "specialInterests": "Trampolining, weather forecasts",
+        "sensoryNotes": "Very sensitive to touch on hands and feet",
+        "triggerNotes": "Not knowing how long something will last"
+      },
+      "request": {
+        "goal": "Get his nails cut",
+        "environment": "Home",
+        "obstacle": "Nail cutting takes forty minutes of negotiation. Someone suggested keeping the reward hidden so it is more exciting when he gets it."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Follows the suggestion in the request: the Then card is face down until the nails are done, so the reveal marks completion.",
+          "supportType": "FirstThenBoard",
+          "title": "First nails, then trampoline",
+          "theme": "Weather",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Nails cut",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of child nail clippers",
+              "altText": "Child nail clippers"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Trampoline",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a small round garden trampoline",
+              "altText": "A garden trampoline"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First nails, then a surprise."
+            },
+            {
+              "phase": "During",
+              "phrase": "Three more nails."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Nails all done. Trampoline!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Nails first."
+            }
+          ],
+          "plan": {
+            "placement": "On the arm of the sofa where he sits for nail cutting.",
+            "boardAction": "Keep the Then card face down beside the board. When the last nail is cut, turn it over so he sees the trampoline, and take the nails card off.",
+            "reinforcement": "Ten minutes on the trampoline, timed on the kitchen timer so he can see it.",
+            "ifChallengingBehavior": "Stop at the nail you are on, keep the hand still, and wait. Then carry on.",
+            "generalization": "The same board works for haircuts.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold up the clippers where he can see them."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Cut your own nail first, slowly."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief support at the wrist, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "contriving motivational operations"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Both cards visible from the start, so he can see what he is working for and how far through it he is. Only the First card moves.",
+          "supportType": "FirstThenBoard",
+          "title": "First nails, then trampoline",
+          "theme": "Weather",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Nails cut",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of child nail clippers",
+              "altText": "Child nail clippers"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Trampoline",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a small round garden trampoline",
+              "altText": "A garden trampoline"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First nails, then trampoline."
+            },
+            {
+              "phase": "During",
+              "phrase": "Three more nails."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Nails all done. Trampoline!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Nails first."
+            }
+          ],
+          "plan": {
+            "placement": "On the arm of the sofa where he sits for nail cutting.",
+            "boardAction": "Both cards face up from the start. When the last nail is cut, take the nails card off and leave the trampoline card on its own, then point to it.",
+            "reinforcement": "Ten minutes on the trampoline, timed on the kitchen timer so he can see it.",
+            "ifChallengingBehavior": "Stop at the nail you are on, keep the hand still, and wait. Then carry on.",
+            "generalization": "The same board works for haircuts.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold up the clippers where he can see them."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Cut your own nail first, slowly."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief support at the wrist, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c14-schedule-no-mechanic",
+      "name": "Four steps and no way to mark them",
+      "tests": "Reviewer question 10 on a VisualSchedule. A schedule needs the finished step to stop looking current even more than a First-Then does, because there are three more after it.",
+      "profile": {
+        "nickname": "Jonah",
+        "ageYears": 9,
+        "visualStyle": "Icons",
+        "languageLevel": "Sentences",
+        "specialInterests": "Bus routes",
+        "sensoryNotes": "Dislikes the texture of the uniform collar",
+        "triggerNotes": "Being asked more than one question at a time"
+      },
+      "request": {
+        "goal": "Get dressed for school without me in the room",
+        "environment": "Home",
+        "obstacle": "He can do every step. He just loses his place and starts again from the beginning, or stops."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "A well-ordered four-step schedule with nothing to show where he is. Losing his place is the stated problem and this board cannot answer it.",
+          "supportType": "VisualSchedule",
+          "title": "Getting dressed",
+          "theme": "Bus routes",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "Step",
+              "label": "Pyjamas off",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: folded pyjamas",
+              "altText": "Folded pyjamas"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Step",
+              "label": "Uniform on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a school polo shirt",
+              "altText": "A school polo shirt"
+            },
+            {
+              "sequenceNo": 3,
+              "role": "Step",
+              "label": "Hair brushed",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a hairbrush",
+              "altText": "A hairbrush"
+            },
+            {
+              "sequenceNo": 4,
+              "role": "Step",
+              "label": "Shoes on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of school shoes",
+              "altText": "A pair of school shoes"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "Four steps, then breakfast."
+            },
+            {
+              "phase": "During",
+              "phrase": "Next one."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All four done. Breakfast!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Look at the next picture."
+            }
+          ],
+          "plan": {
+            "placement": "A vertical strip on the back of his bedroom door, at his eye level.",
+            "boardAction": "Leave the strip on the door and work down it in order, checking each step off as it is finished.",
+            "reinforcement": "Breakfast, and he picks the radio station.",
+            "ifChallengingBehavior": "Point at the step he is on and say nothing. Do not restart the strip.",
+            "generalization": "The same strip works for the bedtime order, reversed.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the next picture. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Tap the strip beside that step."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Name the step once."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Do the first part of the step yourself."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief guide, then let go. Rarely needed here."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Schedules",
+              "technique": "pictures or photographs"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Same four steps, with a marker he moves himself, so where he is is always visible and he is the one who moves it.",
+          "supportType": "VisualSchedule",
+          "title": "Getting dressed",
+          "theme": "Bus routes",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "Step",
+              "label": "Pyjamas off",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: folded pyjamas",
+              "altText": "Folded pyjamas"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Step",
+              "label": "Uniform on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a school polo shirt",
+              "altText": "A school polo shirt"
+            },
+            {
+              "sequenceNo": 3,
+              "role": "Step",
+              "label": "Hair brushed",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a hairbrush",
+              "altText": "A hairbrush"
+            },
+            {
+              "sequenceNo": 4,
+              "role": "Step",
+              "label": "Shoes on",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a pair of school shoes",
+              "altText": "A pair of school shoes"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "Four steps, then breakfast."
+            },
+            {
+              "phase": "During",
+              "phrase": "Next stop."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "All four done. Breakfast!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Look at the next picture."
+            }
+          ],
+          "plan": {
+            "placement": "A vertical strip on the back of his bedroom door, at his eye level, drawn as four bus stops.",
+            "boardAction": "A clip on the left of the strip marks the stop he is at. As each step is finished he moves the clip down one himself, so the strip always shows where he is without anyone telling him.",
+            "reinforcement": "Breakfast, and he picks the radio station.",
+            "ifChallengingBehavior": "Point at the step the clip is on and say nothing. Do not restart the strip.",
+            "generalization": "The same strip works for the bedtime order, reversed.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the next picture. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Tap the strip beside that step."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Name the step once."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Do the first part of the step yourself."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief guide, then let go. Rarely needed here."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Self-management",
+              "technique": "checklists"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c15-nothing-wrong",
+      "name": "Two good boards",
+      "tests": "NEGATIVE CONTROL. Neither try breaks any rule; they differ only in taste. The Reviewer must return no violations on both. A reviewer that always finds something is a reviewer nobody reads, and nothing else in this set tests for over-flagging.",
+      "profile": {
+        "nickname": "Mira",
+        "ageYears": 7,
+        "visualStyle": "Photos",
+        "languageLevel": "Sentences",
+        "specialInterests": "Her cat, Pepper",
+        "sensoryNotes": "Likes deep pressure; dislikes sudden noise",
+        "triggerNotes": "Being told to stop a game with no warning"
+      },
+      "request": {
+        "goal": "Blocks put away before dinner",
+        "environment": "Home",
+        "obstacle": "She will tidy up, but only after a long argument about when."
+      },
+      "tries": [
+        {
+          "try": "A",
+          "design": "Plain and literal. No theme, shortest possible labels, the reward is the thing she asks for anyway.",
+          "supportType": "FirstThenBoard",
+          "title": "First blocks away, then cat brushing",
+          "theme": null,
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Blocks away",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a toy box with wooden blocks",
+              "altText": "A box of wooden blocks"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Cat brushing",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a hairbrush beside a sitting cat",
+              "altText": "A brush and a cat"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "First blocks, then Pepper."
+            },
+            {
+              "phase": "During",
+              "phrase": "Nearly all in."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Blocks away. Go and brush Pepper!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Blocks first."
+            }
+          ],
+          "plan": {
+            "placement": "On the playroom door at Mira's eye level, where she passes it.",
+            "boardAction": "Both cards stay up while she tidies. When the box lid is on, take the blocks card off and point to the cat card.",
+            "reinforcement": "Five minutes brushing Pepper before dinner is served.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait. Say nothing new. Brushing still follows.",
+            "generalization": "The same pair works for putting the craft things away.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the empty box out towards her."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put three blocks in yourself, then stop."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand with one block, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "behavioral momentum"
+            }
+          ]
+        },
+        {
+          "try": "B",
+          "design": "Same two cards, built around the cat as a theme, with a two-minute warning before the First begins because the request names that trigger.",
+          "supportType": "FirstThenBoard",
+          "title": "First blocks away, then cat brushing",
+          "theme": "Pepper the cat",
+          "cards": [
+            {
+              "sequenceNo": 1,
+              "role": "First",
+              "label": "Blocks away",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a toy box with wooden blocks",
+              "altText": "A box of wooden blocks"
+            },
+            {
+              "sequenceNo": 2,
+              "role": "Then",
+              "label": "Cat brushing",
+              "imagePrompt": "Flat vector icon, plain white background, no detail: a hairbrush beside a sitting cat",
+              "altText": "A brush and a cat"
+            }
+          ],
+          "script": [
+            {
+              "phase": "Before",
+              "phrase": "Two minutes, then blocks."
+            },
+            {
+              "phase": "During",
+              "phrase": "Nearly all in."
+            },
+            {
+              "phase": "OnCompletion",
+              "phrase": "Blocks away. Go and brush Pepper!"
+            },
+            {
+              "phase": "IfRefusal",
+              "phrase": "Blocks first."
+            }
+          ],
+          "plan": {
+            "placement": "On the playroom door at Mira's eye level, where she passes it.",
+            "boardAction": "Both cards stay up while she tidies. When the box lid is on, take the blocks card off and point to the cat card.",
+            "reinforcement": "Five minutes brushing Pepper before dinner is served.",
+            "ifChallengingBehavior": "Point at the FIRST card and wait. Say nothing new. Brushing still follows.",
+            "generalization": "The same pair works for putting the craft things away.",
+            "promptHierarchy": [
+              {
+                "level": 1,
+                "kind": "VisualPoint",
+                "instruction": "Point to the FIRST card. Say nothing."
+              },
+              {
+                "level": 2,
+                "kind": "Gesture",
+                "instruction": "Hold the empty box out towards her."
+              },
+              {
+                "level": 3,
+                "kind": "Verbal",
+                "instruction": "Say the Before phrase once more."
+              },
+              {
+                "level": 4,
+                "kind": "Model",
+                "instruction": "Put three blocks in yourself, then stop."
+              },
+              {
+                "level": 5,
+                "kind": "PhysicalGuide",
+                "instruction": "Brief hand-over-hand with one block, then let go."
+              }
+            ]
+          },
+          "evidenceBasis": [
+            {
+              "practice": "Antecedent Package",
+              "technique": "priming"
+            }
+          ]
         }
       ]
     }

@@ -386,12 +386,20 @@ def render_board(t):
                      for s in t["script"])
     plan = "".join('<li><b>%s</b><span>%s</span></li>' % (lbl, e(p[k]))
                    for k, lbl in (("placement", "Placement"),
+                                  ("boardAction", "What your hands do"),
                                   ("reinforcement", "Reinforcement"),
                                   ("ifChallengingBehavior", "If it goes wrong"),
                                   ("generalization", "Elsewhere")) if p.get(k))
     hier = "".join('<li><em>%s</em> &mdash; %s</li>' % (e(h["kind"]), e(h["instruction"]))
                    for h in p["promptHierarchy"])
-    ev = "".join('<span class="chip">%s</span>' % e(x) for x in t.get("evidenceBasis", []))
+    # evidenceBasis entries are {practice, technique} objects, not bare strings. Rendering
+    # them with e(x) printed a Python dict repr into the chip. Kept tolerant of the old
+    # string form so an older cases.json still renders.
+    ev = "".join(
+        '<span class="chip">%s</span>'
+        % (e(x) if isinstance(x, str)
+           else e("%s \u2014 %s" % (x.get("practice", "?"), x.get("technique", "?"))))
+        for x in t.get("evidenceBasis", []))
     extra = ""
     if t.get("narrativeText"):
         extra += ('<h4>The words on the pages</h4><ol class="narr">%s</ol>'
@@ -471,6 +479,9 @@ def main():
         pr = c["profile"]
         chips = [e(pr["nickname"]), "%s years" % pr["ageYears"], e(pr["visualStyle"]),
                  e(pr["languageLevel"]), e(c["request"]["environment"])]
+        # Optional: only the cases written for reviewer question 9 carry it.
+        if pr.get("developmentalStage"):
+            chips.insert(4, e("Stage: " + pr["developmentalStage"]))
         chiphtml = "".join('<span class="chip">%s</span>' % x for x in chips)
         chiphtml += '<span class="chip warn">%s</span>' % e("Interests: " + pr["specialInterests"])
         chiphtml += '<span class="chip warn">%s</span>' % e("Sensory: " + pr["sensoryNotes"])

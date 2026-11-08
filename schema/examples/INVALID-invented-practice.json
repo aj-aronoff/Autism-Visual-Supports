@@ -60,6 +60,7 @@
     ],
     "reinforcement": "Tick each card off together.",
     "placement": "On the fridge, at the child's eye level.",
+    "boardAction": "As each step is finished, take that card off the strip and put it in the done envelope, so the next step is always the card at the top.",
     "ifChallengingBehavior": "Return to the card, not the behavior."
   },
   "evidenceBasis": [

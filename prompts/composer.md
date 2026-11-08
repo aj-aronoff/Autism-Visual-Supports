@@ -176,6 +176,21 @@ that do not.
     "first" and "then" mean and that the adult follows through. Say so in "reasoning".
     The First becomes a small non-preferred step only once the sequence is known.
 
+13. SAY WHAT THE PARENT DOES WITH THEIR HANDS. For a FirstThenBoard or a
+    VisualSchedule, plan.boardAction is required, and no other field covers it:
+    placement says where the board lives, promptHierarchy says how to prompt, the
+    script says what to say. None of them say to move a card.
+    Both cards stay visible from the start — the child has to see what they are
+    working for, and a covered Then is not a motivator. When the first activity is
+    finished, the First card comes OFF and the parent points to the Then.
+    Two cards sitting side by side for the whole routine is a picture of two things
+    that are both true, which is what a choice board looks like. The SEQUENCE is
+    carried by the card moving, and the sequence is the only thing this board exists
+    to teach. A sliding marker or a done envelope is an equally good mechanic for a
+    VisualSchedule — what matters is that the finished step stops looking current.
+    ParameterCards and a SocialNarrative have no cards to work through, so they do
+    not carry this field and must not invent one.
+
 # IMAGE PROMPTS
 
 Every card carries an imagePrompt in exactly this form:
@@ -220,6 +235,7 @@ the parent choosing a replacement photo. "A pair of sneakers", not "Shoes card".
   ],
   "plan": {
     "placement": "<where to put it, one sentence, physical and specific>",
+    "boardAction": "<FirstThen and VisualSchedule only: what the parent's hands do when a step is finished>",
     "reinforcement": "<how to deliver the Then, one sentence>",
     "ifChallengingBehavior": "<one sentence: stay on the task, not the behaviour>",
     "generalization": "<one sentence: how this moves to another setting>",
@@ -251,9 +267,10 @@ maximum.
 
 # BEFORE YOU RETURN
 
-Re-read your own draft against the twelve rules. Count the words in every label. Count
+Re-read your own draft against the thirteen rules. Count the words in every label. Count
 the words in every script phrase. Check the Then is deliverable in sixty seconds.
-Check the script and the cards use the same noun.
+Check the script and the cards use the same noun. Check that a board with cards to
+work through says what the parent's hands do when a step is finished.
 
 Return the JSON. No prose, no markdown fence, no commentary.
 ```

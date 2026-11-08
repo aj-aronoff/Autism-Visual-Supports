@@ -48,6 +48,7 @@
     ],
     "reinforcement": "Hand over the tablet immediately.",
     "placement": "On the bathroom mirror, at eye level.",
+    "boardAction": "When the brushing is done, take the teeth card off the mirror and point to the tablet card.",
     "ifChallengingBehavior": "Stay on the task, not the behavior."
   },
   "evidenceBasis": [

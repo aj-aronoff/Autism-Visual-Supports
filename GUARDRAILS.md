@@ -30,6 +30,7 @@ confirm, and they are marked below.
 | 6 | Neurodiversity-affirming language | — | ⚠️ `check_affirming_language` | yes, **term list needs review** |
 | 7 | The parent owns and can export everything | — | — | **not a validator**: a screen and a data decision |
 | 8 | Prompt hierarchy least-intrusive-first, levels contiguous | partial | ✅ `check_prompt_hierarchy` | yes |
+| 9 | A board with cards to work through says what the parent's hands do | ✅ `if`/`then`, FirstThen and VisualSchedule | — | **presence is schema-only**; whether the action is real and fits the board is Reviewer question 10, `BOARD_NOT_OPERABLE` |
 
 Rule 8 is not one of the seven. It is here because the schema cannot express
 contiguity, and a hierarchy that starts at level 2 or opens with `PhysicalGuide` is
