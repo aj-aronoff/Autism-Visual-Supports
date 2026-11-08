@@ -3,32 +3,72 @@
   "title": "First shoes, then swing",
   "theme": "Train station",
   "cards": [
-    { "sequenceNo": 1, "role": "First", "label": "Put on shoes",
+    {
+      "sequenceNo": 1,
+      "role": "First",
+      "label": "Put on shoes",
       "imagePrompt": "Flat vector icon, plain white background, no detail: a child's sneakers",
       "imageSource": "SymbolSet",
-      "altText": "A pair of sneakers" },
-    { "sequenceNo": 2, "role": "Then", "label": "Swing",
+      "altText": "A pair of sneakers"
+    },
+    {
+      "sequenceNo": 2,
+      "role": "Then",
+      "label": "Swing",
       "imagePrompt": "Flat vector icon, plain white background, no detail: a playground swing",
       "imageSource": "SymbolSet",
-      "altText": "A playground swing" }
+      "altText": "A playground swing"
+    }
   ],
   "script": [
-    { "phase": "Before",       "phrase": "First shoes, then swing." },
-    { "phase": "During",       "phrase": "One more shoe, then swing." },
-    { "phase": "OnCompletion", "phrase": "All done shoes. Now swing!" },
-    { "phase": "IfRefusal",    "phrase": "Shoes first." }
+    {
+      "phase": "Before",
+      "phrase": "First shoes, then swing."
+    },
+    {
+      "phase": "During",
+      "phrase": "One more shoe, then swing."
+    },
+    {
+      "phase": "OnCompletion",
+      "phrase": "All done shoes. Now swing!"
+    },
+    {
+      "phase": "IfRefusal",
+      "phrase": "Shoes first."
+    }
   ],
   "plan": {
     "promptHierarchy": [
-      { "level": 1, "kind": "VisualPoint",   "instruction": "Point to the FIRST card." },
-      { "level": 2, "kind": "Gesture",       "instruction": "Hold out the shoes." },
-      { "level": 3, "kind": "Verbal",        "instruction": "Say \"Shoes first.\"" },
-      { "level": 4, "kind": "PhysicalGuide", "instruction": "Hand-over-hand, briefly." }
+      {
+        "level": 1,
+        "kind": "VisualPoint",
+        "instruction": "Point to the FIRST card."
+      },
+      {
+        "level": 2,
+        "kind": "Gesture",
+        "instruction": "Hold out the shoes."
+      },
+      {
+        "level": 3,
+        "kind": "Verbal",
+        "instruction": "Say \"Shoes first.\""
+      },
+      {
+        "level": 4,
+        "kind": "PhysicalGuide",
+        "instruction": "Hand-over-hand, briefly."
+      }
     ],
     "reinforcement": "Deliver the swing immediately. Do not delay or substitute.",
     "placement": "By the front door, at the child's eye level.",
     "ifChallengingBehavior": "Keep prompting the FIRST task. Stay on the task, not the behavior. Then still give the swing."
   },
-  "evidenceBasis": ["Antecedent Package"],
-  "citations": ["TRIAD Visual Supports and Autism (2011), First-Then Board"]
+  "evidenceBasis": [
+    "Antecedent Package"
+  ],
+  "citations": [
+    "TRIAD Visual Supports and Autism (2011), First-Then Board"
+  ]
 }

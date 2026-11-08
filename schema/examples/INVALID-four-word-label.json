@@ -2,24 +2,58 @@
   "supportType": "FirstThenBoard",
   "title": "First teeth, then tablet",
   "cards": [
-    { "sequenceNo": 1, "role": "First", "label": "Brush your top teeth", "altText": "A toothbrush" },
-    { "sequenceNo": 2, "role": "Then",  "label": "Tablet", "altText": "A tablet" }
+    {
+      "sequenceNo": 1,
+      "role": "First",
+      "label": "Brush your top teeth",
+      "altText": "A toothbrush"
+    },
+    {
+      "sequenceNo": 2,
+      "role": "Then",
+      "label": "Tablet",
+      "altText": "A tablet"
+    }
   ],
   "script": [
-    { "phase": "Before", "phrase": "First teeth, then tablet." },
-    { "phase": "During", "phrase": "Keep brushing." },
-    { "phase": "OnCompletion", "phrase": "All done teeth." },
-    { "phase": "IfRefusal", "phrase": "Teeth first." }
+    {
+      "phase": "Before",
+      "phrase": "First teeth, then tablet."
+    },
+    {
+      "phase": "During",
+      "phrase": "Keep brushing."
+    },
+    {
+      "phase": "OnCompletion",
+      "phrase": "All done teeth."
+    },
+    {
+      "phase": "IfRefusal",
+      "phrase": "Teeth first."
+    }
   ],
   "plan": {
     "promptHierarchy": [
-      { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card." },
-      { "level": 2, "kind": "Gesture", "instruction": "Hold out the toothbrush." }
+      {
+        "level": 1,
+        "kind": "VisualPoint",
+        "instruction": "Point to the FIRST card."
+      },
+      {
+        "level": 2,
+        "kind": "Gesture",
+        "instruction": "Hold out the toothbrush."
+      }
     ],
     "reinforcement": "Hand over the tablet immediately.",
     "placement": "On the bathroom mirror, at eye level.",
     "ifChallengingBehavior": "Stay on the task, not the behavior."
   },
-  "evidenceBasis": ["Antecedent Package"],
-  "citations": ["TRIAD Visual Supports and Autism (2011)"]
+  "evidenceBasis": [
+    "Antecedent Package"
+  ],
+  "citations": [
+    "TRIAD Visual Supports and Autism (2011)"
+  ]
 }

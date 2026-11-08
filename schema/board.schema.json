@@ -5,48 +5,112 @@
   "description": "The contract the Composer agent must return and the Reviewer agent validates. Authority for field names is SPEC.md section 3; authority for the example is SPEC.md section 5.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["supportType", "title", "cards", "script", "plan", "evidenceBasis", "citations"],
-
+  "required": [
+    "supportType",
+    "title",
+    "cards",
+    "script",
+    "plan",
+    "evidenceBasis",
+    "citations"
+  ],
   "properties": {
     "supportType": {
       "description": "Which of the four layout templates. Decides the permitted card count, see allOf below.",
-      "enum": ["FirstThenBoard", "VisualSchedule", "ParameterCards", "SocialNarrative"]
+      "enum": [
+        "FirstThenBoard",
+        "VisualSchedule",
+        "ParameterCards",
+        "SocialNarrative"
+      ]
     },
     "title": {
       "description": "Shown to the parent, not to the child. Full sentences are fine here; the three-word rule applies only to card labels.",
-      "type": "string", "minLength": 3, "maxLength": 80
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 80
     },
     "theme": {
       "description": "Drawn from Child.SpecialInterests. Optional: a board with no theme is valid, a board with an invented theme is not.",
-      "type": "string", "maxLength": 40
+      "type": "string",
+      "maxLength": 40
     },
-
     "cards": {
       "type": "array",
-      "items": { "$ref": "#/$defs/card" },
+      "items": {
+        "$ref": "#/$defs/card"
+      },
       "minItems": 0,
       "maxItems": 8
     },
-
     "script": {
       "description": "One or two low-demand phrases per phase. Every phase in the enum must appear exactly once.",
       "type": "array",
       "minItems": 4,
       "maxItems": 8,
-      "items": { "$ref": "#/$defs/scriptLine" },
+      "items": {
+        "$ref": "#/$defs/scriptLine"
+      },
       "allOf": [
-        { "contains": { "properties": { "phase": { "const": "Before" } }, "required": ["phase"] } },
-        { "contains": { "properties": { "phase": { "const": "During" } }, "required": ["phase"] } },
-        { "contains": { "properties": { "phase": { "const": "OnCompletion" } }, "required": ["phase"] } },
-        { "contains": { "properties": { "phase": { "const": "IfRefusal" } }, "required": ["phase"] } }
+        {
+          "contains": {
+            "properties": {
+              "phase": {
+                "const": "Before"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "phase": {
+                "const": "During"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "phase": {
+                "const": "OnCompletion"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "phase": {
+                "const": "IfRefusal"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          }
+        }
       ]
     },
-
-    "plan": { "$ref": "#/$defs/plan" },
-
+    "plan": {
+      "$ref": "#/$defs/plan"
+    },
     "evidenceBasis": {
       "description": "Which National Standards practices this board rests on. A closed list is the point: it is what stops a model inventing a twelfth practice. Must stay in step with the EvidencePractice static entity, which is the single source of truth.",
-      "type": "array", "minItems": 1, "maxItems": 4, "uniqueItems": true,
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
       "items": {
         "enum": [
           "Antecedent Package",
@@ -63,27 +127,49 @@
         ]
       }
     },
-
     "citations": {
       "description": "Where the layout came from, named so a clinician can check it. Free text, because the source is a document and a section, not an identifier.",
-      "type": "array", "minItems": 1, "maxItems": 6,
-      "items": { "type": "string", "minLength": 8, "maxLength": 200 }
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 8,
+        "maxLength": 200
+      }
     },
-
     "agentRunId": {
       "description": "Written by the platform, not the model. Present on a stored board, absent on a freshly returned one.",
       "type": "string"
     }
   },
-
   "$defs": {
     "card": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["sequenceNo", "role", "label", "altText"],
+      "required": [
+        "sequenceNo",
+        "role",
+        "label",
+        "altText"
+      ],
       "properties": {
-        "sequenceNo": { "type": "integer", "minimum": 1, "maximum": 8 },
-        "role": { "enum": ["First", "Then", "Step", "Choice", "Wait", "Stop", "Oops"] },
+        "sequenceNo": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "role": {
+          "enum": [
+            "First",
+            "Then",
+            "Step",
+            "Choice",
+            "Wait",
+            "Stop",
+            "Oops"
+          ]
+        },
         "label": {
           "description": "GUARDRAIL 1, three words maximum, enforced structurally here as well as in code. The pattern counts space-separated tokens: one to three. A hyphenated compound is one word by this rule, which is a deliberate decision recorded in GUARDRAILS.md.",
           "type": "string",
@@ -92,67 +178,160 @@
         },
         "imagePrompt": {
           "description": "Never contains the child's name: prompts say 'a child'. That cannot be checked here, because the schema does not hold the profile, so it is a code guardrail. SPEC.md section 5.",
-          "type": "string", "minLength": 10, "maxLength": 300
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 300
         },
-        "imageSource": { "enum": ["Generated", "Uploaded", "SymbolSet"] },
+        "imageSource": {
+          "enum": [
+            "Generated",
+            "Uploaded",
+            "SymbolSet"
+          ]
+        },
         "altText": {
           "description": "Required, because a visual support with no alternative text excludes the screen-reader user it was meant to include.",
-          "type": "string", "minLength": 3, "maxLength": 160
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 160
         }
       }
     },
-
     "scriptLine": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["phase", "phrase"],
+      "required": [
+        "phase",
+        "phrase"
+      ],
       "properties": {
-        "phase": { "enum": ["Before", "During", "OnCompletion", "IfRefusal"] },
+        "phase": {
+          "enum": [
+            "Before",
+            "During",
+            "OnCompletion",
+            "IfRefusal"
+          ]
+        },
         "phrase": {
           "description": "Fewest words wins. The cap is characters rather than words because a phrase is spoken, not printed on a card.",
-          "type": "string", "minLength": 3, "maxLength": 120
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
         }
       }
     },
-
     "plan": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["promptHierarchy", "reinforcement", "placement", "ifChallengingBehavior"],
+      "required": [
+        "promptHierarchy",
+        "reinforcement",
+        "placement",
+        "ifChallengingBehavior"
+      ],
       "properties": {
         "promptHierarchy": {
           "description": "Least intrusive first. Levels must start at 1 and be contiguous, which the schema cannot express; GUARDRAILS.md rule 8 covers it in code.",
-          "type": "array", "minItems": 2, "maxItems": 5,
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["level", "kind", "instruction"],
+            "required": [
+              "level",
+              "kind",
+              "instruction"
+            ],
             "properties": {
-              "level": { "type": "integer", "minimum": 1, "maximum": 5 },
-              "kind": { "enum": ["VisualPoint", "Gesture", "Verbal", "Model", "PhysicalGuide"] },
-              "instruction": { "type": "string", "minLength": 5, "maxLength": 160 }
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "kind": {
+                "enum": [
+                  "VisualPoint",
+                  "Gesture",
+                  "Verbal",
+                  "Model",
+                  "PhysicalGuide"
+                ]
+              },
+              "instruction": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 160
+              }
             }
           }
         },
-        "reinforcement": { "type": "string", "minLength": 10, "maxLength": 240 },
-        "placement": { "type": "string", "minLength": 10, "maxLength": 240 },
-        "ifChallengingBehavior": { "type": "string", "minLength": 10, "maxLength": 400 },
-        "generalization": { "type": "string", "maxLength": 240 }
+        "reinforcement": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 240
+        },
+        "placement": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 240
+        },
+        "ifChallengingBehavior": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 400
+        },
+        "generalization": {
+          "type": "string",
+          "maxLength": 240
+        }
       }
     }
   },
-
   "allOf": [
     {
       "description": "GUARDRAIL 4 and GUARDRAIL 3 for First-Then: exactly two cards, and one of them must be the Then card. The reward is structural, so this is a schema rule and not only a code rule.",
-      "if": { "properties": { "supportType": { "const": "FirstThenBoard" } }, "required": ["supportType"] },
+      "if": {
+        "properties": {
+          "supportType": {
+            "const": "FirstThenBoard"
+          }
+        },
+        "required": [
+          "supportType"
+        ]
+      },
       "then": {
         "properties": {
           "cards": {
-            "minItems": 2, "maxItems": 2,
+            "minItems": 2,
+            "maxItems": 2,
             "allOf": [
-              { "contains": { "properties": { "role": { "const": "First" } }, "required": ["role"] } },
-              { "contains": { "properties": { "role": { "const": "Then" } }, "required": ["role"] } }
+              {
+                "contains": {
+                  "properties": {
+                    "role": {
+                      "const": "First"
+                    }
+                  },
+                  "required": [
+                    "role"
+                  ]
+                }
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "role": {
+                      "const": "Then"
+                    }
+                  },
+                  "required": [
+                    "role"
+                  ]
+                }
+              }
             ]
           }
         }
@@ -160,18 +339,65 @@
     },
     {
       "description": "GUARDRAIL 4: a visual schedule is 4 to 8 cards. Fewer is not a schedule; more overwhelms the child it was built for.",
-      "if": { "properties": { "supportType": { "const": "VisualSchedule" } }, "required": ["supportType"] },
-      "then": { "properties": { "cards": { "minItems": 4, "maxItems": 8 } } }
+      "if": {
+        "properties": {
+          "supportType": {
+            "const": "VisualSchedule"
+          }
+        },
+        "required": [
+          "supportType"
+        ]
+      },
+      "then": {
+        "properties": {
+          "cards": {
+            "minItems": 4,
+            "maxItems": 8
+          }
+        }
+      }
     },
     {
       "description": "GUARDRAIL 4: parameter cards are 1 to 3.",
-      "if": { "properties": { "supportType": { "const": "ParameterCards" } }, "required": ["supportType"] },
-      "then": { "properties": { "cards": { "minItems": 1, "maxItems": 3 } } }
+      "if": {
+        "properties": {
+          "supportType": {
+            "const": "ParameterCards"
+          }
+        },
+        "required": [
+          "supportType"
+        ]
+      },
+      "then": {
+        "properties": {
+          "cards": {
+            "minItems": 1,
+            "maxItems": 3
+          }
+        }
+      }
     },
     {
       "description": "A social narrative carries no cards. SPEC.md section 2 gives its card count as not applicable.",
-      "if": { "properties": { "supportType": { "const": "SocialNarrative" } }, "required": ["supportType"] },
-      "then": { "properties": { "cards": { "maxItems": 0 } } }
+      "if": {
+        "properties": {
+          "supportType": {
+            "const": "SocialNarrative"
+          }
+        },
+        "required": [
+          "supportType"
+        ]
+      },
+      "then": {
+        "properties": {
+          "cards": {
+            "maxItems": 0
+          }
+        }
+      }
     }
   ]
 }

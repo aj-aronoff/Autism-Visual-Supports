@@ -2,24 +2,58 @@
   "supportType": "FirstThenBoard",
   "title": "First shoes, then shoes",
   "cards": [
-    { "sequenceNo": 1, "role": "First", "label": "Put on shoes", "altText": "Sneakers" },
-    { "sequenceNo": 2, "role": "Step",  "label": "Other shoe",   "altText": "One sneaker" }
+    {
+      "sequenceNo": 1,
+      "role": "First",
+      "label": "Put on shoes",
+      "altText": "Sneakers"
+    },
+    {
+      "sequenceNo": 2,
+      "role": "Step",
+      "label": "Other shoe",
+      "altText": "One sneaker"
+    }
   ],
   "script": [
-    { "phase": "Before", "phrase": "Shoes on." },
-    { "phase": "During", "phrase": "One more." },
-    { "phase": "OnCompletion", "phrase": "All done." },
-    { "phase": "IfRefusal", "phrase": "Shoes first." }
+    {
+      "phase": "Before",
+      "phrase": "Shoes on."
+    },
+    {
+      "phase": "During",
+      "phrase": "One more."
+    },
+    {
+      "phase": "OnCompletion",
+      "phrase": "All done."
+    },
+    {
+      "phase": "IfRefusal",
+      "phrase": "Shoes first."
+    }
   ],
   "plan": {
     "promptHierarchy": [
-      { "level": 1, "kind": "VisualPoint", "instruction": "Point to the FIRST card." },
-      { "level": 2, "kind": "Gesture", "instruction": "Hold out the shoes." }
+      {
+        "level": 1,
+        "kind": "VisualPoint",
+        "instruction": "Point to the FIRST card."
+      },
+      {
+        "level": 2,
+        "kind": "Gesture",
+        "instruction": "Hold out the shoes."
+      }
     ],
     "reinforcement": "Deliver the reward immediately.",
     "placement": "By the front door, at eye level.",
     "ifChallengingBehavior": "Stay on the task, not the behavior."
   },
-  "evidenceBasis": ["Antecedent Package"],
-  "citations": ["TRIAD Visual Supports and Autism (2011)"]
+  "evidenceBasis": [
+    "Antecedent Package"
+  ],
+  "citations": [
+    "TRIAD Visual Supports and Autism (2011)"
+  ]
 }
