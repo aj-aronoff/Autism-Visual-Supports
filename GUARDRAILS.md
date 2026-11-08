@@ -1,7 +1,14 @@
-# The seven guardrails, written and tested
+# The twelve guardrails, written and tested
 
-`SPEC.md §6` states the seven in prose and `CODE-PLAN.md §3.2` listed them as
-*specified, not written*. **Written 1 November 2026.** Two artefacts:
+`SPEC.md §6` states **the original seven** in prose and `CODE-PLAN.md §3.2` listed them
+as *specified, not written*. **Written 1 November 2026**, with rule 8 added at the same
+time because the schema cannot express it, and **rules 9–12 added 7 November 2026**.
+This file, not `SPEC.md §6`, is the count that is current.
+
+**Twelve rules. Eight have code** — those are the ones that become server actions.
+**Rule 7 is not a validator at all** (the parent owning and exporting everything is a
+screen and a data decision), and **rules 9, 10 and 12 are enforced by the schema only**.
+Anything that says *seven server actions* is reading a stale number. Two artefacts:
 
 | File | What it is |
 |---|---|
@@ -35,9 +42,9 @@ confirm, and they are marked below.
 | 11 | **Literal language only** in anything the child hears or reads | — | ✅ `check_figurative_language` | yes. **Ported 7 Nov** from the parallel session's AGENT-1 principle 5 — rule 2 forbids *negative* phrasing and rule 6 *non-affirming* phrasing, and neither forbade *figurative* phrasing. A short idiom list on purpose; the judgement calls are Reviewer question 12, `FIGURATIVE_LANGUAGE`. **Does not apply to the parent-facing plan** |
 | 12 | Sensory tools come from a **closed list**, and only ones the child has | ✅ `enum` ×8, `maxItems` 3, `uniqueItems` | — | **Ported 7 Nov.** `sensorySupports`, with `sensorySupportOther` as the named escape hatch. Availability and trigger collisions are the Reviewer's `TRIGGER_COLLISION`; the schema can only check the list is closed |
 
-Rule 8 is not one of the seven. It is here because the schema cannot express
-contiguity, and a hierarchy that starts at level 2 or opens with `PhysicalGuide` is
-clinically wrong in a way no field-level check catches.
+Rule 8 is not one of the seven in `SPEC.md §6`. It is here because the schema cannot
+express contiguity, and a hierarchy that starts at level 2 or opens with `PhysicalGuide`
+is clinically wrong in a way no field-level check catches.
 
 Rules 1, 3 and 4 are enforced in **both** places on purpose. A schema rejection is a
 validation error in a log; the code version returns a sentence a parent can read.

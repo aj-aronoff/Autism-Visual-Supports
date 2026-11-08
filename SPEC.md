@@ -201,6 +201,10 @@ The child's name never appears in an image prompt — prompts say "a child".
 
 Each is a validation in a server action, so a model that drifts cannot ship a bad board.
 
+**The seven below are the original set. There are now TWELVE** — rule 8 and rules 9–12 were
+added later, and [`GUARDRAILS.md`](GUARDRAILS.md) is the current count and the authority on which
+ones have code. Eight have code; rule 7 is not a validator; rules 9, 10 and 12 are schema-only.
+
 1. **Three words maximum per label.** Rejected and regenerated.
 2. **Positive phrasing only.** "Don't run" is refused in favour of "Walk".
 3. **A First–Then board cannot save without a Then card.** The reward is structural.
