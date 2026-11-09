@@ -27,6 +27,22 @@ it costs tokens, and it is less reliable than `Length(Split(label, " ")) <= 3`.
 So the Reviewer is handed a draft that already passes every mechanical check, and is
 asked only the questions a validator cannot answer.
 
+## Before any question: was this board grounded at all?
+
+**This is not question 13, and the count below is still twelve.** It is a precondition,
+because an ungrounded board is not a board with a quality problem -- it is a board with
+no evidence behind it, and judging its wording would imply the rest is sound.
+
+Read `citations` first.
+
+- If it is the single string `NO GROUNDING RETRIEVED`, return `revise` immediately with
+  the code `NO_GROUNDING` and nothing else. Do not answer the twelve questions. The
+  retrieval failed; the board must not be improved into looking trustworthy.
+- If a citation names a document that is not in the corpus -- the TRIAD visual supports
+  pages or the National Standards extract -- return `revise` with `NO_GROUNDING` and say
+  which citation. **A cited source that was never retrieved is a citation from memory**,
+  and it is the failure that looks most like success.
+
 **Questions 8, 9 and 10 were added 7 November 2026.** All three came from accounts of
 how a First–Then board fails in a real house that nothing in our clinical sources
 covers. Question 10 came from a practising speech pathologist's demonstration video,
