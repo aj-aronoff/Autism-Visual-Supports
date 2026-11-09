@@ -123,7 +123,7 @@ exercise — prompt iteration stops costing a publish cycle.
 Its rule for which prompt gets what is worth adopting verbatim: *if removing the
 instruction would cause the agent to misbehave on **any** call — wrong format, DB error,
 wrong tone — it belongs in the SystemPrompt. If it only applies to the current input, it
-belongs in the UserPrompt.* For us: the seven guardrails, the three-word limit and the
+belongs in the UserPrompt.* For us: the twelve guardrails, the three-word limit and the
 JSON shape are SystemPrompt; the child's profile and the obstacle are UserPrompt.
 
 **There is a structured-output feature.** The exercise decides approval by

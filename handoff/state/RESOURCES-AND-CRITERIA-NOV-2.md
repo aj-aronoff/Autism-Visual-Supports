@@ -83,7 +83,7 @@ Both are things this project **built by hand** and the platform apparently provi
 
 | We built | ODC has | Why it matters |
 |---|---|---|
-| `GUARDRAILS.md` — 57 rows, 19 tests, implemented as server actions | **Agent Guardrails** — *"configure safeguards, enforce policies, and govern agent behavior"*, with a documentation page and a YouTube talk, *AI Governance with OutSystems: Protect your Agents with Guardrails* | The criteria say *"Developers can define technical and ethical guardrails"*. Hand-rolled logic may satisfy the intent; the **named platform feature** satisfies the wording. Read the doc before building more by hand |
+| `GUARDRAILS.md` — 67 rows, 21 tests, implemented as server actions | **Agent Guardrails** — *"configure safeguards, enforce policies, and govern agent behavior"*, with a documentation page and a YouTube talk, *AI Governance with OutSystems: Protect your Agents with Guardrails* | The criteria say *"Developers can define technical and ethical guardrails"*. Hand-rolled logic may satisfy the intent; the **named platform feature** satisfies the wording. Read the doc before building more by hand |
 | `eval/cases.json` and the eval review page | **Agent Evaluations** — *"evaluate agent performance, behavior, and output quality"* | Same shape of argument. Our eval set may be portable into the platform's own evaluation feature |
 
 **Neither is a reason to throw away what exists.** The hand-built guardrails encode

@@ -111,7 +111,7 @@ application itself is built during the 2–9 November window.
 **Already done and in the repository:**
 
 - The full build specification — nine entities, eight screens, the three-agent
-  workflow, the JSON output contract and seven guardrails (`SPEC.md`)
+  workflow, the JSON output contract and twelve guardrails (`GUARDRAILS.md`)
 - A project deck, as PowerPoint and PDF (`docs/`)
 - The complete artwork set, every image original vector art generated from source,
   with the palette and design rules documented (`assets/`)

@@ -1,4 +1,9 @@
-"""Reference implementation of the seven guardrails in SPEC.md section 6.
+"""Reference implementation of the guardrails that can be checked in code.
+
+GUARDRAILS.md is the authority on the count: TWELVE rules. EIGHT have code and
+live here; rule 7 is not a validator (the parent owning and exporting everything
+is a screen and a data decision) and rules 9, 10 and 12 are schema-only.
+SPEC.md section 6 lists the original seven and is deliberately not updated.
 
 This file does not ship. It is the specification that gets reviewed, and the test
 table in test_guardrails.py outlives it: the logic is ported into ODC server-action

@@ -253,7 +253,7 @@ Two changes fix it, and both were already in the design as *preferences*. They a
 
 | Change | Requests saved | Where it already lives |
 |---|---|---|
-| **Reviewer deterministic-first** — the seven guardrails in `SPEC.md §6` are rules, not judgements; call the model only on the ambiguous ~20% | ~0.8 | WA-15, and §3.2 of `CODE-PLAN.md` |
+| **Reviewer deterministic-first** — **eight of the twelve guardrails** are rules rather than judgements and run as code (`GUARDRAILS.md`); call the model only on the ambiguous remainder | ~0.8 | WA-15, and §3.2 of `CODE-PLAN.md` |
 | **Illustrator retrieval-first** — search the 201-card library and call a model only when nothing matches, falling toward zero as the library fills | ~0.85 | The library-first gate, WA-12, and option C in `CODE-PLAN.md §8` |
 
 **The larger of those two savings is now confirmed, not assumed.** The Illustrator's

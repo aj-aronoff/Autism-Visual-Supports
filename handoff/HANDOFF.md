@@ -89,7 +89,7 @@ This `handoff/` directory is the redacted snapshot committed alongside it — se
 was withheld. The unredacted set stays in the parent folder, which is not in git.
 
 **Verify before trusting (one command):** `python3 tools/test_guardrails.py` → expect
-`Ran 19 tests ... OK`. Use plain `python3`. **Not `python3 -I`**, which drops the script's own
+`Ran 21 tests ... OK`. Use plain `python3`. **Not `python3 -I`**, which drops the script's own
 directory from `sys.path` and breaks `import guardrails`.
 
 ## 5. Four generators own their output — never hand-edit, never hand-copy

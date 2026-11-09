@@ -19,7 +19,7 @@ Anything that says *seven server actions* is reading a stale number. Two artefac
 
 **The Python does not ship.** It is the specification that gets reviewed, and the test
 table outlives it: on day 5 the logic is ported into ODC server-action flows, and these
-57 rows are what the port is checked against. A row is a decision someone can argue
+67 rows are what the port is checked against. A row is a decision someone can argue
 with, which is the point — three of them are decisions A.J. or a clinician should
 confirm, and they are marked below.
 
@@ -122,7 +122,7 @@ Two rules follow, and they apply to every agent in this build, not just this one
 ## 5. Running them
 
 ```bash
-python3 tools/test_guardrails.py          # 19 tests, 57 table rows, no dependencies
+python3 tools/test_guardrails.py          # 21 tests, 67 table rows, no dependencies
 ```
 
 The schema fixtures need `jsonschema`, which is not installed system-wide and cannot be
@@ -132,7 +132,7 @@ The schema fixtures need `jsonschema`, which is not installed system-wide and ca
 python3 -m venv /tmp/sv && /tmp/sv/bin/pip install jsonschema
 ```
 
-Last run, 1 November 2026: **19 tests OK**, and all four schema fixtures behaved —
+Last run, 8 November 2026: **21 tests OK**, and all four schema fixtures behaved —
 the SPEC example accepted, the four-word label, the missing Then card and the invented
 evidence practice each rejected with the right error.
 

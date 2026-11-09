@@ -97,7 +97,7 @@ CODE-PLAN.md                             what code exists, what must be written,
 PRE-BUILD-LAB.md                         what the AWS account is for before the kickoff
 ODC-FIRST-LOGIN.md                       what to check on first login, and the item each closes
 ODC-AGENT-ANATOMY.md                     the real shape of an ODC agent, from the course exercise
-GUARDRAILS.md                            the seven guardrails, written and tested -- 57 table rows
+GUARDRAILS.md                            the twelve guardrails, written and tested -- 67 table rows
 schema/board.schema.json                 the board output contract, JSON Schema 2020-12
 schema/examples/                         one valid board and three deliberately invalid ones
 tools/guardrails.py                      reference implementation of the guardrails
