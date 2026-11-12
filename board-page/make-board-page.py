@@ -34,6 +34,13 @@ LABEL_RE = re.compile(
     r"^[A-Za-z0-9][A-Za-z0-9'\u2019-]*( [A-Za-z0-9][A-Za-z0-9'\u2019-]*){0,2}$")
 
 
+def script_safe(js):
+    """JSON that cannot break out of the <script> block it is written into."""
+    return (js.replace("&", "\\u0026")
+              .replace("<", "\\u003c")
+              .replace(">", "\\u003e"))
+
+
 def label_problem(v):
     t = str(v or "").strip()
     if not t:
@@ -119,10 +126,11 @@ def main():
         html = fh.read()
     if len(BLOCK.findall(html)) != 1:
         sys.exit("the template no longer has exactly one BOARD block")
-    if "</script>" in json.dumps(cfg):
-        sys.exit("refusing to write: the board text would close the script tag")
-
-    body = "\n" + json.dumps(cfg, indent=2, ensure_ascii=True) + "\n"
+    # A denylist on "</script>" was wrong twice over: HTML closes a tag
+    # case-insensitively, so </SCRIPT> walked straight through it, and the text
+    # being checked comes from a model composing on a parent's free paragraph.
+    # Escape instead. \u003c decodes back to "<", so the values are identical.
+    body = "\n" + script_safe(json.dumps(cfg, indent=2, ensure_ascii=True)) + "\n"
     html = BLOCK.sub(lambda m: m.group(1) + body + m.group(3), html, count=1)
 
     out = os.path.join(a.out, key.lower() + ".html")
