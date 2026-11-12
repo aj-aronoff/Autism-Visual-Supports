@@ -204,15 +204,24 @@ def build(slide=False):
         chip(x, SVC_Y, SVC_W, SVC_H, title, sub,
              GRAY, PAPER, INK)
         if is_agent:
-            text(x + SVC_W / 2, SVC_Y + SVC_H + 24, "availability unconfirmed",
-                 SUB - 1, EXT, "normal", "middle", style="italic")
+            # Was "availability unconfirmed" until 9 Nov 2026. It ran all night:
+            # thirty-one boards saved, two agents live, two knowledge bases searched
+            # on every call. Naming what it actually does is now the useful caption.
+            text(x + SVC_W / 2, SVC_Y + SVC_H + 24,
+                 "agents \u00b7 tools \u00b7 two knowledge bases",
+                 SUB - 1, GRAY, "normal", "middle", style="italic")
 
     # external actors
     chip(PARENT[0], PARENT[1], PARENT[2], PARENT[3], "Parent", "browser / tablet", INK, PAPER)
     chip(PHONE[0], PHONE[1], PHONE[2], PHONE[3], "Parent's phone",
          "the board \u00b7 hands full", INK, PAPER)
-    chip(BEDROCK[0], BEDROCK[1], BEDROCK[2], BEDROCK[3], "Amazon Bedrock",
-         "metered tokens \u00b7 no console for us", EXT, EXT_BG, EXT)
+    # 10 Nov 2026: no longer one provider. A clone of this app was rebound from
+    # Amazon Bedrock to Azure OpenAI in four edits -- two agent bindings and two
+    # typed log literals -- and BOTH composed grounded boards and returned Reviewer
+    # verdicts. So the dependency is a model endpoint, not a vendor, and the chip
+    # says so. evidence/15.
+    chip(BEDROCK[0], BEDROCK[1], BEDROCK[2], BEDROCK[3], "Bedrock  or  Azure OpenAI",
+         "metered tokens \u00b7 proven interchangeable", EXT, EXT_BG, EXT)
 
     # --- flows ------------------------------------------------------------------
     ey = EDGE[1] + EDGE[3] / 2
@@ -265,7 +274,7 @@ def build(slide=False):
     KEY = [("B1", "internet \u2192 edge", "inherited"),
            ("B2", "parent \u2192 their data", "ours"),
            ("B3", "our code \u2192 agent", "ours"),
-           ("B4", "agent \u2192 Bedrock", "shared"),
+           ("B4", "agent \u2192 the model", "shared"),
            ("B5", "data at rest", "shared")]
     for i, (b, lab, kind) in enumerate(KEY):
         y = ky + 48 + i * 37

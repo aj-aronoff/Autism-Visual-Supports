@@ -336,6 +336,46 @@ def i_music():
             f'<ellipse cx="117" cy="124" rx="22" ry="16" fill="{SKY}" transform="rotate(-18 117 124)"/>')
 
 
+def i_musicaldino():
+    """A long-necked plush dinosaur with two music notes. Added 10 November 2026
+    because the first test user's daughter has one, and it is the Then card on the
+    board the Demo is built around. Drawn here rather than using the retailer's
+    product photograph, which is somebody else's copyright -- ASSETS.md, and the
+    same rule that keeps the TRIAD toolkit out of the repo."""
+    body = (f'<ellipse cx="104" cy="120" rx="50" ry="34" fill="{SKY}" '
+            f'stroke="{CLEAR_SKY}" stroke-width="5"/>')
+    legs = "".join(
+        f'<rect x="{x}" y="146" width="19" height="34" rx="8" fill="{SKY}" '
+        f'stroke="{CLEAR_SKY}" stroke-width="5"/>' for x in (66, 92, 122, 146))
+    tail = (f'<path d="M150 112 q34 2 44 30 q-20 -8 -36 2 z" fill="{SKY}" '
+            f'stroke="{CLEAR_SKY}" stroke-width="5" stroke-linejoin="round"/>')
+    neck = (f'<path d="M70 128 q-22 -40 -14 -62 q4 -12 20 -8 q14 4 10 18 '
+            f'q-8 26 10 48 z" fill="{SKY}" stroke="{CLEAR_SKY}" stroke-width="5" '
+            f'stroke-linejoin="round"/>')
+    head = (f'<ellipse cx="60" cy="48" rx="26" ry="20" fill="{SKY}" '
+            f'stroke="{CLEAR_SKY}" stroke-width="5"/>'
+            f'<circle cx="50" cy="44" r="5" fill="{SLATE}"/>')
+    ridge = "".join(
+        f'<path d="M{x} {y} l9 -13 l9 13 z" fill="{MEADOW}" stroke="{MEADOW}" '
+        f'stroke-width="3" stroke-linejoin="round"/>'
+        for x, y in ((74, 94), (90, 88), (107, 88), (124, 92), (139, 100)))
+    # the lights, which are what makes it the musical one
+    glow = (f'<circle cx="102" cy="114" r="11" fill="{SUNFLOWER}" opacity="0.85"/>'
+            f'<circle cx="128" cy="126" r="9" fill="{ROSE}" opacity="0.85"/>'
+            f'<circle cx="110" cy="142" r="7" fill="{SAGE}" opacity="0.9"/>')
+    # Measured on the first render: the note heads landed on the back ridges at
+    # y=88. The whole group moves up and right so the notes read as sound coming
+    # OFF the toy rather than as markings on it.
+    notes = (f'<path d="M160 10 l34 -7 v13 l-34 7 z" fill="{CLEAR_SKY}"/>'
+             f'<rect x="156" y="14" width="6" height="42" fill="{CLEAR_SKY}"/>'
+             f'<rect x="188" y="7" width="6" height="42" fill="{CLEAR_SKY}"/>'
+             f'<ellipse cx="150" cy="58" rx="12" ry="9" fill="{CLEAR_SKY}" '
+             f'transform="rotate(-18 150 58)"/>'
+             f'<ellipse cx="182" cy="51" rx="12" ry="9" fill="{CLEAR_SKY}" '
+             f'transform="rotate(-18 182 51)"/>')
+    return tail + legs + body + ridge + glow + neck + head + notes
+
+
 def i_blocks():
     return (f'<rect x="40" y="110" width="54" height="54" rx="6" fill="{ROSE}" stroke="{SLATE}" stroke-width="5"/>'
             f'<rect x="104" y="110" width="54" height="54" rx="6" fill="{SKY}" stroke="{SLATE}" stroke-width="5"/>'
@@ -1669,6 +1709,7 @@ CARDS_EXTRA = [
     ("sensory","Sensory bin","A bowl with coloured balls","Rewards","Then"),
     ("pet","Pet dog","A dog","Rewards","Then"),
     ("sing","Sing","A child singing into a microphone","Rewards","Then"),
+    ("musicaldino","Musical dinosaur","A toy dinosaur with two music notes","Rewards","Then"),
 
     ("breathe","Breathe","Three widening circles with an arrow up","Regulation","Step"),
     ("squeeze","Squeeze","Two hands pressing a ball","Regulation","Step"),

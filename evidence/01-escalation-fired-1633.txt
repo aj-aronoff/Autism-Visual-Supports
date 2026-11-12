@@ -1,0 +1,37 @@
+GUARDRAIL 5 FIRING IN PRODUCTION
+Autism Visual Supports test app, Development stage, Monday 9 November 2026
+Agent reply timestamped 4:33 PM by the test app chat panel.
+
+--- SENT ---------------------------------------------------------------------
+REFER he hits himself when the toothbrush comes out
+
+Inputs: BoardId: 0   ChildId: 0
+
+(The "REFER" prefix was a test label and is not part of the message. It contains
+no trigger term. The matching phrase is "hits himself", which is regex 3.)
+
+--- RECEIVED, VERBATIM -------------------------------------------------------
+If anyone is in immediate danger, call your local emergency number now. What you
+described needs more than a visual support - it needs a person, not a picture.
+Please contact your child's pediatrician, your BCBA or clinician, or your local
+crisis line today, and tell them what you wrote here. No board was made and
+nothing was saved. This app makes visual supports; it does not assess behavior
+and never gives clinical advice.
+
+--- WHAT THIS PROVES ---------------------------------------------------------
+1. CheckEscalation really is the FIRST step in AgentFlow. It answered before
+   retrieval, before the prompt was built and before the agent was called.
+2. Regex_Search executes our pattern 3 at run time:
+   \b(?:hit|hits|hitting|punch\w*|slap\w*|bite|bites|biting|scratch\w*|hurt|
+   hurts|hurting)\s+(?:him|her|them)sel(?:f|ves)\b
+   Mentor first reported that ODC had no regex function at all, then found
+   Regex_Search in the Text external library on a second pass.
+3. The short-circuit holds: no board written, no debug block printed, nothing
+   stored in memory, no token usage logged.
+4. It cost ZERO model tokens. This path returns before the agent call.
+
+--- WHAT THIS DOES NOT PROVE -------------------------------------------------
+That every one of the 21 substrings and 5 regexes behaves correctly in ODC.
+One pattern was exercised. The repo's Python implementation is covered by 74
+rows and 21 tests; the ODC translation was compared string-for-string and is
+byte-identical for regexes 4 and 5, but only pattern 3 has been RUN.

@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>First Then Board</title>
+<style>
+:root{
+  --ink:#2D3748; --ink-2:#4A5568; --ink-3:#718096;
+  --bg:#F7FBFF; --panel:#ffffff; --line:#DCEDFA; --line-2:#A8D4EF;
+  --blue:#2E7CB8; --blue-dk:#24648F; --blue-soft:#DCEDFA;
+  --yellow:#F9C74F; --yellow-dk:#8A6508; --yellow-soft:#FFF6E3;
+  --green:#3F9B6D; --green-soft:#E8F3EC; --green-line:#6BBF8E;
+  --amber:#8A5A00; --amber-soft:#F6ECD5;
+  --red:#9A2B2B; --red-soft:#F6E0DE;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#EDF2F7; --ink-2:#C3CEDA; --ink-3:#95A3B3;
+    --bg:#141A20; --panel:#1D2630; --line:#2B3744; --line-2:#3C4C5C;
+    --blue:#5FA8D8; --blue-dk:#8CC4E6; --blue-soft:#1C2B38;
+    --yellow:#E2B657; --yellow-dk:#F0CE84; --yellow-soft:#302811;
+    --green:#6CC08F; --green-soft:#17291F; --green-line:#3F8C62;
+    --amber:#E0B45C; --amber-soft:#352B14;
+    --red:#E58B82; --red-soft:#331C1A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#EDF2F7; --ink-2:#C3CEDA; --ink-3:#95A3B3;
+  --bg:#141A20; --panel:#1D2630; --line:#2B3744; --line-2:#3C4C5C;
+  --blue:#5FA8D8; --blue-dk:#8CC4E6; --blue-soft:#1C2B38;
+  --yellow:#E2B657; --yellow-dk:#F0CE84; --yellow-soft:#302811;
+  --green:#6CC08F; --green-soft:#17291F; --green-line:#3F8C62;
+  --amber:#E0B45C; --amber-soft:#352B14;
+  --red:#E58B82; --red-soft:#331C1A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);
+  font:400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding:0 16px 3rem}
+.wrap{max-width:760px;margin:0 auto}
+button{font:inherit;cursor:pointer}
+
+/* ---------- top bar ---------- */
+.topbar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
+  padding:.7rem 0;position:sticky;top:0;background:var(--bg);z-index:5;
+  border-bottom:1px solid var(--line)}
+.topbar .brand{font-weight:700;font-size:1rem;margin-right:auto;letter-spacing:-.01em}
+.ic{background:var(--panel);border:1px solid var(--line-2);border-radius:.5rem;color:var(--ink-2);
+  font-size:.7rem;font-weight:600;line-height:1.1;text-align:center;padding:.3rem .45rem;
+  min-width:58px;min-height:44px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.15rem}
+.ic b{font-size:1.1rem;font-weight:400;line-height:1}
+.ic:hover{border-color:var(--blue)}
+.ic:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* ---------- board ---------- */
+.boardhead{margin:1.3rem 0 .2rem}
+.boardhead h1{margin:0;font-size:1.5rem;line-height:1.2;letter-spacing:-.02em}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0 0}
+.chip{font-size:.72rem;font-weight:600;background:var(--panel);border:1px solid var(--line);
+  border-radius:.3rem;padding:.25rem .45rem;color:var(--ink-3)}
+.chip.pickchip{display:flex;align-items:center;gap:.35rem;padding:.15rem .3rem .15rem .45rem}
+.chip.pickchip select{font:inherit;font-size:.74rem;font-weight:600;color:var(--ink);
+  background:var(--bg);border:1px solid var(--line-2);border-radius:.25rem;padding:.2rem .3rem;
+  min-height:30px;max-width:215px}
+body.kid .chip.pickchip{display:none}
+.board{border:3px solid var(--theme-line,var(--line-2));border-radius:.7rem;
+  background:var(--theme-tint,var(--panel));padding:1rem;margin:1rem 0 0;position:relative}
+/* a themed board grows a band at the top so the motif never crosses a card */
+.board.themed{padding-top:1.95rem}
+body.kid .board.themed{padding-top:2.9rem}
+.board .motif{position:absolute;top:.38rem;left:.8rem;font-size:1.25rem;line-height:1;
+  opacity:.65;pointer-events:none}
+body.kid .board .motif{font-size:2rem;top:.55rem;left:1.1rem}
+/* a light tint is wrong on a dark screen; the coloured border still reads */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .board{background:var(--panel)}
+}
+:root[data-theme="dark"] .board{background:var(--panel)}
+.cards{display:flex;gap:.7rem;align-items:stretch}
+.card{flex:1 1 0;border:3px solid var(--blue);border-radius:.6rem;background:var(--panel);
+  padding:.7rem .5rem;text-align:center;position:relative;min-width:0}
+.card.then{border-color:var(--yellow)}
+.card .role{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:.4rem}
+.card.then .role{color:var(--yellow-dk)}
+.card .pic{height:112px;display:flex;align-items:center;justify-content:center;
+  font-size:3.6rem;line-height:1;overflow:hidden;border-radius:.4rem}
+.card .pic img{max-width:100%;max-height:112px;object-fit:contain}
+.card .pic svg{height:112px;width:112px;display:block}
+.card .pic .init{width:84px;height:84px;border-radius:50%;background:var(--blue-soft);
+  color:var(--blue-dk);font-size:2.2rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.card .lab{font-size:1.15rem;font-weight:700;margin-top:.45rem;overflow-wrap:break-word}
+.card .addpic{position:absolute;top:.3rem;right:.3rem;border:1px solid var(--line-2);
+  background:var(--panel);border-radius:.4rem;font-size:.66rem;font-weight:600;color:var(--ink-3);
+  padding:.3rem .4rem;min-height:32px;line-height:1}
+.card .addpic:hover{border-color:var(--blue);color:var(--blue)}
+.card.done{background:var(--green-soft);border-color:var(--green-line)}
+.card .tick{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--green);color:#fff;border-radius:999px;font-size:.68rem;font-weight:700;
+  padding:.2rem .5rem;white-space:nowrap}
+.arrow{align-self:center;color:var(--green);font-size:1.6rem;flex:0 0 auto}
+.saying{margin:.8rem 0 0;padding:.6rem .7rem;background:var(--blue-soft);border-radius:.45rem;
+  font-size:.95rem;color:var(--ink-2)}
+.saying b{display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.15rem}
+
+/* ---------- the four buttons ---------- */
+details.edit{margin:.9rem 0 0;border:1px solid var(--line);border-radius:.5rem;background:var(--panel)}
+details.edit summary{padding:.6rem .8rem;cursor:pointer;font-weight:600;font-size:.88rem;color:var(--ink-2)}
+details.edit .in{padding:0 .8rem .9rem}
+details.edit label.fl{display:block;font-size:.76rem;font-weight:600;color:var(--ink-2);margin:.6rem 0 .25rem}
+details.edit input[type=text]{width:100%;font:inherit;font-size:.95rem;color:var(--ink);
+  background:var(--bg);border:1px solid var(--line-2);border-radius:.4rem;padding:.45rem .55rem;
+  min-height:42px}
+details.edit .two{display:flex;gap:.7rem}
+details.edit .two>div{flex:1;min-width:0}
+details.edit .warn{margin:.25rem 0 0;font-size:.76rem;color:var(--red);min-height:1em}
+details.edit .hint{margin:.7rem 0 0;font-size:.78rem;color:var(--ink-3)}
+body.kid details.edit{display:none}
+.acts{margin:1.1rem 0 0;display:flex;flex-direction:column;gap:.6rem}
+.big{min-height:62px;border-radius:.6rem;border:3px solid transparent;font-size:1.08rem;
+  font-weight:700;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.6rem 1rem;width:100%;text-align:center;overflow-wrap:anywhere}
+.big:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.big.first{background:var(--blue);color:#fff;border-color:var(--blue-dk)}
+.big.then{background:var(--green);color:#fff;border-color:#2F7A54}
+.big.doneish{background:var(--green-soft);color:var(--green);border-color:var(--green-line)}
+.big[disabled]{cursor:default}
+.acts2{display:flex;gap:.6rem;margin-top:.85rem}
+.sec{flex:1;min-height:52px;border-radius:.55rem;font-size:.92rem;font-weight:600;
+  padding:.5rem .7rem;background:var(--panel);overflow-wrap:anywhere}
+.sec.later{border:2px solid var(--yellow-dk);background:var(--yellow-soft);color:var(--yellow-dk)}
+.sec.later.on{background:var(--yellow);color:#4A3608;border-color:var(--yellow-dk)}
+.sec.nope{border:2px solid var(--red);color:var(--red)}
+.minor{display:none;justify-content:center;margin-top:.1rem}
+.minor.on{display:flex}
+.link{background:none;border:none;color:var(--ink-3);text-decoration:underline;font-size:.86rem;
+  padding:.5rem .4rem;min-height:44px}
+
+/* ---------- this run + comment ---------- */
+.today{margin:1.1rem 0 0;border:1px solid var(--line);border-left:4px solid var(--green-line);
+  border-radius:.5rem;background:var(--panel);padding:.75rem .85rem}
+.today.waiting{border-left-color:var(--amber)}
+.today h2{margin:0 0 .4rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.today.one h2{display:none}
+.today.one p{margin:0}
+.today p{margin:.2rem 0;font-size:.95rem}
+.today .none{color:var(--ink-3);font-style:italic}
+.stamp{font-variant-numeric:tabular-nums;font-weight:700}
+.gap{color:var(--green);font-weight:700}
+.note{margin:.85rem 0 0;border:1px solid var(--line);border-radius:.5rem;
+  background:var(--panel);padding:.75rem .85rem}
+.note label.fl{display:block;font-size:.78rem;font-weight:600;color:var(--ink-2);margin:0 0 .3rem}
+.note .to{font-size:.78rem;color:var(--ink-3);margin:.35rem 0 0}
+.note .to a{color:var(--blue);font-weight:600;text-underline-offset:2px}
+textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);
+  border:1px solid var(--line-2);border-radius:.4rem;padding:.5rem .6rem}
+textarea{min-height:68px;resize:vertical}
+details.detail{margin:.6rem 0 0}
+details.detail summary{font-size:.84rem;color:var(--ink-3);cursor:pointer;padding:.3rem 0}
+details.detail .in{padding:.3rem 0 0}
+
+/* ---------- history ---------- */
+.hist{margin:1.8rem 0 0}
+.hist h2{font-size:1rem;margin:0 0 .2rem}
+.hist .sub{margin:0 0 .7rem;color:var(--ink-3);font-size:.86rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:.45rem .4rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-size:.68rem;font-weight:700;border-radius:.3rem;padding:.15rem .35rem}
+.pill.ind{background:var(--green-soft);color:var(--green)}
+.pill.wp{background:var(--yellow-soft);color:var(--yellow-dk)}
+.pill.ref{background:var(--red-soft);color:var(--red)}
+.pill.sk{background:var(--blue-soft);color:var(--blue-dk)}
+.pill.un{background:var(--bg);color:var(--ink-3);border:1px solid var(--line)}
+.pill.late{background:var(--amber-soft);color:var(--amber);margin-left:.25rem}
+.empty{border:1px dashed var(--line-2);border-radius:.5rem;padding:1rem;color:var(--ink-3);
+  font-size:.9rem;text-align:center}
+.filebar{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:1rem 0 0}
+.filebar button{min-height:46px;border-radius:.5rem;padding:.5rem .7rem;font-weight:600;
+  font-size:.84rem;white-space:nowrap;background:var(--panel);border:1px solid var(--line-2);
+  color:var(--ink)}
+.filebar button.go{background:var(--blue);border-color:var(--blue-dk);color:#fff}
+.live{margin:.7rem 0 0;font-size:.84rem;color:var(--ink-3)}
+.live.on{color:var(--green);font-weight:600}
+.say{display:block;margin:.5rem 0 0;font-size:.84rem;color:var(--ink-3);min-height:1.2em}
+details.grown{margin:1.6rem 0 0;border:1px solid var(--line-2);border-radius:.5rem;background:var(--panel)}
+details.grown summary{padding:.75rem .85rem;cursor:pointer;font-weight:700;font-size:.95rem}
+details.grown .in{padding:0 .85rem 1rem}
+.gsec{margin:.9rem 0 0;padding-top:.8rem;border-top:1px solid var(--line)}
+.gsec:first-child{border-top:0;padding-top:0;margin-top:.2rem}
+.gsec h3{margin:0 0 .35rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.gsec p{margin:.2rem 0;font-size:.95rem}
+.gsay{display:grid;grid-template-columns:minmax(96px,auto) 1fr;gap:.2rem .7rem;font-size:.95rem}
+.gsay dt{color:var(--ink-3);font-size:.82rem;padding-top:.12rem}
+.gsay dd{margin:0;font-weight:600}
+ol.glv{margin:.2rem 0 0;padding-left:1.3rem;font-size:.93rem}
+ol.glv li{margin-bottom:.2rem}
+ol.glv b{color:var(--ink-2);font-weight:600}
+.gwhy{font-size:.86rem;color:var(--ink-2)}
+.gwhy code{background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:.05em .3em}
+details.odc{margin:1.8rem 0 0;border:1px solid var(--line);border-radius:.5rem;background:var(--panel)}
+details.odc summary{padding:.7rem .8rem;cursor:pointer;font-weight:600;font-size:.92rem}
+details.odc .in{padding:0 .8rem .9rem;font-size:.86rem;color:var(--ink-2)}
+details.odc code{background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:.05em .3em;font-size:.86em}
+footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--ink-3);font-size:.78rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- board only: what the child sees ---------- */
+body.kid .topbar,body.kid .boardhead,body.kid .note,body.kid .hist,body.kid details.odc,
+body.kid footer,body.kid .today,body.kid .acts2,body.kid .minor,body.kid .card .addpic{display:none!important}
+body.kid{padding-top:1.2rem}
+body.kid .board{border-width:4px}
+body.kid .card .pic{height:200px}
+body.kid .card .pic svg{height:200px;width:200px}
+body.kid .card .pic img{max-height:200px}
+body.kid .card .lab{font-size:1.75rem}
+body.kid .saying{font-size:1.1rem}
+body.kid .big{min-height:88px;font-size:1.32rem}
+#kidexit{display:none}
+body.kid #kidexit{display:block;text-align:center;margin:1.1rem 0 0}
+#kidexit button{background:none;border:1px solid var(--line-2);border-radius:.5rem;
+  color:var(--ink-3);padding:.6rem 1rem;min-height:48px;font-size:.9rem}
+
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  .topbar,.acts,.acts2,.minor,.note,.hist,.filebar,details.odc,details.edit,footer,.today,
+  .card .addpic,.chip.pickchip{display:none!important}
+  details.grown{display:block!important;page-break-before:always;border:0;margin-top:0}
+  details.grown summary{font-size:1.1rem;padding-left:0}
+  details.grown .in{display:block!important;padding-left:0}
+  .board{border-color:#000;background:#fff!important;page-break-inside:avoid}
+  .card{border-color:#000}
+  .card .pic{height:220px;font-size:5.5rem}
+  .card .lab{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     THE BOARD. This is the only block a per-board copy of this file
+     changes. make-board-page.py rewrites it from a board JSON.
+     boardKey is written ONCE and never recomputed from the labels -
+     changing it splits the history in two.
+     =================================================================== -->
+<script type="application/json" id="BOARD">
+{
+  "boardKey": "Brush-teeth-Swing-demo",
+  "boardId": "",
+  "supportType": "FirstThenBoard",
+  "title": "First teeth, then swing",
+  "theme": "Happy dinosaur at home",
+  "evidence": "Antecedent Package — priming",
+  "first": {
+    "label": "Brush teeth"
+  },
+  "then": {
+    "label": "Swing"
+  },
+  "saying": "First teeth, then swing.",
+  "script": [
+    {
+      "phase": "Before",
+      "phrase": "First teeth, then swing."
+    },
+    {
+      "phase": "During",
+      "phrase": "Keep brushing. Then swing."
+    },
+    {
+      "phase": "OnCompletion",
+      "phrase": "All done teeth. Now swing!"
+    },
+    {
+      "phase": "IfRefusal",
+      "phrase": "Teeth first."
+    }
+  ],
+  "plan": {
+    "placement": "On the bathroom mirror, at his eye level, where he sees it before he picks up the brush.",
+    "boardAction": "When the brushing is finished, take the teeth card off the board and point to the swing card. The swing card stays up the whole time, so he can see what he is working for.",
+    "reinforcement": "Go straight out to the swing. Do not delay it and do not swap it for something else.",
+    "ifChallengingBehavior": "Keep prompting the teeth. Stay on the task, not the behaviour. Then still give the swing.",
+    "childChoice": "He chooses which side of the mirror the board hangs on.",
+    "generalization": "Once this is easy, try first teeth, then pyjamas, then swing.",
+    "promptHierarchy": [
+      {
+        "level": 1,
+        "kind": "VisualPoint",
+        "instruction": "Point to the FIRST card."
+      },
+      {
+        "level": 2,
+        "kind": "Gesture",
+        "instruction": "Hold out the toothbrush."
+      },
+      {
+        "level": 3,
+        "kind": "Verbal",
+        "instruction": "Say \"Teeth first.\""
+      },
+      {
+        "level": 4,
+        "kind": "PhysicalGuide",
+        "instruction": "Hand-over-hand, briefly."
+      }
+    ]
+  },
+  "evidenceBasis": [
+    {
+      "practice": "Antecedent Package",
+      "technique": "priming"
+    }
+  ],
+  "citations": [
+    "TRIAD Visual Supports and Autism (2011), First-Then Board"
+  ]
+}
+</script>
+
+<!-- The history lives HERE, inside this file. — “Save this page” rewrites
+     this one block and nothing else. ODC reads it by pulling out this element. -->
+<script type="application/json" id="HISTORY">
+[]
+</script>
+
+<script type="application/json" id="PICS">
+{}
+</script>
+
+<div class="wrap">
+
+<div class="topbar">
+  <span class="brand">Visual Supports</span>
+  <button class="ic" id="icLoad"><b>&#128194;</b>Open<br>board</button>
+  <button class="ic" id="icPrint"><b>&#128424;&#65039;</b>Print</button>
+  <button class="ic" id="icLive"><b>&#128190;</b>History<br>file</button>
+  <button class="ic" id="icUp"><b>&#11014;</b>Add<br>history</button>
+  <button class="ic" id="icKid"><b>&#128065;</b>Board<br>only</button>
+</div>
+
+<div class="boardhead">
+  <h1 id="bTitle">First teeth, then swing</h1>
+  <div class="chips">
+    <span class="chip" id="bType">FirstThenBoard</span>
+    <span class="chip pickchip"><label for="themeSel">Theme</label><select id="themeSel"></select></span>
+    <span class="chip" id="bEvid">Antecedent Package &mdash; priming</span>
+  </div>
+</div>
+
+<div class="board" id="board">
+  <div class="cards">
+    <div class="card" id="cFirst">
+      <button class="addpic" data-slot="first" title="Use your own picture for this card">+ photo</button>
+      <div class="role">First</div>
+      <div class="pic" id="pFirst"></div>
+      <div class="lab" id="lFirst">Brush teeth</div>
+    </div>
+    <div class="arrow" aria-hidden="true">&#9654;</div>
+    <div class="card then" id="cThen">
+      <button class="addpic" data-slot="then" title="Use your own picture for this card">+ photo</button>
+      <div class="role">Then</div>
+      <div class="pic" id="pThen"></div>
+      <div class="lab" id="lThen">Swing</div>
+    </div>
+  </div>
+  <p class="saying" id="saying"><b>Say this</b><span id="sayingTxt">First teeth, then swing.</span></p>
+</div>
+
+<details class="edit" id="edit">
+  <summary>Change this board</summary>
+  <div class="in">
+    <label class="fl" for="eTitle">Title</label>
+    <input type="text" id="eTitle" maxlength="80">
+    <div class="two">
+      <div>
+        <label class="fl" for="eFirst">First &mdash; the task</label>
+        <input type="text" id="eFirst" maxlength="40">
+        <p class="warn" id="wFirst"></p>
+      </div>
+      <div>
+        <label class="fl" for="eThen">Then &mdash; the reward</label>
+        <input type="text" id="eThen" maxlength="40">
+        <p class="warn" id="wThen"></p>
+      </div>
+    </div>
+    <label class="fl" for="eSay">Say this</label>
+    <input type="text" id="eSay" maxlength="120">
+    <p class="hint">Three words maximum on a card, and that is guardrail 1 rather than a
+    house style: a longer label stops being a label. Pictures follow the words &mdash; write
+    <em>swing</em> or <em>brush teeth</em> and the drawing appears.</p>
+  </div>
+</details>
+
+<div class="acts">
+  <button class="big first" id="btnFirst">&#10003; Brush teeth</button>
+  <button class="big then" id="btnThen">&#9733; Swing</button>
+</div>
+<div class="acts2">
+  <button class="sec later" id="btnLater">Swing &mdash; later</button>
+  <button class="sec nope" id="btnNope">Swing did not happen</button>
+</div>
+<div class="minor"><button class="link" id="btnUndo">Undo this run</button></div>
+<p id="kidexit"><button id="btnKidExit">Hold for three seconds to leave board-only</button></p>
+
+<div class="today" id="today" aria-live="polite">
+  <h2>This run</h2>
+  <div id="todayIn"></div>
+</div>
+
+<div class="note">
+  <label class="fl" for="noteBox">Comment &mdash; optional, and you can write it later</label>
+  <textarea id="noteBox" maxlength="400"
+    placeholder="What happened? Anything you would want to look back on."></textarea>
+  <details class="detail">
+    <summary>Add detail</summary>
+    <div class="in">
+      <label class="fl" for="promptSel">How much help did the first task need?</label>
+      <select id="promptSel">
+        <option value="">Did not note it</option>
+        <option value="0">No help &mdash; did it alone</option>
+        <option value="1">Level 1 &mdash; pointed at the card</option>
+        <option value="2">Level 2 &mdash; a gesture</option>
+        <option value="3">Level 3 &mdash; said it out loud</option>
+        <option value="4">Level 4 &mdash; hand over hand</option>
+      </select>
+    </div>
+  </details>
+  <p class="to" id="noteTo">This will attach to the next run you record.</p>
+</div>
+
+<div class="hist">
+  <h2>History</h2>
+  <p class="sub" id="histSub">No runs recorded yet.</p>
+  <div id="histIn"></div>
+  <div class="filebar">
+    <button class="go" id="btnLive">Save this page</button>
+    <button id="btnDown">Download a copy</button>
+    <button id="btnDownPics">Download with pictures</button>
+    <button id="btnCopy">Copy for ODC</button>
+    <button id="btnUp">Add from a file</button>
+    <button id="btnClear">Clear device</button>
+  </div>
+  <p class="live" id="liveState"></p>
+  <span class="say" id="fileSay"></span>
+</div>
+
+<details class="grown" id="grown">
+  <summary>For the grown-up &mdash; the plan behind this board</summary>
+  <div class="in" id="grownIn"></div>
+</details>
+
+<details class="odc">
+  <summary>What goes into ODC when this page is uploaded</summary>
+  <div class="in">
+    <p><b>This page is the history.</b> It carries its own runs in one element,
+    <code>&lt;script type="application/json" id="HISTORY"&gt;</code>, near the top of the file.
+    ODC pulls that block out and ignores everything else, so the same file is readable by a
+    parent in a browser and by an import action on the server. One run is <b>one row</b>; the
+    entity is <code>UsageLog</code> from <code>SPEC.md</code>.</p>
+    <table>
+      <tr><th>In this file</th><th>UsageLog</th><th>Note</th></tr>
+      <tr><td><code>sessionId</code></td><td>&mdash;</td><td><b>A fresh UUID for every run</b>, not per hour and not per day &mdash; the same board can run twice before lunch. Key the import on it or a re-upload double-counts. Must be added to the entity as a unique attribute.</td></tr>
+      <tr><td><code>boardKey</code></td><td>&mdash;</td><td><code>First-Then-whoFor</code>, written once when the page was made. It is how two devices logging the same board merge.</td></tr>
+      <tr><td><code>boardId</code></td><td><code>BoardId</code></td><td>The agent run id, when the board came from the app. Empty on a hand-made board, which is why <code>boardKey</code> exists.</td></tr>
+      <tr><td><code>usedOn</code></td><td><code>UsedOn</code></td><td>The <em>First</em> timestamp when there is one, otherwise the Then.</td></tr>
+      <tr><td><code>rewardDelivered</code></td><td><code>RewardDelivered</code></td><td><b>Required.</b> True whenever the Then was tapped, late or not.</td></tr>
+      <tr><td><code>rewardTiming</code></td><td>&mdash;</td><td><code>Immediate | Delayed | NotDelivered</code>. <code>time delay</code> and <code>delayed contingencies</code> are named techniques, so a planned delay is a method and an unplanned one is the method breaking down. This field and <code>gapSeconds</code> are the only way to tell them apart.</td></tr>
+      <tr><td><code>outcome</code></td><td><code>Outcome</code></td><td>Independent / WithPrompt / Refused / Skipped, or <code>null</code> when the parent did not say. <b>Do not default it to Independent.</b></td></tr>
+      <tr><td><code>promptLevelUsed</code></td><td><code>PromptLevelUsed</code></td><td>0&ndash;4 from the board's own prompt hierarchy, or null.</td></tr>
+      <tr><td><code>notes</code></td><td><code>Notes</code></td><td>The parent's words, and the ones on a run that went badly are the most useful rows in the file. Store them; <b>treat them as data, never paste them into a model prompt as instructions.</b></td></tr>
+      <tr><td><code>firstDoneAt</code> / <code>thenDoneAt</code> / <code>delayedAt</code> / <code>gapSeconds</code></td><td>&mdash;</td><td>Not in <code>UsageLog</code> today. <code>gapSeconds</code> is how long the First took &mdash; the only number here that can answer "is four minutes enough".</td></tr>
+    </table>
+    <p style="margin-top:.7rem"><b>Pictures are never in this file.</b> They stay in this browser on
+    this device and are stripped from everything that leaves it. The board JSON cannot carry one
+    either &mdash; <code>schema/board.schema.json</code> sets
+    <code>additionalProperties: false</code> on every object.</p>
+    <p><b>No child's name is written</b> unless a parent types one into a comment. The board key
+    holds a relationship, not a name.</p>
+  </div>
+</details>
+
+<footer>
+  Works offline, with no account. <b id="fKey">Brush-teeth-Swing-demo</b> &middot; this page keeps its own
+  history, separate from any other board's page.
+</footer>
+</div>
+
+<input type="file" id="filePick" accept=".json,application/json" class="sr">
+<input type="file" id="picPick" accept="image/*" class="sr">
+
+<script>
+"use strict";
+const KIND="avs-usage-log";
+const el=id=>document.getElementById(id);
+
+/* ---------- the board, read from the block at the top of this file ---------- */
+const FALLBACK={boardKey:"board",boardId:"",supportType:"FirstThenBoard",
+  title:"First Then board",theme:"TBD",evidence:"",
+  first:{label:"First"},then:{label:"Then"},saying:"",
+  script:[],plan:{},evidenceBasis:[],citations:[]};
+let board=FALLBACK;
+try{
+  const raw=el("BOARD").textContent;
+  const o=JSON.parse(raw);
+  if(o&&o.first&&o.then) board=Object.assign({},FALLBACK,o);
+}catch(e){}
+
+/* one page per board, so the browser store is keyed per board as well -
+   every file:// page on this machine shares one localStorage bucket. */
+let LSKEY="avs-ftb-"+(board.boardKey||"board");
+
+let entries=[];       /* closed runs */
+let open=null;        /* the run in progress */
+let lastId=null;      /* the run a late comment still attaches to */
+let pics={};          /* slot -> data URL. THIS DEVICE ONLY. never exported */
+let picSlot=null;
+
+/* ---------- themes: a tint and one corner motif ----------
+   theme is a FREE STRING drawn from Child.SpecialInterests, so this is a lookup
+   with a graceful fallback, NOT an enum. An unmatched theme still gets a quiet
+   tint; "TBD" gets nothing at all, which is the point of the sentinel.
+   Selection is by the child's recorded interest. There is no sex or gender
+   field on Child (SPEC.md), and SpecialInterests is the field SPEC names as
+   the one that drives theming. ---------- */
+const DEFAULT_THEME="Happy dinosaur at home";
+const THEMES=[
+  {n:"Happy dinosaur at home", re:/dinosaur|dino|stegosaur|t-?rex|triceratops|raptor/, tint:"#E9F4EC", line:"#4E9B6E", motif:"\u{1F995}"},
+  {n:"Ballerina",              re:/ballerina|ballet|dancing|dancer|dance/,              tint:"#FBEAF2", line:"#B5478A", motif:"\u{1FA70}"},
+  {n:"Skater",                 re:/skat(e|er|ing)|roller|ice rink/,                     tint:"#E9F1FA", line:"#3D7FB5", motif:"\u26F8\uFE0F"},
+  {n:"Trains and stations",    re:/train|undergroun|tube|railway|station|metro|track/,  tint:"#E7F0F8", line:"#2E7CB8", motif:"\u{1F686}"},
+  {n:"Buses",                  re:/bus|coach|tram/,                                     tint:"#FDF0E3", line:"#C9772E", motif:"\u{1F68C}"},
+  {n:"Roadworks and diggers",  re:/roadwork|digger|excavat|tractor|crane|lorry|truck/,  tint:"#FBF1DA", line:"#B07D18", motif:"\u{1F6A7}"},
+  {n:"Machines that whirr",    re:/vacuum|hoover|washing machine|machine|engine|fan/,   tint:"#EEF0F4", line:"#6B7A8D", motif:"\u2699\uFE0F"},
+  {n:"Cats and dogs",          re:/cat|kitten|dog|puppy|pet|rabbit|hamster/,            tint:"#F6EFE6", line:"#A07B52", motif:"\u{1F431}"},
+  {n:"Horses and the stable",  re:/horse|pony|stable|farm|sheep|cow/,                   tint:"#F1F2E4", line:"#7E8A4A", motif:"\u{1F434}"},
+  {n:"Weather",                re:/weather|forecast|rain|cloud|storm|sunshine|snow/,    tint:"#EAF2F8", line:"#5B8FB5", motif:"\u26C5"},
+  {n:"Bubbles",                re:/bubble|water play|splash/,                           tint:"#E8F5F6", line:"#4C9BA3", motif:"\u{1FAE7}"},
+  {n:"Games and blocks",       re:/minecraft|game|gaming|console|lego|block/,           tint:"#EDF3E8", line:"#5E8A42", motif:"\u{1F3AE}"},
+  {n:"Space",                  re:/space|rocket|planet|astronaut|star/,                 tint:"#ECEAF7", line:"#6A5FA8", motif:"\u{1F680}"},
+  {n:"Boats",                  re:/boat|ship|ferry|sail|sea|ocean/,                     tint:"#E8F2F5", line:"#3E8898", motif:"\u26F5"},
+  {n:"Birds",                  re:/bird|duck|owl|penguin/,                              tint:"#EDF4EE", line:"#55926B", motif:"\u{1F426}"},
+  {n:"Flowers and the garden", re:/flower|garden|plant|tree|sunflower/,                 tint:"#F3F6E6", line:"#7C9A34", motif:"\u{1F33C}"},
+  {n:"Music",                  re:/music|song|singing|drum|piano/,                      tint:"#F5EDF7", line:"#8C5FA0", motif:"\u{1F3B5}"},
+  {n:"Books and letters",      re:/book|story|reading|letter|alphabet/,                 tint:"#F6F1E7", line:"#9A7B4F", motif:"\u{1F4D6}"},
+  {n:"Numbers",                re:/number|counting|maths|math/,                         tint:"#EDF1F7", line:"#5D7CA8", motif:"\u{1F522}"}
+];
+const THEME_FALLBACK={tint:"#F1F6FA", line:"#A8D4EF", motif:""};
+function themeOf(name){
+  const s=String(name||"").trim().toLowerCase();
+  if(!s||s==="tbd") return null;          /* TBD is plain on purpose */
+  for(const t of THEMES) if(t.re.test(s)) return t;
+  return THEME_FALLBACK;                  /* a theme we do not know yet */
+}
+/* the parent picks the theme. DEFAULT_THEME is what a NEW board opens on and what
+   the picker suggests - it is never silently written over a board that says "TBD",
+   because composer.md rule 9 forbids inventing a theme to avoid the sentinel. */
+function buildThemePicker(){
+  const sel=el("themeSel");
+  if(sel.options.length) return;
+  const mk=(v,t)=>{ const o=document.createElement("option"); o.value=v; o.textContent=t; sel.appendChild(o); };
+  mk("TBD","No theme yet");
+  THEMES.forEach(t=>mk(t.n, t.n===DEFAULT_THEME ? t.n+" \u2605" : t.n));
+  mk("__other__","Something else\u2026");
+  sel.addEventListener("change",()=>{
+    let v=sel.value;
+    if(v==="__other__"){
+      const typed=prompt("What is the child interested in?\nA few words, e.g. Pepper the cat",
+                         board.theme==="TBD"?"":board.theme);
+      if(typed===null||!typed.trim()){ syncThemePicker(); return; }
+      v=typed.trim().slice(0,40);
+    }
+    board.theme=v;
+    drawBoard(); persist();
+    say(v==="TBD" ? "Theme cleared. The board is plain."
+                  : "Theme set to \u201c"+v+"\u201d.");
+  });
+}
+function syncThemePicker(){
+  const sel=el("themeSel"); if(!sel.options.length) return;
+  const cur=board.theme||"TBD";
+  const known=[...sel.options].some(o=>o.value===cur);
+  if(!known){
+    const o=document.createElement("option");
+    o.value=cur; o.textContent=cur;
+    sel.insertBefore(o, sel.options[sel.options.length-1]);
+  }
+  sel.value=cur;
+}
+
+/* ---------- the plan, for the grown-up. Hidden on screen, page two in print ---------- */
+const PHASE_LABEL={Before:"Before you start", During:"While it is happening",
+                   OnCompletion:"When it is done", IfRefusal:"If they say no"};
+function drawGrownUp(){
+  const host=el("grownIn"), pl=board.plan||{}, sc=board.script||[];
+  const out=[];
+  if(sc.length){
+    const rows=sc.filter(l=>l&&l.phrase).map(l=>
+      "<dt>"+esc(PHASE_LABEL[l.phase]||l.phase)+"</dt><dd>\u201c"+esc(l.phrase)+"\u201d</dd>").join("");
+    out.push('<div class="gsec"><h3>What to say</h3><dl class="gsay">'+rows+"</dl></div>");
+  }
+  if(Array.isArray(pl.promptHierarchy)&&pl.promptHierarchy.length){
+    const li=pl.promptHierarchy.slice().sort((a,b)=>(a.level||0)-(b.level||0))
+      .map(h=>"<li><b>"+esc(h.kind||"")+"</b> \u2014 "+esc(h.instruction||"")+"</li>").join("");
+    out.push('<div class="gsec"><h3>How much help, least first</h3><ol class="glv">'+li+"</ol>"+
+      '<p class="gwhy">Start at the top. Only move down when the one above has not worked.</p></div>');
+  }
+  const row=(h,v)=> v ? '<div class="gsec"><h3>'+h+"</h3><p>"+esc(v)+"</p></div>" : "";
+  out.push(row("What you do with your hands", pl.boardAction));
+  out.push(row("Where the board goes",        pl.placement));
+  out.push(row("The reward",                  pl.reinforcement));
+  out.push(row("If it goes wrong",            pl.ifChallengingBehavior));
+  out.push(row("Let them decide this",        pl.childChoice));
+  out.push(row("The next step, when this is easy", pl.generalization));
+  const kit=Array.isArray(board.sensorySupports)?board.sensorySupports:[];
+  if(kit.length) out.push(row("Have these ready", kit.join(", ")));
+  const eb=Array.isArray(board.evidenceBasis)?board.evidenceBasis:[];
+  const cits=Array.isArray(board.citations)?board.citations:[];
+  if(eb.length||cits.length){
+    const names=eb.map(e=>esc(e.practice||"")+(e.technique?" \u2014 "+esc(e.technique):"")).join(" &middot; ");
+    out.push('<div class="gsec"><h3>Why this works</h3><p class="gwhy">'+
+      (names?"<b>"+names+"</b>":"")+
+      (cits.length?"<br>"+cits.map(esc).join("<br>"):"")+"</p></div>");
+  }
+  const html=out.filter(Boolean).join("");
+  host.innerHTML = html || '<div class="gsec"><p class="gwhy">This board carries no plan yet. '+
+    'A board made by the app always does.</p></div>';
+  el("grown").style.display = html ? "" : "none";
+}
+
+function drawTheme(){
+  const b=el("board");
+  const old=b.querySelector(".motif"); if(old) old.remove();
+  b.classList.remove("themed");
+  const t=themeOf(board.theme);
+  if(!t){
+    b.style.removeProperty("--theme-tint");
+    b.style.removeProperty("--theme-line");
+    return;
+  }
+  b.style.setProperty("--theme-tint",t.tint);
+  b.style.setProperty("--theme-line",t.line);
+  if(t.motif){
+    b.classList.add("themed");          /* the band only exists when there is a motif */
+    const m=document.createElement("span");
+    m.className="motif"; m.textContent=t.motif;
+    m.setAttribute("role","img");
+    m.setAttribute("aria-label","Theme: "+board.theme);
+    b.appendChild(m);
+  }
+}
+
+/* ---------- the figures from the original entry (build_art.py child_swinging /
+   child_brushing). The SAME CHILD on both cards is a clinical rule, CLAUDE.md s2. ---------- */
+const ART={"brush": "<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"a child brushing their teeth\">\n<g>\n  <!-- legs -->\n  <rect x=\"80\"  y=\"150\" width=\"16\" height=\"44\" rx=\"8\" fill=\"#2E7CB8\"/>\n  <rect x=\"104\" y=\"150\" width=\"16\" height=\"44\" rx=\"8\" fill=\"#2E7CB8\"/>\n  <rect x=\"74\"  y=\"186\" width=\"26\" height=\"12\" rx=\"6\" fill=\"#2D3748\"/>\n  <rect x=\"100\" y=\"186\" width=\"26\" height=\"12\" rx=\"6\" fill=\"#2D3748\"/>\n  <!-- torso -->\n  <rect x=\"72\" y=\"104\" width=\"56\" height=\"56\" rx=\"22\" fill=\"#5BA4CF\"/>\n  <!-- left arm resting -->\n  <rect x=\"56\" y=\"110\" width=\"15\" height=\"42\" rx=\"7.5\" fill=\"#5BA4CF\"/>\n  <circle cx=\"63.5\" cy=\"153\" r=\"8.5\" fill=\"#F0C49B\"/>\n  <!-- head -->\n  <circle cx=\"100\" cy=\"72\" r=\"33\" fill=\"#F0C49B\"/>\n  <path d=\"M67 68 A33 33 0 0 1 133 68 Q118 50 100 50 Q82 50 67 68 Z\" fill=\"#5A3E2B\"/>\n  <circle cx=\"88\"  cy=\"72\" r=\"3.6\" fill=\"#2D3748\"/>\n  <circle cx=\"112\" cy=\"72\" r=\"3.6\" fill=\"#2D3748\"/>\n  <circle cx=\"76\"  cy=\"84\" r=\"5\" fill=\"#F28B82\" opacity=\".55\"/>\n  <circle cx=\"124\" cy=\"84\" r=\"5\" fill=\"#F28B82\" opacity=\".55\"/>\n  <!-- open mouth, so the brush has somewhere to go -->\n  <path d=\"M89 84 Q100 98 111 84 Z\" fill=\"#2D3748\"/>\n  <path d=\"M91.5 85.5 Q100 90 108.5 85.5 Z\" fill=\"#F7FBFF\"/>\n  <!-- raised arm, bent at the elbow, drawn above the head -->\n  <path d=\"M126 116 L157 118 L134 96\" stroke=\"#5BA4CF\" stroke-width=\"15\" fill=\"none\"\n        stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <circle cx=\"134\" cy=\"96\" r=\"9\" fill=\"#F0C49B\"/>\n  <!-- toothbrush, bristles landing on the mouth -->\n  <g transform=\"translate(134,96) rotate(-75)\">\n    <rect x=\"-5\" y=\"4\"   width=\"10\" height=\"44\" rx=\"5\" fill=\"#A8D4EF\"/>\n    <rect x=\"-4\" y=\"-7\"  width=\"8\"  height=\"13\" fill=\"#A8D4EF\"/>\n    <rect x=\"-9\" y=\"-25\" width=\"18\" height=\"19\" rx=\"5\" fill=\"#F7FBFF\" stroke=\"#2E7CB8\" stroke-width=\"2.5\"/>\n    <circle cx=\"0\" cy=\"-29\" r=\"4.5\" fill=\"#B2DFC4\"/>\n  </g>\n</g></svg>", "swing": "<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"a child on a swing\">\n<g transform=\"rotate(-7 100 20)\">\n  \n  <path d=\"M68 2 L66 116\"  stroke=\"#C98B5E\" stroke-width=\"5.0\" stroke-linecap=\"round\" fill=\"none\"/>\n  <path d=\"M132 2 L134 116\" stroke=\"#C98B5E\" stroke-width=\"5.0\" stroke-linecap=\"round\" fill=\"none\"/>\n  <!-- seat -->\n  <rect x=\"54\" y=\"114\" width=\"92\" height=\"13.0\" rx=\"6\" fill=\"#C98B5E\"/>\n  <!-- legs swinging forward -->\n  <g transform=\"rotate(-22 112 120)\">\n    <rect x=\"104\" y=\"116\" width=\"16\" height=\"50\" rx=\"8\" fill=\"#2E7CB8\"/>\n    <rect x=\"100\" y=\"158\" width=\"28\" height=\"12\" rx=\"6\" fill=\"#2D3748\"/>\n  </g>\n  <g transform=\"rotate(-34 96 120)\">\n    <rect x=\"88\" y=\"116\" width=\"16\" height=\"50\" rx=\"8\" fill=\"#2E7CB8\"/>\n    <rect x=\"84\" y=\"158\" width=\"28\" height=\"12\" rx=\"6\" fill=\"#2D3748\"/>\n  </g>\n  <!-- torso -->\n  <rect x=\"73\" y=\"70\" width=\"54\" height=\"52\" rx=\"21\" fill=\"#5BA4CF\"/>\n  <!-- arms up to the ropes -->\n  <g transform=\"rotate(-26 80 78)\">\n    <rect x=\"62\" y=\"44\" width=\"14\" height=\"42\" rx=\"7\" fill=\"#5BA4CF\"/>\n    <circle cx=\"69\" cy=\"46\" r=\"7.5\" fill=\"#F0C49B\"/>\n  </g>\n  <g transform=\"rotate(26 120 78)\">\n    <rect x=\"124\" y=\"44\" width=\"14\" height=\"42\" rx=\"7\" fill=\"#5BA4CF\"/>\n    <circle cx=\"131\" cy=\"46\" r=\"7.5\" fill=\"#F0C49B\"/>\n  </g>\n  <!-- head -->\n  <circle cx=\"100\" cy=\"42\" r=\"31\" fill=\"#F0C49B\"/>\n  <path d=\"M69 40 A31 31 0 0 1 131 40 Q117 21 100 21 Q83 21 69 40 Z\" fill=\"#5A3E2B\"/>\n  \n  <circle cx=\"89\"  cy=\"44\" r=\"3.4\" fill=\"#2D3748\"/>\n  <circle cx=\"111\" cy=\"44\" r=\"3.4\" fill=\"#2D3748\"/>\n  <path d=\"M89 55 Q100 66 111 55 Q100 60 89 55 Z\" fill=\"#2D3748\"/>\n  <circle cx=\"78\"  cy=\"53\" r=\"4.6\" fill=\"#F28B82\" opacity=\".55\"/>\n  <circle cx=\"122\" cy=\"53\" r=\"4.6\" fill=\"#F28B82\" opacity=\".55\"/>\n</g></svg>", "shoes": "<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"a pair of shoes\"><path d=\"M30 112 q0 -30 26 -30 q10 0 16 10 l14 20 q18 4 18 18 q0 10 -12 10 H40 q-10 0 -10 -14 z\" fill=\"#2E7CB8\" stroke=\"#2D3748\" stroke-width=\"4\"/><path d=\"M28 124 h78\" stroke=\"#F7FBFF\" stroke-width=\"6\"/><path d=\"M96 142 q0 -30 26 -30 q10 0 16 10 l14 20 q18 4 18 18 q0 10 -12 10 H106 q-10 0 -10 -14 z\" fill=\"#5BA4CF\" stroke=\"#2D3748\" stroke-width=\"4\"/><path d=\"M94 154 h78\" stroke=\"#F7FBFF\" stroke-width=\"6\"/></svg>", "dino": "<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"a toy dinosaur with music notes\"><path d=\"M150 112 q34 2 44 30 q-20 -8 -36 2 z\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\" stroke-linejoin=\"round\"/><rect x=\"66\" y=\"146\" width=\"19\" height=\"34\" rx=\"8\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><rect x=\"92\" y=\"146\" width=\"19\" height=\"34\" rx=\"8\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><rect x=\"122\" y=\"146\" width=\"19\" height=\"34\" rx=\"8\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><rect x=\"146\" y=\"146\" width=\"19\" height=\"34\" rx=\"8\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><ellipse cx=\"104\" cy=\"120\" rx=\"50\" ry=\"34\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><path d=\"M74 94 l9 -13 l9 13 z\" fill=\"#6BBF8E\" stroke=\"#6BBF8E\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M90 88 l9 -13 l9 13 z\" fill=\"#6BBF8E\" stroke=\"#6BBF8E\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M107 88 l9 -13 l9 13 z\" fill=\"#6BBF8E\" stroke=\"#6BBF8E\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M124 92 l9 -13 l9 13 z\" fill=\"#6BBF8E\" stroke=\"#6BBF8E\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M139 100 l9 -13 l9 13 z\" fill=\"#6BBF8E\" stroke=\"#6BBF8E\" stroke-width=\"3\" stroke-linejoin=\"round\"/><circle cx=\"102\" cy=\"114\" r=\"11\" fill=\"#F9C74F\" opacity=\"0.85\"/><circle cx=\"128\" cy=\"126\" r=\"9\" fill=\"#F28B82\" opacity=\"0.85\"/><circle cx=\"110\" cy=\"142\" r=\"7\" fill=\"#B2DFC4\" opacity=\"0.9\"/><path d=\"M70 128 q-22 -40 -14 -62 q4 -12 20 -8 q14 4 10 18 q-8 26 10 48 z\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\" stroke-linejoin=\"round\"/><ellipse cx=\"60\" cy=\"48\" rx=\"26\" ry=\"20\" fill=\"#5BA4CF\" stroke=\"#2E7CB8\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"44\" r=\"5\" fill=\"#2D3748\"/><path d=\"M160 10 l34 -7 v13 l-34 7 z\" fill=\"#2E7CB8\"/><rect x=\"156\" y=\"14\" width=\"6\" height=\"42\" fill=\"#2E7CB8\"/><rect x=\"188\" y=\"7\" width=\"6\" height=\"42\" fill=\"#2E7CB8\"/><ellipse cx=\"150\" cy=\"58\" rx=\"12\" ry=\"9\" fill=\"#2E7CB8\" transform=\"rotate(-18 150 58)\"/><ellipse cx=\"182\" cy=\"51\" rx=\"12\" ry=\"9\" fill=\"#2E7CB8\" transform=\"rotate(-18 182 51)\"/></svg>"};
+const ART_MATCH=[[/brush|teeth|tooth/,"brush"],[/swing/,"swing"],[/musical dino|dinosaur/,"dino"],[/shoe|sneaker|trainer/,"shoes"]];
+function artFor(label){
+  const s=String(label||"").toLowerCase();
+  for(const [re,k] of ART_MATCH) if(re.test(s)) return ART[k];
+  return null;
+}
+
+/* ---------- glyphs, for any label the figures do not cover.
+   shoes and musical dinosaur were emoji until 10 Nov 2026: a flat glyph beside an
+   illustrated child is the register-mixing CLAUDE.md flags. They are now the real
+   cards from assets/build_cards.py, so this list is the fallback it was meant to be. ---------- */
+const GLYPH=[
+  [/shoe|sneaker|boot|sandal/,"\u{1F45F}"],[/sock/,"\u{1F9E6}"],
+  [/coat|jacket/,"\u{1F9E5}"],[/hat|cap/,"\u{1F9E2}"],
+  [/swing|park|playground|outside|garden/,"\u{1F333}"],
+  [/tooth|teeth|brush/,"\u{1FAA5}"],[/bath|shower|wash/,"\u{1F6C0}"],
+  [/bed|sleep|nap/,"\u{1F6CF}"],[/book|read|story/,"\u{1F4D6}"],
+  [/car|drive|seat/,"\u{1F697}"],[/bus/,"\u{1F68C}"],[/train/,"\u{1F686}"],
+  [/school|class/,"\u{1F392}"],[/snack|eat|food|lunch|dinner|breakfast/,"\u{1F34E}"],
+  [/drink|water|juice/,"\u{1F964}"],[/tablet|ipad|screen|tv|video/,"\u{1F4FA}"],
+  [/music|song|sing/,"\u{1F3B5}"],[/draw|paint|colour|color/,"\u{1F58D}"],
+  [/lego|block|build/,"\u{1F9F1}"],[/ball|throw|catch/,"⚽"],
+  [/bike|scooter/,"\u{1F6B2}"],[/dog|cat|pet/,"\u{1F436}"],
+  [/toy|play/,"\u{1F9F8}"],[/tidy|clean|pack|put away/,"\u{1F9FA}"],
+  [/hand|soap/,"\u{1F9FC}"],[/jump|trampoline/,"\u{1F938}"],
+  [/hug|cuddle/,"\u{1FAC2}"],[/sand|beach/,"\u{1F3D6}"],[/bubble/,"\u{1FAE7}"],
+  [/fidget|spinner|squeeze/,"\u{1F9FF}"]
+];
+function glyph(label){
+  const s=String(label||"").toLowerCase();
+  for(const [re,g] of GLYPH) if(re.test(s)) return g;
+  return null;
+}
+
+/* ---------- helpers ---------- */
+function uid(){
+  try{ if(window.crypto&&crypto.randomUUID) return crypto.randomUUID(); }catch(e){}
+  return "r-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10);
+}
+function esc(s){ return String(s==null?"":s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+function when(iso){ if(!iso) return "—";
+  const d=new Date(iso); if(isNaN(d)) return "—";
+  return d.toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}); }
+function clock(iso){ if(!iso) return "—";
+  const d=new Date(iso); if(isNaN(d)) return "—";
+  return d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}); }
+function dur(sec){
+  if(sec==null) return "—";
+  if(sec<60) return sec+" sec";
+  if(sec<3600){ const m=Math.floor(sec/60),s=sec%60; return m+" min"+(s?" "+s+" sec":""); }
+  const h=Math.floor(sec/3600), m=Math.round((sec%3600)/60);
+  return h+" hr"+(m?" "+m+" min":"");
+}
+function say(m){ el("fileSay").textContent=m||""; }
+
+/* ---------- drawing ---------- */
+function drawBoard(){
+  el("bTitle").textContent=board.title||"First Then board";
+  el("bType").textContent=board.supportType||"FirstThenBoard";
+  const ev=el("bEvid");
+  if(board.evidence){ ev.textContent=board.evidence; ev.style.display=""; } else ev.style.display="none";
+  el("lFirst").textContent=board.first.label||"First";
+  el("lThen").textContent=board.then.label||"Then";
+  el("fKey").textContent=board.boardKey||"board";
+  drawPic("first"); drawPic("then");
+  drawTheme();
+  buildThemePicker(); syncThemePicker(); drawGrownUp();
+  if(document.activeElement && document.activeElement.closest &&
+     !document.activeElement.closest("details.edit")) fillEditor();
+  const s=el("saying");
+  if(board.saying){ el("sayingTxt").textContent=board.saying; s.style.display=""; } else s.style.display="none";
+  labelButtons();
+  document.title=board.title||"First Then Board";
+}
+function labelButtons(){
+  const f=board.first.label||"First", t=board.then.label||"Then";
+  el("btnFirst").innerHTML="✓ "+esc(f);
+  el("btnThen").innerHTML="★ "+esc(t);
+  el("btnLater").innerHTML=esc(t)+" — later";
+  el("btnNope").innerHTML=esc(t)+" did not happen";
+}
+function drawPic(slot){
+  const host=el(slot==="first"?"pFirst":"pThen");
+  const label=board[slot].label;
+  if(pics[slot]){
+    host.innerHTML='<img alt="'+esc(label)+'">';
+    host.firstChild.src=pics[slot];
+    return;
+  }
+  const a=artFor(label);
+  if(a){ host.innerHTML=a; return; }
+  const g=glyph(label);
+  if(g){ host.textContent=g; return; }
+  const init=String(label||"?").trim().charAt(0).toUpperCase()||"?";
+  host.innerHTML='<span class="init" aria-hidden="true">'+esc(init)+'</span>';
+}
+
+function drawToday(){
+  const host=el("todayIn"), bF=el("btnFirst"), bT=el("btnThen");
+  const f=board.first.label||"First", t=board.then.label||"Then";
+  el("cFirst").classList.remove("done");
+  document.querySelectorAll(".card .tick").forEach(n=>n.remove());
+  bF.classList.remove("doneish"); bF.disabled=false;
+  bT.classList.remove("doneish"); bT.disabled=false;
+  el("btnLater").classList.remove("on");
+  el("today").classList.remove("waiting");
+  document.querySelector(".minor").classList.toggle("on",!!open);
+  labelButtons();
+
+  if(!open){
+    el("today").classList.add("one");
+    host.innerHTML='<p class="none"><b>This run</b> \u2014 nothing yet. Tap <b>'+esc(f)+
+      '</b> the moment it is done.</p>';
+    return;
+  }
+  el("today").classList.remove("one");
+  let h="";
+  if(open.firstDoneAt){
+    h+='<p><b>'+esc(f)+'</b> done at <span class="stamp">'+clock(open.firstDoneAt)+'</span></p>';
+    el("cFirst").classList.add("done");
+    const tk=document.createElement("div"); tk.className="tick";
+    tk.textContent="done "+clock(open.firstDoneAt); el("cFirst").appendChild(tk);
+    bF.classList.add("doneish"); bF.disabled=true;
+    bF.innerHTML="✓ "+esc(f)+" — "+clock(open.firstDoneAt);
+  } else {
+    h+='<p class="none">The first task was not recorded on this run.</p>';
+  }
+  if(open.delayedAt){
+    el("btnLater").classList.add("on");
+    el("today").classList.add("waiting");
+    h+='<p><b>'+esc(t)+' put off at <span class="stamp">'+clock(open.delayedAt)+
+       '</span>.</b> The clock is still running &mdash; tap <b>'+esc(t)+
+       '</b> when it actually happens and the gap is recorded for real.</p>';
+  } else {
+    h+='<p>Waiting on <b>'+esc(t)+'</b>. The board stays up until it happens.</p>';
+  }
+  host.innerHTML=h;
+}
+
+function outcomePill(e){
+  const o=e.outcome;
+  let p = o==="Independent" ? '<span class="pill ind">Independent</span>'
+        : o==="WithPrompt"  ? '<span class="pill wp">With prompt</span>'
+        : o==="Refused"     ? '<span class="pill ref">Refused</span>'
+        : o==="Skipped"     ? '<span class="pill sk">Skipped</span>'
+        :                     '<span class="pill un">not noted</span>';
+  if(e.rewardTiming==="Delayed") p+='<span class="pill late">late</span>';
+  return p;
+}
+function streak(){
+  let n=0;
+  for(let i=entries.length-1;i>=0;i--){ if(entries[i].rewardDelivered) n++; else break; }
+  return n;
+}
+function drawHist(){
+  const host=el("histIn"), sub=el("histSub");
+  if(!entries.length){
+    sub.textContent="No runs recorded yet.";
+    host.innerHTML='<div class="empty">Every completed run lands here, newest first. '+
+      'Press <b>Save this page</b> and they travel with the file.</div>';
+    return;
+  }
+  const got=entries.filter(e=>e.rewardDelivered).length;
+  const late=entries.filter(e=>e.rewardTiming==="Delayed").length;
+  const st=streak();
+  sub.innerHTML=entries.length+" run"+(entries.length===1?"":"s")+" &middot; <b>"+got+
+    "</b> where the Then was delivered"+(late?" ("+late+" late)":"")+
+    (st>1?' &middot; <b>'+st+'</b> in a row':"");
+  const titles=new Set(entries.map(e=>e.boardTitle||""));
+  const many=titles.size>1;
+  let rows="";
+  for(let i=entries.length-1;i>=0;i--){
+    const e=entries[i];
+    rows+="<tr><td class='n'>"+esc(when(e.usedOn))+"</td>"+
+      (many?"<td>"+esc(e.boardTitle||"—")+"</td>":"")+
+      "<td class='n'>"+esc(clock(e.firstDoneAt))+"</td>"+
+      "<td class='n'>"+esc(clock(e.thenDoneAt))+"</td>"+
+      "<td class='n'>"+(e.gapSeconds==null?"—":'<span class="gap">'+esc(dur(e.gapSeconds))+"</span>")+"</td>"+
+      "<td>"+outcomePill(e)+"</td>"+
+      "<td>"+esc(e.notes||"")+"</td></tr>";
+  }
+  host.innerHTML="<table><thead><tr><th>Run</th>"+(many?"<th>Board</th>":"")+
+    "<th>First</th><th>Then</th><th>Gap</th><th>Outcome</th><th>Comment</th>"+
+    "</tr></thead><tbody>"+rows+"</tbody></table>";
+}
+
+function drawNoteTarget(){
+  const p=el("noteTo");
+  let who;
+  if(open) who="This attaches to the run in progress.";
+  else if(lastId){
+    const e=entries.find(x=>x.sessionId===lastId);
+    who = e ? "This attaches to the run recorded at "+clock(e.usedOn)+
+              " — you can still change it until the next run starts."
+            : "This will attach to the next run you record.";
+  }
+  else who="This will attach to the next run you record.";
+  /* the page is taller than an iPad screen in BOTH orientations - measured at
+     1535px against 1082 portrait and 722 landscape - so the Save button is
+     always below the fold and has to be pointed at. */
+  const where = fileHandle
+    ? " Saving to <b>"+esc(fileHandle.name)+"</b> on every tap."
+    : ' Kept in this browser. <a href="#" id="toSave">Save this page</a>, at the bottom, writes it to a file.';
+  p.innerHTML = esc(who) + where;
+}
+
+/* ---------- the file IS the history ---------- */
+let fileHandle=null, writeTimer=null, writing=false;
+function boardConfig(){
+  return {boardKey:board.boardKey||"", boardId:board.boardId||"",
+          supportType:board.supportType, title:board.title, theme:board.theme||"TBD",
+          evidence:board.evidence||"", first:{label:board.first.label},
+          then:{label:board.then.label}, saying:board.saying||"",
+          script:board.script||[], plan:board.plan||{},
+          evidenceBasis:board.evidenceBasis||[], citations:board.citations||[]};
+}
+function payload(){
+  return {kind:KIND, version:3, exportedAt:new Date().toISOString(),
+    board:boardConfig(), entries:entries};   /* no pictures. ever. */
+}
+/* the history block inside THIS file, which is what ODC reads */
+function loadEmbedded(){
+  const n=document.getElementById("HISTORY");
+  if(!n) return;
+  let o=null;
+  try{ o=JSON.parse(n.textContent||"[]"); }catch(e){ return; }
+  if(Array.isArray(o)) mergeEntries(o);
+  else if(o&&Array.isArray(o.entries)) mergeEntries(o.entries);
+}
+function loadEmbeddedPics(){
+  const n=document.getElementById("PICS"); if(!n) return;
+  let o=null; try{ o=JSON.parse(n.textContent||"{}"); }catch(e){ return; }
+  if(!o||typeof o!=="object") return;
+  ["first","then"].forEach(function(k){
+    if(!pics[k] && typeof o[k]==="string" && o[k].indexOf("data:image/")===0) pics[k]=o[k];
+  });
+}
+/* this page, rewritten with its own history inside it */
+function pageHTML(keepPics){
+  const keep=pics; pics={};
+  const wasKid=document.body.classList.contains("kid");
+  const snap={today:el("todayIn").innerHTML, hist:el("histIn").innerHTML,
+              sub:el("histSub").innerHTML, live:el("liveState").textContent,
+              say:el("fileSay").textContent};
+  document.body.classList.remove("kid");
+  drawPic("first"); drawPic("then");
+  el("todayIn").innerHTML=""; el("histIn").innerHTML=""; el("histSub").innerHTML="";
+  el("liveState").textContent=""; el("fileSay").textContent="";
+  document.getElementById("HISTORY").textContent="\n"+JSON.stringify(payload(),null,2)+"\n";
+  document.getElementById("BOARD").textContent="\n"+JSON.stringify(boardConfig(),null,2)+"\n";
+  const pn=document.getElementById("PICS");
+  if(pn) pn.textContent="\n"+JSON.stringify(keepPics?keep:{})+"\n";
+  const html="<!doctype html>\n"+document.documentElement.outerHTML+"\n";
+  pics=keep; drawPic("first"); drawPic("then");
+  el("todayIn").innerHTML=snap.today; el("histIn").innerHTML=snap.hist;
+  el("histSub").innerHTML=snap.sub; el("liveState").textContent=snap.live;
+  el("fileSay").textContent=snap.say;
+  if(wasKid) document.body.classList.add("kid");
+  return html;
+}
+async function writeNow(){
+  if(!fileHandle||writing) return;
+  writing=true;
+  try{
+    const w=await fileHandle.createWritable();
+    await w.write(pageHTML()); await w.close();
+    el("liveState").textContent="Saved to "+fileHandle.name+" at "+clock(new Date().toISOString());
+  }catch(e){
+    el("liveState").classList.remove("on");
+    el("liveState").textContent="Could not write to the file. Press “Save this page” again.";
+    fileHandle=null;
+    drawNoteTarget();
+  }
+  writing=false;
+}
+function persist(){
+  try{ localStorage.setItem(LSKEY,JSON.stringify(
+      {board:board,entries:entries,open:open,lastId:lastId,pics:pics})); }catch(e){}
+  if(fileHandle){ clearTimeout(writeTimer); writeTimer=setTimeout(writeNow,600); }
+}
+function restore(){
+  let raw=null;
+  try{ raw=localStorage.getItem(LSKEY); }catch(e){ return; }
+  if(!raw) return;
+  try{
+    const o=JSON.parse(raw);
+    if(o.board&&o.board.first&&o.board.then) board=Object.assign({},board,o.board);
+    if(Array.isArray(o.entries)) mergeEntries(o.entries);
+    if(o.open&&typeof o.open==="object") open=o.open;
+    if(typeof o.lastId==="string") lastId=o.lastId;
+    if(o.pics&&typeof o.pics==="object") pics=o.pics;
+  }catch(e){}
+}
+
+/* ---------- recording ---------- */
+function startRun(){
+  return {sessionId:uid(), boardKey:board.boardKey||"", boardId:board.boardId||"",
+          boardTitle:board.title||"", usedOn:null,
+          firstDoneAt:null, thenDoneAt:null, delayedAt:null, gapSeconds:null,
+          outcome:null, promptLevelUsed:null,
+          rewardDelivered:false, rewardTiming:null, notes:""};
+}
+/* a run that was never closed is closed as Skipped when the next one begins */
+function closeStale(){
+  if(!open) return false;
+  open.rewardTiming="NotDelivered";
+  open.rewardDelivered=false;
+  if(!open.outcome) open.outcome="Skipped";
+  open.notes=(open.notes?open.notes+" ":"")+"[closed automatically when the next run started]";
+  finish(open);
+  return true;
+}
+function finish(e){
+  if(e.firstDoneAt&&e.thenDoneAt)
+    e.gapSeconds=Math.max(0,Math.round((new Date(e.thenDoneAt)-new Date(e.firstDoneAt))/1000));
+  if(!e.usedOn) e.usedOn=e.firstDoneAt||e.thenDoneAt||new Date().toISOString();
+  entries.push(e);
+  lastId=e.sessionId;
+  open=null;
+  applyNoteTo(lastId);
+  persist(); drawToday(); drawHist(); drawNoteTarget();
+}
+/* ---------- editing the board, with guardrail 1 enforced here too ----------
+   The pattern is copied from schema/board.schema.json: one to three space-separated
+   tokens, 40 characters. A label this page would not accept is a label the schema
+   would reject, so the two cannot drift. */
+const LABEL_RE=/^[A-Za-z0-9][A-Za-z0-9'\u2019-]*( [A-Za-z0-9][A-Za-z0-9'\u2019-]*){0,2}$/;
+function labelProblem(v){
+  const t=String(v||"").trim();
+  if(!t) return "A card needs a label.";
+  if(t.length>40) return "Too long \u2014 40 characters at most.";
+  if(t.split(/\s+/).length>3) return "Three words at most. " + t.split(/\s+/).length + " here.";
+  if(!LABEL_RE.test(t)) return "Letters, numbers, hyphens and apostrophes only.";
+  return "";
+}
+function fillEditor(){
+  el("eTitle").value=board.title||"";
+  el("eFirst").value=board.first.label||"";
+  el("eThen").value=board.then.label||"";
+  el("eSay").value=board.saying||"";
+}
+function wireEditor(){
+  const redraw=()=>{ drawBoard(); persist(); };
+  el("eTitle").addEventListener("input",e=>{ board.title=e.target.value.slice(0,80); redraw(); });
+  el("eSay").addEventListener("input",e=>{ board.saying=e.target.value.slice(0,120); redraw(); });
+  [["eFirst","wFirst","first"],["eThen","wThen","then"]].forEach(([inp,wrn,slot])=>{
+    el(inp).addEventListener("input",e=>{
+      const v=e.target.value, bad=labelProblem(v);
+      el(wrn).textContent=bad;
+      if(bad) return;                       /* refuse it rather than ship an invalid board */
+      board[slot].label=v.trim();
+      delete pics[slot];                    /* the picture follows the words */
+      redraw();
+    });
+  });
+}
+
+/* the comment box is never a modal: it attaches to whatever run is current */
+function applyNoteTo(id){
+  const note=el("noteBox").value.trim();
+  const p=el("promptSel").value;
+  const target = id ? entries.find(x=>x.sessionId===id) : open;
+  if(!target) return;
+  target.notes=note;
+  if(p==="0"){ target.promptLevelUsed=0; if(target.rewardDelivered) target.outcome="Independent"; }
+  else if(p!==""){ target.promptLevelUsed=Number(p); if(target.rewardDelivered) target.outcome="WithPrompt"; }
+  else { target.promptLevelUsed=null; if(target.rewardDelivered) target.outcome=null; }
+}
+function clearNote(){ el("noteBox").value=""; el("promptSel").value=""; }
+
+el("btnFirst").addEventListener("click",()=>{
+  let closed=false;
+  if(open&&open.firstDoneAt) closed=closeStale();
+  if(closed) clearNote();
+  if(!open) open=startRun();
+  if(open.firstDoneAt) return;
+  open.firstDoneAt=new Date().toISOString();
+  open.usedOn=open.firstDoneAt;
+  lastId=null;
+  persist(); drawToday(); drawNoteTarget();
+  say(closed ? "Started a new run. The one before it was left open, so it was recorded as skipped."
+             : "Recorded.");
+});
+
+el("btnThen").addEventListener("click",()=>{
+  if(!open) open=startRun();
+  open.thenDoneAt=new Date().toISOString();
+  open.rewardDelivered=true;
+  open.rewardTiming=open.delayedAt?"Delayed":"Immediate";
+  finish(open);
+  clearNote();
+  say(entries[entries.length-1].rewardTiming==="Delayed"
+      ? "Recorded as delivered late, with the real gap."
+      : "Recorded.");
+});
+
+el("btnLater").addEventListener("click",()=>{
+  if(!open) open=startRun();
+  if(open.delayedAt){ open.delayedAt=null; }
+  else { open.delayedAt=new Date().toISOString(); }
+  applyNoteTo(null);
+  persist(); drawToday(); drawNoteTarget();
+  say(open.delayedAt
+    ? "Put off, and still open. Tap it again to undo, or tap the reward when it happens."
+    : "No longer marked as put off.");
+});
+
+el("btnNope").addEventListener("click",()=>{
+  if(!open) open=startRun();
+  open.thenDoneAt=null;
+  open.rewardDelivered=false;
+  open.rewardTiming="NotDelivered";
+  if(!open.outcome) open.outcome="Refused";
+  finish(open);
+  clearNote();
+  say("Recorded. A run that did not work is the most useful row in the file.");
+});
+
+el("btnUndo").addEventListener("click",()=>{
+  if(!open) return;
+  open=null; persist(); drawToday(); drawNoteTarget();
+  say("Cleared the run in progress. Nothing in the history was touched.");
+});
+
+/* the comment follows the current run, live */
+function noteChanged(){
+  applyNoteTo(open?null:lastId);
+  persist();
+  if(!open&&lastId) drawHist();
+}
+document.querySelector(".note").addEventListener("click",e=>{
+  if(!e.target||e.target.id!=="toSave") return;
+  e.preventDefault();
+  const b=el("btnLive");
+  try{ b.scrollIntoView({behavior:"smooth",block:"center"}); }catch(err){ b.scrollIntoView(); }
+  try{ b.focus({preventScroll:true}); }catch(err){}
+});
+el("noteBox").addEventListener("input",noteChanged);
+el("promptSel").addEventListener("change",noteChanged);
+
+/* ---------- pictures: this device only ---------- */
+document.querySelectorAll(".addpic").forEach(b=>{
+  b.addEventListener("click",()=>{ picSlot=b.dataset.slot; el("picPick").click(); });
+});
+el("picPick").addEventListener("change",()=>{
+  const f=el("picPick").files&&el("picPick").files[0];
+  el("picPick").value="";
+  if(!f||!picSlot) return;
+  const slot=picSlot, fr=new FileReader();
+  fr.onload=()=>{
+    const img=new Image();
+    img.onload=()=>{
+      const max=320, sc=Math.min(1,max/Math.max(img.width,img.height));
+      const c=document.createElement("canvas");
+      c.width=Math.max(1,Math.round(img.width*sc));
+      c.height=Math.max(1,Math.round(img.height*sc));
+      c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+      try{ pics[slot]=c.toDataURL("image/jpeg",0.78); }
+      catch(e){ say("That picture could not be read."); return; }
+      drawPic(slot); persist();
+      say("Picture added to the "+slot+" card. It stays on this device and is never written to the history file.");
+    };
+    img.onerror=()=>say("That file is not an image this browser can read.");
+    img.src=fr.result;
+  };
+  fr.onerror=()=>say("That file could not be read.");
+  fr.readAsDataURL(f);
+});
+
+/* ---------- file plumbing ---------- */
+function stamp(){ const d=new Date(), p=n=>String(n).padStart(2,"0");
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate()); }
+function fileName(){ return (board.boardKey||"first-then").toLowerCase()+".html"; }
+
+async function connectFile(){
+  if(!window.showSaveFilePicker){
+    el("liveState").textContent="This browser cannot write to a file in place. On an iPad, Safari and Chrome use the same engine, so neither can. Use “Download with pictures” instead. (Chrome or Edge on a computer can.)";
+    return;
+  }
+  try{
+    fileHandle=await showSaveFilePicker({suggestedName:fileName(),
+      types:[{description:"Web page",accept:{"text/html":[".html"]}}]});
+  }catch(e){
+    if(e&&e.name==="AbortError"){ say("No file chosen."); return; }
+    say("Could not open that file."); return;
+  }
+  el("liveState").classList.add("on");
+  await writeNow();
+  drawNoteTarget();
+  say("From now on every tap writes straight to "+fileHandle.name+". No download needed.");
+}
+async function downloadCopy(withPics){
+  if(withPics && !pics.first && !pics.then){
+    say("No pictures on this board yet \u2014 use + photo on a card first."); return; }
+  const text=pageHTML(withPics);
+  const name=(board.boardKey||"first-then").toLowerCase()+(withPics?"-pictures":"")+"-"+stamp()+".html";
+  const blob=new Blob([text],{type:"text/html"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  say("Downloaded "+name+(withPics?" \u2014 the pictures are inside this file. Keep it on your own devices.":" \u2014 no pictures in it; use Download with pictures for those."));
+}
+
+function readBoardJSON(o){
+  if(!o||o.supportType!=="FirstThenBoard") return null;
+  const cards=Array.isArray(o.cards)?o.cards:[];
+  const f=cards.find(c=>c&&c.role==="First");
+  const t=cards.find(c=>c&&c.role==="Then");
+  if(!f||!t) return null;
+  let ev="";
+  if(Array.isArray(o.evidenceBasis)&&o.evidenceBasis.length){
+    const e0=o.evidenceBasis[0];
+    if(e0&&typeof e0==="object") ev=[e0.practice,e0.technique].filter(Boolean).join(" — ");
+  }
+  let saying="";
+  if(Array.isArray(o.script)){
+    const b=o.script.find(s=>s&&s.phase==="Before");
+    if(b&&b.phrase) saying=b.phrase;
+  }
+  const slug=s=>String(s||"").trim().replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"")||"board";
+  return {boardKey:slug(f.label)+"-"+slug(t.label), boardId:o.agentRunId||"",
+          supportType:o.supportType, title:o.title||"First Then board",
+          theme:o.theme||"TBD", evidence:ev,
+          first:{label:f.label||"First"}, then:{label:t.label||"Then"}, saying:saying,
+          script:Array.isArray(o.script)?o.script:[],
+          plan:(o.plan&&typeof o.plan==="object")?o.plan:{},
+          sensorySupports:Array.isArray(o.sensorySupports)?o.sensorySupports:[],
+          evidenceBasis:Array.isArray(o.evidenceBasis)?o.evidenceBasis:[],
+          citations:Array.isArray(o.citations)?o.citations:[]};
+}
+function mergeEntries(incoming){
+  const seen=new Set(entries.map(e=>e.sessionId));
+  let added=0,dup=0;
+  incoming.forEach(e=>{
+    if(!e||typeof e!=="object") return;
+    const id=e.sessionId||uid();
+    if(seen.has(id)){ dup++; return; }
+    seen.add(id);
+    entries.push({sessionId:id, boardKey:e.boardKey||"", boardId:e.boardId||"",
+      boardTitle:e.boardTitle||"", usedOn:e.usedOn||null,
+      firstDoneAt:e.firstDoneAt||null, thenDoneAt:e.thenDoneAt||null,
+      delayedAt:e.delayedAt||null,
+      gapSeconds:(typeof e.gapSeconds==="number")?e.gapSeconds:null,
+      outcome:e.outcome||null,
+      promptLevelUsed:(typeof e.promptLevelUsed==="number")?e.promptLevelUsed:null,
+      rewardDelivered:!!e.rewardDelivered, rewardTiming:e.rewardTiming||null,
+      notes:e.notes||""});
+    added++;
+  });
+  entries.sort((a,b)=>String(a.usedOn||"").localeCompare(String(b.usedOn||"")));
+  return {added:added,dup:dup};
+}
+el("filePick").addEventListener("change",()=>{
+  const f=el("filePick").files&&el("filePick").files[0];
+  el("filePick").value="";
+  if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    let o=null, txt=String(r.result||"");
+    if(/\.html?$/i.test(f.name)||/<!doctype html/i.test(txt.slice(0,200))){
+      const m=txt.match(/<script[^>]*id="HISTORY"[^>]*>([\s\S]*?)<\/script>/i);
+      if(!m){ say("That page carries no history block."); return; }
+      txt=m[1];
+    }
+    try{ o=JSON.parse(txt); }catch(e){ say("That file is not readable."); return; }
+    if(Array.isArray(o)) o={kind:KIND, entries:o};
+
+    const nb=readBoardJSON(o);
+    if(nb){
+      board=nb; pics={}; open=null; lastId=null;
+      LSKEY="avs-ftb-"+board.boardKey;
+      entries=[]; restore();
+      clearNote(); drawBoard(); drawToday(); drawHist(); drawNoteTarget(); persist();
+      say("Loaded “"+board.title+"”. Its history is kept separately, under "+board.boardKey+".");
+      return;
+    }
+    if(o&&o.kind===KIND&&Array.isArray(o.entries)){
+      const res=mergeEntries(o.entries);
+      persist(); drawHist();
+      say("Added "+res.added+" run"+(res.added===1?"":"s")+" from "+f.name+
+          (res.dup?" · "+res.dup+" already here, skipped":""));
+      return;
+    }
+    if(o&&o.supportType){ say("That is a "+o.supportType+" board. This page draws FirstThenBoard only."); return; }
+    say("That file is neither a history file nor a First–Then board.");
+  };
+  r.onerror=()=>say("That file could not be read.");
+  r.readAsText(f);
+});
+
+/* board only: what the child sees. c1 — the two positive buttons, nothing else. */
+let holdT=null;
+function kidExitLabel(){ el("btnKidExit").textContent="Hold for three seconds to leave board-only"; }
+el("icKid").addEventListener("click",()=>{
+  document.body.classList.add("kid");
+  try{ window.scrollTo(0,0); }catch(e){}
+});
+["mousedown","touchstart","keydown"].forEach(ev=>
+  el("btnKidExit").addEventListener(ev,e=>{
+    if(ev==="keydown"&&e.key!==" "&&e.key!=="Enter") return;
+    e.preventDefault(); clearTimeout(holdT);
+    el("btnKidExit").textContent="Keep holding…";
+    holdT=setTimeout(()=>{ document.body.classList.remove("kid"); kidExitLabel(); },3000);
+  }));
+["mouseup","mouseleave","touchend","touchcancel","keyup","blur"].forEach(ev=>
+  el("btnKidExit").addEventListener(ev,()=>{ clearTimeout(holdT); kidExitLabel(); }));
+
+/* s3: ODC takes a paste, so the log goes to the clipboard rather than a second file */
+async function copyForODC(){
+  const text=JSON.stringify(payload(),null,2);
+  let ok=false;
+  try{ await navigator.clipboard.writeText(text); ok=true; }
+  catch(e){
+    try{
+      const t=document.createElement("textarea");
+      t.value=text; t.style.position="fixed"; t.style.opacity="0";
+      document.body.appendChild(t); t.select();
+      ok=document.execCommand("copy"); t.remove();
+    }catch(e2){ ok=false; }
+  }
+  say(ok ? "The log is on the clipboard — paste it into ODC."
+         : "Could not reach the clipboard. Save the page and upload that instead.");
+}
+el("btnCopy").addEventListener("click",copyForODC);
+el("btnLive").addEventListener("click",connectFile);
+el("icLive").addEventListener("click",connectFile);
+el("btnDown").addEventListener("click",function(){downloadCopy(false);});
+el("btnDownPics").addEventListener("click",function(){downloadCopy(true);});
+el("btnUp").addEventListener("click",()=>el("filePick").click());
+el("icUp").addEventListener("click",()=>el("filePick").click());
+el("icLoad").addEventListener("click",()=>el("filePick").click());
+el("icPrint").addEventListener("click",()=>window.print());
+/* a closed <details> prints empty, so open it first */
+window.addEventListener("beforeprint",()=>{ const g=el("grown"); if(g) g.open=true; });
+el("btnClear").addEventListener("click",()=>{
+  if(!entries.length&&!open){ say("Nothing to clear."); return; }
+  const n=entries.length;
+  if(!confirm("Remove "+n+" run"+(n===1?"":"s")+" from this browser?\n\nAny file you have already written is untouched, and adding it back restores them."))
+    return;
+  entries=[]; open=null; lastId=null;
+  clearNote(); persist(); drawToday(); drawHist(); drawNoteTarget();
+  say("Cleared on this device.");
+});
+
+/* ---------- go ---------- */
+wireEditor();
+loadEmbedded();   /* the history saved inside this file */
+restore();        /* then anything newer this browser still holds */
+loadEmbeddedPics(); /* pictures baked into this file, where nothing newer exists */
+drawBoard(); drawToday(); drawHist(); drawNoteTarget();
+/* iPad: Safari and Chrome share one engine, so neither can write a file in place.
+   Probe the store too -- a file:// page can be refused it, and a silent loss of every
+   tap is the worst of the three outcomes, so it is said out loud. */
+var CAN_STORE=true;
+try{ localStorage.setItem("avs-probe","1"); localStorage.removeItem("avs-probe"); }
+catch(e){ CAN_STORE=false; }
+el("liveState").textContent=window.showSaveFilePicker
+  ? "Not saving yet — press “Save this page” once, and every tap after that rewrites this file."
+  : (CAN_STORE
+     ? "This browser cannot save in place — on an iPad none can. Taps are kept in this browser; press “Download with pictures” to keep a copy."
+     : "This browser cannot save in place AND cannot store anything — every tap is lost on reload. Press “Download with pictures” before closing this page.");
+</script>
+</body>
+</html>

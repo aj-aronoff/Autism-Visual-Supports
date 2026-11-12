@@ -1,0 +1,46 @@
+{
+"outcome": "board",
+"supportType": "FirstThenBoard",
+"title": "Morning Teeth Dinosaur Board",
+"theme": "Dinosaurs",
+"sensorySupports": [],
+"cards": [
+{ "sequenceNo": 1, "role": "First", "label": "Brush teeth",
+  "imagePrompt": "Flat vector icon, plain white background, no detail: a toothbrush with toothpaste",
+  "altText": "A toothbrush with a line of toothpaste on it" },
+{ "sequenceNo": 2, "role": "Then", "label": "Swing outside",
+  "imagePrompt": "Flat vector icon, plain white background, no detail: a playground swing",
+  "altText": "A single playground swing hanging from a frame" }
+],
+"script": [
+{ "phase": "Before", "phrase": "Brush teeth first. Then swing outside." },
+{ "phase": "During", "phrase": "Brush teeth now." },
+{ "phase": "OnCompletion", "phrase": "Brush teeth done. Swing outside." },
+{ "phase": "IfRefusal", "phrase": "Brush teeth first. Check the board." }
+],
+"plan": {
+"placement": "Hang the board at her eye level on the bathroom door, with the Brush teeth card on the left and the Swing outside card on the right, both visible before she starts.",
+"boardAction": "When teeth are finished, take the Brush teeth card off the board, then point to the Swing outside card.",
+"reinforcement": "Once the teeth are brushed and the card is off, open the back door and go outside to swing straight away.",
+"ifChallengingBehavior": "Keep the focus on brushing: hold the toothbrush out and say the First phrase again, without changing the Then.",
+"generalization": "Once this works at home, try the same board with another adult, such as a grandparent or babysitter, at the same time of day.",
+"promptHierarchy": [
+{ "level": 1, "kind": "VisualPoint", "instruction": "Point at the Brush teeth card on the board and wait." },
+{ "level": 2, "kind": "Gesture", "instruction": "Hold out the toothbrush toward the bathroom sink while pointing at the card again." },
+{ "level": 3, "kind": "Verbal", "instruction": "Say 'Check the board' once, then wait." },
+{ "level": 4, "kind": "Model", "instruction": "Brush your own teeth at the sink beside her, pointing at the card as you start." },
+{ "level": 5, "kind": "PhysicalGuide", "instruction": "Briefly guide her hand holding the toothbrush to the sink, then release and return to the card." }
+]
+},
+"evidenceBasis": [
+{ "practice": "Antecedent Package", "technique": "cueing and prompting/prompt fading" },
+{ "practice": "Behavioral Package", "technique": "reinforcement" }
+],
+"citations": [
+"triad-visual-supports-p1-3.docx, chunk 12",
+"triad-visual-supports-p1-3.docx, chunk 13",
+"nsp-established-treatments-p11-19.docx, chunk 3",
+"nsp-established-treatments-p11-19.docx, chunk 4"
+],
+"reasoning": "A First-Then board fits because the morning obstacle is one non-preferred task with a clear reward after it, and the card moving off the board shows her the order. Swinging outside is her own natural reward for brushing, so it is the Then, and it can be delivered in under a minute."
+}

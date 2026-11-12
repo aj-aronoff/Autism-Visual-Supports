@@ -246,9 +246,89 @@ prompts** on 7 November rather than deferred. Its banner lists where each one we
 
 ---
 
+## 8. The parent in distress — deferred by A.J. on 9 November 2026
+
+**A.J.'s decision, and it set the scope rather than deferring a feature:**
+*"Let's keep meltdown as is. Make a note for the future to check for parent 'meltdown every
+day'. This is focused on the child. Helping the child will help the parent."*
+
+### What was decided
+
+`meltdown` **stays in the guardrail 5 escalation list** as a trigger, so a message containing
+it returns referral guidance instead of a board. The recommendation on the table was to remove
+it — *"a First→Then board is a named antecedent strategy for preventing a meltdown"* — and it
+was **declined**. Do not re-open it without A.J.
+
+### The gap this leaves, stated plainly so a later session does not rediscover it
+
+**Nothing in guardrail 5 is about the parent.** Every one of the 21 substrings and 5 regexes
+describes something happening to or by the *child*. So a message like
+*"meltdowns every day and I cannot cope"* is caught **only incidentally**, by the word
+`meltdown`, and *"I am exhausted and I do not know what to do any more"* is not caught at all.
+
+### What Phase 2 would build
+
+- **A separate check, not a wider list.** Parent distress is a different referral with a
+  different destination — a caregiver support line, respite services, the parent's own GP —
+  not a pediatrician or a BCBA. Folding it into guardrail 5 would send the wrong referral.
+- **It must not block the board.** This is the design point that makes it different from
+  guardrail 5: a parent at the end of their rope still wants the board. The right behaviour is
+  **board plus a quiet line of support**, not a refusal. Guardrail 5 short-circuits; this one
+  must not.
+- **Frequency and duration are the signal**, not vocabulary — *"every day"*, *"every morning
+  for months"*, *"it is getting worse"*. A single hard morning is the normal case and the
+  entire reason the app exists.
+
+### Why the scope decision is right as stated
+
+**The app's user is the child, through the parent.** A board that works reduces the thing the
+parent is exhausted by, which is a more honest form of help than a leaflet — and a tool that
+starts assessing the parent who came for a picture board has changed what it is without
+asking. Phase 2 can add support; it should never add surveillance.
+
+---
+
 ## Notes for Developers
 
 - **Do not include Phase 2 in Nov 10 submission** — it dilutes the MVP
 - **Phase 1 demonstrates vision strategically** — fading strategy shown in tech video as future roadmap
 - **Phase 2 is the innovation moat** — what makes this different from existing visual support tools
 - **Clinical grounding is the key** — Phase 2 success depends on evidence-based recommendations, not just AI generation
+
+---
+
+## Reply-shape recovery — three cases observed or named, none fixed
+
+Added 11 November 2026, 01:10, after a run failed twice for two *different* shape reasons.
+
+**What was fixed:** `ParseBoardReply` now strips a markdown code fence when the reply **starts**
+with one. That was the observed failure — a backtick at position 0, which is well-formed JSON
+inside a ```` ```json ```` wrapper. It relaxes no check; everything after parsing runs on exactly
+the same content.
+
+**Three cases deliberately left alone, because none of them has been observed:**
+
+1. **Prose before the fence** — *"Here is the board:"* followed by ```` ```json ````. Nothing is
+   stripped and the parse fails. **This is the most likely of the three to happen**, because a
+   preamble is ordinary model behaviour, so it is the first candidate if this ever recurs.
+2. **A one-line fenced reply** — fence, JSON and fence on a single line. The opening-line removal
+   does not match, so it fails.
+3. **No closing fence** — handled: the opening line is removed and the rest parses if it is
+   complete.
+
+**The robust fix for 1 and 2 together**, if it is ever worth doing: take the substring from the
+first `{` to the last `}` instead of matching fences. It handles preamble, postamble and one-line
+replies in one rule. **It was not done** because it moves from *removing a wrapper* towards
+*guessing where the content is*, and the parser's whole value is that it refuses rather than
+guesses. That is a decision to make with a clear head and a test case, not at one in the morning
+on an unobserved failure.
+
+**Separately, and NOT a shape problem:** the model sometimes nests `evidenceBasis` inside `plan`
+instead of at the top level. **Lifting it would be content recovery, not shape normalisation**, and
+it sits much closer to the line the parser exists to hold. Left refused on purpose.
+
+**One new observation worth keeping:** on 11 November at 00:50 a single request exhausted the retry
+budget on **two different** errors — a fence on the first attempt, and the nested `evidenceBasis`
+on the retry after the model had correctly fixed the fence. **One retry is enough for one mistake,
+not two.** Whether a second retry is worth ~15,000 tokens and another thirty seconds is a Phase 2
+question with a real trade-off on both sides.

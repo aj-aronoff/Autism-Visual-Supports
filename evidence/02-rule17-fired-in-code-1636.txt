@@ -1,0 +1,39 @@
+RULE 17 ENFORCED IN CODE, NOT IN PROMPT WORDING
+Autism Visual Supports test app, Development stage, Monday 9 November 2026
+Agent reply timestamped 4:36 PM by the test app chat panel.
+KBMinimumScore was 0.5 at this point. DebugShowPassages was False.
+
+--- SENT ---------------------------------------------------------------------
+My 7 year old does not want to brush her teeth in the morning.
+She loves dinosaurs. Afterwards she likes to swing outside.
+
+Inputs: BoardId: 0   ChildId: 0
+
+--- RECEIVED, VERBATIM -------------------------------------------------------
+No board was made. I could not find anything in the evidence sources for this
+request, and I will not write a board from memory - every board has to name the
+practice it came from. Please try describing the moment again in different
+words, or tell me what happens just before it.
+
+--- WHAT THIS PROVES ---------------------------------------------------------
+This is the NothingRetrieved? decision in AgentFlow, added 9 November. When the
+retrieved passage count is zero the flow returns BEFORE BuildMessages and
+BEFORE the agent is called. No board, no tokens, no memory.
+
+Until that step existed, rule 17 was PROMPT WORDING ONLY. Mentor's own words
+when asked: "That is an instruction in the prompt, not a check in the flow. The
+flow counts the passages but never uses the count to stop the model call."
+
+That is the exact failure rule 17 describes in its own text: an agent whose
+retrieval returned nothing does not error, it writes a confident, plausible
+board out of training data, and nothing downstream can tell the difference.
+
+BOTH the code check and the prompt rule are kept. They catch different
+failures: code catches "nothing was retrieved"; only the model can judge
+"passages were retrieved but none support the practice I want to use".
+
+--- WHAT THIS ALSO SHOWED, WHICH WAS NOT THE POINT ---------------------------
+At KBMinimumScore 0.5, NOTHING passes. The scores measured 25 minutes later
+were layout 0.32 / 0.289 / 0.289 and evidence 0.167 / 0.149 / 0.131. So the
+app appeared broken from 16:36 onward and the cause was a threshold the whole
+time - never the wiring, never the child record, never the model.

@@ -1,0 +1,23 @@
+SCHEMA CHECK
+  03-board-1709.json       extra=-  missing=-  OK
+  04-board-1749.json       extra=-  missing=-  OK
+
+17:49 BOARD - the one that is fully grounded
+  cards=2 supportType=FirstThenBoard OK
+    label 'Brush teeth'      tokens=2 chars=11 OK
+    label 'Swing outside'    tokens=2 chars=13 OK
+    practice 'Antecedent Package'                 in citable enum OK
+    practice 'Behavioral Package'                 in citable enum OK
+  CITATION AUDIT - each cite must name a passage actually retrieved:
+    OK         triad-visual-supports-p1-3.docx, chunk 12
+    OK         triad-visual-supports-p1-3.docx, chunk 13
+    OK         nsp-established-treatments-p11-19.docx, chunk 3
+    OK         nsp-established-treatments-p11-19.docx, chunk 4
+    -> zero fabrication: True
+    cited 4 of 6; not used: [('nsp-established-treatments-p11-19.docx', 8), ('triad-visual-supports-p1-3.docx', 3)]
+
+PRACTICE <-> CITATION COHERENCE
+  Antecedent Package   <- chunk 3 (its own definition)  OK
+  Behavioral Package   <- chunk 4 (its own definition)  OK
+
+RESULT: ALL CHECKS PASS

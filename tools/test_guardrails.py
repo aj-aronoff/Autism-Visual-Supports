@@ -115,6 +115,15 @@ class Rule5Escalation(unittest.TestCase):
         ("He hits his sister when she takes the tablet",        FAIL, "harm to a sibling, the target that is neither 'me' nor self"),
         ("He bangs his head on the floor",                      FAIL, "the exact phrasing a parent writes; substrings alone missed this"),
         ("",                                                   PASS, "empty obstacle is not an escalation"),
+        # Added 9 Nov 2026. Six collisions in the SUBSTRING list that the first 13 rows
+        # never probed -- every one of them passed while "she developed a routine"
+        # referred a parent to a crisis line.
+        ("She developed a routine for the morning",             PASS, "'elope' as a substring matched 'developed'; now a word-boundary regex"),
+        ("The developer sent an envelope",                      PASS, "the same collision, two more ordinary words"),
+        ("He eloped from the classroom",                        FAIL, "elopement itself must still be caught"),
+        ("He can do it himself now",                            PASS, "a reflexive ALONE is an independence statement, never a trigger"),
+        ("He hit the wall",                                     FAIL, "'wall' came off the exclusion list; striking a wall is not playing a drum"),
+        ("He hits the drum in music class",                     PASS, "the four benign objects still exclude"),
     ]
 
     def test_table(self):

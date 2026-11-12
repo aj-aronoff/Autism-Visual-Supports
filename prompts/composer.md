@@ -5,8 +5,11 @@ answers, picks the support type, and drafts the whole board — cards, caregiver
 and implementation plan — as one JSON object.
 
 **Tools it may call:** `GetChildProfile`, `SearchCardLibrary` *(read-only; it does not
-write. `CreateBoard` / `AddCard` / `SetScript` / `SetPlan` run only after the Reviewer
-passes the draft.)*
+write. `SaveDraftBoard` / `AddCard` / `SetScript` / `SetPlan` / `AddSensorySupport` run
+only after the Reviewer passes the draft.)* **Renamed 9 Nov 2026**: `CreateBoard` became
+`SaveDraftBoard`, because the `Board` entity owns the automatic `CreateBoard`. This
+paragraph is a note to the reader and is **not** part of the pasted prompt — the prompt
+begins at `# ROLE` below and names no actions at all.
 
 **Why it is shaped this way:** the Composer is the only agent that sees the whole
 board at once, so it is the only one that can keep the script, the cards and the
@@ -250,9 +253,13 @@ that do not.
     Leave it out when there is nothing genuine to offer.
 
 17. CONFIRM YOUR GROUNDING. SAY WHICH RETRIEVED PASSAGE YOU USED.
-    You are given passages retrieved from the knowledge base before you compose. Use
-    them. Every string in "citations" must name a document and the part of it the
-    claim came from -- not a title you remember.
+    You are given passages retrieved from the knowledge bases before you compose. Use
+    them. Every string in "citations" must name THE DOCUMENT the claim came from -- its
+    title and which knowledge base it came from -- and never a title you remember.
+    NAME A PART OF THE DOCUMENT ONLY IF THAT PASSAGE'S OWN ATTRIBUTES LIST ONE, such as
+    a page, a section or a chunk. If no location is listed, cite the document alone.
+    NEVER SUPPLY A PART YOURSELF. A precise-looking citation you invented is worse than
+    a vaguer one that is true.
     THIS IS THE FAILURE MODE THAT DOES NOT ANNOUNCE ITSELF. An agent whose retrieval
     returned nothing does not error. It writes a confident, plausible board out of
     training data, and nothing downstream can tell the difference, because a board

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+<marker id="ah-718096" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker>
+<marker id="ah-006B3C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#006B3C"/></marker>
+<marker id="ah-A8600C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#A8600C"/></marker>
+<marker id="ah-99272B" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#99272B"/></marker>
+<marker id="ah-8A5A00" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A5A00"/></marker>
+</defs>
+<rect width="1920" height="1080" fill="#FFFFFF"/>
+<text x="48" y="78" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="40" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">The agent loop</text>
+<text x="48" y="112" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">Autism Visual Supports  ·  one parent's message, seven steps  ·  two of them stop it before the model is ever called, and a human ends it</text>
+<text x="48" y="212" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="1.4">A PARENT WRITES THE HARD MOMENT</text>
+<text x="48" y="240" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">free text · no form · their own words</text>
+<rect x="62" y="318" width="222" height="196" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="3"/>
+<text x="76" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">1</text>
+<text x="173" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">REFUSE</text>
+<text x="173" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">CheckEscalation</text>
+<line x1="86" y1="416" x2="260" y2="416" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="173" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">21 phrases, 5 patterns</text>
+<text x="173" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">runs FIRST, before</text>
+<text x="173" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">any search or model call</text>
+<circle cx="268" cy="334" r="17" fill="#FAE3E3" stroke="#99272B" stroke-width="2.5"/>
+<text x="268" y="340" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#99272B" font-weight="bold" text-anchor="middle" letter-spacing="0">S</text>
+<rect x="302" y="318" width="222" height="196" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="3"/>
+<text x="316" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">2</text>
+<text x="413" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">RETRIEVE</text>
+<text x="413" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">two knowledge bases</text>
+<line x1="326" y1="416" x2="500" y2="416" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="413" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">layout: the parent's</text>
+<text x="413" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">own words</text>
+<text x="413" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">evidence: a fixed query</text>
+<circle cx="508" cy="334" r="17" fill="#FAE3E3" stroke="#99272B" stroke-width="2.5"/>
+<text x="508" y="340" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#99272B" font-weight="bold" text-anchor="middle" letter-spacing="0">S</text>
+<path d="M 282 416 L 299 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<rect x="542" y="318" width="222" height="196" rx="12" fill="#FDF6EC" stroke="#A8600C" stroke-width="3"/>
+<text x="556" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#A8600C" font-weight="bold" text-anchor="start" letter-spacing="0">3</text>
+<text x="653" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#A8600C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">COMPOSE</text>
+<text x="653" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">the Composer</text>
+<line x1="566" y1="416" x2="740" y2="416" stroke="#E6CBA4" stroke-width="1.5"/>
+<text x="653" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">Bedrock Haiku 5.5</text>
+<text x="653" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">or Azure OpenAI</text>
+<text x="653" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">17 rules, no memory</text>
+<path d="M 522 416 L 539 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<rect x="782" y="318" width="222" height="196" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="3"/>
+<text x="796" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">4</text>
+<text x="893" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">VALIDATE</text>
+<text x="893" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">parse before extract</text>
+<line x1="806" y1="416" x2="980" y2="416" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="893" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">eleven checks</text>
+<text x="893" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">writes NOTHING on</text>
+<text x="893" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">failure, names the check</text>
+<path d="M 762 416 L 779 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<rect x="1022" y="318" width="222" height="196" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="3"/>
+<text x="1036" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">5</text>
+<text x="1133" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">SAVE</text>
+<text x="1133" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">as a Draft</text>
+<line x1="1046" y1="416" x2="1220" y2="416" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="1133" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">transaction rollback</text>
+<text x="1133" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">a Draft is unreviewed</text>
+<text x="1133" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">by definition</text>
+<path d="M 1002 416 L 1019 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<rect x="1262" y="318" width="222" height="196" rx="12" fill="#FDF6EC" stroke="#A8600C" stroke-width="3"/>
+<text x="1276" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#A8600C" font-weight="bold" text-anchor="start" letter-spacing="0">6</text>
+<text x="1373" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#A8600C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">REVIEW</text>
+<text x="1373" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">the Reviewer</text>
+<line x1="1286" y1="416" x2="1460" y2="416" stroke="#E6CBA4" stroke-width="1.5"/>
+<text x="1373" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">fifteen questions</text>
+<text x="1373" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">CANNOT EDIT anything</text>
+<text x="1373" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">temperature 1</text>
+<circle cx="1468" cy="334" r="17" fill="#FDF3D6" stroke="#8A5A00" stroke-width="2.5"/>
+<text x="1468" y="340" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#8A5A00" font-weight="bold" text-anchor="middle" letter-spacing="0">C</text>
+<path d="M 1242 416 L 1259 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<rect x="1502" y="318" width="222" height="196" rx="12" fill="#EBF7F0" stroke="#006B3C" stroke-width="3"/>
+<text x="1516" y="348" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">7</text>
+<text x="1613" y="374" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="24" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="1.2">APPROVE</text>
+<text x="1613" y="400" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">the parent</text>
+<line x1="1526" y1="416" x2="1700" y2="416" stroke="#A7D7BD" stroke-width="1.5"/>
+<text x="1613" y="442" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">the only place in the</text>
+<text x="1613" y="465" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">app that sets InUse</text>
+<text x="1613" y="488" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#2D3748" font-weight="normal" text-anchor="middle" letter-spacing="0">a human, every time</text>
+<circle cx="1708" cy="334" r="17" fill="#EBF7F0" stroke="#006B3C" stroke-width="2.5"/>
+<text x="1708" y="340" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="0">H</text>
+<path d="M 1482 416 L 1499 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<path d="M 48 252 Q 48 376 58 416" fill="none" stroke="#718096" stroke-width="3" marker-end="url(#ah-718096)"/>
+<path d="M 1727 416 L 1768 416" fill="none" stroke="#006B3C" stroke-width="3" marker-end="url(#ah-006B3C)"/>
+<text x="1776" y="410" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="21" fill="#006B3C" font-weight="bold" text-anchor="start" letter-spacing="0">A BOARD</text>
+<text x="1776" y="438" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">printed, posted,</text>
+<text x="1776" y="460" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0">and in use</text>
+<rect x="62" y="610" width="606" height="112" rx="10" fill="#FAE3E3" stroke="#99272B" stroke-width="2.5"/>
+<path d="M 173 518 L 173 606" fill="none" stroke="#99272B" stroke-width="3" marker-end="url(#ah-99272B)"/>
+<text x="82" y="644" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="20" fill="#99272B" font-weight="bold" text-anchor="start" letter-spacing="0">REFERRAL GUIDANCE, NOT A BOARD</text>
+<text x="82" y="672" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">self-injury, aggression or escalation in the words a parent used.</text>
+<text x="82" y="698" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0" font-style="italic">Costs ZERO model tokens — it returns before the model is called.</text>
+<rect x="698" y="610" width="606" height="112" rx="10" fill="#FAE3E3" stroke="#99272B" stroke-width="2.5"/>
+<path d="M 413 518 L 413 606" fill="none" stroke="#99272B" stroke-width="3" marker-end="url(#ah-99272B)"/>
+<text x="718" y="644" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="20" fill="#99272B" font-weight="bold" text-anchor="start" letter-spacing="0">NO BOARD, AND IT SAYS SO</text>
+<text x="718" y="672" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">either knowledge base returns nothing — rule 17, in code, not in a prompt.</text>
+<text x="718" y="698" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="15" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0" font-style="italic">An ungrounded board looks exactly like a grounded one. So it is a check in the flow.</text>
+<path d="M 893 314 Q 773 240 653 314" fill="none" stroke="#A8600C" stroke-width="2.5" marker-end="url(#ah-A8600C)" stroke-dasharray="7 6"/>
+<text x="773" y="244" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="16" fill="#A8600C" font-weight="normal" text-anchor="middle" letter-spacing="0" font-style="italic">one retry, with the validation error fed back</text>
+<text x="544" y="568" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">The save comes before the review — so a Reviewer failure</text>
+<text x="544" y="596" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="19" fill="#2D3748" font-weight="bold" text-anchor="start" letter-spacing="0">costs the verdict, not the board.</text>
+<circle cx="79" cy="890" r="17" fill="#FAE3E3" stroke="#99272B" stroke-width="2.5"/>
+<text x="79" y="896" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#99272B" font-weight="bold" text-anchor="middle" letter-spacing="0">S</text>
+<text x="110" y="896" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">stops the run before the model is called, and has a safety cost if it is wrong</text>
+<circle cx="79" cy="936" r="17" fill="#FDF3D6" stroke="#8A5A00" stroke-width="2.5"/>
+<text x="79" y="942" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#8A5A00" font-weight="bold" text-anchor="middle" letter-spacing="0">C</text>
+<text x="110" y="942" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">a clinical judgement — three of the fifteen questions came from one parent, in one evening</text>
+<circle cx="79" cy="982" r="17" fill="#EBF7F0" stroke="#006B3C" stroke-width="2.5"/>
+<text x="79" y="988" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#006B3C" font-weight="bold" text-anchor="middle" letter-spacing="0">H</text>
+<text x="110" y="988" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="18" fill="#2D3748" font-weight="normal" text-anchor="start" letter-spacing="0">a person decides — the agent cannot put a board in use</text>
+<text x="64" y="1044" font-family="'Trebuchet MS','Segoe UI',Verdana,sans-serif" font-size="17" fill="#718096" font-weight="normal" text-anchor="start" letter-spacing="0" font-style="italic">Five of the seven boxes are our own code. The other two are a model call and a knowledge-base search — and both are measured, not assumed.</text>
+</svg>

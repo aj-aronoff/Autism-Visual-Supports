@@ -152,7 +152,7 @@ def check_card_count(support_type: str, count: int) -> Verdict:
 _ESCALATION = [
     "self-injur", "self injur", "self-harm", "self harm", "headbang",
     "suicid", "wants to die", "strangl", "chok", "bleed", "blood", "bruis",
-    "runs into traffic", "ran into traffic", "runs into the road", "elope",
+    "runs into traffic", "ran into traffic", "runs into the road",
     "aggressi", "violent", "violence", "meltdown", "destroy", "threaten",
 ]
 
@@ -166,13 +166,27 @@ _ESCALATION_RE = [
                r"hurt|hurts|hurting)\s+(?:him|her|them)sel(?:f|ves)\b"),
     re.compile(r"\b(?:hit|hits|hitting|bite|bites|biting|kick|kicks|kicking|"
                r"scratch|scratches|scratching|punch|punches|punching)\s+"
-               r"(?:me|us|his|her|their|the)\b(?!\s*(?:ball|drum|keys|button|wall))"),
+               r"(?:me|us|his|her|their|the)\b(?!\s*(?:ball|drum|keys|button))"),
+    # "elope" was a SUBSTRING and matched "developed", "developer" and "envelope", so
+    # "she developed a routine" referred a parent to a crisis line. Found by Mentor
+    # 9 Nov 2026 while translating this list into ODC, and confirmed by running it --
+    # all 21 tests passed while it was true, because nothing probed the substrings.
+    # "wall" came off the exclusion list the same day: ball, drum, keys and button are
+    # things a child legitimately hits, and a wall is not in that family.
+    re.compile(r"\belop\w*"),
 ]
+# Merged 9 Nov 2026 with the wording Mentor had written in ODC, which was better in
+# three places: the emergency number comes FIRST, "tell them what you wrote here", and
+# "no board was made and nothing was saved" -- which answers the question a parent will
+# actually have. Mentor's own version said "autism care team", which would have failed
+# test_referral_text_never_diagnoses; this one does not name the condition at all.
 REFERRAL_TEXT = (
-    "This describes something that needs a person, not a picture. Please contact your "
-    "child's pediatrician, your BCBA or clinician, or your local crisis line. "
-    "This app makes visual supports; it does not assess behavior and never gives "
-    "clinical advice."
+    "If anyone is in immediate danger, call your local emergency number now. What you "
+    "described needs more than a visual support - it needs a person, not a picture. "
+    "Please contact your child's pediatrician, your BCBA or clinician, or your local "
+    "crisis line today, and tell them what you wrote here. No board was made and "
+    "nothing was saved. This app makes visual supports; it does not assess behavior "
+    "and never gives clinical advice."
 )
 
 

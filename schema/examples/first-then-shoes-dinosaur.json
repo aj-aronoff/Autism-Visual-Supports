@@ -1,0 +1,84 @@
+{
+  "supportType": "FirstThenBoard",
+  "title": "Morning shoes, then musical dinosaur",
+  "theme": "Happy dinosaur at home",
+  "cards": [
+    {
+      "sequenceNo": 1,
+      "role": "First",
+      "label": "Put on shoes",
+      "imagePrompt": "Flat vector icon, plain white background, no detail: a child's shoes with wide hook-and-loop straps, both straps open",
+      "imageSource": "SymbolSet",
+      "altText": "A pair of shoes with wide straps that fasten without laces"
+    },
+    {
+      "sequenceNo": 2,
+      "role": "Then",
+      "label": "Musical dinosaur",
+      "imagePrompt": "Flat vector icon, plain white background, no detail: a toy dinosaur with music notes beside it",
+      "imageSource": "SymbolSet",
+      "altText": "A toy dinosaur that plays music"
+    }
+  ],
+  "script": [
+    {
+      "phase": "Before",
+      "phrase": "First shoes on, then musical dinosaur."
+    },
+    {
+      "phase": "During",
+      "phrase": "One more strap, then musical dinosaur."
+    },
+    {
+      "phase": "OnCompletion",
+      "phrase": "Shoes are on. Now the musical dinosaur!"
+    },
+    {
+      "phase": "IfRefusal",
+      "phrase": "Shoes on first."
+    }
+  ],
+  "plan": {
+    "promptHierarchy": [
+      {
+        "level": 1,
+        "kind": "VisualPoint",
+        "instruction": "Point to the FIRST card."
+      },
+      {
+        "level": 2,
+        "kind": "Gesture",
+        "instruction": "Hold out the shoes, straps already open."
+      },
+      {
+        "level": 3,
+        "kind": "Verbal",
+        "instruction": "Say \"Shoes on first.\""
+      },
+      {
+        "level": 4,
+        "kind": "PhysicalGuide",
+        "instruction": "Hand-over-hand on the strap, briefly, then let go."
+      }
+    ],
+    "reinforcement": "Keep the musical dinosaur out of her reach and within yours. It comes out only after the shoes are on, and it comes out straight away.",
+    "placement": "By the front door, at the child's eye level, where the shoes are kept.",
+    "boardAction": "Both cards stay up from the start. When both shoes are fastened, take the shoes card off the board and point to the musical dinosaur card.",
+    "generalization": "Tying laces is the later goal, not this board. Work on it away from the morning, with no clock running, once shoes-on is easy.",
+    "ifChallengingBehavior": "Keep prompting the FIRST task. Fewer words, not louder ones. Stay on the shoes, not on the behaviour. Then still give the musical dinosaur."
+  },
+  "evidenceBasis": [
+    {
+      "practice": "Antecedent Package",
+      "technique": "priming"
+    },
+    {
+      "practice": "Behavioral Package",
+      "technique": "contingency contracting"
+    }
+  ],
+  "citations": [
+    "triad-visual-supports-p1-3, chunk 2",
+    "nsp-established-treatments-p11-19, chunk 4"
+  ]
+}

@@ -16,6 +16,19 @@
     "citations"
   ],
   "properties": {
+    "outcome": {
+      "description": "ENVELOPE FIELD, not part of the board. The Composer prompt requires it (prompts/composer.md:305 for a board, :66 for a referral) and it is how the caller tells a board from a refusal before reading anything else. Added 9 Nov 2026 after the FIRST REAL BOARD from the published app failed this schema: the prompt required outcome and reasoning, the schema had neither, and additionalProperties is false. Optional rather than required because the four fixtures predate it.",
+      "enum": [
+        "board",
+        "referral"
+      ]
+    },
+    "reasoning": {
+      "description": "ENVELOPE FIELD, not part of the board. Two sentences for the parent: why this support type, and why this Then. Required by prompts/composer.md:344 and written to the Board row, never rendered on a printed card. Added 9 Nov 2026 with outcome, same reason.",
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 600
+    },
     "supportType": {
       "description": "Which of the four layout templates. Decides the permitted card count, see allOf below.",
       "enum": [

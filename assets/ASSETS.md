@@ -19,6 +19,50 @@ Add `--default-background-color=00000000` for the transparent badges.
 
 ## Taikai submission assets — final, at spec
 
+### The square app image
+
+**`app-square.png` — 1024×1024, 61 KB.** Upload this one for the app/project image.
+
+The slot was **measured, not assumed**, from a thumbnail of an uploaded cover on
+8 November 2026: it displays at **142×136 (ratio 1.044, square within rounding)**, the artwork
+reaches every edge, and the pale area appears **only in the corners** — so it is a rounded-corner
+mask, **not** a white board and **not** letterboxing. Taikai therefore **scales to fill and
+centre-crops**.
+
+**A 16:9 cover loses 28% off each side there.** Cropping `cover-v6` to square keeps x 350–1250,
+and its title lives at x 90–620, so the slot showed `…pports`. That is the whole reason this
+asset exists.
+
+Built by `build_art.py` section 16. **Order is A.J.'s: the title on top, then the board, then
+`First → Then boards`.** Designed for the downscale rather than for full size: three huge
+words, two figures, and nothing that depends on reading small type. Checked by
+rendering it at 142px behind a 10%-radius rounded mask — the title is legible and **the corners
+clip zero non-background pixels**.
+
+
+**Hard limit: 512 KB per PNG.** Eight were over it on 8 November 2026 and all eight are now
+under, via [`tools/shrink-png.py`](../tools/shrink-png.py):
+
+```bash
+python3 tools/shrink-png.py            # dry run, lists what it would do
+python3 tools/shrink-png.py --apply
+```
+
+It tries a **pixel-identical re-encode first** (zlib 9 + `optimize=True`) and only falls back to
+an adaptive palette if that misses. On 8 November that split four and four:
+
+| Pixel-identical re-encode | Requantized to a 256-colour palette |
+|---|---|
+| `cover-v3-odc-night` 532→451 KB · `cover-v5-tablet-hands` 551→462 KB · `cover-v6-tablet-closeup` 528→446 KB · `cover-v7-tablet-floor` 568→478 KB | `background-odc` 825→300 KB · `cards-contact` 700→271 KB · `cover-v4-reading-tree` 817→190 KB · `scene-reading-tree` 619→160 KB |
+
+Verified by comparing a SHA-256 of the decoded pixel buffer before and after: **22 of the 26
+PNGs are byte-identical in pixel terms**, and the four in the right-hand column are the only
+ones whose pixels changed. They are dark gradients, checked by eye for banding at full size.
+
+**So the PNGs are no longer a pure Chrome rasterization of the SVG.** After any re-render you
+must run the tool again — a fresh Chrome render puts the file back over the limit.
+
+
 | File | Size | Field |
 |---|---|---|
 | `cover-banner-cloud-small.png` | 1360×255 (16:3) | Project Cover — faint cloud |
@@ -184,6 +228,22 @@ mistakes made and fixed while generating this set.
 The DivergentTravel set is Font Awesome 6 Free (Solid), 256px, white glyph on a
 coloured circle badge. Font Awesome Free is **CC BY 4.0**, which requires attribution
 — put `Icons: Font Awesome (CC BY 4.0)` in the site footer if you use them.
+
+**Done, 10 November 2026 — ten of them are now in `assets/icons/`, and the attribution
+needs one more clause than this paragraph asked for.** They were **recoloured** to the
+three role colours (child green, parent blue, structural teal), and **CC BY requires a
+statement of changes as well as the credit**, so the line to carry is:
+
+> Icons: Font Awesome Free (fontawesome.com), CC BY 4.0 — recoloured.
+
+**Measured before using them: ten of the twenty-four source glyphs are pure `#ffffff`
+at full opacity.** On the coloured badge they came from that is correct; on a light
+slide they render as nothing. Four of those ten are in `assets/icons/`, recoloured.
+`assets/icons/README.md` says which ten were taken, and names the two that must never
+be used — `phone`, because a phone beside a reward reads as SMS and **Twilio is out**,
+and `sunflower`, because the Hidden Disabilities Sunflower is someone else's scheme.
+They are **source assets with no generator in this repo**, a deliberate exception to
+caution 11, because the recolouring script's input lives outside the repo.
 
 ## Free stock, if original art ever will not do
 

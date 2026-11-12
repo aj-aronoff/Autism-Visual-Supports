@@ -1,0 +1,45 @@
+WHAT AN ODC KNOWLEDGE-BASE RESULT ACTUALLY CARRIES
+Read off the DebugShowPassages block, 9 November 2026. Eight attributes, always.
+
+  sourceType     = upload_files
+  chunkPosition  = 12                                     <-- THE PART
+  language       = en
+  mimeType       = application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  type           = KB
+  documentId     = 1419a468-8f19-4af6-81c7-8414a9f0e6ec
+  pageNumber     = 0                                      <-- ALWAYS 0
+  kbId           = e5fde018-59e2-4725-88ad-b74d4b5be74e
+
+Plus, outside the attribute list: Id, Title, Content, Score.
+
+THREE THINGS THIS SETTLES
+
+1. PART-LEVEL PROVENANCE IS EXPOSED, as a CHUNK INDEX. Earlier project notes
+   said it was not exposed and that "part-level provenance is not exposed" was
+   the honest sentence for the Tech Video. That is now wrong. The honest
+   sentence is: provenance is exposed as a chunk index within the document,
+   not as a page.
+
+2. pageNumber IS A TRAP. It reads 0 on every result for a .docx. A model told
+   "pageNumber = 0" could cite "page 0". It is now omitted from the passage
+   block when its value is 0.
+   Note what the chunk TEXT contains, though: the TRIAD chunks begin
+   "Visual Supports and Autism / Page 3". THE DOCUMENT'S OWN PAGE MARKERS
+   SURVIVE IN THE TEXT, which is how a clinician actually locates the passage,
+   even though the attribute is useless.
+
+3. THERE IS NO filename ATTRIBUTE. The eight above are all there is. The
+   document Title carries the filename - "triad-visual-supports-p1-3.docx" -
+   so a citation built from Title plus chunkPosition is correct, but code that
+   looks for a "filename" attribute will always miss.
+
+WHY THIS MATTERED
+At 17:09 the Composer invented a citation part - "First-Then Board and visual
+schedule guidance" - instead of using chunkPosition 12, which rule 17 forbids
+in as many words: "NEVER SUPPLY A PART YOURSELF ... a precise-looking citation
+you invented is worse than a vaguer one that is true." Nothing caught it,
+because the Reviewer is not wired, and catching exactly that is the Reviewer's
+job. The fix was NOT to re-paste a 19,111-character prompt. It was to build the
+citation in code from the passage's own attributes and hand the model a line
+reading "CITE THIS EXACTLY AS: <file>, chunk <n>". At 17:49 all four citations
+used it, with zero fabrication.

@@ -939,4 +939,36 @@ body = f'''
 <circle cx="{AV/2}" cy="{AV/2}" r="{AV/2-6}" fill="none" stroke="{SUNFLOWER}" stroke-width="12"/>
 '''
 write("avatar-300-child.svg", svg(AV, AV, body, NAVY_MID))
+# =========================================================================
+# 16. SQUARE APP IMAGE  (Taikai scales to fill and centre-crops a 1:1 slot,
+#     displayed at about 142px with rounded corners -- measured 8 Nov 2026
+#     from the uploaded thumbnail, not assumed). A 16:9 cover loses 28% off
+#     each side there, which is why the title has to live inside a square.
+#     Order is A.J.'s: title on top, the board, then the strapline.
+#     Everything is sized to survive the downscale: three huge words, two
+#     figures, nothing that depends on reading small type.
+SQ = 1024
+_pm, _pw = 80, 864                      # panel margin and width
+_cw, _chh = 360, 330                    # card width, height
+_py, _cy = 486, 508                     # panel top, card top
+body = f'''
+<text x="{SQ/2}" y="160" font-family="{FONT}" font-size="112" font-weight="700"
+      fill="#FFFFFF" text-anchor="middle">Autism</text>
+<text x="{SQ/2}" y="282" font-family="{FONT}" font-size="112" font-weight="700"
+      fill="#FFFFFF" text-anchor="middle">Visual</text>
+<text x="{SQ/2}" y="404" font-family="{FONT}" font-size="112" font-weight="700"
+      fill="#FFFFFF" text-anchor="middle">Supports</text>
+<rect x="{SQ/2 - 120}" y="440" width="240" height="7" rx="3.5" fill="{SUNFLOWER}"/>
+<rect x="{_pm}" y="{_py}" width="{_pw}" height="372" rx="28" fill="{CLOUD_WHITE}"/>
+{card(112, _cy, _cw, _chh, "Brush teeth", child_brushing(), CLEAR_SKY, fs=42)}
+{card(552, _cy, _cw, _chh, "Swing", child_swinging(), SUNFLOWER, fs=42)}
+<g transform="translate(512,{_cy + _chh/2})">
+  <circle cx="0" cy="0" r="30" fill="{MEADOW}"/>
+  <path d="M-9 -14 L13 0 L-9 14 Z" fill="#FFFFFF"/>
+</g>
+<text x="{SQ/2}" y="942" font-family="{FONT}" font-size="40" font-weight="700"
+      fill="{SUNFLOWER}" text-anchor="middle" letter-spacing="2">First &#8594; Then boards</text>
+'''
+write("app-square.svg", svg(SQ, SQ, body, NAVY))
+
 print("taikai assets done")
