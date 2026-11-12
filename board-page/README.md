@@ -7,6 +7,7 @@ file on a tablet, with the two cards, the sentence to say, and four buttons for 
 |---|---|
 | `first-then-board.html` | The page itself. Open it in a browser — it works offline and **makes no network calls of any kind** |
 | `make-board-page.py` | Stamps a new page from a validated board JSON. The only thing that writes a board page, so the board key is derived in one place and the three-word rule is checked in one place |
+| `emit-board-json-prompt.txt` | **The other half, in OutSystems.** The prompt that adds an `EmitBoardJson` Setting, default `False`, and makes the app append one compact `BOARD-JSON:` line to its reply **only when a board was saved** — never on a refusal, a parse failure or a failed save. With this and the two scripts, the join is reproducible end to end |
 | `board-from-reply.py` | Takes the **whole** reply pasted out of the agent app, finds the `BOARD-JSON:` line, and hands the object to the generator. **Refuses and names the reason** rather than writing half a board |
 
 ## Three things worth knowing
@@ -22,6 +23,17 @@ your own devices, and it says so.
 **Two keys, not one.** A board key, written once and never recomputed from the card labels, plus
 a fresh session id for every run — because the same board can run twice before lunch, and
 editing a label must not split one board's history in two.
+
+## Try it without any of the above
+
+The repository carries a validated board, so the generator runs with no ODC access, no
+account and no key:
+
+```
+python3 board-page/make-board-page.py schema/examples/first-then-shoes-swing.json
+```
+
+That writes a working board page you can open, tap and save.
 
 ## The join, stated plainly
 

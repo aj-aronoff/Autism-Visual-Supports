@@ -1,0 +1,105 @@
+MENTOR PROMPT — EmitBoardJson
+Written 11 November 2026. Paste block 1, then block 2 to confirm. ~45 minutes
+including a publish and one test.
+
+What it is for: the app composes the board; a program on THIS computer
+(board-from-reply.py → make-board-page.py) turns the reply into the printable
+board page with the real card art, the four buttons and its own history. The join
+is a copy and a paste, and nothing in ODC has to draw a board.
+
+=====================================================================
+BLOCK 1 — paste this into Mentor
+=====================================================================
+
+Add a Setting called EmitBoardJson, type Boolean, default False.
+
+When EmitBoardJson is True AND a board was saved in this request, append one final
+line to the response, after everything else including the "To continue this board"
+line, in exactly this form:
+
+BOARD-JSON: {compact json}
+
+One line. Compact — no pretty-printing, no line breaks inside the object, no code
+fence, no backticks, nothing after it.
+
+The object is the validated reply that was passed to the save - the board the Composer produced and
+validation accepted - using these keys and these names:
+
+  supportType     the board's own supportType, NOT the literal "FirstThenBoard"
+  title           the board title
+  theme           the theme string, or "TBD"
+  themeNote       only when theme is "TBD"
+  agentRunId      the Id of the Board row that was just saved, as text
+  cards           array; each card has role ("First" or "Then") and label
+  script          array; each line has phase and phrase
+  plan            placement, boardAction, reinforcement, ifChallengingBehavior,
+                  childChoice, generalization, promptHierarchy
+                  (promptHierarchy is an array of level, kind, instruction)
+  evidenceBasis   array of objects with practice and technique
+  citations       array of strings
+  sensorySupports and sensorySupportOther only when the board has them
+
+Leave "reasoning" OUT of this line — it is the longest field and nothing reads it
+downstream. Everything else above is used.
+
+When EmitBoardJson is False, or when no board was saved, the response must be
+exactly as it is now, with no extra line. "No board was saved" includes all of
+these, and the line must not appear on any of them:
+
+  - the escalation refusal (guardrail 5)
+  - the short-message refusal
+  - a reply that failed to parse
+  - a reply that failed validation
+  - a failed save
+
+Change nothing else. Do not alter the continuation line, the "You wrote:" block,
+the "What to fix:" block, the Reviewer verdict, or any existing Setting.
+
+Then tell me: the validation error and warning counts, the exact expression you
+used to build the line, and confirm that an escalation message produces no
+BOARD-JSON line.
+
+=====================================================================
+BLOCK 2 — the confirm prompt, after block 1 is published
+=====================================================================
+
+Read the app back to me and answer these six, each with where you looked:
+
+1. What is EmitBoardJson's default, as it now stands in the app, and is there a
+   stage value for it anywhere?
+2. Which action builds the BOARD-JSON line, and what is the step immediately
+   before it?
+3. Name every path through that action that returns WITHOUT the BOARD-JSON line.
+4. Is the JSON built by a single expression, or assembled from several? If several,
+   name them.
+5. Does the line carry agentRunId, and is it the Id of the board that was saved in
+   THIS request rather than a BoardId that came in as input?
+6. Is DebugShowPassages still False?
+
+=====================================================================
+TWO THINGS TO VERIFY BEFORE RECORDING WITH IT ON
+=====================================================================
+
+1. A refusal carries no JSON — test it with a guardrail-5 message, which costs
+   zero model tokens because it returns before the model call.
+2. DebugShowPassages is still False. The board JSON is ours and safe to show on
+   camera; the debug block is not, and with both on they appear next to each other.
+
+=====================================================================
+WHAT HAPPENS ON THIS COMPUTER AFTERWARDS
+=====================================================================
+
+  python3 board-from-reply.py reply.txt --who "7 year old daughter"
+
+Paste the whole reply into a file, or pipe it in with "-". The script finds the
+BOARD-JSON line (the LAST one, if the paste holds several), refuses by name rather
+than writing half a board, and hands the object to make-board-page.py — which
+stays the only thing that stamps a page, derives the boardKey once, and enforces
+guardrail 1 on both labels.
+
+It writes two files: <boardKey>.html, the board page, and <boardKey>-source.json,
+the agent's own words kept beside it.
+
+If EmitBoardJson is never built, the script still works: --json-only on any board
+JSON, or point it at schema/examples/first-then-shoes-dinosaur.json. Half 2 stands
+alone, which is why it was built first.
