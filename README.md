@@ -63,10 +63,10 @@ many boards you have made.
 | Layer | Choice |
 |---|---|
 | Application | OutSystems Developer Cloud (ODC) |
-| AI | Three agents in Agent Workbench — **Composer**, **Reviewer**, **Illustrator** |
-| Grounding | Vanderbilt TRIAD toolkit in an ODC knowledge base + the National Autism Center's 11 evidence-based practices as a static entity |
-| Models | Azure OpenAI / Amazon Bedrock, via the ODC instance |
-| Messaging | Twilio SMS, for the script and the reward confirmation |
+| AI | **Two agents** — the **Composer** drafts; the **Reviewer** has no tools, cannot edit anything, and asks fifteen questions a validator cannot answer. An Illustrator agent was designed and **deferred**; it is not built |
+| Grounding | **Two ODC knowledge bases** — the Vanderbilt TRIAD toolkit for layout, a National Standards extract for practice — queried on every call with two different queries, plus the National Autism Center's 11 practices as a static entity, six of which are citable |
+| Models | **Amazon Bedrock, Claude Haiku 5.5.** The same app was rebound to a Microsoft-provided OpenAI GPT-5.5 endpoint in four edits and composed grounded boards on both |
+| Messaging | **None.** An SMS loop was designed and withdrawn; the reward is confirmed by a tap on the board page |
 
 Guardrails are enforced in the application, not requested in a prompt: labels over
 three words are rejected, a First–Then board cannot be saved without a Then card, and
@@ -77,10 +77,9 @@ instead of generating a board. A child's name never appears in an image prompt.
 
 ```
 docs/
-  Autism-Visual-Supports-Overview.pdf    the project deck
-  Autism-Visual-Supports-Overview.pptx   editable source of the deck
-  Autism-Visual-Supports-Mid-Submission.pdf   NOT a deliverable - there is no mid-week
-                                              submission; kept as video script source
+  Autism-Visual-Supports-Tech-Deck.pdf   the technical deck - eleven slides, every figure
+                                         captioned with the evidence/ file it came from
+  Autism-Visual-Supports-Tech-Deck.pptx  editable source of the deck
   build-spec.html                        full build spec — data model, screens, agents
   gemini-gems.html                       the Gemini Gem comparison page
   eval-review.html                       the A/B board review page
@@ -113,7 +112,7 @@ eval/README.md                           what each case tests and how the set is
 prompts/README.md                        what is in the folder and why it is split
 prompts/composer.md                      Composer agent prompt — drafts the board
 prompts/reviewer.md                      Reviewer agent prompt — judges what code cannot
-prompts/illustrator.md                   Illustrator agent prompt — reuse before generate
+prompts/illustrator.md                   Illustrator agent prompt — DEFERRED, not built
 prompts/gemini-gems.md                   eight meta-prompts for the Gemini comparison
 prompts/*.txt                            the three original drafts the pipeline came from
 assets/                                  all artwork, plus the generator that draws it
